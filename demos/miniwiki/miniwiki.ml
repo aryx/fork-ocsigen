@@ -301,7 +301,7 @@ let html_stub body_html =
   return
     (html
        (head (title (pcdata ""))
-          [css_link (make_uri ~service:(static_dir ()) ["style.css"]) ()])
+          [css_link (make_uri ~service:(static_dir ()) ["miniwiki.css"]) ()])
        (body body_html))
 
 let wiki_page_menu_html page content =
