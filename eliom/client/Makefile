@@ -138,10 +138,10 @@ eliom_output.mli: ../eliom_output_cli.mli
 	cp -f $< $@ 
 	echo "module Xhtml5 : XHTML5FORMSSIG" >> $@
 
-ocsigen_lib_cli.ml: ../../commons/ocsigen_lib_cli.ml
+ocsigen_lib_cli.ml: ../../lib/ocsigen_lib_cli.ml
 	cp -f $< $@ 
 
-polytables.ml: ../../commons/polytables.ml
+polytables.ml: ../../lib/polytables.ml
 	cp -f $< $@ 
 
 eliom_common_comet.ml: ../eliom_common_comet.ml

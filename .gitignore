@@ -48,7 +48,7 @@ external/ocamllwt/src/unix/lwt_config.h
 external/ocamllwt/src/unix/lwt_config.ml
 web_js/oclosure/.boring
 eliom/.depend.bak
-commons/ocsigen_config.ml
+lib/ocsigen_config.ml
 external/ocamlderiving/lib/._d/pa_deriving.d
 Makefile.config
 #/ocsimore/Makefile.config

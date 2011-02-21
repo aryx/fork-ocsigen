@@ -39,12 +39,12 @@ METAS = files/META files/META.ocsigen_xhtml files/META.ocsigen files/META.eliom_
 
 
 INSTALL = install
-TARGETSBYTE = commons.byte web_html.byte http.byte server.byte extensions.byte eliom.byte tests.byte
+TARGETSBYTE = lib.byte web_html.byte http.byte server.byte extensions.byte eliom.byte tests.byte
 
 # plugins are cma (and cmxs) that can be loaded dynamically by the server
 PLUGINSCMATOINSTALL = $(SQLITECMATOINSTALL) $(DBMCMATOINSTALL) \
 	eliom/eliom.cma $(DEFLATEMODCMATOINSTALL) $(DUCECMA) \
-	commons/parsecommandline.cma commons/donotparsecommandline.cma
+	lib/parsecommandline.cma lib/donotparsecommandline.cma
 PLUGINSCMOTOINSTALL = \
 	$(SQLITECMOTOINSTALL) $(DBMCMOTOINSTALL) $(DEFLATEMODCMOTOINSTALL) \
 	extensions/staticmod.cmo extensions/cgimod.cmo \
@@ -53,7 +53,7 @@ PLUGINSCMOTOINSTALL = \
 	extensions/redirectmod.cmo extensions/rewritemod.cmo \
 	extensions/accesscontrol.cmo extensions/extendconfiguration.cmo \
 	extensions/ocsigen_comet.cmo \
-	commons/polytables.cmo $(DUCECMO)
+	lib/polytables.cmo $(DUCECMO)
 PLUGINSCMITOINSTALL = extensions/ocsipersist.cmi \
        eliom/eliom_mkforms.cmi eliom/eliom_mkreg.cmi \
        eliom/eliom_tools_common.cmi eliom/eliom_tools.cmi \
@@ -70,7 +70,7 @@ PLUGINSCMITOINSTALL = extensions/ocsipersist.cmi \
        eliom/extensions/atom_feed.cmi eliom/extensions/eliom_atom.cmi \
        extensions/ocsigen_comet.cmi \
        extensions/accesscontrol.cmi extensions/extendconfiguration.cmi \
-       commons/polytables.cmi \
+       lib/polytables.cmi \
        eliom/eliommod_cli.cmi
 
 
@@ -186,13 +186,13 @@ opt: web_htmlpre.opt $(TARGETSBYTE:.byte=.opt)
 .PHONY: $(REPS) deriving clean distclean
 
 
-commons: commons.byte
+lib: lib.byte
 
-commons.byte:
-	$(MAKE) -C commons byte
+lib.byte:
+	$(MAKE) -C lib byte
 
-commons.opt:
-	$(MAKE) -C commons opt
+lib.opt:
+	$(MAKE) -C lib opt
 
 web_html: web_html.byte
 
@@ -300,10 +300,10 @@ files/META.ocsigen: files/META.in VERSION
 	-ln -sf ../web_html/xhtml.cmxs extensions
 	-ln -sf ../web_html/xhtmlpretty.cmxs extensions
 	-ln -sf ../web_html/xhtmlsyntax.cmxs extensions
-	-ln -sf ../commons/parsecommandline.cma extensions
-	-ln -sf ../commons/parsecommandline.cmxs extensions
-	-ln -sf ../commons/donotparsecommandline.cma extensions
-	-ln -sf ../commons/donotparsecommandline.cmxs extensions
+	-ln -sf ../lib/parsecommandline.cma extensions
+	-ln -sf ../lib/parsecommandline.cmxs extensions
+	-ln -sf ../lib/donotparsecommandline.cma extensions
+	-ln -sf ../lib/donotparsecommandline.cmxs extensions
 	-ln -sf ../external/ocamlderiving/tmp/deriving extensions
 	-ln -sf ../extensions files/ocsigen
 	echo directory = \"$(SRC)/extensions\" > $@

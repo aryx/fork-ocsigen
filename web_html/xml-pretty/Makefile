@@ -17,7 +17,7 @@ FILES_STREAM = xhtml_mkpretty_streams.ml xhtml_mkcompact_streams.ml \
 CAMLC = $(OCAMLFIND) $(CAMLCNAME) $(DBG) $(LIB) -package camlp4 -I ..
 CAMLOPT = $(OCAMLFIND) $(CAMLOPTNAME) $(DBG) $(LIB) -package camlp4 -I ..
 CAMLDEP = $(OCAMLFIND) ocamldep $(LIB) -package camlp4
-LIB = -I ../../commons
+LIB = -I ../../lib
 
 OBJS = $(FILES:.ml=.cmo)
 CMIS = $(FILES:.ml=.cmi) $(FILES_STREAM:.ml=.cmi)

@@ -22,7 +22,7 @@ endif
 # pad: this is used by 'make install'
 
 CMITOINSTALL = \
-        $(DOCPREF)commons/ocsigen_getcommandline.cmi \
+        $(DOCPREF)lib/ocsigen_getcommandline.cmi \
 	$(DOCPREF)server/ocsigen_extensions.cmi \
 	$(DOCPREF)server/ocsigen_parseconfig.cmi \
 	$(DOCPREF)server/ocsigen_server.cmi \
@@ -50,12 +50,12 @@ CMITOINSTALL = \
 	$(DOCPREF)http/ocsigen_http_com.cmi \
 	$(DOCPREF)http/http_headers.cmi \
 	$(DOCPREF)http/ocsigen_headers.cmi \
-	$(DOCPREF)commons/ocsigen_cache.cmi \
-	$(DOCPREF)commons/ocsigen_lib.cmi \
-	$(DOCPREF)commons/ocsigen_config.cmi \
+	$(DOCPREF)lib/ocsigen_cache.cmi \
+	$(DOCPREF)lib/ocsigen_lib.cmi \
+	$(DOCPREF)lib/ocsigen_config.cmi \
 	$(DOCPREF)http/ocsigen_http_frame.cmi \
-	$(DOCPREF)commons/ocsigen_stream.cmi \
-	$(DOCPREF)commons/ocsigen_messages.cmi \
+	$(DOCPREF)lib/ocsigen_stream.cmi \
+	$(DOCPREF)lib/ocsigen_messages.cmi \
 	$(DOCPREF)extensions/ocsigen_LocalFiles.cmi
 
 PLUGINSCMITOINSTALL = \
@@ -87,7 +87,7 @@ PLUGINSCMITOINSTALL = \
        $(DOCPREF)extensions/accesscontrol.cmi \
        $(DOCPREF)extensions/authbasic.cmi \
        $(DOCPREF)extensions/ocsipersist.cmi \
-       $(DOCPREF)commons/polytables.cmi \
+       $(DOCPREF)lib/polytables.cmi \
        $(DOCPREF)eliom/eliommod_cli.cmi \
        $(DUCECMI)
 #       $(DOCPREF)extensions/extendconfiguration.cmi \

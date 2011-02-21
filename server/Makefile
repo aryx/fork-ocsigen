@@ -39,29 +39,30 @@ CAMLDEP = $(OCAMLFIND) ocamldep $(LIBDIRS)
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 PACKAGE = lwt.ssl,lwt.extra,netstring,$(NETSYS)ssl,pcre,unix,$(DYNLINK)threads,findlib,cryptokit,deriving
 LIB = -thread -package ${PACKAGE} $(LIBDIRS)
-# also modify builtin_package in commons/ocsigen_config.ml.in if you modify the former line!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# also modify builtin_package in lib/ocsigen_config.ml.in if you modify the former line!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # and probably also in the list of dependencies of ocsigen.cma in the META.in file
 PP = 
 PP2 = 
 
 ifdef DONOTPARSECOMMANDLINE
-PARSECOMMANDLINECMA=../commons/donotparsecommandline.cma
+PARSECOMMANDLINECMA=../lib/donotparsecommandline.cma
 else
-PARSECOMMANDLINECMA=../commons/parsecommandline.cma
+PARSECOMMANDLINECMA=../lib/parsecommandline.cma
 endif
 PARSECOMMANDLINECMXA=$(PARSECOMMANDLINECMA:.cma=.cmxa)
 
 # cma and cmo to be linked in the server:
 
-CMOS = ../commons/ocsigen_lib_cli.cmo \
-       ../commons/ocsigen_cache.cmo \
-       ../commons/ocsigen_lib.cmo \
+#pad: should use some .cma ... ugly all those set of object files
+CMOS = ../lib/ocsigen_lib_cli.cmo \
+       ../lib/ocsigen_cache.cmo \
+       ../lib/ocsigen_lib.cmo \
        ../web_html/xmllexer.cmo ../web_html/simplexmlparser.cmo \
-       ../commons/ocsigen_config.cmo \
-       ../commons/ocsigen_commandline.cmo \
-       ../commons/ocsigen_messages.cmo \
-       ../commons/dynlink_wrapper.cmo ../commons/ocsigen_loader.cmo \
-       ../commons/ocsigen_stream.cmo ../http/multipart.cmo \
+       ../lib/ocsigen_config.cmo \
+       ../lib/ocsigen_commandline.cmo \
+       ../lib/ocsigen_messages.cmo \
+       ../lib/dynlink_wrapper.cmo ../lib/ocsigen_loader.cmo \
+       ../lib/ocsigen_stream.cmo ../http/multipart.cmo \
        ../http/http_headers.cmo ../http/ocsigen_cookies.cmo \
        ../http/ocsigen_http_frame.cmo ../http/ocsigen_headers.cmo \
        ../http/ocsigen_range.cmo \
@@ -71,7 +72,7 @@ CMOS = ../commons/ocsigen_lib_cli.cmo \
        ../web_html/xhtml_mkpretty_streams.cmo ../web_html/xhtmlpretty_streams.cmo \
        ../web_html/xhtml5pretty_streams.cmo ../web_html/xhtml5compact_streams.cmo\
        ../http/ocsigen_charset_mime.cmo ../http/ocsigen_senders.cmo \
-       ../commons/polytables.cmo
+       ../lib/polytables.cmo
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! also modify builtin_package in ocsigen_config.ml if you modify the former line!
 CMAO = ../web_html/xhtml.cma ../web_html/xhtmlpretty.cma $(NAME).cma
 
