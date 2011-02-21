@@ -761,9 +761,9 @@ RLWRAP=$rlwrap
 PROFILING=NO
 
 # Do not modify this
-LIBDIRS= -I ../baselib -I ../http -I ../xmlp4 -I ../server -I ../extensions -I ../eliom -I ../eliom/extensions
-LIBDIRS2= -I ../../baselib -I ../../http -I ../../xmlp4 -I ../../server -I ../../extensions -I ../../eliom -I ../../eliom/extensions
-LIBDIRS3= -I baselib -I http -I xmlp4 -I server -I extensions -I eliom -I eliom/extensions
+LIBDIRS= -I ../commons -I ../http -I ../web_html -I ../server -I ../extensions -I ../eliom -I ../eliom/extensions
+LIBDIRS2= -I ../../commons -I ../../http -I ../../web_html -I ../../server -I ../../extensions -I ../../eliom -I ../../eliom/extensions
+LIBDIRS3= -I commons -I http -I web_html -I server -I extensions -I eliom -I eliom/extensions
 
 include \$(SRC)/Makefile.options
 
