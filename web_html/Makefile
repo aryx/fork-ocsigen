@@ -11,7 +11,7 @@ opt:
 	$(MAKE) -C xml-pretty opt
 
 clean: 
-	rm *cm* *.o -f *.a
+	rm -f *cm* *.o *.a
 	$(MAKE) -C xhtml clean
 	$(MAKE) -C syntax clean
 	$(MAKE) -C xml-pretty clean
