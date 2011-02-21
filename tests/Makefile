@@ -171,6 +171,7 @@ clean:
 
 depend:
 	$(CAMLDEP) $(PP) $(LIB) $(FILES:.ml=.mli) $(FILES) | sed s%ocsipersist.cmx%ocsipersist.cmi%g > .depend
+	mkdir -p syntax_temp_files
 
 FORCE:
 
