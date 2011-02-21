@@ -7,10 +7,9 @@ open Eliom_testsuite1
 open Eliom_testsuite2
 open Eliom_testsuite3
 
-(* Main page for this example *)
-let main = Eliom_services.service [] Eliom_parameters.unit ()
 
-let _ = Eliom_output.Xhtml5compact.register main
+(* Main page for the test suite *)
+let _ = Eliom_output.Xhtml5compact.register Eliom_testsuite3.main
   (fun () () ->
     Lwt.return
      (html
@@ -387,11 +386,9 @@ let _ = Eliom_output.Xhtml5compact.register main
 
             h4 [pcdata "More tests"];
             p [
-              a suffixformc [pcdata "Form towards internal suffix service"] ();
+              a formc [pcdata "Forms"] ();
             br ();
               a appl_redir [pcdata "Eliom applications and redirections"] ();
-            br ();
-              a applvoid_example [pcdata "POST form towards action with void service redirection"] ();
             br ();
             ];
 
