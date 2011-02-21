@@ -1,0 +1,659 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Ssl_threads.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ssl" rel="Chapter" href="Ssl.html">
+<link title="Ssl_threads" rel="Chapter" href="Ssl_threads.html"><link title="Exceptions and errors" rel="Section" href="#1_Exceptionsanderrors">
+<link title="Communication" rel="Section" href="#1_Communication">
+<link title="Threads" rel="Subsection" href="#2_Threads">
+<link title="Contexts" rel="Subsection" href="#2_Contexts">
+<link title="Ciphers" rel="Subsection" href="#2_Ciphers">
+<link title="Certificates" rel="Subsection" href="#2_Certificates">
+<link title="Creating, connecting and closing sockets" rel="Subsection" href="#2_Creatingconnectingandclosingsockets">
+<link title="I/O on SSL sockets" rel="Subsection" href="#2_IOonSSLsockets">
+<title>Ssl</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Ssl_threads.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Ssl.html">Ssl</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Ssl: <code class="code">sig</code> <a href="Ssl.html">..</a> <code class="code">end</code></pre> Functions for making encrypted communications using the Secure Socket Layer
+ (SSL). These are mostly bindings to the openssl library.
+<p>
+
+<br>
+<b>Author(s):</b> Samuel Mimram<br>
+<hr width="100%">
+<br>
+<a name="1_Exceptionsanderrors"></a>
+<h1>Exceptions and errors</h1><br>
+<br><code><span class="keyword">type</span> <a name="TYPEssl_error"></a><code class="type"></code>ssl_error = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_none</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >No error happened. This is never raised and should disappear in future versions.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_ssl</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_want_read</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_want_write</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_want_x509_lookup</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_syscall</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_zero_return</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_want_connect</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_want_accept</span></code></td>
+
+</tr></table>
+
+<div class="info">
+An ssl error has occured (see SSL_get_error(3ssl) for details).<br>
+</div>
+
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONMethod_error"></a>Method_error</pre>
+<div class="info">
+The SSL method could not be initalized.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONContext_error"></a>Context_error</pre>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONCertificate_error"></a>Certificate_error</pre>
+<div class="info">
+The SSL server certificate could not be initialized.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONPrivate_key_error"></a>Private_key_error</pre>
+<div class="info">
+The SSL server private key could not be intialized.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONUnmatching_keys"></a>Unmatching_keys</pre>
+<div class="info">
+The SSL private key does not match the certificate public key.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONInvalid_socket"></a>Invalid_socket</pre>
+<div class="info">
+The given socket is invalid.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONHandler_error"></a>Handler_error</pre>
+<div class="info">
+The SSL handler could not be initialized.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONConnection_error"></a>Connection_error <span class="keyword">of</span> <code class="type"><a href="Ssl.html#TYPEssl_error">ssl_error</a></code></pre>
+<div class="info">
+The connection could not be made with the SSL service.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONAccept_error"></a>Accept_error <span class="keyword">of</span> <code class="type"><a href="Ssl.html#TYPEssl_error">ssl_error</a></code></pre>
+<div class="info">
+Failed to accept an SSL connection.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONRead_error"></a>Read_error <span class="keyword">of</span> <code class="type"><a href="Ssl.html#TYPEssl_error">ssl_error</a></code></pre>
+<div class="info">
+An error occured while reading data.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONWrite_error"></a>Write_error <span class="keyword">of</span> <code class="type"><a href="Ssl.html#TYPEssl_error">ssl_error</a></code></pre>
+<div class="info">
+An error occured while writing data.<br>
+</div>
+<br><code><span class="keyword">type</span> <a name="TYPEverify_error"></a><code class="type"></code>verify_error = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_unable_to_get_issuer_cert</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The issuer certificate could not be found: this occurs if the issuer certificate of an untrusted certificate cannot be found.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_unable_to_get_ctl</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The CRL of a certificate could not be found. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_unable_to_decrypt_cert_signature</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The certificate signature could not be decrypted. This means that the actual signature value could not be determined rather than it not matching the expected value, this is only meaningful for RSA keys.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_unable_to_decrypt_CRL_signature</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The CRL signature could not be decrypted: this means that the actual signature value could not be determined rather than it not matching the expected value. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_unable_to_decode_issuer_public_key</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The public key in the certificate SubjectPublicKeyInfo could not be read.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_cert_signature_failure</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The signature of the certificate is invalid.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_CRL_signature_failure</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The signature of the certificate is invalid. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_cert_not_yet_valid</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The certificate is not yet valid: the notBefore date is after the current time.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_cert_has_expired</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The certificate has expired: that is the notAfter date is before the current time.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_CRL_not_yet_valid</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The CRL is not yet valid. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_CRL_has_expired</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The CRL has expired. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_error_in_cert_not_before_field</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The certificate notBefore field contains an invalid time.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_error_in_cert_not_after_field</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The certificate notAfter field contains an invalid time.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_error_in_CRL_last_update_field</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The CRL lastUpdate field contains an invalid time. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_error_in_CRL_next_update_field</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The CRL nextUpdate field contains an invalid time. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_out_of_mem</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >An error occurred trying to allocate memory. This should never happen.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_depth_zero_self_signed_cert</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The passed certificate is self signed and the same certificate cannot be found in the list of trusted certificates.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_self_signed_cert_in_chain</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The certificate chain could be built up using the untrusted certificates but the root could not be found locally.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_unable_to_get_issuer_cert_locally</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The issuer certificate of a locally looked up certificate could not be found. This normally means the list of trusted certificates is not complete.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_unable_to_verify_leaf_signature</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >No signatures could be verified because the chain contains only one certificate and it is not self signed.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_cert_chain_too_long</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The certificate chain length is greater than the supplied maximum depth. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_cert_revoked</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The certificate has been revoked. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_invalid_CA</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >A CA certificate is invalid. Either it is not a CA or its extensions are not consistent with the supplied purpose.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_path_length_exceeded</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The basicConstraints pathlength parameter has been exceeded.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_invalid_purpose</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The supplied certificate cannot be used for the specified purpose.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_cert_untrusted</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The root CA is not marked as trusted for the specified purpose.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_cert_rejected</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The root CA is marked to reject the specified purpose.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_subject_issuer_mismatch</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The current candidate issuer certificate was rejected because its subject name did not match the issuer name of the current certificate.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_akid_skid_mismatch</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The current candidate issuer certificate was rejected because its subject key identifier was present and did not match the authority key identifier current certificate.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_akid_issuer_serial_mismatch</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The current candidate issuer certificate was rejected because its issuer name and serial number was present and did not match the authority key identifier of the current certificate.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_keyusage_no_certsign</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The current candidate issuer certificate was rejected because its keyUsage extension does not permit certificate signing.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Error_v_application_verification</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >An application specific error. Unused.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info">
+Why did the certificate verification fail?<br>
+</div>
+
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONVerify_error"></a>Verify_error <span class="keyword">of</span> <code class="type"><a href="Ssl.html#TYPEverify_error">verify_error</a></code></pre>
+<div class="info">
+An error occured while verifying the certificate.<br>
+</div>
+<br>
+<a name="1_Communication"></a>
+<h1>Communication</h1><br>
+<pre><span class="keyword">val</span> <a name="VALinit"></a>init : <code class="type">unit -> unit</code></pre><div class="info">
+Initialize SSL functions. Should be called before calling any other function.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_error_string"></a>get_error_string : <code class="type">unit -> string</code></pre><div class="info">
+Retrieve a human-readable message that corresponds to the last error that occurred.<br>
+</div>
+<br><code><span class="keyword">type</span> <a name="TYPEprotocol"></a><code class="type"></code>protocol = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">SSLv2</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >SSL v2 protocol</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">SSLv23</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >SSL v3 protocol but can rollback to v2</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">SSLv3</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >SSL v3 protocol</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">TLSv1</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >TLS v1 protocol</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info">
+Protocol used by SSL.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEsocket"></a><code class="type"></code>socket </pre>
+<div class="info">
+An SSL abstract socket.<br>
+</div>
+
+<br>
+<a name="2_Threads"></a>
+<h2>Threads</h2><br>
+<br>
+You should not have to use those functions. They are only here for internal
+ use (they are needed to make the openssl library thread-safe, see the
+ <code class="code">Ssl_threads</code> module).<br>
+<pre><span class="keyword">val</span> <a name="VALcrypto_num_locks"></a>crypto_num_locks : <code class="type">unit -> int</code></pre><pre><span class="keyword">val</span> <a name="VALthread_id_function"></a>thread_id_function : <code class="type">(unit -> int) option Pervasives.ref</code></pre><pre><span class="keyword">val</span> <a name="VALthread_locking_function"></a>thread_locking_function : <code class="type">(int -> bool -> unit) option Pervasives.ref</code></pre><br>
+<a name="2_Contexts"></a>
+<h2>Contexts</h2><br>
+<pre><span class="keyword">type</span> <a name="TYPEcontext"></a><code class="type"></code>context </pre>
+<div class="info">
+A context. A context should be created by a server or client once per
+ program life-time and holds mainly default values for the SSL structures
+ which are later created for the connections.<br>
+</div>
+
+<br><code><span class="keyword">type</span> <a name="TYPEcontext_type"></a><code class="type"></code>context_type = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Client_context</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >Client connections.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Server_context</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >Server connections.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Both_context</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >Client and server connections.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info">
+Type of the context to create.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALcreate_context"></a>create_context : <code class="type"><a href="Ssl.html#TYPEprotocol">protocol</a> -> <a href="Ssl.html#TYPEcontext_type">context_type</a> -> <a href="Ssl.html#TYPEcontext">context</a></code></pre><div class="info">
+Create a context.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALuse_certificate"></a>use_certificate : <code class="type"><a href="Ssl.html#TYPEcontext">context</a> -> string -> string -> unit</code></pre><div class="info">
+<code class="code">use_certificate ctx cert privkey</code> makes the context <code class="code">ctx</code> use <code class="code">cert</code> as
+ certificate's file name (in PEM format) and <code class="code">privkey</code> as private key file
+ name.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALset_password_callback"></a>set_password_callback : <code class="type"><a href="Ssl.html#TYPEcontext">context</a> -> (bool -> string) -> unit</code></pre><div class="info">
+Set the callback function called to get passwords for encrypted PEM files.
+ The callback function takes a boolean argument which indicates if it's used
+ for reading/decryption (<code class="code">false</code>) or writing/encryption (<code class="code">true</code>).<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALset_client_CA_list_from_file"></a>set_client_CA_list_from_file : <code class="type"><a href="Ssl.html#TYPEcontext">context</a> -> string -> unit</code></pre><div class="info">
+Set the list of CAs sent to the client when requesting a client certificate.<br>
+</div>
+<br><code><span class="keyword">type</span> <a name="TYPEverify_mode"></a><code class="type"></code>verify_mode = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Verify_peer</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Verify_fail_if_no_peer_cert</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >Implies <code class="code">Verify_peer</code>.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Verify_client_once</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >Implies <code class="code">Verify_peer</code>.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info">
+Verification modes (see SSL_CTX_set_verify(3)).<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEverify_callback"></a><code class="type"></code>verify_callback </pre>
+<div class="info">
+A callback function for verification. Warning: this might change in the future.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALclient_verify_callback"></a>client_verify_callback : <code class="type"><a href="Ssl.html#TYPEverify_callback">verify_callback</a></code></pre><div class="info">
+Client's verification callback. Warning: this might change in the future.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALset_verify"></a>set_verify : <code class="type"><a href="Ssl.html#TYPEcontext">context</a> -> <a href="Ssl.html#TYPEverify_mode">verify_mode</a> list -> <a href="Ssl.html#TYPEverify_callback">verify_callback</a> option -> unit</code></pre><div class="info">
+Set the verify mode and callback, see SSL_CTX_set_verify(3).
+ Warning: this might change in the future.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALset_verify_depth"></a>set_verify_depth : <code class="type"><a href="Ssl.html#TYPEcontext">context</a> -> int -> unit</code></pre><div class="info">
+Set the maximum depth for the certificate chain verification that shall be allowed.<br>
+</div>
+<br>
+<a name="2_Ciphers"></a>
+<h2>Ciphers</h2><br>
+<pre><span class="keyword">type</span> <a name="TYPEcipher"></a><code class="type"></code>cipher </pre>
+<div class="info">
+A cipher. It holds the algorithm information for a particular cipher which
+ are a core part of the SSL/TLS protocol.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALset_cipher_list"></a>set_cipher_list : <code class="type"><a href="Ssl.html#TYPEcontext">context</a> -> string -> unit</code></pre><div class="info">
+Set the list of available ciphers for a context. See man ciphers(1) for the format of the string.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_cipher"></a>get_cipher : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> <a href="Ssl.html#TYPEcipher">cipher</a></code></pre><div class="info">
+Get the cipher used by a socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_cipher_description"></a>get_cipher_description : <code class="type"><a href="Ssl.html#TYPEcipher">cipher</a> -> string</code></pre><div class="info">
+Get a description of a cipher.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_cipher_name"></a>get_cipher_name : <code class="type"><a href="Ssl.html#TYPEcipher">cipher</a> -> string</code></pre><div class="info">
+Get the name of a cipher.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_cipher_version"></a>get_cipher_version : <code class="type"><a href="Ssl.html#TYPEcipher">cipher</a> -> string</code></pre><div class="info">
+Get the version of a cipher.<br>
+</div>
+<br>
+<a name="2_Certificates"></a>
+<h2>Certificates</h2><br>
+<pre><span class="keyword">type</span> <a name="TYPEcertificate"></a><code class="type"></code>certificate </pre>
+<div class="info">
+A certificate.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALread_certificate"></a>read_certificate : <code class="type">string -> <a href="Ssl.html#TYPEcertificate">certificate</a></code></pre><div class="info">
+<code class="code">read_certificate fname</code> reads the certificate in the file <code class="code">fname</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_certificate"></a>get_certificate : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> <a href="Ssl.html#TYPEcertificate">certificate</a></code></pre><div class="info">
+Get the certificate used by a socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_issuer"></a>get_issuer : <code class="type"><a href="Ssl.html#TYPEcertificate">certificate</a> -> string</code></pre><div class="info">
+Get the issuer of a certificate.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_subject"></a>get_subject : <code class="type"><a href="Ssl.html#TYPEcertificate">certificate</a> -> string</code></pre><div class="info">
+Get the subject of a certificate.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALload_verify_locations"></a>load_verify_locations : <code class="type"><a href="Ssl.html#TYPEcontext">context</a> -> string -> string -> unit</code></pre><div class="info">
+<code class="code">load_verify_locations ctxt cafile capath</code> specifies the locations for the
+ context <code class="code">ctx</code>, at which CA certificates for verification purposes are
+ located. <code class="code">cafile</code> should be the name of a CA certificates file in PEM format
+ and <code class="code">capath</code> should be the name of a directory which contains CA
+ certificates in PEM format. Empty strings can be used in order not to
+ specify on of the parameters (but not both).
+<p>
+
+<br>
+<b>Raises</b> <code>Invalid_argument</code> if both strings are empty or if one of the files given in arguments could not be found.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_verify_result"></a>get_verify_result : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> int</code></pre><div class="info">
+Get the verification result.<br>
+</div>
+<br>
+<a name="2_Creatingconnectingandclosingsockets"></a>
+<h2>Creating, connecting and closing sockets</h2><br>
+<pre><span class="keyword">val</span> <a name="VALembed_socket"></a>embed_socket : <code class="type">Unix.file_descr -> <a href="Ssl.html#TYPEcontext">context</a> -> <a href="Ssl.html#TYPEsocket">socket</a></code></pre><div class="info">
+Embed a Unix socket into an SSL socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALopen_connection"></a>open_connection : <code class="type"><a href="Ssl.html#TYPEprotocol">protocol</a> -> Unix.sockaddr -> <a href="Ssl.html#TYPEsocket">socket</a></code></pre><div class="info">
+Open an SSL connection.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALopen_connection_with_context"></a>open_connection_with_context : <code class="type"><a href="Ssl.html#TYPEcontext">context</a> -> Unix.sockaddr -> <a href="Ssl.html#TYPEsocket">socket</a></code></pre><div class="info">
+Open an SSL connection with the specified context.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALshutdown_connection"></a>shutdown_connection : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> unit</code></pre><div class="info">
+Close an SSL connection opened with <code class="code">open_connection</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALconnect"></a>connect : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> unit</code></pre><div class="info">
+Connect an SSL socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALaccept"></a>accept : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> unit</code></pre><div class="info">
+Accept an SSL connection.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALflush"></a>flush : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> unit</code></pre><div class="info">
+Flush an SSL connection.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALshutdown"></a>shutdown : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> unit</code></pre><div class="info">
+Close an SSL connection.<br>
+</div>
+<br>
+<a name="2_IOonSSLsockets"></a>
+<h2>I/O on SSL sockets</h2><br>
+<pre><span class="keyword">val</span> <a name="VALverify"></a>verify : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> unit</code></pre><div class="info">
+Check the result of the verification of the X509 certificate presented by
+ the peer, if any. Raises a <code class="code">verify_error</code> on failure.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfile_descr_of_socket"></a>file_descr_of_socket : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> Unix.file_descr</code></pre><div class="info">
+Get the file descriptor associated with a socket.
+ It is primarly useful for <code class="code">select</code>ing on it; you should not
+ write or read on it.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALread"></a>read : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> string -> int -> int -> int</code></pre><div class="info">
+<code class="code">read sock buf off len</code> receives data from a connected SSL socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALwrite"></a>write : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> string -> int -> int -> int</code></pre><div class="info">
+<code class="code">write sock buf off len</code> sends data over a connected SSL socket.<br>
+</div>
+<br>
+<a name="3_Highlevelcommunicationfunctions"></a>
+<h3>High-level communication functions</h3><br>
+<pre><span class="keyword">val</span> <a name="VALinput_string"></a>input_string : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> string</code></pre><div class="info">
+Input a string on an SSL socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALoutput_string"></a>output_string : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> string -> unit</code></pre><div class="info">
+Write a string on an SSL socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALinput_char"></a>input_char : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> char</code></pre><div class="info">
+Input a character on an SSL socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALoutput_char"></a>output_char : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> char -> unit</code></pre><div class="info">
+Write a char on an SSL socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALinput_int"></a>input_int : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> int</code></pre><div class="info">
+Input an integer on an SSL socket.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALoutput_int"></a>output_int : <code class="type"><a href="Ssl.html#TYPEsocket">socket</a> -> int -> unit</code></pre><div class="info">
+Write an integer on an SSL socket.<br>
+</div>
+</body></html>

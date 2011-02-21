@@ -1,0 +1,18 @@
+pristine:0000001482-ef17de135a25179773d77b8244070fa21ed2bd400b53143830d3de5f036a909b
+Starting with inventory:
+0000060756-e6117f67772f8f7813ae42d2ad61bcb2424fa7e076f8c6653e1795eb663bb7a0
+[TAG 1.0.1
+chambart@crans.org**20110126134107
+ Ignore-this: 58a5556036206b5c6e928745f8aeced5
+] 
+hash: 0000001638-256c08cac642c25dbb387fd76872ce50b6cdb631a539c30b7133f86b5c315d1f
+[update Lwt dependency to 2.2.1
+chambart@crans.org**20110126160449
+ Ignore-this: 3fa52146a8d37e8809190144c19de33c
+] 
+hash: 0000001352-ba50c37c6cf72710f9b344d98a9badceef64eb3a668543b2fa80e8a7fc3c4a25
+[Do not fail when tests directory is missing
+Stephane Glondu <steph@glondu.net>**20110128161501
+ Ignore-this: 8213e6d9b50ba2e89e6d78cbc23151e2
+] 
+hash: 0000000298-6aea4d574b706ec48d8ac6a19ddcb5786d7bcdf5ef5060827f3c5ac5b5aafe19

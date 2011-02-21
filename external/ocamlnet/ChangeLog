@@ -1,0 +1,243 @@
+2011-02-15 Gerd Stolpmann <gerd@gerd-stolpmann.de>
+
+	* Released: Ocamlnet-3.2.1. Bug fix release with build
+	  fixes (ocaml-3.11, FreeBSD 8.1)
+
+2010-12-23  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Released: Ocamlnet-3.2
+
+	* Http_fs: fixing the case that the channel is closed before
+	  everything is downloaded
+
+	* Netfs: adding `Dummy as value to all flags
+
+	* Netfs: fixing symlinks in iter and copy_into.
+
+	* Netglob: behaves better when the pattern encoding is
+	  distinct from the filename encoding
+
+	* Shell_fs: expose input_stream_adapter, output_stream_adapter
+
+2010-12-20  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Shell_fs: added stream_fs implementation via shell
+
+2010-12-19  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Http_fs: added stream_fs implementation for HTTP
+
+	* Netfs: new `Streaming flags for read and write
+
+	* Netsys_tmp: new module for globally setting where temporary
+	  directories are created
+
+2010-12-17  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Netglob: new module for globbing
+
+2010-12-16  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Netsys_posix: adding query_langinfo function for basic
+	  locale support
+
+	* Netconversion: new fn: user_encoding
+
+	* Netfs: new abstraction representing simple filesystems
+	  (both local and remote)
+	
+	* Netsys_posix: adding the *at functions (like openat).
+	  Also fchdir and fdopendir are new.
+
+2010-12-09  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Http_client: fixing aggressive connection caching. Also
+	  new module Http_client_conncache for extending the functionality
+	  of connection caches.
+
+2010-12-06  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Netdate: Fixing possible exceptions
+
+2010-11-27  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Netplex bugfixes: services could not be finished that had
+	  already no containers
+
+	* Netplex_semaphore: added destroy. Some functions can now be
+	  called from controller context.
+
+	* Netplex config files: added support for config_tree. No
+	  longer defaulting to /etc/netplex. Instead, the suffix ".conf"
+	  is appended to the name of the executable.
+
+	* Adding Netmcore, Netmcore_camlbox
+
+2010-11-23  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Released: Ocamlnet-3.1
+	
+	* Rtypes: on 64 bit platforms, negative ints were incorrectly
+	  decoded
+
+2010-11-22  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Uq_engines.Operators: generalized the type of ( >> )
+
+	* Netsys_mem: init_value allows now to set the custom_ops
+	  struct for custom blocks. Also, some corner cases for
+	  bigarrays have been fixed. Renamed Copy_custom to Copy_custom_int.
+
+	* Netsys_mem: new function copy_value
+
+	* Netcamlbox: it is now also possible to put messages with
+	  int32,int64,nativeint and bigarrays into boxes
+
+2010-10-01  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Nethttpd: Fixing a bug in Nethttpd_services that prevents in
+	  some cases that HTTP connections with pipelining are correctly
+	  processed. This bug showed especially up in conjuction with
+	  Nethttpd_engine.
+
+	* Nethttpd: adding encap args in Nethttpd_plex.
+
+2010-09-09  Gerd Stolpmann  <gerd@thinkpad.lan.sumadev.de>
+
+	* Released: Ocamlnet-3.0.3
+
+	* Nethttpd: Nethttpd_plex.nethttpd_factory got new arg
+	  processor_factory. This allows it to override this
+	  factory. (Caveat: this factory must be polymorphic.)
+
+	* Netsys: netsys_oothr.cma no longer contains a reference to
+	  Thread. New archive netsys_oothr_mt.cma for this.
+
+	* Netsys: resolving circular dep netsys <-> netsys_signal
+
+2010-08-31  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Released Ocamlnet-3.0.0
+
+----------------------------------------------------------------------	
+These are old change logs before the Ocamlnet-3 development
+started.	
+----------------------------------------------------------------------	
+
+2008-03-30  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Adding netzip library
+
+	* Enhancement: Netplex controllers can send and receive messages
+
+	* Enhancement: Plugins for Netplex controllers
+
+	* Adding Netplex_semaphore using the new plugin feature
+
+2008-03-29  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Adding subchannel logging to Netplex
+
+	* Adding access logging to Nethttpd
+
+2008-03-04  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Recognize GNU/kFreeBSD (Stéphane Glondu <steph@glondu.net>)
+
+	* Fix: Upgraded equeue-ssl for use with ocaml-ssl >= 0.4
+	  (thanks to Debian ocaml maintainers)
+
+	* [ChriS]: Removal of old cgi stuff
+
+	* [ChriS]: Preparing netcgi-apache for OCaml 3.11
+
+	* Enhancements: Introducing pollsets and Unixqueue2.
+	  This work is experimental for now and not yet complete.
+
+2007-11-18  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Adding syscalls to Netsys: poll, fsync, fdatasync,
+	  fadvise, fallocate, ioprio_get/set
+
+2007-11-01  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Release 2.2.9
+
+	* Fix: Http_client becomes more robust when it sees illegal header
+ 	  fields.
+
+	* Fix: Netshm decodes pairs correctly
+	
+2007-07-31  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+        * Release 2.2.8
+	
+	* Fix: stop all timers on Netplex shutdown
+
+	* Improved Netbuffer module
+
+	* [ChriS]: Improved examples for netcgi2
+	
+2007-05-06  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Fix: For Unix domain sockets, getsockname and getpeername
+	  may return EAFNOSUPPORT. This code is generated by the
+	  OCaml runtime when it sees an address it does not support.
+	  We handle this case as a connected socket with inaccessible
+	  address. The problem was reported to happen for MacOS.
+
+	* Fix: IPv6 is now supported by most functionality. Exception
+	  is the SOCKS stuff.
+
+	* Fix netcgi2: Improving compatibility of Netcgi1_compat,
+	  such that nethttpd works together with netcgi2. Porting
+	  examples/nethttpd/netplex.ml to nethttpd+netcgi2.
+
+        * [ChriS]: Netcgi2-apache builds for Apache 2
+	 
+2007-04-09  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+        * Release 2.2.7
+	
+        * Including netcgi2-apache into the release
+	
+	* Fix: Error handling in Nethttpd.
+
+	* Fix: Build of nethttpd examples
+
+2007-03-28  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Release 2.2.6
+
+	* Improving timeout handling in Rpc_client. TCP timeouts are now
+	  handled better. Added Unbound_exception.
+
+2007-03-05  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Release 2.2.5
+
+	* Addition of Rpc_client.set_dgram_destination and
+	  get_sender_of_last_response to support unconnected
+	  UDP sockets.
+
+2007-02-20  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Addition of EUC-KR, by Deokhwan Kim <dk@ropas.snu.ac.kr>
+
+2007-01-18  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Fix: The library netshm needs bigarray as requirement.
+
+2007-01-07  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Releases 2.2.3 and 2.2.4:
+
+	Minor clean-ups in the build system.
+
+2006-12-31  Gerd Stolpmann  <gerd@gerd-stolpmann.de>
+
+	* Releases 2.2.1 and 2.2.2:
+
+	Single build fix for Mac OS X.
+	
+

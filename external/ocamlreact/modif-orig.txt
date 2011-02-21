@@ -1,0 +1,4 @@
+chmod a+x build and fix the install procedure to use ocamlfind and
+by removing the +directory line in the META file so it puts
+react/ in site-lib/. Put all of that in Makefile.
+

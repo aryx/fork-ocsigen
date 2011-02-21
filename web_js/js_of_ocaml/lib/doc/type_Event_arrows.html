@@ -1,0 +1,140 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Js" rel="Chapter" href="Js.html">
+<link title="Dom" rel="Chapter" href="Dom.html">
+<link title="Dom_html" rel="Chapter" href="Dom_html.html">
+<link title="Dom_events" rel="Chapter" href="Dom_events.html">
+<link title="Lwt_js" rel="Chapter" href="Lwt_js.html">
+<link title="Firebug" rel="Chapter" href="Firebug.html">
+<link title="Regexp" rel="Chapter" href="Regexp.html">
+<link title="Url" rel="Chapter" href="Url.html">
+<link title="XmlHttpRequest" rel="Chapter" href="XmlHttpRequest.html">
+<link title="Event_arrows" rel="Chapter" href="Event_arrows.html"><title>Event_arrows</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;canceller<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lwt_arr&nbsp;:&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Lwt</span>.t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;arr&nbsp;:&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;(&nbsp;&gt;&gt;&gt;&nbsp;)&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;(&nbsp;&gt;&gt;&gt;|&nbsp;)&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>c&nbsp;<span class="constructor">Lwt</span>.t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;run&nbsp;:&nbsp;(<span class="keywordsign">'</span>a,&nbsp;unit)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Event_arrows</span>.canceller<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;cancel&nbsp;:&nbsp;<span class="constructor">Event_arrows</span>.canceller&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;first&nbsp;:&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="keywordsign">'</span>b)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;click&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;dblclick&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mousedown&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mouseup&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mouseover&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mousemove&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mouseout&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;keypress&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.keyboardEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;keydown&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.keyboardEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;keyup&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a,&nbsp;<span class="constructor">Dom_html</span>.keyboardEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;clicks&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;dblclicks&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mousedowns&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mouseups&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mouseovers&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mousemoves&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;mouseouts&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.mouseEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;keypresses&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.keyboardEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;keydowns&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.keyboardEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;keyups&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?use_capture:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?keep_default:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">#</span><span class="constructor">Dom_html</span>.eventTarget&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Dom_html</span>.keyboardEvent&nbsp;<span class="constructor">Js</span>.t,&nbsp;<span class="keywordsign">'</span>a)&nbsp;<span class="constructor">Event_arrows</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>b,&nbsp;<span class="keywordsign">'</span>c)&nbsp;<span class="constructor">Event_arrows</span>.t<br>
+<span class="keyword">end</span></code></body></html>

@@ -1,0 +1,389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="React" rel="Chapter" href="React.html"><link title="Semantics" rel="Section" href="#sem">
+<link title="Basics" rel="Section" href="#basics">
+<link title="Examples" rel="Section" href="#ex">
+<link title="Events" rel="Subsection" href="#evsem">
+<link title="Signals" rel="Subsection" href="#sigsem">
+<link title="Primitive events and signals" rel="Subsection" href="#primitives">
+<link title="The update cycle and thread safety" rel="Subsection" href="#update">
+<link title="Simultaneous events" rel="Subsection" href="#simultaneity">
+<link title="Side effects" rel="Subsection" href="#sideeffects">
+<link title="Lifting" rel="Subsection" href="#lifting">
+<link title="Mutual and self reference" rel="Subsection" href="#recursion">
+<link title="Clock" rel="Subsection" href="#clock">
+<title>React</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="index.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_React.html">React</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> React: <code class="code"><span class="keyword">sig</span></code> <a href="React.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>Applicative events and signals.
+<p>
+
+    React is a module for functional reactive programming (frp).  It
+    provides support to program with time varying values : applicative
+    <a href="React.E.html">events</a> and <a href="React.S.html">signals</a>. React
+    doesn't define any primitive event or signal, this lets the client
+    choose the concrete timeline.
+<p>
+
+    Consult the <a href="#sem">semantics</a>, the <a href="#basics">basics</a> and
+    <a href="#ex">examples</a>.  
+<p>
+
+    Open the module to use it. This defines only two types and two modules
+    in your scope. 
+<p>
+
+    <em>Version 0.9.2 - daniel.buenzl i@erratique.ch </em>
+<p>
+
+    <a name="top"></a>
+<h1> </h1><br>
+<hr width="100%">
+<pre><span class="keyword">type</span> <a name="TYPEevent"></a><code class="type">'a</code> event </pre>
+<div class="info">
+The type for events of type <code class="code"><span class="keywordsign">'</span>a</code>.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEsignal"></a><code class="type">'a</code> signal </pre>
+<div class="info">
+The type for signals of type <code class="code"><span class="keywordsign">'</span>a</code>.<br>
+</div>
+
+<pre><span class="keyword">module</span> <a href="React.E.html">E</a>: <code class="code"><span class="keyword">sig</span></code> <a href="React.E.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info">
+Event combinators.
+</div>
+<pre><span class="keyword">module</span> <a href="React.S.html">S</a>: <code class="code"><span class="keyword">sig</span></code> <a href="React.S.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info">
+Signal combinators.
+</div>
+<br>
+<a name="sem"></a>
+<h1>Semantics</h1> 
+<p>
+
+    The following notations are used to give precise meaning to the 
+    combinators. It is important to note that in these semantic 
+    descriptions the origin of time t = 0 is <em>always</em> fixed at
+    the time at which the combinator creates the event or the signal and
+    the semantics of the dependents is evaluated relative to this timeline.
+<p>
+
+    We use dt to denote an infinitesimal amount of time.
+    <a name="evsem"></a>
+<h2>Events</h2> 
+<p>
+
+    An event is a value with discrete occurrences over time.
+<p>
+
+    The semantic function [] <code class="code">: <span class="keywordsign">'</span>a event <span class="keywordsign">-&gt;</span> time <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option</code> gives
+    meaning to an event <code class="code">e</code> by mapping it to a function of time
+    [<code class="code">e</code>] returning <code class="code"><span class="constructor">Some</span> v</code> whenever the event occurs with value
+    <code class="code">v</code> and <code class="code"><span class="constructor">None</span></code> otherwise. We write [<code class="code">e</code>]<sub class="subscript">t</sub> the evaluation of
+    this <em>semantic</em> function at time t.
+<p>
+
+    As a shortcut notation we also define []<sub class="subscript">&lt;t</sub> <code class="code">: <span class="keywordsign">'</span>a event <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option</code>
+    (resp. []<sub class="subscript">&lt;=t</sub>) to denote the last occurrence, if any, of an
+    event before (resp. before or at) <code class="code">t</code>. More precisely :
+    <ul>
+<li>[<code class="code">e</code>]<sub class="subscript">&lt;t</sub> <code class="code">=</code> [<code class="code">e</code>]<sub class="subscript">t'</sub> with t' the greatest t' &lt; t
+      (resp. <code class="code">&lt;=</code>) such that 
+       [<code class="code">e</code>]<sub class="subscript">t'</sub> <code class="code">&lt;&gt; <span class="constructor">None</span></code>.</li>
+<li>[<code class="code">e</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">None</span></code> if there is no such t'.</li>
+</ul>
+
+<p>
+
+    <a name="sigsem"></a>
+<h2>Signals</h2> 
+<p>
+
+    A signal is a value that varies continuously over time. In
+    contrast to <a href="#evsem">events</a> which occur at specific point
+    in time, a signal has a value at every point in time.
+<p>
+
+    The semantic function [] <code class="code">: <span class="keywordsign">'</span>a signal <span class="keywordsign">-&gt;</span> time <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a</code> gives
+    meaning to a signal <code class="code">s</code> by mapping it to a function of time
+    [<code class="code">s</code>] that returns its value at a given time. We write [<code class="code">s</code>]<sub class="subscript">t</sub> 
+    the evaluation of this <em>semantic</em> function at time t.
+    <a name="sigeq"></a>
+<h3>Equality</h3> 
+<p>
+
+    Most signal combinators have an optional <code class="code">eq</code> parameter that
+    defaults to structural equality. <code class="code">eq</code> specifies the equality
+    function used to detect changes in the value of the resulting
+    signal. This function is needed for the efficient update of
+    signals and to deal correctly with signals that perform
+    <a href="#sideeffects">side effects</a>.  
+<p>
+
+    Given an equality function on a type the combinators can be automatically
+    <a href="React.S.html#special">specialized</a> via a functor.
+    <a name="sigcont"></a>
+<h3>Continuity</h3>
+<p>
+
+    Ultimately signal updates depend on
+    <a href="#primitives">primitive</a> updates. Thus a signal can
+    only approximate a real continuous signal. The accuracy of the
+    approximation depends on the variation rate of the real signal and
+    the primitive's update frequency.
+<p>
+
+    <a name="basics"></a>
+<h1>Basics</h1>
+<p>
+
+    <a name="primitives"></a>
+<h2>Primitive events and signals</h2>
+<p>
+
+    React doesn't define primitive events and signals, they must be
+    created and updated by the client.
+<p>
+
+    Primitive events are created with <a href="React.E.html#VALcreate"><code class="code"><span class="constructor">React</span>.<span class="constructor">E</span>.create</code></a>. This function
+    returns a new event and an update function that generates an
+    occurrence for the event at the time it is called. The following
+    code creates a primitive integer event <code class="code">x</code> and generates three
+    occurrences with value <code class="code">1</code>, <code class="code">2</code>, <code class="code">3</code>. Those occurrences are printed
+    on stdout by the effectful event <code class="code">pr_x</code>.  <pre></pre><code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">React</span>;;<br>
+<br>
+<span class="keyword">let</span>&nbsp;x,&nbsp;send_x&nbsp;=&nbsp;<span class="constructor">E</span>.create&nbsp;()<br>
+<span class="keyword">let</span>&nbsp;pr_x&nbsp;=&nbsp;<span class="constructor">E</span>.map&nbsp;print_int&nbsp;x<br>
+<span class="keyword">let</span>&nbsp;()&nbsp;=&nbsp;<span class="constructor">List</span>.iter&nbsp;send_x&nbsp;[1;&nbsp;2;&nbsp;3]</code><pre></pre>
+    Primitive signals are created with <a href="React.S.html#VALcreate"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.create</code></a>. This function
+    returns a new signal and an update function that sets the signal's value
+    at the time it is called. The following code creates an
+    integer signal <code class="code">x</code> initially set to <code class="code">1</code> and updates it three time with 
+    values <code class="code">2</code>, <code class="code">2</code>, <code class="code">3</code>. The signal's values are printed on stdout by the 
+    effectful signal <code class="code">pr_x</code>. Note that only updates that change
+    the signal's value are printed, hence the program prints <code class="code">123</code>, not <code class="code">1223</code>.
+    See the discussion on 
+    <a href="#sideeffects">side effects</a> for more details.
+<pre></pre><code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">React</span>;;<br>
+<br>
+<span class="keyword">let</span>&nbsp;x,&nbsp;set_x&nbsp;=&nbsp;<span class="constructor">S</span>.create&nbsp;1<br>
+<span class="keyword">let</span>&nbsp;pr_x&nbsp;=&nbsp;<span class="constructor">S</span>.map&nbsp;print_int&nbsp;x<br>
+<span class="keyword">let</span>&nbsp;()&nbsp;=&nbsp;<span class="constructor">List</span>.iter&nbsp;set_x&nbsp;[2;&nbsp;2;&nbsp;3]</code><pre></pre>
+    The <a href="#clock">clock</a> example shows how a realtime time 
+    flow can be defined.
+<p>
+
+    <a name="update"></a>
+<h2>The update cycle and thread safety</h2>
+<p>
+
+    <a href="#primitives">Primitives</a> are the only mean to drive the reactive
+    system and they are entirely under the control of the client. When
+    the client invokes a primitive's update function, React performs
+    an update cycle. The update cycle automatically updates events and
+    signals that transitively depend on the updated primitive. The
+    dependents of a signal are updated iff the signal's value changed
+    according to its <a href="#sigeq">equality function</a>.
+<p>
+
+    To ensure correctness in the presence of threads, update cycles
+    must be executed in a critical section. Let uset(<code class="code">p</code>) be the set
+    of events and signals that need to be updated whenever the
+    primitive <code class="code">p</code> is updated.  Updating two primitives <code class="code">p</code> and <code class="code">p'</code>
+    concurrently is only allowed if uset(<code class="code">p</code>) and uset(<code class="code">p'</code>) are
+    disjoint. Otherwise the updates must be properly serialized.
+<p>
+
+    Below updates to <code class="code">x</code> and <code class="code">y</code> must be serialized, but z can
+    be updated concurently to both <code class="code">x</code> and <code class="code">y</code>.
+<pre></pre><code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">React</span>;;<br>
+<br>
+<span class="keyword">let</span>&nbsp;x,&nbsp;set_x&nbsp;=&nbsp;<span class="constructor">S</span>.create&nbsp;0<br>
+<span class="keyword">let</span>&nbsp;y,&nbsp;send_y&nbsp;=&nbsp;<span class="constructor">E</span>.create&nbsp;()<br>
+<span class="keyword">let</span>&nbsp;z,&nbsp;set_z&nbsp;=&nbsp;<span class="constructor">S</span>.create&nbsp;0<br>
+<span class="keyword">let</span>&nbsp;max_xy&nbsp;=&nbsp;<span class="constructor">S</span>.l2&nbsp;(<span class="keyword">fun</span>&nbsp;x&nbsp;y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;x&nbsp;&gt;&nbsp;y&nbsp;<span class="keyword">then</span>&nbsp;x&nbsp;<span class="keyword">else</span>&nbsp;y)&nbsp;x&nbsp;(<span class="constructor">S</span>.hold&nbsp;0&nbsp;y)<br>
+<span class="keyword">let</span>&nbsp;succ_z&nbsp;=&nbsp;<span class="constructor">S</span>.map&nbsp;succ&nbsp;z</code><pre></pre>
+    <a name="simultaneity"></a>
+<h2>Simultaneous events</h2>
+<p>
+
+    <a href="#update">Update cycles</a> are made under a 
+    <a href="http://dx.doi.org/10.1016/0167-6423(92)90005-V">synchrony hypothesis</a> :
+    the update cycle takes no time, it is instantenous. 
+<p>
+
+    Two event occurrences are <em>simultaneous</em> if they occur in the
+    same update cycle; in other words if there exists a primitive on
+    which they both depend. By definition a primitive doesn't depend
+    on any primitive it is therefore impossible for two primitive
+    events to occur simultaneously.
+<p>
+
+    In the code below <code class="code">w</code>, <code class="code">x</code> and <code class="code">y</code> will have simultaneous occurrences while
+    <code class="code">z</code> will never have simultaneous occurrences with them.
+<pre></pre><code class="code"><span class="keyword">let</span>&nbsp;w,&nbsp;send_w&nbsp;=&nbsp;<span class="constructor">E</span>.create&nbsp;()<br>
+<span class="keyword">let</span>&nbsp;x&nbsp;=&nbsp;<span class="constructor">E</span>.map&nbsp;succ&nbsp;w<br>
+<span class="keyword">let</span>&nbsp;y&nbsp;=&nbsp;<span class="constructor">E</span>.map&nbsp;succ&nbsp;x<br>
+<span class="keyword">let</span>&nbsp;z,&nbsp;send_z&nbsp;=&nbsp;<span class="constructor">E</span>.create&nbsp;()</code><pre></pre>    
+    <a name="sideeffects"></a>
+<h2>Side effects</h2>
+<p>
+
+    Effectful events and signals perform their side effect
+    exactly <em>once</em> in each <a href="#update">update cycle</a> in which there
+    is an update of at least one of the event or signal it depends on.
+<p>
+
+    Remember that a signal updates in a cycle iff its 
+    <a href="#sigeq">equality function</a> determined that the signal
+    value changed. Signal initialization is unconditionally considered as 
+    an update.    
+<p>
+
+    It is important to keep references on effectful events and
+    signals. Otherwise they may be reclaimed by the garbage collector.
+    The following program prints only a <code class="code">1</code>.
+<pre></pre><code class="code"><span class="keyword">let</span>&nbsp;x,&nbsp;set_x&nbsp;=&nbsp;<span class="constructor">S</span>.create&nbsp;1<br>
+<span class="keyword">let</span>&nbsp;()&nbsp;=&nbsp;ignore&nbsp;(<span class="constructor">S</span>.map&nbsp;print_int&nbsp;x)<br>
+<span class="keyword">let</span>&nbsp;()&nbsp;=&nbsp;<span class="constructor">Gc</span>.full_major&nbsp;();&nbsp;<span class="constructor">List</span>.iter&nbsp;set_x&nbsp;[2;&nbsp;2;&nbsp;3]</code><pre></pre>
+    <a name="lifting"></a>
+<h2>Lifting</h2>
+<p>
+
+    Lifting transforms a regular function to make it act on signals.
+    The combinators
+    <a href="React.S.html#VALconst"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.const</code></a> and <a href="React.S.html#VALapp"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.app</code></a> allow to lift functions of arbitrary arity n,
+    but this involves the inefficient creation of n-1 intermediary
+    closure signals. The fixed arity <a href="React.S.html#lifting">lifting
+    functions</a> are more efficient. For example :
+<pre></pre><code class="code"><span class="keyword">let</span>&nbsp;f&nbsp;x&nbsp;y&nbsp;=&nbsp;x&nbsp;<span class="keyword">mod</span>&nbsp;y<br>
+<span class="keyword">let</span>&nbsp;fl&nbsp;x&nbsp;y&nbsp;=&nbsp;<span class="constructor">S</span>.app&nbsp;(<span class="constructor">S</span>.app&nbsp;~eq:(==)&nbsp;(<span class="constructor">S</span>.const&nbsp;f)&nbsp;x)&nbsp;y&nbsp;<span class="comment">(*&nbsp;inefficient&nbsp;*)</span><br>
+<span class="keyword">let</span>&nbsp;fl'&nbsp;x&nbsp;y&nbsp;=&nbsp;<span class="constructor">S</span>.l2&nbsp;f&nbsp;x&nbsp;y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;efficient&nbsp;*)</span><br>
+</code><pre></pre>
+    Besides, some of <code class="code"><span class="constructor">Pervasives</span></code>'s functions and operators are
+    already lifted and availables in submodules of <a href="React.S.html"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span></code></a>. They can be
+    be opened in specific scopes. For example if you are dealing with
+    float signals you can open <a href="React.S.Float.html"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.<span class="constructor">Float</span></code></a>.  
+<pre></pre><code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">React</span>&nbsp;<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">React</span>.<span class="constructor">S</span>.<span class="constructor">Float</span>&nbsp;<br>
+<br>
+<span class="keyword">let</span>&nbsp;f&nbsp;t&nbsp;=&nbsp;sqrt&nbsp;t&nbsp;*.&nbsp;sin&nbsp;t&nbsp;<span class="comment">(*&nbsp;f&nbsp;is&nbsp;defined&nbsp;on&nbsp;float&nbsp;signals&nbsp;*)</span><br>
+...<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Pervasives</span>&nbsp;<span class="comment">(*&nbsp;back&nbsp;to&nbsp;pervasives&nbsp;floats&nbsp;*)</span><br>
+</code><pre></pre>
+   If you are using OCaml 3.12 or later you can also use the <code class="code"><span class="keyword">let</span> <span class="keyword">open</span></code>
+   construct 
+<pre></pre><code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">open</span>&nbsp;<span class="constructor">React</span>.<span class="constructor">S</span>.<span class="constructor">Float</span>&nbsp;<span class="keyword">in</span>&nbsp;<br>
+<span class="keyword">let</span>&nbsp;f&nbsp;t&nbsp;=&nbsp;sqrt&nbsp;t&nbsp;*.&nbsp;sin&nbsp;t&nbsp;<span class="keyword">in</span>&nbsp;<span class="comment">(*&nbsp;f&nbsp;is&nbsp;defined&nbsp;on&nbsp;float&nbsp;signals&nbsp;*)</span><br>
+...<br>
+</code><pre></pre>
+<p>
+
+  <a name="recursion"></a>
+<h2>Mutual and self reference</h2>
+<p>
+
+  Mutual and self reference among time varying values occurs naturally
+  in programs. However a mutually recursive definition of two signals
+  in which both need the value of the other at time t to define
+  their value at time t has no least fixed point. To break this
+  tight loop one signal must depend on the value the other had at time
+  t-dt where dt is an infinitesimal delay.
+<p>
+
+  The fixed point combinators <a href="React.E.html#VALfix"><code class="code"><span class="constructor">React</span>.<span class="constructor">E</span>.fix</code></a> and <a href="React.S.html#VALfix"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.fix</code></a> allow to refer to
+  the value an event or signal had an infinitesimal amount of time
+  before. These fixed point combinators act on a function <code class="code">f</code> that takes
+  as argument the infinitesimally delayed event or signal that <code class="code">f</code>
+  itself returns.
+<p>
+
+  In the example below <code class="code">history s</code> returns a signal whose value 
+  is the history of <code class="code">s</code> as a list. 
+<pre></pre><code class="code"><span class="keyword">let</span>&nbsp;history&nbsp;?(eq&nbsp;=&nbsp;(&nbsp;=&nbsp;))&nbsp;s&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;push&nbsp;v&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[&nbsp;v&nbsp;]&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;v'&nbsp;::&nbsp;_&nbsp;<span class="keyword">as</span>&nbsp;l&nbsp;<span class="keyword">when</span>&nbsp;eq&nbsp;v&nbsp;v'&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;l<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;l&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;v&nbsp;::&nbsp;l&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;define&nbsp;h&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;h'&nbsp;=&nbsp;<span class="constructor">S</span>.l2&nbsp;push&nbsp;s&nbsp;h&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;h',&nbsp;h'<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">S</span>.fix&nbsp;[]&nbsp;define</code><pre></pre>
+  When a program has infinitesimally delayed values a
+  <a href="#primitives">primitive</a> may trigger more than one update
+  cycle. For example if a signal <code class="code">s</code> is infinitesimally delayed, then
+  its update in a cycle <code class="code">c</code> will trigger a new cycle <code class="code">c'</code> at the end
+  of the cycle in which the delayed signal of <code class="code">s</code> will have the value
+  <code class="code">s</code> had in <code class="code">c</code>. This means that the recursion occuring between a
+  signal (or event) and its infinitesimally delayed counterpart must
+  be well-founded otherwise this may trigger an infinite number
+  of update cycles, like in the following examples.
+<pre></pre><code class="code"><span class="keyword">let</span>&nbsp;start,&nbsp;send_start&nbsp;=&nbsp;<span class="constructor">E</span>.create&nbsp;()<br>
+<span class="keyword">let</span>&nbsp;diverge&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;define&nbsp;e&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;e'&nbsp;=&nbsp;<span class="constructor">E</span>.select&nbsp;[e;&nbsp;start]&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;e',&nbsp;e'<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">E</span>.fix&nbsp;define<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;()&nbsp;=&nbsp;send_start&nbsp;()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;diverges&nbsp;*)</span><br>
+&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;diverge&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;diverges&nbsp;*)</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;define&nbsp;s&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s'&nbsp;=&nbsp;<span class="constructor">S</span>.<span class="constructor">Int</span>.succ&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;s',&nbsp;s'<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">S</span>.fix&nbsp;0&nbsp;define</code><pre></pre>
+  For technical reasons, delayed events and signals (those given to
+  fixing functions) are not allowed to directly depend on each
+  other. Fixed point combinators will raise <code class="code"><span class="constructor">Invalid_argument</span></code> if
+  such dependencies are created. This limitation can be
+  circumvented by mapping these values with the identity. 
+<p>
+
+  <a name="ex"></a>
+<h1>Examples</h1> 
+<p>
+
+  <a name="clock"></a>
+<h2>Clock</h2>
+<p>
+
+  The following program defines a primitive event <code class="code">seconds</code> holding
+  the UNIX time and occuring on every second. An effectful event
+  converts these occurences to local time and prints them on stdout
+  along with an
+  <a href="http://www.ecma-international.org/publications/standards/Ecma-048.htm">ANSI
+  escape sequence</a> to control the cursor position.
+<pre></pre><code class="code"><span class="keyword">let</span>&nbsp;pr_time&nbsp;t&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tm&nbsp;=&nbsp;<span class="constructor">Unix</span>.localtime&nbsp;t&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">Printf</span>.printf&nbsp;<span class="string">"\x1B[8D%02d:%02d:%02d%!"</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tm.<span class="constructor">Unix</span>.tm_hour&nbsp;tm.<span class="constructor">Unix</span>.tm_min&nbsp;tm.<span class="constructor">Unix</span>.tm_sec<br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">React</span>;;<br>
+<br>
+<span class="keyword">let</span>&nbsp;seconds,&nbsp;run&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;e,&nbsp;send&nbsp;=&nbsp;<span class="constructor">E</span>.create&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;run&nbsp;()&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span>&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">do</span>&nbsp;send&nbsp;(<span class="constructor">Unix</span>.gettimeofday&nbsp;());&nbsp;<span class="constructor">Unix</span>.sleep&nbsp;1&nbsp;<span class="keyword">done</span><br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;e,&nbsp;run<br>
+<br>
+<span class="keyword">let</span>&nbsp;printer&nbsp;=&nbsp;<span class="constructor">E</span>.map&nbsp;pr_time&nbsp;seconds<br>
+<br>
+<span class="keyword">let</span>&nbsp;()&nbsp;=&nbsp;run&nbsp;()</code><pre></pre><br>
+</body></html>

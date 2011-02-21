@@ -1,0 +1,52 @@
+<!-- -*- Mode: Xml -*- -->
+<!-- This file is intentionnaly very basic. See http://ocsigen.org/config for
+     a more elaborate one, as well as for comments on the various options -->
+<ocsigen>
+
+  <server>
+    <port>8080</port>
+    <logdir>/home/pad/github/fork-ocsigen/files/var/log</logdir>
+    <datadir>/home/pad/github/fork-ocsigen/files/var/lib</datadir>
+    <user></user>
+    <group></group>
+    <commandpipe>/home/pad/github/fork-ocsigen/files/var/run/ocsigen_command</commandpipe>
+    <mimefile>/home/pad/github/fork-ocsigen/files/mime.types</mimefile>
+    <charset>utf-8</charset>
+
+    <findlib path="/opt/local/lib/ocaml"/>
+    <findlib path="/home/pad/github/fork-ocsigen/files"/>
+
+    <extension findlib-package="ocsigen.ext.ocsipersist-dbm">
+      <store dir="/home/pad/github/fork-ocsigen/files/var/lib/ocsipersist"/>
+      <ocsidbm name="/home/pad/github/fork-ocsigen/extensions/ocsipersist-dbm/ocsidbm"/>
+    </extension>
+
+    <!-- pad: note that the order is important, need to have a Ocsipersist
+       loaded before loading ocsigen.ext.eliom -->
+    <extension findlib-package="ocsigen.ext.staticmod"/>
+    <extension findlib-package="ocsigen.ext.eliom"/>
+
+    <!-- Inclusion of all external configuration files matching *.conf
+         from the directory 'dir' (in alphabetical order): -->
+    <extconf dir="/home/pad/github/fork-ocsigen/files/etc/ocsigen/conf.d" />
+
+    <host charset="utf-8" hostfilter="*">
+
+      <!-- ?? -->
+      <comet/>
+
+      <!-- http://localhost:8080/ocsigenstuff ???? -->
+      <site path="ocsigenstuff" charset="utf-8">
+       <static dir="/home/pad/github/fork-ocsigen/files/ocsigenstuff" />
+      </site>
+
+      <!-- Eliom Tutorial -->
+      <static dir="/home/pad/github/fork-ocsigen/files/tests" />
+      <eliom findlib-package="eliom_tests.testsuite" />
+
+      <!-- Monitoring -->
+      <eliom findlib-package="eliom_tests.monitoring" />
+
+    </host>
+  </server>
+</ocsigen>

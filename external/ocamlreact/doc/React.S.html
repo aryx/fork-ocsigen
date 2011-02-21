@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="React.E.html">
+<link rel="Up" href="React.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="React" rel="Chapter" href="React.html"><link title="Primitive and basics" rel="Section" href="#prim">
+<link title="From events" rel="Section" href="#1_Fromevents">
+<link title="Transforming and filtering" rel="Section" href="#tr">
+<link title="Accumulating" rel="Section" href="#acc">
+<link title="Combining" rel="Section" href="#combine">
+<link title="Lifting" rel="Section" href="#lifting">
+<link title="Combinator specialization" rel="Section" href="#special">
+<title>React.S</title>
+</head>
+<body>
+<div class="navbar"><a href="React.E.html">Previous</a>
+&nbsp;<a href="React.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_React.S.html">React.S</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> S: <code class="code"><span class="keyword">sig</span></code> <a href="React.S.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>Signal combinators. 
+<p>
+
+    Consult their <a href="React.html#sigsem">semantics.</a><br>
+<hr width="100%">
+<br>
+<a name="prim"></a>
+<h1>Primitive and basics</h1><br>
+<pre><span class="keyword">type</span> <a name="TYPEt"></a><code class="type">'a</code> t = <code class="type">'a <a href="React.html#TYPEsignal">React.signal</a></code> </pre>
+<div class="info">
+The type for signals of type <code class="code"><span class="keywordsign">'</span>a</code>.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALconst"></a>const : <code class="type">'a -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">const v</code> is always <code class="code">v</code>, [<code class="code">const v</code>]<sub class="subscript">t</sub> <code class="code">= v</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALcreate"></a>create : <code class="type">?eq:('a -> 'a -> bool) -> 'a -> 'a <a href="React.html#TYPEsignal">React.signal</a> * ('a -> unit)</code></pre><div class="info">
+<code class="code">create i</code> is a primitive signal <code class="code">s</code> set to <code class="code">i</code> and a
+      <code class="code">set</code> function.  <code class="code">set v</code> sets the signal's value to <code class="code">v</code> at the
+      time it is called and triggers an <a href="React.html#update">update
+      cycle</a>.
+<p>
+
+      <b>Warning.</b> <code class="code">send</code> must not be executed inside an update cycle.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALvalue"></a>value : <code class="type">'a <a href="React.html#TYPEsignal">React.signal</a> -> 'a</code></pre><div class="info">
+<code class="code">value s</code> is <code class="code">s</code>'s current value. 
+<p>
+
+      <b>Warning.</b> If executed in an <a href="React.html#update">update
+      cycle</a> may return a non up-to-date value or raise <code class="code"><span class="constructor">Failure</span></code> if
+      the signal is not yet initialized.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALretain"></a>retain : <code class="type">'a <a href="React.html#TYPEsignal">React.signal</a> -> (unit -> unit) -> [ `R of unit -> unit ]</code></pre><div class="info">
+<code class="code">retain s c</code> keeps a reference to the closure <code class="code">c</code> in <code class="code">s</code> and
+      returns the previously retained value. <code class="code">c</code> will <em>never</em> be
+      invoked.
+<p>
+
+      <b>Raises.</b> <code class="code"><span class="constructor">Invalid_argument</span></code> on constant signals.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALstop"></a>stop : <code class="type">'a <a href="React.html#TYPEsignal">React.signal</a> -> unit</code></pre><div class="info">
+<code class="code">stop s</code>, stops updating <code class="code">s</code>. It conceptually becomes <a href="React.S.html#VALconst"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.const</code></a>
+      with the signal's last value and cannot be restarted. Allows to
+      disable <a href="React.html#sideeffects">effectful</a> signals.
+<p>
+
+      <b>Note.</b> If executed in an update cycle the signal may 
+      still update in the cycle.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALequal"></a>equal : <code class="type">?eq:('a -> 'a -> bool) -> 'a <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a> -> bool</code></pre><div class="info">
+<code class="code">equal s s'</code> is <code class="code"><span class="keyword">true</span></code> iff <code class="code">s</code> and <code class="code">s'</code> are equal. If both
+      signals are <a href="React.S.html#VALconst"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.const</code></a>ant <code class="code">eq</code> is used between their value
+      (defauts to structural equality). If both signals are not
+      <a href="React.S.html#VALconst"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.const</code></a>ant, physical equality is used.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALtrace"></a>trace : <code class="type">?iff:bool <a href="React.S.html#TYPEt">t</a> -> ('a -> unit) -> 'a <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">trace iff tr s</code> is <code class="code">s</code> except <code class="code">tr</code> is invoked with <code class="code">s</code>'s
+      current value and on <code class="code">s</code> changes when <code class="code">iff</code> is <code class="code"><span class="keyword">true</span></code> (defaults
+      to <code class="code"><span class="constructor">S</span>.const <span class="keyword">true</span></code>). For all t where [<code class="code">s</code>]<sub class="subscript">t</sub> <code class="code">= v</code> and (t = 0
+      or ([<code class="code">s</code>]<sub class="subscript">t-dt</sub><code class="code">= v'</code> and <code class="code">eq v v' = <span class="keyword">false</span></code>)) and
+      [<code class="code">iff</code>]<sub class="subscript">t</sub> = <code class="code"><span class="keyword">true</span></code>, <code class="code">tr</code> is invoked with <code class="code">v</code>.<br>
+</div>
+<br>
+<a name="1_Fromevents"></a>
+<h1>From events</h1><br>
+<pre><span class="keyword">val</span> <a name="VALhold"></a>hold : <code class="type">?eq:('a -> 'a -> bool) -> 'a -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">hold i e</code> has the value of <code class="code">e</code>'s last occurrence or <code class="code">i</code> if there 
+      wasn't any.
+      <ul>
+<li>[<code class="code">hold i e</code>]<sub class="subscript">t</sub> <code class="code">= i</code> if [<code class="code">e</code>]<sub class="subscript">&lt;=t</sub> <code class="code">= <span class="constructor">None</span></code></li>
+<li>[<code class="code">hold i e</code>]<sub class="subscript">t</sub> <code class="code">= v</code> if [<code class="code">e</code>]<sub class="subscript">&lt;=t</sub> <code class="code">= <span class="constructor">Some</span> v</code></li>
+</ul>
+<br>
+</div>
+<br>
+<a name="tr"></a>
+<h1>Transforming and filtering</h1><br>
+<pre><span class="keyword">val</span> <a name="VALapp"></a>app : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('b -> 'a) <a href="React.html#TYPEsignal">React.signal</a> -> 'b <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">app sf s</code> holds the value of <code class="code">sf</code> applied
+      to the value of <code class="code">s</code>, [<code class="code">app sf s</code>]<sub class="subscript">t</sub> 
+      <code class="code">=</code> [<code class="code">sf</code>]<sub class="subscript">t</sub> [<code class="code">s</code>]<sub class="subscript">t</sub>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALmap"></a>map : <code class="type">?eq:('a -> 'a -> bool) -> ('b -> 'a) -> 'b <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">map f s</code> is <code class="code">s</code> transformed by <code class="code">f</code>, [<code class="code">map f s</code>]<sub class="subscript">t</sub> = <code class="code">f</code> [<code class="code">s</code>]<sub class="subscript">t</sub>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfilter"></a>filter : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('a -> bool) -> 'a -> 'a <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">filter f i s</code> is <code class="code">s</code>'s values that satisfy <code class="code">p</code>. If a value does not
+      satisfy <code class="code">p</code> it holds the last value that was satisfied or <code class="code">i</code> if
+      there is none.      
+      <ul>
+<li>[<code class="code">filter p s</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">s</code>]<sub class="subscript">t</sub> if <code class="code">p</code> [<code class="code">s</code>]<sub class="subscript">t</sub><code class="code"> = <span class="keyword">true</span></code>.</li>
+<li>[<code class="code">filter p s</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">s</code>]<sub class="subscript">t'</sub> if <code class="code">p</code> [<code class="code">s</code>]<sub class="subscript">t</sub><code class="code"> = <span class="keyword">false</span></code>
+          and t' is the greatest t' &lt; t with <code class="code">p</code> [<code class="code">s</code>]<sub class="subscript">t'</sub><code class="code"> = <span class="keyword">true</span></code>.</li>
+<li>[<code class="code">filter p e</code>]<sub class="subscript">t</sub> <code class="code">= i</code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfmap"></a>fmap : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('b -> 'a option) -> 'a -> 'b <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">fmap fm i s</code> is <code class="code">s</code> filtered and mapped by <code class="code">fm</code>.
+      <ul>
+<li>[<code class="code">fmap fm i s</code>]<sub class="subscript">t</sub> <code class="code">=</code> v if <code class="code">fm</code> [<code class="code">s</code>]<sub class="subscript">t</sub><code class="code"> = <span class="constructor">Some</span> v</code>.</li>
+<li>[<code class="code">fmap fm i s</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">fmap fm i s</code>]<sub class="subscript">t'</sub> if <code class="code">fm</code> 
+         [<code class="code">s</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> and t' is the greatest t' &lt; t with <code class="code">fm</code> 
+         [<code class="code">s</code>]<sub class="subscript">t'</sub> <code class="code">&lt;&gt; <span class="constructor">None</span></code>.</li>
+<li>[<code class="code">fmap fm i s</code>]<sub class="subscript">t</sub> <code class="code">= i</code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALdiff"></a>diff : <code class="type">('a -> 'a -> 'b) -> 'a <a href="React.html#TYPEsignal">React.signal</a> -> 'b <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">diff f s</code> is an event with occurrences whenever <code class="code">s</code> changes from
+      <code class="code">v'</code> to <code class="code">v</code> and <code class="code">eq v v'</code> is <code class="code"><span class="keyword">false</span></code> (<code class="code">eq</code> is the signal's equality
+      function).  The value of the occurrence is <code class="code">f v v'</code>.
+      <ul>
+<li>[<code class="code">diff f s</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> d</code> 
+      if [<code class="code">s</code>]<sub class="subscript">t</sub> <code class="code">= v</code> and [<code class="code">s</code>]<sub class="subscript">t-dt</sub> <code class="code">= v'</code> and <code class="code">eq v v' = <span class="keyword">false</span></code>
+      and <code class="code">f v v' = d</code>.</li>
+<li>[<code class="code">diff f s</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALchanges"></a>changes : <code class="type">'a <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">changes s</code> is <code class="code">diff (<span class="keyword">fun</span> v _ <span class="keywordsign">-&gt;</span> v) s</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALsample"></a>sample : <code class="type">('a -> 'b -> 'c) -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'b <a href="React.html#TYPEsignal">React.signal</a> -> 'c <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">sample f e s</code> samples <code class="code">s</code> at <code class="code">e</code>'s occurrences.
+      <ul>
+<li>[<code class="code">sample f e s</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> (f ev sv)</code> if [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> ev</code>
+         and  [<code class="code">s</code>]<sub class="subscript">t</sub> <code class="code">= sv</code>.</li>
+<li>[<code class="code">sample e s</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALwhen_"></a>when_ : <code class="type">?eq:('a -> 'a -> bool) -><br>       bool <a href="React.html#TYPEsignal">React.signal</a> -> 'a -> 'a <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">when_ c i s</code> is the signal <code class="code">s</code> whenever <code class="code">c</code> is <code class="code"><span class="keyword">true</span></code>.
+      When <code class="code">c</code> is <code class="code"><span class="keyword">false</span></code> it holds the last value <code class="code">s</code> had when
+      <code class="code">c</code> was the last time <code class="code"><span class="keyword">true</span></code> or <code class="code">i</code> if it never was.
+      <ul>
+<li>[<code class="code">when_ c i s</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">s</code>]<sub class="subscript">t</sub> if [<code class="code">c</code>]<sub class="subscript">t</sub> <code class="code">= <span class="keyword">true</span></code></li>
+<li>[<code class="code">when_ c i s</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">s</code>]<sub class="subscript">t'</sub> if [<code class="code">c</code>]<sub class="subscript">t</sub> <code class="code">= <span class="keyword">false</span></code> 
+         where t' is the greatest t' &lt; t with [<code class="code">c</code>]<sub class="subscript">t'</sub> <code class="code">= <span class="keyword">true</span></code>.</li>
+<li>[<code class="code">when_ c i s</code>]<sub class="subscript">t</sub> <code class="code">=</code> <code class="code">i</code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALdismiss"></a>dismiss : <code class="type">?eq:('a -> 'a -> bool) -><br>       'b <a href="React.html#TYPEevent">React.event</a> -> 'a -> 'a <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">dismiss c i s</code> is the signal <code class="code">s</code> except changes when <code class="code">c</code> occurs
+      are ignored. If <code class="code">c</code> occurs initially <code class="code">i</code> is used.
+      <ul>
+<li>[<code class="code">dismiss c i s</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">s</code>]<sub class="subscript">t'</sub>
+         where t' is the greatest t' &lt;= t with [<code class="code">c</code>]<sub class="subscript">t'</sub> <code class="code">= <span class="constructor">None</span></code> and
+         [<code class="code">s</code>]<sub class="subscript">t'-dt</sub> <code class="code">&lt;&gt;</code> [<code class="code">s</code>]<sub class="subscript">t'</sub></li>
+<li>[<code class="code">dismiss_ c i s</code>]<sub class="subscript">0</sub> <code class="code">=</code> <code class="code">v</code> where <code class="code">v = i</code> if
+	  [<code class="code">c</code>]<sub class="subscript">0</sub> <code class="code">= <span class="constructor">Some</span> _</code> and <code class="code">v =</code> [<code class="code">s</code>]<sub class="subscript">0</sub> otherwise.</li>
+</ul>
+<br>
+</div>
+<br>
+<a name="acc"></a>
+<h1>Accumulating</h1><br>
+<pre><span class="keyword">val</span> <a name="VALaccum"></a>accum : <code class="type">?eq:('a -> 'a -> bool) -> ('a -> 'a) <a href="React.html#TYPEevent">React.event</a> -> 'a -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">accum e i</code> is <code class="code"><span class="constructor">S</span>.hold i (</code><a href="React.E.html#VALaccum"><code class="code"><span class="constructor">React</span>.<span class="constructor">E</span>.accum</code></a><code class="code"> e i)</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfold"></a>fold : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('a -> 'b -> 'a) -> 'a -> 'b <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">fold f i e</code> is <code class="code"><span class="constructor">S</span>.hold i (</code><a href="React.E.html#VALfold"><code class="code"><span class="constructor">React</span>.<span class="constructor">E</span>.fold</code></a><code class="code"> f i e)</code>.<br>
+</div>
+<br>
+<a name="combine"></a>
+<h1>Combining</h1><br>
+<pre><span class="keyword">val</span> <a name="VALmerge"></a>merge : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('a -> 'b -> 'a) -> 'a -> 'b <a href="React.html#TYPEsignal">React.signal</a> list -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">merge f a sl</code> merges the value of every signal in <code class="code">sl</code>
+	  using <code class="code">f</code> and the accumulator <code class="code">a</code>. 
+<p>
+
+	  [<code class="code">merge f a sl</code>]<sub class="subscript">t</sub> 
+	  <code class="code">= <span class="constructor">List</span>.fold_left f a (<span class="constructor">List</span>.map</code> []<sub class="subscript">t</sub><code class="code"> sl)</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALswitch"></a>switch : <code class="type">?eq:('a -> 'a -> bool) -><br>       'a <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a> <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><div class="info">
+<code class="code">switch s es</code> is <code class="code">s</code> until there is an 
+      occurrence <code class="code">s'</code> on <code class="code">es</code>, <code class="code">s'</code> is then used 
+      until there is a new occurrence on <code class="code">es</code>, etc.. 
+      <ul>
+<li>[<code class="code">switch s es</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">s</code>]<sub class="subscript">t</sub> if [<code class="code">es</code>]<sub class="subscript">&lt;=t</sub> <code class="code">= <span class="constructor">None</span></code>.</li>
+<li>[<code class="code">switch s es</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">s'</code>]<sub class="subscript">t</sub> if [<code class="code">es</code>]<sub class="subscript">&lt;=t</sub> 
+	  <code class="code">= <span class="constructor">Some</span> s'</code>.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfix"></a>fix : <code class="type">?eq:('a -> 'a -> bool) -><br>       'a -> ('a <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a> * 'b) -> 'b</code></pre><div class="info">
+<code class="code">fix i sf</code> allow to refer to the value a signal had an
+      infinitesimal amount of time before.
+<p>
+
+      In <code class="code">fix sf</code>, <code class="code">sf</code> is called with a signal <code class="code">s</code> that represents
+      the signal returned by <code class="code">sf</code> delayed by an infinitesimal amount
+      time. If <code class="code">s', r = sf s</code> then <code class="code">r</code> is returned by <code class="code">fix</code> and <code class="code">s</code>
+      is such that :
+      <ul>
+<li>[<code class="code">s</code>]<sub class="subscript">t</sub> <code class="code">=</code> <code class="code">i</code> for t = 0. </li>
+<li>[<code class="code">s</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">s'</code>]<sub class="subscript">t-dt</sub> otherwise.</li>
+</ul>
+ 
+<p>
+
+      <code class="code">eq</code> is the equality used by <code class="code">s</code>. 
+<p>
+
+      <b>Raises.</b> <code class="code"><span class="constructor">Invalid_argument</span></code> if <code class="code">s'</code> is directly a delayed signal (i.e. 
+      a signal given to a fixing function).
+<p>
+
+      <b>Note.</b> Regarding values depending on the result <code class="code">r</code> of 
+      <code class="code">s', r = sf s</code> the following two cases need to be distinguished :
+      <ul>
+<li>After <code class="code">sf s</code> is applied, <code class="code">s'</code> does not depend on 
+         a value that is in a cycle and <code class="code">s</code> has no dependents in a cycle (e.g
+         in the simple case where <code class="code">fix</code> is applied outside a cycle). 
+<p>
+
+         In that case if the initial value of <code class="code">s'</code> differs from <code class="code">i</code>,
+         <code class="code">s</code> and its dependents need to be updated and a special
+         update cycle will be triggered for this. Values
+         depending on the result <code class="code">r</code> will be created only after this
+         special update cycle has finished (e.g. they won't see
+         the <code class="code">i</code> of <code class="code">s</code> if <code class="code">r = s</code>).</li>
+<li>Otherwise, values depending on <code class="code">r</code> will be created in the same
+         cycle as <code class="code">s</code> and <code class="code">s'</code> (e.g. they will see the <code class="code">i</code> of <code class="code">s</code> if <code class="code">r = s</code>).</li>
+</ul>
+<br>
+</div>
+<br>
+<a name="lifting"></a>
+<h1>Lifting</h1> 
+<p>
+
+     Lifting combinators. For a given <code class="code">n</code> the semantics is :
+<p>
+
+     [<code class="code">ln f a1</code> ... <code class="code">an</code>]<sub class="subscript">t</sub> = f [<code class="code">a1</code>]<sub class="subscript">t</sub> ... [<code class="code">an</code>]<sub class="subscript">t</sub><br>
+<pre><span class="keyword">val</span> <a name="VALl1"></a>l1 : <code class="type">?eq:('a -> 'a -> bool) -> ('b -> 'a) -> 'b <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><pre><span class="keyword">val</span> <a name="VALl2"></a>l2 : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('b -> 'c -> 'a) -> 'b <a href="React.html#TYPEsignal">React.signal</a> -> 'c <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><pre><span class="keyword">val</span> <a name="VALl3"></a>l3 : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('b -> 'c -> 'd -> 'a) -><br>       'b <a href="React.html#TYPEsignal">React.signal</a> -> 'c <a href="React.html#TYPEsignal">React.signal</a> -> 'd <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><pre><span class="keyword">val</span> <a name="VALl4"></a>l4 : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('b -> 'c -> 'd -> 'e -> 'a) -><br>       'b <a href="React.html#TYPEsignal">React.signal</a> -><br>       'c <a href="React.html#TYPEsignal">React.signal</a> -> 'd <a href="React.html#TYPEsignal">React.signal</a> -> 'e <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><pre><span class="keyword">val</span> <a name="VALl5"></a>l5 : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('b -> 'c -> 'd -> 'e -> 'f -> 'a) -><br>       'b <a href="React.html#TYPEsignal">React.signal</a> -><br>       'c <a href="React.html#TYPEsignal">React.signal</a> -><br>       'd <a href="React.html#TYPEsignal">React.signal</a> -> 'e <a href="React.html#TYPEsignal">React.signal</a> -> 'f <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><pre><span class="keyword">val</span> <a name="VALl6"></a>l6 : <code class="type">?eq:('a -> 'a -> bool) -><br>       ('b -> 'c -> 'd -> 'e -> 'f -> 'g -> 'a) -><br>       'b <a href="React.html#TYPEsignal">React.signal</a> -><br>       'c <a href="React.html#TYPEsignal">React.signal</a> -><br>       'd <a href="React.html#TYPEsignal">React.signal</a> -><br>       'e <a href="React.html#TYPEsignal">React.signal</a> -> 'f <a href="React.html#TYPEsignal">React.signal</a> -> 'g <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEsignal">React.signal</a></code></pre><br>
+The following modules lift some of <code class="code"><span class="constructor">Pervasives</span></code> functions and 
+      operators.<br>
+<pre><span class="keyword">module</span> <a href="React.S.Bool.html">Bool</a>: <code class="code"><span class="keyword">sig</span></code> <a href="React.S.Bool.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="React.S.Int.html">Int</a>: <code class="code"><span class="keyword">sig</span></code> <a href="React.S.Int.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="React.S.Float.html">Float</a>: <code class="code"><span class="keyword">sig</span></code> <a href="React.S.Float.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="React.S.Pair.html">Pair</a>: <code class="code"><span class="keyword">sig</span></code> <a href="React.S.Pair.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><pre><span class="keyword">module</span> <a href="React.S.Compare.html">Compare</a>: <code class="code"><span class="keyword">sig</span></code> <a href="React.S.Compare.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><br>
+<a name="special"></a>
+<h1>Combinator specialization</h1>
+<p>
+
+      Given an equality function <code class="code">equal</code> and a type <code class="code">t</code>, the functor 
+      <a href="React.S.Make.html"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.<span class="constructor">Make</span></code></a> automatically applies the <code class="code">eq</code> parameter of the combinators. 
+      The outcome is combinators whose <em>results</em> are signals with 
+      values in <code class="code">t</code>.
+<p>
+
+      Basic types are already specialized in the module <a href="React.S.Special.html"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.<span class="constructor">Special</span></code></a>, open 
+      this module to use them.<br>
+<pre><span class="keyword">module type</span> <a href="React.S.EqType.html">EqType</a> = <code class="code"><span class="keyword">sig</span></code> <a href="React.S.EqType.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info">
+Input signature of <a href="React.S.Make.html"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.<span class="constructor">Make</span></code></a>
+</div>
+<pre><span class="keyword">module type</span> <a href="React.S.S.html">S</a> = <code class="code"><span class="keyword">sig</span></code> <a href="React.S.S.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info">
+Output signature of <a href="React.S.Make.html"><code class="code"><span class="constructor">React</span>.<span class="constructor">S</span>.<span class="constructor">Make</span></code></a>
+</div>
+<pre><span class="keyword">module</span> <a href="React.S.Make.html">Make</a>: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">Eq</span></code><code class="code"> : </code><code class="type"><a href="React.S.EqType.html">EqType</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="type"><a href="React.S.S.html">S</a></code><code class="type">  with type 'a v = 'a Eq.t</code></div></pre><div class="info">
+Functor specializing the combinators for the given signal value type
+</div>
+<pre><span class="keyword">module</span> <a href="React.S.Special.html">Special</a>: <code class="code"><span class="keyword">sig</span></code> <a href="React.S.Special.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info">
+Specialization for booleans, integers and floats.
+</div>
+</body></html>

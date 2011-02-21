@@ -1,0 +1,67 @@
+framepp.cmo: ocsigen_http_frame.cmi http_headers.cmi framepp.cmi
+framepp.cmx: ocsigen_http_frame.cmx http_headers.cmx framepp.cmi
+http_headers.cmo: http_headers.cmi
+http_headers.cmx: http_headers.cmi
+multipart.cmo: ../commons/ocsigen_stream.cmi ../commons/ocsigen_lib.cmi
+multipart.cmx: ../commons/ocsigen_stream.cmx ../commons/ocsigen_lib.cmx
+ocsigen_charset_mime.cmo: ../commons/ocsigen_messages.cmi \
+    ../commons/ocsigen_lib.cmi ../commons/ocsigen_config.cmi \
+    ocsigen_charset_mime.cmi
+ocsigen_charset_mime.cmx: ../commons/ocsigen_messages.cmx \
+    ../commons/ocsigen_lib.cmx ../commons/ocsigen_config.cmx \
+    ocsigen_charset_mime.cmi
+ocsigen_cookies.cmo: ../commons/ocsigen_lib.cmi ocsigen_cookies.cmi
+ocsigen_cookies.cmx: ../commons/ocsigen_lib.cmx ocsigen_cookies.cmi
+ocsigen_headers.cmo: ocsigen_senders.cmi ../commons/ocsigen_lib.cmi \
+    ocsigen_http_frame.cmi ../server/ocsigen_extensions.cmi http_headers.cmi \
+    ocsigen_headers.cmi
+ocsigen_headers.cmx: ocsigen_senders.cmx ../commons/ocsigen_lib.cmx \
+    ocsigen_http_frame.cmx ../server/ocsigen_extensions.cmx http_headers.cmx \
+    ocsigen_headers.cmi
+ocsigen_http_com.cmo: ../commons/ocsigen_stream.cmi \
+    ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ocsigen_http_frame.cmi ocsigen_cookies.cmi ../commons/ocsigen_config.cmi \
+    http_headers.cmi framepp.cmi ocsigen_http_com.cmi
+ocsigen_http_com.cmx: ../commons/ocsigen_stream.cmx \
+    ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ocsigen_http_frame.cmx ocsigen_cookies.cmx ../commons/ocsigen_config.cmx \
+    http_headers.cmx framepp.cmx ocsigen_http_com.cmi
+ocsigen_http_frame.cmo: ../commons/ocsigen_stream.cmi \
+    ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ocsigen_cookies.cmi http_headers.cmi ocsigen_http_frame.cmi
+ocsigen_http_frame.cmx: ../commons/ocsigen_stream.cmx \
+    ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ocsigen_cookies.cmx http_headers.cmx ocsigen_http_frame.cmi
+ocsigen_range.cmo: ../commons/ocsigen_stream.cmi ocsigen_http_frame.cmi \
+    ../server/ocsigen_extensions.cmi ../commons/ocsigen_config.cmi \
+    http_headers.cmi ocsigen_range.cmi
+ocsigen_range.cmx: ../commons/ocsigen_stream.cmx ocsigen_http_frame.cmx \
+    ../server/ocsigen_extensions.cmx ../commons/ocsigen_config.cmx \
+    http_headers.cmx ocsigen_range.cmi
+ocsigen_senders.cmo: ../commons/ocsigen_stream.cmi \
+    ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ocsigen_http_frame.cmi ocsigen_http_com.cmi ocsigen_cookies.cmi \
+    ../commons/ocsigen_config.cmi ocsigen_charset_mime.cmi http_headers.cmi \
+    ocsigen_senders.cmi
+ocsigen_senders.cmx: ../commons/ocsigen_stream.cmx \
+    ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ocsigen_http_frame.cmx ocsigen_http_com.cmx ocsigen_cookies.cmx \
+    ../commons/ocsigen_config.cmx ocsigen_charset_mime.cmx http_headers.cmx \
+    ocsigen_senders.cmi
+test_parser.cmo: ocsigen_http_frame.cmi
+test_parser.cmx: ocsigen_http_frame.cmx
+test_pp.cmo: ocsigen_http_frame.cmi framepp.cmi
+test_pp.cmx: ocsigen_http_frame.cmx framepp.cmx
+framepp.cmi: ocsigen_http_frame.cmi
+http_headers.cmi:
+ocsigen_charset_mime.cmi:
+ocsigen_cookies.cmi: ../commons/ocsigen_lib.cmi
+ocsigen_headers.cmi: ../commons/ocsigen_lib.cmi ocsigen_http_frame.cmi \
+    ../server/ocsigen_extensions.cmi
+ocsigen_http_com.cmi: ../commons/ocsigen_stream.cmi ocsigen_http_frame.cmi \
+    http_headers.cmi
+ocsigen_http_frame.cmi: ../commons/ocsigen_stream.cmi \
+    ../commons/ocsigen_lib.cmi ocsigen_cookies.cmi http_headers.cmi
+ocsigen_range.cmi: ocsigen_http_frame.cmi ../server/ocsigen_extensions.cmi
+ocsigen_senders.cmi: ../commons/ocsigen_stream.cmi ocsigen_http_frame.cmi \
+    ocsigen_http_com.cmi ocsigen_cookies.cmi ocsigen_charset_mime.cmi

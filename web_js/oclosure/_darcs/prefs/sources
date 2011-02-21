@@ -1,0 +1,9 @@
+repo:/data/users/pad/github/ocsigen-sync/oclosure
+thisrepo:/data/users/pad/github/fork-ocsigen/javascript/oclosure
+cache:/home/pad/.darcs/cache
+repo:http://ocsigen.org/darcs/oclosure
+thisrepo:/Users/yoann.padioleau/software-src/lang-ml/web-ocsigen/oclosure
+cache:/Users/yoann.padioleau/.darcs/cache
+repo:/tmp/oclosure
+thisrepo:/var/www/darcs/oclosure
+cache:/home/balat/.darcs/cache

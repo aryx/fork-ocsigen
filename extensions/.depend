@@ -1,0 +1,105 @@
+ocsigen_LocalFiles.cmi: ../http/ocsigen_http_frame.cmi \
+    ../server/ocsigen_extensions.cmi
+accesscontrol.cmi: ../server/ocsigen_extensions.cmi
+authbasic.cmi:
+ocsigen_comet.cmi: ../commons/ocsigen_stream.cmi
+ocsigen_LocalFiles.cmo: ../http/ocsigen_senders.cmi \
+    ../commons/ocsigen_messages.cmi ../server/ocsigen_extensions.cmi \
+    ocsigen_LocalFiles.cmi
+ocsigen_LocalFiles.cmx: ../http/ocsigen_senders.cmx \
+    ../commons/ocsigen_messages.cmx ../server/ocsigen_extensions.cmx \
+    ocsigen_LocalFiles.cmi
+staticmod.cmo: ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ../http/ocsigen_http_frame.cmi ../server/ocsigen_extensions.cmi \
+    ocsigen_LocalFiles.cmi
+staticmod.cmx: ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ../http/ocsigen_http_frame.cmx ../server/ocsigen_extensions.cmx \
+    ocsigen_LocalFiles.cmx
+cgimod.cmo: ../commons/ocsigen_stream.cmi ../http/ocsigen_senders.cmi \
+    ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ../http/ocsigen_http_frame.cmi ../http/ocsigen_http_com.cmi \
+    ../server/ocsigen_extensions.cmi ../http/ocsigen_cookies.cmi \
+    ../commons/ocsigen_config.cmi ../http/http_headers.cmi \
+    ../http/framepp.cmi
+cgimod.cmx: ../commons/ocsigen_stream.cmx ../http/ocsigen_senders.cmx \
+    ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ../http/ocsigen_http_frame.cmx ../http/ocsigen_http_com.cmx \
+    ../server/ocsigen_extensions.cmx ../http/ocsigen_cookies.cmx \
+    ../commons/ocsigen_config.cmx ../http/http_headers.cmx \
+    ../http/framepp.cmx
+redirectmod.cmo: ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ../http/ocsigen_http_frame.cmi ../server/ocsigen_extensions.cmi
+redirectmod.cmx: ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ../http/ocsigen_http_frame.cmx ../server/ocsigen_extensions.cmx
+revproxy.cmo: ../commons/ocsigen_stream.cmi ../commons/ocsigen_messages.cmi \
+    ../commons/ocsigen_lib.cmi ../http/ocsigen_http_frame.cmi \
+    ../server/ocsigen_http_client.cmi ../http/ocsigen_headers.cmi \
+    ../server/ocsigen_extensions.cmi ../http/http_headers.cmi
+revproxy.cmx: ../commons/ocsigen_stream.cmx ../commons/ocsigen_messages.cmx \
+    ../commons/ocsigen_lib.cmx ../http/ocsigen_http_frame.cmx \
+    ../server/ocsigen_http_client.cmx ../http/ocsigen_headers.cmx \
+    ../server/ocsigen_extensions.cmx ../http/http_headers.cmx
+extensiontemplate.cmo: ../http/ocsigen_senders.cmi \
+    ../server/ocsigen_extensions.cmi
+extensiontemplate.cmx: ../http/ocsigen_senders.cmx \
+    ../server/ocsigen_extensions.cmx
+accesscontrol.cmo: ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ../http/ocsigen_http_frame.cmi ../server/ocsigen_extensions.cmi \
+    ../http/ocsigen_cookies.cmi ../http/http_headers.cmi ../http/framepp.cmi \
+    accesscontrol.cmi
+accesscontrol.cmx: ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ../http/ocsigen_http_frame.cmx ../server/ocsigen_extensions.cmx \
+    ../http/ocsigen_cookies.cmx ../http/http_headers.cmx ../http/framepp.cmx \
+    accesscontrol.cmi
+staticmod.cmo: ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ../http/ocsigen_http_frame.cmi ../server/ocsigen_extensions.cmi \
+    ocsigen_LocalFiles.cmi
+staticmod.cmx: ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ../http/ocsigen_http_frame.cmx ../server/ocsigen_extensions.cmx \
+    ocsigen_LocalFiles.cmx
+cgimod.cmo: ../commons/ocsigen_stream.cmi ../http/ocsigen_senders.cmi \
+    ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ../http/ocsigen_http_frame.cmi ../http/ocsigen_http_com.cmi \
+    ../server/ocsigen_extensions.cmi ../http/ocsigen_cookies.cmi \
+    ../commons/ocsigen_config.cmi ../http/http_headers.cmi \
+    ../http/framepp.cmi
+cgimod.cmx: ../commons/ocsigen_stream.cmx ../http/ocsigen_senders.cmx \
+    ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ../http/ocsigen_http_frame.cmx ../http/ocsigen_http_com.cmx \
+    ../server/ocsigen_extensions.cmx ../http/ocsigen_cookies.cmx \
+    ../commons/ocsigen_config.cmx ../http/http_headers.cmx \
+    ../http/framepp.cmx
+userconf.cmo: ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ../server/ocsigen_extensions.cmi ../http/ocsigen_cookies.cmi
+userconf.cmx: ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ../server/ocsigen_extensions.cmx ../http/ocsigen_cookies.cmx
+outputfilter.cmo: ../http/ocsigen_http_frame.cmi ../http/ocsigen_headers.cmi \
+    ../server/ocsigen_extensions.cmi ../http/http_headers.cmi
+outputfilter.cmx: ../http/ocsigen_http_frame.cmx ../http/ocsigen_headers.cmx \
+    ../server/ocsigen_extensions.cmx ../http/http_headers.cmx
+authbasic.cmo: ../commons/ocsigen_messages.cmi ../http/ocsigen_http_frame.cmi \
+    ../server/ocsigen_extensions.cmi ../http/ocsigen_cookies.cmi \
+    ../http/http_headers.cmi authbasic.cmi
+authbasic.cmx: ../commons/ocsigen_messages.cmx ../http/ocsigen_http_frame.cmx \
+    ../server/ocsigen_extensions.cmx ../http/ocsigen_cookies.cmx \
+    ../http/http_headers.cmx authbasic.cmi
+rewritemod.cmo: ../commons/ocsigen_messages.cmi \
+    ../server/ocsigen_extensions.cmi ../http/ocsigen_cookies.cmi
+rewritemod.cmx: ../commons/ocsigen_messages.cmx \
+    ../server/ocsigen_extensions.cmx ../http/ocsigen_cookies.cmx
+extendconfiguration.cmo: ../server/ocsigen_parseconfig.cmi \
+    ../commons/ocsigen_messages.cmi ../server/ocsigen_extensions.cmi \
+    ../http/ocsigen_cookies.cmi ../commons/ocsigen_config.cmi \
+    ../http/ocsigen_charset_mime.cmi
+extendconfiguration.cmx: ../server/ocsigen_parseconfig.cmx \
+    ../commons/ocsigen_messages.cmx ../server/ocsigen_extensions.cmx \
+    ../http/ocsigen_cookies.cmx ../commons/ocsigen_config.cmx \
+    ../http/ocsigen_charset_mime.cmx
+ocsigen_comet.cmo: ../commons/ocsigen_stream.cmi \
+    ../commons/ocsigen_messages.cmi ../commons/ocsigen_lib.cmi \
+    ../http/ocsigen_http_frame.cmi ../server/ocsigen_extensions.cmi \
+    ../commons/ocsigen_config.cmi ocsigen_comet.cmi
+ocsigen_comet.cmx: ../commons/ocsigen_stream.cmx \
+    ../commons/ocsigen_messages.cmx ../commons/ocsigen_lib.cmx \
+    ../http/ocsigen_http_frame.cmx ../server/ocsigen_extensions.cmx \
+    ../commons/ocsigen_config.cmx ocsigen_comet.cmi

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Js.html">
+<link rel="next" href="Dom_html.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Js" rel="Chapter" href="Js.html">
+<link title="Dom" rel="Chapter" href="Dom.html">
+<link title="Dom_html" rel="Chapter" href="Dom_html.html">
+<link title="Dom_events" rel="Chapter" href="Dom_events.html">
+<link title="Lwt_js" rel="Chapter" href="Lwt_js.html">
+<link title="Firebug" rel="Chapter" href="Firebug.html">
+<link title="Regexp" rel="Chapter" href="Regexp.html">
+<link title="Url" rel="Chapter" href="Url.html">
+<link title="XmlHttpRequest" rel="Chapter" href="XmlHttpRequest.html">
+<link title="Event_arrows" rel="Chapter" href="Event_arrows.html"><link title="DOM objects" rel="Section" href="#2_DOMobjects">
+<link title="Helper functions" rel="Section" href="#2_Helperfunctions">
+<title>Dom</title>
+</head>
+<body>
+<div class="navbar"><a href="Js.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Dom_html.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Dom.html">Dom</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Dom: <code class="code">sig</code> <a href="Dom.html">..</a> <code class="code">end</code></pre>DOM binding
+<p>
+
+This is a partial binding to the DOM Core API.<br>
+<hr width="100%">
+<br>
+<span id="2_DOMobjects"><h2>DOM objects</h2></span><br>
+<pre><span id="TYPEnodeList"><span class="keyword">class type</span> <code class="type">['a]</code> <a href="Dom.nodeList-c.html">nodeList</a></span> = <code class="code">object</code> <a href="Dom.nodeList-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of <code class="code">NodeList</code> objects.
+</div>
+<br><code><span id="TYPEnodeType"><span class="keyword">type</span> <code class="type"></code>nodeType</span> = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">OTHER</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">ELEMENT</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">ATTRIBUTE</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">TEXT</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">CDATA_SECTION</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">ENTITY_REFERENCE</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">ENTITY</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">PROCESSING_INSTRUCTION</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">COMMENT</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">DOCUMENT</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">DOCUMENT_TYPE</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">DOCUMENT_FRAGMENT</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">NOTATION</span></code></td>
+
+</tr></table>
+
+
+<pre><span id="TYPEnode"><span class="keyword">class type</span> <a href="Dom.node-c.html">node</a></span> = <code class="code">object</code> <a href="Dom.node-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of <code class="code">Node</code> objects.
+</div>
+<pre><span id="TYPEelement"><span class="keyword">class type</span> <a href="Dom.element-c.html">element</a></span> = <code class="code">object</code> <a href="Dom.element-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of <code class="code">Element</code> objects.
+</div>
+<pre><span id="TYPEcharacterData"><span class="keyword">class type</span> <a href="Dom.characterData-c.html">characterData</a></span> = <code class="code">object</code> <a href="Dom.characterData-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of <code class="code">CharacterData</code> objects.
+</div>
+<pre><span id="TYPEtext"><span class="keyword">class type</span> <a href="Dom.text-c.html">text</a></span> = <code class="type"><a href="Dom.characterData-c.html">characterData</a></code></pre><div class="info">
+Specification of <code class="code">Text</code> objects.
+</div>
+<pre><span id="TYPEdocumentFragment"><span class="keyword">class type</span> <a href="Dom.documentFragment-c.html">documentFragment</a></span> = <code class="type"><a href="Dom.node-c.html">node</a></code></pre><div class="info">
+Specification of <code class="code">DocumentFragment</code> objects.
+</div>
+<pre><span id="TYPEdocument"><span class="keyword">class type</span> <code class="type">['a]</code> <a href="Dom.document-c.html">document</a></span> = <code class="code">object</code> <a href="Dom.document-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of <code class="code">Document</code> objects.
+</div>
+<br>
+<span id="2_Helperfunctions"><h2>Helper functions</h2></span><br>
+<pre><span id="VALinsertBefore"><span class="keyword">val</span> insertBefore</span> : <code class="type">#<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> -> #<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> -> #<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> <a href="Js.html#TYPEopt">Js.opt</a> -> unit</code></pre><div class="info">
+The expression <code class="code">insertBefore n c p</code> behave the same as
+      <code class="code">n##insertBefore(c, p)</code> but avoid the need of coercing the
+      different objects to <code class="code">node t</code>.<br>
+</div>
+<pre><span id="VALreplaceChild"><span class="keyword">val</span> replaceChild</span> : <code class="type">#<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> -> #<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> -> #<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> -> unit</code></pre><div class="info">
+The expression <code class="code">replaceChild n c p</code> behave the same as
+      <code class="code">n##replaceChild(c, p)</code> but avoid the need of coercing the
+      different objects to <code class="code">node t</code>.<br>
+</div>
+<pre><span id="VALremoveChild"><span class="keyword">val</span> removeChild</span> : <code class="type">#<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> -> #<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> -> unit</code></pre><div class="info">
+The expression <code class="code">removeChild n c</code> behave the same as
+      <code class="code">n##removeChild(c)</code> but avoid the need of coercing the
+      different objects to <code class="code">node t</code>.<br>
+</div>
+<pre><span id="VALappendChild"><span class="keyword">val</span> appendChild</span> : <code class="type">#<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> -> #<a href="Dom.node-c.html">node</a> <a href="Js.html#TYPEt">Js.t</a> -> unit</code></pre><div class="info">
+The expression <code class="code">appendChild n c</code> behave the same as
+      <code class="code">n##appendChild(c)</code> but avoid the need of coercing the
+      different objects to <code class="code">node t</code>.<br>
+</div>
+</body></html>

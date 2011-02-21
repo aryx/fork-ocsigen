@@ -1,0 +1,411 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Dom.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Js" rel="Chapter" href="Js.html">
+<link title="Dom" rel="Chapter" href="Dom.html">
+<link title="Dom_html" rel="Chapter" href="Dom_html.html">
+<link title="Dom_events" rel="Chapter" href="Dom_events.html">
+<link title="Lwt_js" rel="Chapter" href="Lwt_js.html">
+<link title="Firebug" rel="Chapter" href="Firebug.html">
+<link title="Regexp" rel="Chapter" href="Regexp.html">
+<link title="Url" rel="Chapter" href="Url.html">
+<link title="XmlHttpRequest" rel="Chapter" href="XmlHttpRequest.html">
+<link title="Event_arrows" rel="Chapter" href="Event_arrows.html"><link title="Dealing with null and undefined values." rel="Section" href="#2_Dealingwithnullandundefinedvalues">
+<link title="Types for specifying method and properties of Javascript objects" rel="Section" href="#2_TypesforspecifyingmethodandpropertiesofJavascriptobjects">
+<link title="Object constructors" rel="Section" href="#2_Objectconstructors">
+<link title="Callbacks to OCaml" rel="Section" href="#2_CallbackstoOCaml">
+<link title="Javascript standard objects" rel="Section" href="#2_Javascriptstandardobjects">
+<link title="Standard Javascript functions" rel="Section" href="#2_StandardJavascriptfunctions">
+<link title="Conversion functions between Javascript and OCaml types" rel="Section" href="#2_ConversionfunctionsbetweenJavascriptandOCamltypes">
+<link title="Convenience coercion functions" rel="Section" href="#2_Conveniencecoercionfunctions">
+<link title="Type checking operators." rel="Section" href="#2_Typecheckingoperators">
+<link title="Unsafe operations." rel="Section" href="#2_Unsafeoperations">
+<title>Js</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Dom.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Js.html">Js</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Js: <code class="code">sig</code> <a href="Js.html">..</a> <code class="code">end</code></pre>Javascript binding
+<p>
+
+    This module provides types and functions to interoperate with
+    Javascript values, and gives access to Javascript standard
+    objects.<br>
+<hr width="100%">
+<br>
+<span id="2_Dealingwithnullandundefinedvalues"><h2>Dealing with <code class="code">null</code> and <code class="code">undefined</code> values.</h2></span><br>
+<pre><span id="TYPEopt"><span class="keyword">type</span> <code class="type">+'a</code> opt</span> </pre>
+<div class="info">
+Type of possibly null values.<br>
+</div>
+
+<pre><span id="TYPEoptdef"><span class="keyword">type</span> <code class="type">+'a</code> optdef</span> </pre>
+<div class="info">
+Type of possibly undefined values.<br>
+</div>
+
+<pre><span id="VALnull"><span class="keyword">val</span> null</span> : <code class="type">'a <a href="Js.html#TYPEopt">opt</a></code></pre><div class="info">
+The <code class="code">null</code> value.<br>
+</div>
+<pre><span id="VALsome"><span class="keyword">val</span> some</span> : <code class="type">'a -> 'a <a href="Js.html#TYPEopt">opt</a></code></pre><div class="info">
+Consider a value into a possibly null value.<br>
+</div>
+<pre><span id="VALundefined"><span class="keyword">val</span> undefined</span> : <code class="type">'a <a href="Js.html#TYPEoptdef">optdef</a></code></pre><div class="info">
+The <code class="code">undefined</code> value<br>
+</div>
+<pre><span id="VALdef"><span class="keyword">val</span> def</span> : <code class="type">'a -> 'a <a href="Js.html#TYPEoptdef">optdef</a></code></pre><div class="info">
+Consider a value into a possibly undefined value.<br>
+</div>
+<pre><span class="keyword">module type</span> <a href="Js.OPT.html">OPT</a> = <code class="code">sig</code> <a href="Js.OPT.html">..</a> <code class="code">end</code></pre><div class="info">
+Signatures of a set of standard functions for manipulating
+    optional values.
+</div>
+<pre><span class="keyword">module</span> <a href="Js.Opt.html">Opt</a>: <code class="type"><a href="Js.OPT.html">OPT</a></code><code class="type">  with type 'a t = 'a opt</code></pre><div class="info">
+Standard functions for manipulating possibly null values.
+</div>
+<pre><span class="keyword">module</span> <a href="Js.Optdef.html">Optdef</a>: <code class="type"><a href="Js.OPT.html">OPT</a></code><code class="type">  with type 'a t = 'a optdef</code></pre><div class="info">
+Standard functions for manipulating possibly undefined values.
+</div>
+<br>
+<span id="2_TypesforspecifyingmethodandpropertiesofJavascriptobjects"><h2>Types for specifying method and properties of Javascript objects</h2></span><br>
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">+'a</code> t</span> </pre>
+<div class="info">
+Type of Javascript objects.  The type parameter is used to
+      specify more precisely an object.<br>
+</div>
+
+<pre><span id="TYPEmeth"><span class="keyword">type</span> <code class="type">+'a</code> meth</span> </pre>
+<div class="info">
+Type used to specify method types:
+      a Javascript object
+        <code class="code">&lt;m : t1 -&gt; t2 -&gt; ... -&gt; tn -&gt; t Js.meth&gt; Js.t</code>
+      has a Javascript method <code class="code">m</code> expecting <i>n</i> arguments
+      of types <code class="code">t1</code> to <code class="code">tn</code> and returns a value of type <code class="code">t</code>.<br>
+</div>
+
+<pre><span id="TYPEgen_prop"><span class="keyword">type</span> <code class="type">+'a</code> gen_prop</span> </pre>
+<div class="info">
+Type used to specify the properties of Javascript
+      objects.  In practice you should rarely need this type directly,
+      but should rather use the type abbreviations below instead.<br>
+</div>
+
+<pre><span id="TYPEreadonly_prop"><span class="keyword">type</span> <code class="type">'a</code> readonly_prop</span> = <code class="type">< get : 'a > <a href="Js.html#TYPEgen_prop">gen_prop</a></code> </pre>
+<div class="info">
+Type of read-only properties:
+      a Javascript object
+        <code class="code">&lt;p : t Js.readonly_prop&gt; Js.t</code>
+      has a read-only property <code class="code">p</code> of type <code class="code">t</code>.<br>
+</div>
+
+<pre><span id="TYPEwriteonly_prop"><span class="keyword">type</span> <code class="type">'a</code> writeonly_prop</span> = <code class="type">< set : 'a -> unit > <a href="Js.html#TYPEgen_prop">gen_prop</a></code> </pre>
+<div class="info">
+Type of write-only properties:
+      a Javascript object
+        <code class="code">&lt;p : t Js.writeonly_prop&gt; Js.t</code>
+      has a write-only property <code class="code">p</code> of type <code class="code">t</code>.<br>
+</div>
+
+<pre><span id="TYPEprop"><span class="keyword">type</span> <code class="type">'a</code> prop</span> = <code class="type">< get : 'a; set : 'a -> unit > <a href="Js.html#TYPEgen_prop">gen_prop</a></code> </pre>
+<div class="info">
+Type of read/write properties:
+      a Javascript object
+        <code class="code">&lt;p : t Js.writeonly_prop&gt; Js.t</code>
+      has a read/write property <code class="code">p</code> of type <code class="code">t</code>.<br>
+</div>
+
+<pre><span id="TYPEoptdef_prop"><span class="keyword">type</span> <code class="type">'a</code> optdef_prop</span> = <code class="type">< get : 'a <a href="Js.html#TYPEoptdef">optdef</a>; set : 'a -> unit > <a href="Js.html#TYPEgen_prop">gen_prop</a></code> </pre>
+<div class="info">
+Type of read/write properties that may be undefined:
+      you can set them to a value of some type <code class="code">t</code>, but if you read
+      them, you will get a value of type <code class="code">t optdef</code> (that may be
+      <code class="code">undefined</code>).<br>
+</div>
+
+<pre><span id="TYPEfloat_prop"><span class="keyword">type</span> <code class="type"></code>float_prop</span> = <code class="type">< get : float <a href="Js.html#TYPEt">t</a>; set : float -> unit > <a href="Js.html#TYPEgen_prop">gen_prop</a></code> </pre>
+<div class="info">
+Type of float properties:
+      you can set them to an OCaml <code class="code">float</code>, but you will get back a
+      native Javascript number of type <code class="code">float t</code>.<br>
+</div>
+
+<br>
+<span id="2_Objectconstructors"><h2>Object constructors</h2></span><br>
+<pre><span id="TYPEconstr"><span class="keyword">type</span> <code class="type">+'a</code> constr</span> </pre>
+<div class="info">
+A value of type <code class="code">(t1 -&gt; ... -&gt; tn -&gt; t Js.t) Js.constr</code> is a
+      Javascript constructor expecting <i>n</i> arguments of types <code class="code">t1</code>
+      to <code class="code">tn</code> and returning a Javascript object of type <code class="code">t Js.t</code>.  Use
+      the syntax extension <code class="code">jsnew c (e1, ..., en)</code> to build an object
+      using constructor <code class="code">c</code> and arguments <code class="code">e1</code> to <code class="code">en</code>.<br>
+</div>
+
+<br>
+<span id="2_CallbackstoOCaml"><h2>Callbacks to OCaml</h2></span><br>
+<pre><span id="TYPEmeth_callback"><span class="keyword">type</span> <code class="type">(-'a, +'b)</code> meth_callback</span> </pre>
+<div class="info">
+Type of callback functions.  A function of type
+       <code class="code">(u, t1 -&gt; ... -&gt; tn -&gt; t) meth_callback</code> can be called
+       from Javascript with <code class="code">this</code> bound to a value of type <code class="code">u</code>
+       and up to <i>n</i> arguments of types <code class="code">t1</code> to <code class="code">tn</code>.  The system
+       takes care of currification, so less than <i>n</i> arguments can
+       be provided.  As a special case, a callback of type
+       <code class="code">(t, unit -&gt; t) meth_callback</code> can be called from Javascript
+       with no argument.  It will behave as if it was called with a
+       single argument of type <code class="code">unit</code>.<br>
+</div>
+
+<pre><span id="TYPEcallback"><span class="keyword">type</span> <code class="type">'a</code> callback</span> = <code class="type">(unit, 'a) <a href="Js.html#TYPEmeth_callback">meth_callback</a></code> </pre>
+<div class="info">
+Type of callback functions intended to be called without a
+      meaningful <code class="code">this</code> implicit parameter.<br>
+</div>
+
+<pre><span id="VALwrap_callback"><span class="keyword">val</span> wrap_callback</span> : <code class="type">('a -> 'b) -> ('c, 'a -> 'b) <a href="Js.html#TYPEmeth_callback">meth_callback</a></code></pre><div class="info">
+Wrap an OCaml function so that it can be invoked from
+      Javascript.<br>
+</div>
+<pre><span id="VALwrap_meth_callback"><span class="keyword">val</span> wrap_meth_callback</span> : <code class="type">('a -> 'b -> 'c) -> ('a, 'b -> 'c) <a href="Js.html#TYPEmeth_callback">meth_callback</a></code></pre><div class="info">
+Wrap an OCaml function so that it can be invoked from
+      Javascript.  The first parameter of the function will be bound
+      to the value of the <code class="code">this</code> implicit parameter.<br>
+</div>
+<br>
+<span id="2_Javascriptstandardobjects"><h2>Javascript standard objects</h2></span><br>
+<pre><span id="VAL_true"><span class="keyword">val</span> _true</span> : <code class="type">bool <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Javascript <code class="code">true</code> boolean.<br>
+</div>
+<pre><span id="VAL_false"><span class="keyword">val</span> _false</span> : <code class="type">bool <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Javascript <code class="code">false</code> boolean.<br>
+</div>
+<pre><span id="TYPEmatch_result_handle"><span class="keyword">type</span> <code class="type"></code>match_result_handle</span> </pre>
+<div class="info">
+A handle to a match result.  Use function <code class="code">Js.match_result</code>
+      to get the corresponding <code class="code">MatchResult</code> object.
+      (This type is used to resolved the mutual dependency between
+       string and array type definitions.)<br>
+</div>
+
+<pre><span id="TYPEstring_array"><span class="keyword">type</span> <code class="type"></code>string_array</span> </pre>
+<div class="info">
+Opaque type for string arrays.  You can get the actual <code class="code">Array</code>
+      object using function <code class="code">Js.str_array</code>.
+      (This type is used to resolved the mutual dependency between
+       string and array type definitions.)<br>
+</div>
+
+<pre><span id="TYPEjs_string"><span class="keyword">class type</span> <a href="Js.js_string-c.html">js_string</a></span> = <code class="code">object</code> <a href="Js.js_string-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of Javascript string objects.
+</div>
+<pre><span id="TYPEregExp"><span class="keyword">class type</span> <a href="Js.regExp-c.html">regExp</a></span> = <code class="code">object</code> <a href="Js.regExp-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of Javascript regular expression objects.
+</div>
+<pre><span id="VALregExp"><span class="keyword">val</span> regExp</span> : <code class="type">(<a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.regExp-c.html">regExp</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">RegExp</code> objects.  The expression <code class="code">jsnew regExp (s)</code>
+      builds the regular expression specified by string <code class="code">s</code>.<br>
+</div>
+<pre><span id="VALregExp_withFlags"><span class="keyword">val</span> regExp_withFlags</span> : <code class="type">(<a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.regExp-c.html">regExp</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">RegExp</code> objects.  The expression
+      <code class="code">jsnew regExp (s, f)</code> builds the regular expression specified by
+      string <code class="code">s</code> using flags <code class="code">f</code>.<br>
+</div>
+<pre><span id="VALregExp_copy"><span class="keyword">val</span> regExp_copy</span> : <code class="type">(<a href="Js.regExp-c.html">regExp</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.regExp-c.html">regExp</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">RegExp</code> objects.  The expression
+      <code class="code">jsnew regExp (r)</code> builds a copy of regular expression <code class="code">r</code>.<br>
+</div>
+<pre><span id="TYPEjs_array"><span class="keyword">class type</span> <code class="type">['a]</code> <a href="Js.js_array-c.html">js_array</a></span> = <code class="code">object</code> <a href="Js.js_array-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of Javascript regular arrays.
+</div>
+<pre><span id="VALarray_empty"><span class="keyword">val</span> array_empty</span> : <code class="type">'a <a href="Js.js_array-c.html">js_array</a> <a href="Js.html#TYPEt">t</a> <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Array</code> objects.  The expression
+      <code class="code">jsnew array_empty ()</code> returns an empty array.<br>
+</div>
+<pre><span id="VALarray_length"><span class="keyword">val</span> array_length</span> : <code class="type">(int -> 'a <a href="Js.js_array-c.html">js_array</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Array</code> objects.  The expression
+      <code class="code">jsnew array_empty (l)</code> returns an array of length <code class="code">l</code>.<br>
+</div>
+<pre><span id="VALarray_get"><span class="keyword">val</span> array_get</span> : <code class="type">'a #<a href="Js.js_array-c.html">js_array</a> <a href="Js.html#TYPEt">t</a> -> int -> 'a <a href="Js.html#TYPEoptdef">optdef</a></code></pre><div class="info">
+Array access: <code class="code">array_get a i</code> returns the element at index <code class="code">i</code>
+      of array <code class="code">a</code>.  Returns <code class="code">undefined</code> if there is no element at
+      this index.<br>
+</div>
+<pre><span id="VALarray_set"><span class="keyword">val</span> array_set</span> : <code class="type">'a #<a href="Js.js_array-c.html">js_array</a> <a href="Js.html#TYPEt">t</a> -> int -> 'a -> unit</code></pre><div class="info">
+Array update: <code class="code">array_set a i v</code> puts <code class="code">v</code> at index <code class="code">i</code> in
+      array <code class="code">a</code>.<br>
+</div>
+<pre><span id="TYPEmatch_result"><span class="keyword">class type</span> <a href="Js.match_result-c.html">match_result</a></span> = <code class="code">object</code> <a href="Js.match_result-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of match result objects
+</div>
+<pre><span id="VALstr_array"><span class="keyword">val</span> str_array</span> : <code class="type"><a href="Js.html#TYPEstring_array">string_array</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> <a href="Js.js_array-c.html">js_array</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Convert an opaque <code class="code">string_array t</code> object into an array of
+      string.  (Used to resolved the mutual dependency between string
+      and array type definitions.)<br>
+</div>
+<pre><span id="VALmatch_result"><span class="keyword">val</span> match_result</span> : <code class="type"><a href="Js.html#TYPEmatch_result_handle">match_result_handle</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.match_result-c.html">match_result</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Convert a match result handle into a <code class="code">MatchResult</code> object.
+      (Used to resolved the mutual dependency between string
+      and array type definitions.)<br>
+</div>
+<pre><span id="TYPEnumber"><span class="keyword">class type</span> <a href="Js.number-c.html">number</a></span> = <code class="code">object</code> <a href="Js.number-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of Javascript number objects.
+</div>
+<pre><span id="VALnumber_of_float"><span class="keyword">val</span> number_of_float</span> : <code class="type">float -> <a href="Js.number-c.html">number</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Conversion of OCaml floats to Javascript number objects.<br>
+</div>
+<pre><span id="VALfloat_of_number"><span class="keyword">val</span> float_of_number</span> : <code class="type"><a href="Js.number-c.html">number</a> <a href="Js.html#TYPEt">t</a> -> float</code></pre><div class="info">
+Conversion of Javascript number objects to OCaml floats.<br>
+</div>
+<pre><span id="TYPEdate"><span class="keyword">class type</span> <a href="Js.date-c.html">date</a></span> = <code class="code">object</code> <a href="Js.date-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of Javascript date objects.
+</div>
+<pre><span id="VALdate_now"><span class="keyword">val</span> date_now</span> : <code class="type"><a href="Js.date-c.html">date</a> <a href="Js.html#TYPEt">t</a> <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Date</code> objects: <code class="code">new date_now ()</code> returns a
+      <code class="code">Date</code> object initialized with the current date.<br>
+</div>
+<pre><span id="VALdate_fromTimeValue"><span class="keyword">val</span> date_fromTimeValue</span> : <code class="type">(float -> <a href="Js.date-c.html">date</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Date</code> objects: <code class="code">new date_fromTimeValue (t)</code> returns a
+      <code class="code">Date</code> object initialized with the time value <code class="code">t</code>.<br>
+</div>
+<pre><span id="VALdate_month"><span class="keyword">val</span> date_month</span> : <code class="type">(int -> int -> <a href="Js.date-c.html">date</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Date</code> objects: <code class="code">new date_fromTimeValue (y, m)</code>
+      returns a <code class="code">Date</code> object corresponding to year <code class="code">y</code> and month <code class="code">m</code>.<br>
+</div>
+<pre><span id="VALdate_day"><span class="keyword">val</span> date_day</span> : <code class="type">(int -> int -> int -> <a href="Js.date-c.html">date</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Date</code> objects: <code class="code">new date_fromTimeValue (y, m, d)</code>
+      returns a <code class="code">Date</code> object corresponding to year <code class="code">y</code>, month <code class="code">m</code> and
+      day <code class="code">d</code>.<br>
+</div>
+<pre><span id="VALdate_hour"><span class="keyword">val</span> date_hour</span> : <code class="type">(int -> int -> int -> int -> <a href="Js.date-c.html">date</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Date</code> objects: <code class="code">new date_fromTimeValue (y, m, d, h)</code>
+      returns a <code class="code">Date</code> object corresponding to year <code class="code">y</code> to hour <code class="code">h</code>.<br>
+</div>
+<pre><span id="VALdate_min"><span class="keyword">val</span> date_min</span> : <code class="type">(int -> int -> int -> int -> int -> <a href="Js.date-c.html">date</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Date</code> objects: <code class="code">new date_fromTimeValue (y, m, d, h, m')</code>
+      returns a <code class="code">Date</code> object corresponding to year <code class="code">y</code> to minute <code class="code">m'</code>.<br>
+</div>
+<pre><span id="VALdate_sec"><span class="keyword">val</span> date_sec</span> : <code class="type">(int -> int -> int -> int -> int -> int -> <a href="Js.date-c.html">date</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Date</code> objects:
+      <code class="code">new date_fromTimeValue (y, m, d, h, m', s)</code>
+      returns a <code class="code">Date</code> object corresponding to year <code class="code">y</code> to second <code class="code">s</code>.<br>
+</div>
+<pre><span id="VALdate_ms"><span class="keyword">val</span> date_ms</span> : <code class="type">(int -> int -> int -> int -> int -> int -> int -> <a href="Js.date-c.html">date</a> <a href="Js.html#TYPEt">t</a>) <a href="Js.html#TYPEconstr">constr</a></code></pre><div class="info">
+Constructor of <code class="code">Date</code> objects:
+      <code class="code">new date_fromTimeValue (y, m, d, h, m', s, ms)</code>
+      returns a <code class="code">Date</code> object corresponding to year <code class="code">y</code>
+      to millisecond <code class="code">ms</code>.<br>
+</div>
+<pre><span id="TYPEdate_constr"><span class="keyword">class type</span> <a href="Js.date_constr-c.html">date_constr</a></span> = <code class="code">object</code> <a href="Js.date_constr-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of the date constructor, considered as an object.
+</div>
+<pre><span id="VALdate"><span class="keyword">val</span> date</span> : <code class="type"><a href="Js.date_constr-c.html">date_constr</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+The date constructor, as an object.<br>
+</div>
+<br>
+<span id="2_StandardJavascriptfunctions"><h2>Standard Javascript functions</h2></span><br>
+<pre><span id="VALdecodeURI"><span class="keyword">val</span> decodeURI</span> : <code class="type"><a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Decode a URI: replace by the corresponding byte all escape
+      sequences but the ones corresponding to a URI reserved character
+      and convert the string from UTF-8 to UTF-16.<br>
+</div>
+<pre><span id="VALdecodeURIComponent"><span class="keyword">val</span> decodeURIComponent</span> : <code class="type"><a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Decode a URIComponent: replace all escape sequences by the
+      corresponding byte and convert the string from UTF-8 to
+      UTF-16.<br>
+</div>
+<pre><span id="VALencodeURI"><span class="keyword">val</span> encodeURI</span> : <code class="type"><a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Encode a URI: convert the string to UTF-8 and replace all unsafe
+      bytes by the corresponding escape sequence.<br>
+</div>
+<pre><span id="VALencodeURIComponent"><span class="keyword">val</span> encodeURIComponent</span> : <code class="type"><a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Same as <code class="code">encodeURI</code>, but also encode URI reserved characters.<br>
+</div>
+<pre><span id="VALescape"><span class="keyword">val</span> escape</span> : <code class="type"><a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Escape a string: unsafe UTF-16 code points are replaced by
+      2-digit and 4-digit escape sequences.<br>
+</div>
+<pre><span id="VALunescape"><span class="keyword">val</span> unescape</span> : <code class="type"><a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Unescape a string: 2-digit and 4-digit escape sequences are
+      replaced by the corresponding UTF-16 code point.<br>
+</div>
+<br>
+<span id="2_ConversionfunctionsbetweenJavascriptandOCamltypes"><h2>Conversion functions between Javascript and OCaml types</h2></span><br>
+<pre><span id="VALbool"><span class="keyword">val</span> bool</span> : <code class="type">bool -> bool <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Conversion of booleans from OCaml to Javascript.<br>
+</div>
+<pre><span id="VALto_bool"><span class="keyword">val</span> to_bool</span> : <code class="type">bool <a href="Js.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+Conversion of booleans from Javascript to OCaml.<br>
+</div>
+<pre><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type">string -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Conversion of strings from OCaml to Javascript.  (The OCaml
+      string is considered to be encoded in UTF-8 and is converted to
+      UTF-16.)<br>
+</div>
+<pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type"><a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> string</code></pre><div class="info">
+Conversion of strings from Javascript to OCaml.<br>
+</div>
+<pre><span id="VALfloat"><span class="keyword">val</span> float</span> : <code class="type">float -> float <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Conversion of OCaml floats to Javascript numbers.<br>
+</div>
+<pre><span id="VALto_float"><span class="keyword">val</span> to_float</span> : <code class="type">float <a href="Js.html#TYPEt">t</a> -> float</code></pre><div class="info">
+Conversion of Javascript numbers to OCaml floats.<br>
+</div>
+<pre><span id="VALarray"><span class="keyword">val</span> array</span> : <code class="type">'a array -> 'a <a href="Js.js_array-c.html">js_array</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Conversion of arrays from OCaml to Javascript.<br>
+</div>
+<pre><span id="VALto_array"><span class="keyword">val</span> to_array</span> : <code class="type">'a <a href="Js.js_array-c.html">js_array</a> <a href="Js.html#TYPEt">t</a> -> 'a array</code></pre><div class="info">
+Conversion of arrays from Javascript to OCaml.<br>
+</div>
+<pre><span id="VALbytestring"><span class="keyword">val</span> bytestring</span> : <code class="type">string -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Conversion of strings of bytes from OCaml to Javascript.
+      (Each byte will be converted in an UTF-16 code point.)<br>
+</div>
+<pre><span id="VALto_bytestring"><span class="keyword">val</span> to_bytestring</span> : <code class="type"><a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a> -> string</code></pre><div class="info">
+Conversion of strings of bytes from Javascript to OCaml.  (The
+      Javascript string should only contain UTF-16 code points below
+      255.)<br>
+</div>
+<br>
+<span id="2_Conveniencecoercionfunctions"><h2>Convenience coercion functions</h2></span><br>
+<pre><span id="VALcoerce"><span class="keyword">val</span> coerce</span> : <code class="type">'a -> ('a -> 'b Opt.t) -> ('a -> 'b) -> 'b</code></pre><div class="info">
+Apply a possibly failing coercion function.
+      <code class="code">coerce v c f</code> attempts to apply coercion <code class="code">c</code> to value <code class="code">v</code>.
+      If the coercion returns <code class="code">null</code>, function <code class="code">f</code> is called.<br>
+</div>
+<pre><span id="VALcoerce_opt"><span class="keyword">val</span> coerce_opt</span> : <code class="type">'a Opt.t -> ('a -> 'b Opt.t) -> ('a -> 'b) -> 'b</code></pre><div class="info">
+Apply a possibly failing coercion function.
+      <code class="code">coerce_opt v c f</code> attempts to apply coercion <code class="code">c</code> to value <code class="code">v</code>.
+      If <code class="code">v</code> is <code class="code">null</code> or the coercion returns <code class="code">null</code>, function <code class="code">f</code> is
+      called.
+      Typical usage is the following:
+      <pre><code class="code">Js.coerce_opt (Dom_html.getElementById id)
+      Dom_html.CoerceTo.div (fun _ -&gt; assert false)</code></pre><br>
+</div>
+<br>
+<span id="2_Typecheckingoperators"><h2>Type checking operators.</h2></span><br>
+<pre><span id="VALtypeof"><span class="keyword">val</span> typeof</span> : <code class="type">< .. > <a href="Js.html#TYPEt">t</a> -> <a href="Js.js_string-c.html">js_string</a> <a href="Js.html#TYPEt">t</a></code></pre><div class="info">
+Returns the type of a Javascript object.<br>
+</div>
+<pre><span id="VALinstanceof"><span class="keyword">val</span> instanceof</span> : <code class="type">< .. > <a href="Js.html#TYPEt">t</a> -> 'a <a href="Js.html#TYPEconstr">constr</a> -> bool</code></pre><div class="info">
+Tests whether a Javascript object is an instance of a given class.<br>
+</div>
+<br>
+<span id="2_Unsafeoperations"><h2>Unsafe operations.</h2></span><br>
+<pre><span class="keyword">module</span> <a href="Js.Unsafe.html">Unsafe</a>: <code class="code">sig</code> <a href="Js.Unsafe.html">..</a> <code class="code">end</code></pre><div class="info">
+Unsafe Javascript operations
+</div>
+</body></html>

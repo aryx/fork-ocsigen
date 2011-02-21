@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Url.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Js" rel="Chapter" href="Js.html">
+<link title="Dom" rel="Chapter" href="Dom.html">
+<link title="Dom_html" rel="Chapter" href="Dom_html.html">
+<link title="Dom_events" rel="Chapter" href="Dom_events.html">
+<link title="Lwt_js" rel="Chapter" href="Lwt_js.html">
+<link title="Firebug" rel="Chapter" href="Firebug.html">
+<link title="Regexp" rel="Chapter" href="Regexp.html">
+<link title="Url" rel="Chapter" href="Url.html">
+<link title="XmlHttpRequest" rel="Chapter" href="XmlHttpRequest.html">
+<link title="Event_arrows" rel="Chapter" href="Event_arrows.html"><title>Url.Current</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="Url.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_Url.Current.html">Url.Current</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Current: <code class="code">sig</code> <a href="Url.Current.html">..</a> <code class="code">end</code></pre><hr width="100%">
+<pre><span id="VALhost"><span class="keyword">val</span> host</span> : <code class="type">string</code></pre><pre><span id="VALport"><span class="keyword">val</span> port</span> : <code class="type">int option</code></pre><pre><span id="VALpath_string"><span class="keyword">val</span> path_string</span> : <code class="type">string</code></pre><pre><span id="VALpath"><span class="keyword">val</span> path</span> : <code class="type">string list</code></pre><pre><span id="VALarguments"><span class="keyword">val</span> arguments</span> : <code class="type">(string * string) list</code></pre><pre><span id="VALget_fragment"><span class="keyword">val</span> get_fragment</span> : <code class="type">unit -> string</code></pre><div class="info">
+Because the <code class="code">fragment</code> of the Url for the current document can change
+        dynamically, we use a functional value here.<br>
+</div>
+<pre><span id="VALset_fragment"><span class="keyword">val</span> set_fragment</span> : <code class="type">string -> unit</code></pre><div class="info">
+<code class="code">set_fragment s</code> replaces the current fragment by <code class="code">s</code>.<br>
+</div>
+<pre><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">unit -> <a href="Url.html#TYPEurl">Url.url</a> option</code></pre><div class="info">
+<code class="code">get ()</code> returns a value of type <a href="Url.html#TYPEurl"><code class="code">Url.url</code></a> with fields reflecting the
+        state of the current Url.<br>
+</div>
+<pre><span id="VALset"><span class="keyword">val</span> set</span> : <code class="type"><a href="Url.html#TYPEurl">Url.url</a> -> unit</code></pre><div class="info">
+<code class="code">set u</code> replaces the current Url for <code class="code">u</code>. <b>WARNING:</b> Causes the document
+        to change.<br>
+</div>
+<pre><span id="VALas_string"><span class="keyword">val</span> as_string</span> : <code class="type">string</code></pre><div class="info">
+<code class="code">as_string</code> is the original string representation of the current Url. It
+        is NOT necessarily equals to <code class="code">string_of_url (get ())</code> but
+        <code class="code">url_of_string as_string = get ()</code> holds.<br>
+</div>
+</body></html>

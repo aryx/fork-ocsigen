@@ -1,0 +1,99 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Js" rel="Chapter" href="Js.html">
+<link title="Dom" rel="Chapter" href="Dom.html">
+<link title="Dom_html" rel="Chapter" href="Dom_html.html">
+<link title="Dom_events" rel="Chapter" href="Dom_events.html">
+<link title="Lwt_js" rel="Chapter" href="Lwt_js.html">
+<link title="Firebug" rel="Chapter" href="Firebug.html">
+<link title="Regexp" rel="Chapter" href="Regexp.html">
+<link title="Url" rel="Chapter" href="Url.html">
+<link title="XmlHttpRequest" rel="Chapter" href="XmlHttpRequest.html">
+<link title="Event_arrows" rel="Chapter" href="Event_arrows.html"><title>Dom_html.linkElement</title>
+</head>
+<body>
+<code class="code"><span class="keyword">object</span>&nbsp;(<span class="keywordsign">'</span>a)<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;_type&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;appendChild&nbsp;:&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;charset&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;childNodes&nbsp;:&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Dom</span>.nodeList&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;className&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;clientHeight&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;clientLeft&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;clientTop&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;clientWidth&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;cloneNode&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;dir&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;disabled&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;firstChild&nbsp;:&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.opt&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;getAttribute&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;getBoundingClientRect&nbsp;:&nbsp;clientRect&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;getClientRects&nbsp;:&nbsp;clientRectList&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;getElementsByTagName&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b&nbsp;<span class="constructor">Dom</span>.nodeList&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;hasAttribute&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;hasChildNodes&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;href&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;hreflang&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;id&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;innerHTML&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;insertBefore&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.opt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;lang&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;lastChild&nbsp;:&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.opt&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;media&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;nextSibling&nbsp;:&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.opt&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;nodeName&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;nodeType&nbsp;:&nbsp;<span class="constructor">Dom</span>.nodeType&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;nodeValue&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.opt&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;offsetHeight&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;offsetLeft&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;offsetParent&nbsp;:&nbsp;element&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.opt&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;offsetTop&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;offsetWidth&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;onclick&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;ondblclick&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;onkeydown&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;keyboardEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;onkeypress&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;keyboardEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;onkeyup&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;keyboardEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;onmousedown&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;onmousemove&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;onmouseout&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;onmouseover&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;onmouseup&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keywordsign">'</span>a&nbsp;<span class="constructor">Js</span>.t,&nbsp;mouseEvent&nbsp;<span class="constructor">Js</span>.t)&nbsp;event_listener&nbsp;<span class="constructor">Js</span>.writeonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;parentNode&nbsp;:&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.opt&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;previousSibling&nbsp;:&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.opt&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;rel&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;removeAttribute&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;removeChild&nbsp;:&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;replaceChild&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Dom</span>.node&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;rev&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;scrollLeft&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;scrollTop&nbsp;:&nbsp;int&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;setAttribute&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit&nbsp;<span class="constructor">Js</span>.meth<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;style&nbsp;:&nbsp;cssStyleDeclaration&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;tagName&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.readonly_prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;target&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;title&nbsp;:&nbsp;<span class="constructor">Js</span>.js_string&nbsp;<span class="constructor">Js</span>.t&nbsp;<span class="constructor">Js</span>.prop<br>
+<span class="keyword">end</span></code></body></html>

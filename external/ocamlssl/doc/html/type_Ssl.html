@@ -1,0 +1,123 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ssl" rel="Chapter" href="Ssl.html">
+<link title="Ssl_threads" rel="Chapter" href="Ssl_threads.html"><title>Ssl</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;ssl_error&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Error_none</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_ssl</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_want_read</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_want_write</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_want_x509_lookup</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_syscall</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_zero_return</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_want_connect</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_want_accept</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Method_error</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Context_error</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Certificate_error</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Private_key_error</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Unmatching_keys</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Invalid_socket</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Handler_error</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Connection_error</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Ssl</span>.ssl_error<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Accept_error</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Ssl</span>.ssl_error<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Read_error</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Ssl</span>.ssl_error<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Write_error</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Ssl</span>.ssl_error<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;verify_error&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Error_v_unable_to_get_issuer_cert</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_unable_to_get_ctl</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_unable_to_decrypt_cert_signature</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_unable_to_decrypt_CRL_signature</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_unable_to_decode_issuer_public_key</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_cert_signature_failure</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_CRL_signature_failure</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_cert_not_yet_valid</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_cert_has_expired</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_CRL_not_yet_valid</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_CRL_has_expired</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_error_in_cert_not_before_field</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_error_in_cert_not_after_field</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_error_in_CRL_last_update_field</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_error_in_CRL_next_update_field</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_out_of_mem</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_depth_zero_self_signed_cert</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_self_signed_cert_in_chain</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_unable_to_get_issuer_cert_locally</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_unable_to_verify_leaf_signature</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_cert_chain_too_long</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_cert_revoked</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_invalid_CA</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_path_length_exceeded</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_invalid_purpose</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_cert_untrusted</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_cert_rejected</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_subject_issuer_mismatch</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_akid_skid_mismatch</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_akid_issuer_serial_mismatch</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_keyusage_no_certsign</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error_v_application_verification</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Verify_error</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Ssl</span>.verify_error<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;init&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_error_string&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;protocol&nbsp;=&nbsp;<span class="constructor">SSLv2</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SSLv23</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SSLv3</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TLSv1</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;socket<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;crypto_num_locks&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;thread_id_function&nbsp;:&nbsp;(unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int)&nbsp;option&nbsp;<span class="constructor">Pervasives</span>.ref<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;thread_locking_function&nbsp;:&nbsp;(int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit)&nbsp;option&nbsp;<span class="constructor">Pervasives</span>.ref<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;context<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;context_type&nbsp;=&nbsp;<span class="constructor">Client_context</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Server_context</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Both_context</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;create_context&nbsp;:&nbsp;<span class="constructor">Ssl</span>.protocol&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.context_type&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.context<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;use_certificate&nbsp;:&nbsp;<span class="constructor">Ssl</span>.context&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_password_callback&nbsp;:&nbsp;<span class="constructor">Ssl</span>.context&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_client_CA_list_from_file&nbsp;:&nbsp;<span class="constructor">Ssl</span>.context&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;verify_mode&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Verify_peer</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Verify_fail_if_no_peer_cert</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Verify_client_once</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;verify_callback<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;client_verify_callback&nbsp;:&nbsp;<span class="constructor">Ssl</span>.verify_callback<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_verify&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ssl</span>.context&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.verify_mode&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.verify_callback&nbsp;option&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_verify_depth&nbsp;:&nbsp;<span class="constructor">Ssl</span>.context&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;cipher<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_cipher_list&nbsp;:&nbsp;<span class="constructor">Ssl</span>.context&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_cipher&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.cipher<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_cipher_description&nbsp;:&nbsp;<span class="constructor">Ssl</span>.cipher&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_cipher_name&nbsp;:&nbsp;<span class="constructor">Ssl</span>.cipher&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_cipher_version&nbsp;:&nbsp;<span class="constructor">Ssl</span>.cipher&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;certificate<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;read_certificate&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.certificate<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_certificate&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.certificate<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_issuer&nbsp;:&nbsp;<span class="constructor">Ssl</span>.certificate&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_subject&nbsp;:&nbsp;<span class="constructor">Ssl</span>.certificate&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;load_verify_locations&nbsp;:&nbsp;<span class="constructor">Ssl</span>.context&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_verify_result&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;embed_socket&nbsp;:&nbsp;<span class="constructor">Unix</span>.file_descr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.context&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.socket<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;open_connection&nbsp;:&nbsp;<span class="constructor">Ssl</span>.protocol&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Unix</span>.sockaddr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.socket<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;open_connection_with_context&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ssl</span>.context&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Unix</span>.sockaddr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ssl</span>.socket<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;shutdown_connection&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;connect&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;accept&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;flush&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;shutdown&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;verify&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;file_descr_of_socket&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Unix</span>.file_descr<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;read&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;write&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;input_string&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;output_string&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;input_char&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;char<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;output_char&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;char&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;input_int&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;output_int&nbsp;:&nbsp;<span class="constructor">Ssl</span>.socket&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+<span class="keyword">end</span></code></body></html>

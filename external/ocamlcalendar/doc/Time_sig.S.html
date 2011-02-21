@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Time_sig.Second.html">
+<link rel="Up" href="Time_sig.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Utils" rel="Chapter" href="Utils.html">
+<link title="Time_Zone" rel="Chapter" href="Time_Zone.html">
+<link title="Period" rel="Chapter" href="Period.html">
+<link title="Time_sig" rel="Chapter" href="Time_sig.html">
+<link title="Time" rel="Chapter" href="Time.html">
+<link title="Ftime" rel="Chapter" href="Ftime.html">
+<link title="Date_sig" rel="Chapter" href="Date_sig.html">
+<link title="Date" rel="Chapter" href="Date.html">
+<link title="Calendar_sig" rel="Chapter" href="Calendar_sig.html">
+<link title="Calendar_builder" rel="Chapter" href="Calendar_builder.html">
+<link title="Calendar" rel="Chapter" href="Calendar.html">
+<link title="Fcalendar" rel="Chapter" href="Fcalendar.html">
+<link title="Printer" rel="Chapter" href="Printer.html">
+<link title="Version" rel="Chapter" href="Version.html"><link title="Datatypes" rel="Section" href="#2_Datatypes">
+<link title="Second" rel="Section" href="#2_Second">
+<link title="Constructors" rel="Section" href="#2_Constructors">
+<link title="Conversions" rel="Section" href="#2_Conversions">
+<link title="Getters" rel="Section" href="#2_Getters">
+<link title="Times are comparable" rel="Section" href="#2_Timesarecomparable">
+<link title="Boolean operations on times" rel="Section" href="#2_Booleanoperationsontimes">
+<link title="Coercions" rel="Section" href="#2_Coercions">
+<link title="Period" rel="Section" href="#2_Period">
+<link title="Arithmetic operations on times and periods" rel="Section" href="#2_Arithmeticoperationsontimesandperiods">
+<title>Time_sig.S</title>
+</head>
+<body>
+<div class="navbar"><a href="Time_sig.Second.html">Previous</a>
+&nbsp;<a href="Time_sig.html">Up</a>
+&nbsp;</div>
+<center><h1>Module type <a href="type_Time_sig.S.html">Time_sig.S</a></h1></center>
+<br>
+<pre><span class="keyword">module type</span> S = <code class="code"><span class="keyword">sig</span></code> <a href="Time_sig.S.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>Common operations for all time representations.<br>
+<b>Since</b> 2.0 (this signature was before inlined in interface of Time).<br>
+<hr width="100%">
+<br>
+<a name="2_Datatypes"></a>
+<h2>Datatypes</h2><br>
+<pre><span class="keyword">type</span> <a name="TYPEt"></a><code class="type"></code>t </pre>
+<div class="info">
+Type of a time.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEfield"></a><code class="type"></code>field = <code class="type">[ `Hour | `Minute | `Second ]</code> </pre>
+<div class="info">
+The different fields of a time.<br>
+</div>
+
+<br>
+<a name="2_Second"></a>
+<h2>Second</h2><br>
+<pre><span class="keyword">type</span> <a name="TYPEsecond"></a><code class="type"></code>second </pre>
+<div class="info">
+Type of a second.<br>
+<b>Since</b> 2.0 (was an integer in previous versions).<br>
+</div>
+
+<pre><span class="keyword">module</span> <a href="Time_sig.S.Second.html">Second</a>: <code class="type"><a href="Time_sig.Second.html">Time_sig.Second</a></code><code class="type">  with type t = second</code></pre><div class="info">
+Second implementation
+</div>
+<br>
+<a name="2_Constructors"></a>
+<h2>Constructors</h2><br>
+<pre><span class="keyword">val</span> <a name="VALmake"></a>make : <code class="type">int -> int -> <a href="Time_sig.S.html#TYPEsecond">second</a> -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">make hour minute second</code> makes the time hour-minute-second.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALlmake"></a>lmake : <code class="type">?hour:int -> ?minute:int -> ?second:<a href="Time_sig.S.html#TYPEsecond">second</a> -> unit -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Labelled version of <code class="code">make</code>. The default value is <code class="code">0</code> for each argument.<br>
+<b>Since</b> 1.05<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALnow"></a>now : <code class="type">unit -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+The current time based on <code class="code"><span class="constructor">Time_Zone</span>.current ()</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALmidnight"></a>midnight : <code class="type">unit -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">midnight ()</code> is midnight (expressed in the current time zone).
+	So, it has always the same behaviour as <code class="code">make 0 0 0</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALmidday"></a>midday : <code class="type">unit -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">midday ()</code> is midday (expressed in the current time zone).
+	So, it has always the same behaviour as <code class="code">make 12 0 0</code>.<br>
+</div>
+<br>
+<a name="2_Conversions"></a>
+<h2>Conversions</h2><br>
+<pre><span class="keyword">val</span> <a name="VALconvert"></a>convert : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_Zone.html#TYPEt">Time_Zone.t</a> -> <a href="Time_Zone.html#TYPEt">Time_Zone.t</a> -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">convert t t1 t2</code> converts the time <code class="code">t</code> expressed in the time zone <code class="code">t1</code>
+	to the same time expressed in the time zone <code class="code">t2</code>.<br>
+<b>Example:</b> <code class="code">convert (make 20 0 0) (<span class="constructor">Time_Zone</span>.<span class="constructor">GMT_Plus</span> 2)
+	(<span class="constructor">Time_Zone</span>.<span class="constructor">GMT_Plus</span> 4)</code> returns the time 22-0-0.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_gmt"></a>from_gmt : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">from_gmt t</code> is equivalent to
+	<code class="code">convert t <span class="constructor">Time_Zone</span>.<span class="constructor">GMT</span> (<span class="constructor">Time_Zone</span>.current ())</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_gmt"></a>to_gmt : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">to_gmt t</code> is equivalent to
+	<code class="code">convert t (<span class="constructor">Time_Zone</span>.current ()) <span class="constructor">Time_Zone</span>.<span class="constructor">GMT</span></code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALnormalize"></a>normalize : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_sig.S.html#TYPEt">t</a> * int</code></pre><div class="info">
+<code class="code">normalize t</code> returns <code class="code">t</code> such that <code class="code">hour t</code> belongs to <code class="code">[0; 24[</code>. The
+	second component of the result is the number of days needed by the
+	modification.<br>
+<b>Example:</b> <code class="code">normalize (make 22 0 0)</code> returns the time 22-0-0 and 0,
+	<code class="code">normalize (make 73 0 0)</code> returns the time 1-0-0 and 3 and <code class="code">normalize
+	(make (-73) 0 0)</code> returns the time 23-0-0 and (-4).<br>
+</div>
+<br>
+<a name="2_Getters"></a>
+<h2>Getters</h2><br>
+<pre><span class="keyword">val</span> <a name="VALhour"></a>hour : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+Hour.<br>
+<b>Example:</b> <code class="code">hour (make 20 0 0)</code> returns 20.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALminute"></a>minute : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+Minute.<br>
+<b>Example:</b> <code class="code">minute (make 20 10 0)</code> returns 10.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALsecond"></a>second : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_sig.S.html#TYPEsecond">second</a></code></pre><div class="info">
+Second.<br>
+<b>Example:</b> <code class="code">second (make 20 10 5)</code> returns 5.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_seconds"></a>to_seconds : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_sig.S.html#TYPEsecond">second</a></code></pre><div class="info">
+Number of seconds of a time.<br>
+<b>Example:</b> <code class="code">to_seconds (make 1 2 3)</code> returns <code class="code">3600 + 120 + 3 = 3723</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_minutes"></a>to_minutes : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> float</code></pre><div class="info">
+Number of minutes of a time. The resulting fractional part represents
+	seconds.<br>
+<b>Example:</b> <code class="code">to_minutes (make 1 2 3)</code> returns <code class="code">60+2+0.05 = 62.05</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_hours"></a>to_hours : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> float</code></pre><div class="info">
+Number of hours of a time. The resulting fractional part represents
+	minutes and seconds.<br>
+<b>Example:</b> <code class="code">to_hours (make 1 3 0)</code> returns <code class="code">1 + 0.05 = 1.05</code>.<br>
+</div>
+<br>
+<a name="2_Timesarecomparable"></a>
+<h2>Times are comparable</h2><br>
+<pre><span class="keyword">val</span> <a name="VALequal"></a>equal : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_sig.S.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+Equality function between two times.<br>
+<b>Since</b> 1.09.0<br>
+<b>See also</b> <a href="Utils.Comparable.html#VALequal">Utils.Comparable.equal.</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALcompare"></a>compare : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+Comparison function between two times.<br>
+<b>See also</b> <a href="Utils.Comparable.html#VALcompare">Utils.Comparable.compare.</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALhash"></a>hash : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+Hash function for times.<br>
+<b>Since</b> 2.0<br>
+<b>See also</b> <a href="Utils.Comparable.html#VALhash">Utils.Comparable.hash.</a><br>
+</div>
+<br>
+<a name="2_Booleanoperationsontimes"></a>
+<h2>Boolean operations on times</h2><br>
+<pre><span class="keyword">val</span> <a name="VALis_pm"></a>is_pm : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+Return <code class="code"><span class="keyword">true</span></code> is the time is before midday in the current time zone;
+	<code class="code"><span class="keyword">false</span></code> otherwise.<br>
+<b>Example:</b> both <code class="code">is_pm (make 10 0 0)</code> and <code class="code">is_pm (make 34 0 0)</code> return
+	<code class="code"><span class="keyword">true</span></code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALis_am"></a>is_am : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+Return <code class="code"><span class="keyword">true</span></code> is the time is after midday in the current time zone;
+	<code class="code"><span class="keyword">false</span></code> otherwise.<br>
+<b>Example:</b> both <code class="code">is_am (make 20 0 0)</code> and <code class="code">is_am (make 44 0 0)</code> return
+	<code class="code"><span class="keyword">true</span></code>.<br>
+</div>
+<br>
+<a name="2_Coercions"></a>
+<h2>Coercions</h2><br>
+<pre><span class="keyword">val</span> <a name="VALfrom_seconds"></a>from_seconds : <code class="type"><a href="Time_sig.S.html#TYPEsecond">second</a> -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Inverse of <code class="code">to_seconds</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_minutes"></a>from_minutes : <code class="type">float -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Inverse of <code class="code">to_minutes</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_hours"></a>from_hours : <code class="type">float -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Inverse of <code class="code">to_hours</code>.<br>
+</div>
+<br>
+<a name="2_Period"></a>
+<h2>Period</h2><br>
+<pre><span class="keyword">module</span> <a href="Time_sig.S.Period.html">Period</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Time_sig.S.Period.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info">
+A period is the number of seconds between two times.
+</div>
+<br>
+<a name="2_Arithmeticoperationsontimesandperiods"></a>
+<h2>Arithmetic operations on times and periods</h2><br>
+<pre><span class="keyword">val</span> <a name="VALadd"></a>add : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -><br>       [< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] Period.period -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">app t p</code> returns <code class="code">t + p</code>.<br>
+<b>Example:</b> <code class="code">add (make 20 0 0) (<span class="constructor">Period</span>.minute 70)</code> returns the time
+	21:10:0.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALsub"></a>sub : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -><br>       <a href="Time_sig.S.html#TYPEt">t</a> -> [< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] Period.period</code></pre><div class="info">
+<code class="code">sub t1 t2</code> returns the period between <code class="code">t1</code> and <code class="code">t2</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALrem"></a>rem : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -><br>       [< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] Period.period -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">rem t p</code> is equivalent to <code class="code">add t (<span class="constructor">Period</span>.opp p)</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALnext"></a>next : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_sig.S.html#TYPEfield">field</a> -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">next t f</code> returns the time corresponding to the next specified field.<br>
+<b>Example:</b> <code class="code">next (make 20 3 31) <span class="keywordsign">`</span><span class="constructor">Minute</span></code> returns the time 20:04:31.
+	(i.e. one minute later).<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALprev"></a>prev : <code class="type"><a href="Time_sig.S.html#TYPEt">t</a> -> <a href="Time_sig.S.html#TYPEfield">field</a> -> <a href="Time_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">prev t f</code> returns the time corresponding to the previous specified
+	field.<br>
+<b>Example:</b> <code class="code">prev (make 20 3 31) <span class="keywordsign">`</span><span class="constructor">Second</span></code> returns the time 20:03:30
+	(i.e. one second ago).<br>
+</div>
+</body></html>

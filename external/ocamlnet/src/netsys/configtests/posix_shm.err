@@ -1,0 +1,5 @@
+posix_shm.o: In function `check':
+posix_shm.c:(.text+0x1e): undefined reference to `shm_open'
+collect2: ld returned 1 exit status
+File "main.ml", line 1, characters 0-1:
+Error: Error while building custom runtime system

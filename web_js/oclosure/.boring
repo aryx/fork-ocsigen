@@ -1,0 +1,8 @@
+\.cm[ioax]$
+\.cmxs$
+\.o$
+\.byte$
+^examples/test_.*\.js$
+~$
+^doc/*.html$
+^docdiv(/|$)

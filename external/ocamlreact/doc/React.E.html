@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="React.S.html">
+<link rel="Up" href="React.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="React" rel="Chapter" href="React.html"><link title="Primitive and basics" rel="Section" href="#prim">
+<link title="Transforming and filtering" rel="Section" href="#transf">
+<link title="Accumulating" rel="Section" href="#accum">
+<link title="Combining" rel="Section" href="#combine">
+<title>React.E</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="React.html">Up</a>
+&nbsp;<a href="React.S.html">Next</a>
+</div>
+<center><h1>Module <a href="type_React.E.html">React.E</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> E: <code class="code"><span class="keyword">sig</span></code> <a href="React.E.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>Event combinators.  
+<p>
+
+    Consult their <a href="React.html#evsem">semantics.</a><br>
+<hr width="100%">
+<br>
+<a name="prim"></a>
+<h1>Primitive and basics</h1><br>
+<pre><span class="keyword">type</span> <a name="TYPEt"></a><code class="type">'a</code> t = <code class="type">'a <a href="React.html#TYPEevent">React.event</a></code> </pre>
+<div class="info">
+The type for events with occurrences of type <code class="code"><span class="keywordsign">'</span>a</code>.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALnever"></a>never : <code class="type">'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+A never occuring event. For all t, [<code class="code">never</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALcreate"></a>create : <code class="type">unit -> 'a <a href="React.html#TYPEevent">React.event</a> * ('a -> unit)</code></pre><div class="info">
+<code class="code">create ()</code> is a primitive event <code class="code">e</code> and a <code class="code">send</code> function. 
+      <code class="code">send v</code> generates an occurrence <code class="code">v</code> of <code class="code">e</code> at the time it is called 
+      and triggers an <a href="React.html#update">update cycle</a>.
+<p>
+
+      <b>Warning.</b> <code class="code">send</code> must not be executed inside an update cycle.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALretain"></a>retain : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> -> (unit -> unit) -> [ `R of unit -> unit ]</code></pre><div class="info">
+<code class="code">retain e c</code> keeps a reference to the closure <code class="code">c</code> in <code class="code">e</code> and
+      returns the previously retained value. <code class="code">c</code> will <em>never</em> be
+      invoked.
+<p>
+
+      <b>Raises.</b> <code class="code"><span class="constructor">Invalid_argument</span></code> on <a href="React.E.html#VALnever"><code class="code"><span class="constructor">React</span>.<span class="constructor">E</span>.never</code></a>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALstop"></a>stop : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> -> unit</code></pre><div class="info">
+<code class="code">stop e</code> stops <code class="code">e</code> from occuring. It conceptually becomes
+      <a href="React.E.html#VALnever"><code class="code"><span class="constructor">React</span>.<span class="constructor">E</span>.never</code></a> and cannot be restarted. Allows to 
+      disable <a href="React.html#sideeffects">effectful</a> events. 
+<p>
+
+      <b>Note.</b> If executed in an <a href="React.html#update">update cycle</a>
+      the event may still occur in the cycle.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALequal"></a>equal : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a> -> bool</code></pre><div class="info">
+<code class="code">equal e e'</code> is <code class="code"><span class="keyword">true</span></code> iff <code class="code">e</code> and <code class="code">e'</code> are equal. If both events are
+      different from <a href="React.E.html#VALnever"><code class="code"><span class="constructor">React</span>.<span class="constructor">E</span>.never</code></a>, physical equality is used.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALtrace"></a>trace : <code class="type">?iff:bool <a href="React.html#TYPEsignal">React.signal</a> -> ('a -> unit) -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">trace iff tr e</code> is <code class="code">e</code> except <code class="code">tr</code> is invoked with e's
+      occurence when <code class="code">iff</code> is <code class="code"><span class="keyword">true</span></code> (defaults to <code class="code"><span class="constructor">S</span>.const <span class="keyword">true</span></code>).
+      For all t where [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> and [<code class="code">iff</code>]<sub class="subscript">t</sub> =
+      <code class="code"><span class="keyword">true</span></code>, <code class="code">tr</code> is invoked with <code class="code">v</code>.<br>
+</div>
+<br>
+<a name="transf"></a>
+<h1>Transforming and filtering</h1><br>
+<pre><span class="keyword">val</span> <a name="VALonce"></a>once : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">once e</code> is <code class="code">e</code> with only its next occurence.
+      <ul>
+<li>[<code class="code">once e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> if [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> and 
+      [<code class="code">e</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">None</span></code>.</li>
+<li>[<code class="code">once e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALdrop_once"></a>drop_once : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">drop_once e</code> is <code class="code">e</code> without its next occurrence. 
+      <ul>
+<li>[<code class="code">drop_once e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> if [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> and 
+      [<code class="code">e</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">Some</span> _</code>.</li>
+<li>[<code class="code">drop_once e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALapp"></a>app : <code class="type">('a -> 'b) <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'b <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">app ef e</code> occurs when both <code class="code">ef</code> and <code class="code">e</code> occur
+      <a href="React.html#simultaneity">simultaneously</a>.
+      The value is <code class="code">ef</code>'s occurence applied to <code class="code">e</code>'s one.
+      <ul>
+<li>[<code class="code">app ef e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v'</code> if [<code class="code">ef</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> f</code> and 
+      [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> and <code class="code">f v = v'</code>.</li>
+<li>[<code class="code">app ef e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALmap"></a>map : <code class="type">('a -> 'b) -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'b <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">map f e</code> applies <code class="code">f</code> to <code class="code">e</code>'s occurrences.
+      <ul>
+<li>[<code class="code">map f e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> (f v)</code> if [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code>.</li>
+<li>[<code class="code">map f e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALstamp"></a>stamp : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> -> 'b -> 'b <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">stamp e v</code> is <code class="code">map (<span class="keyword">fun</span> _ <span class="keywordsign">-&gt;</span> v) e</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfilter"></a>filter : <code class="type">('a -> bool) -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">filter p e</code> are <code class="code">e</code>'s occurrences that satisfy <code class="code">p</code>. 
+      <ul>
+<li>[<code class="code">filter p e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> if [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> and 
+	<code class="code">p v = <span class="keyword">true</span></code></li>
+<li>[<code class="code">filter p e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfmap"></a>fmap : <code class="type">('a -> 'b option) -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'b <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">fmap fm e</code> are <code class="code">e</code>'s occurrences filtered and mapped by <code class="code">fm</code>.
+      <ul>
+<li>[<code class="code">fmap fm e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> if <code class="code">fm</code> [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code></li>
+<li>[<code class="code">fmap fm e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALdiff"></a>diff : <code class="type">('a -> 'a -> 'b) -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'b <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">diff f e</code> occurs whenever <code class="code">e</code> occurs except on the next occurence.
+      Occurences are <code class="code">f v v'</code> where <code class="code">v</code> is <code class="code">e</code>'s current
+      occurrence and <code class="code">v'</code> the previous one.
+      <ul>
+<li>[<code class="code">diff f e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> r</code> if [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code>,
+      [<code class="code">e</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">Some</span> v'</code> and <code class="code">f v v' = r</code>.</li>
+<li>[<code class="code">diff f e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALchanges"></a>changes : <code class="type">?eq:('a -> 'a -> bool) -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">changes eq e</code> is <code class="code">e</code>'s occurrences with occurences equal to 
+      the previous one dropped. Equality is tested with <code class="code">eq</code> (defaults to
+      structural equality).
+      <ul>
+<li>[<code class="code">changes eq e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> if [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code>
+      and either [<code class="code">e</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">None</span></code> or [<code class="code">e</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">Some</span> v'</code> and 
+      <code class="code">eq v v' = <span class="keyword">false</span></code>.</li>
+<li>[<code class="code">changes eq e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALwhen_"></a>when_ : <code class="type">bool <a href="React.html#TYPEsignal">React.signal</a> -> 'a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">when_ c e</code> is the occurrences of <code class="code">e</code> when <code class="code">c</code> is <code class="code"><span class="keyword">true</span></code>. 
+      <ul>
+<li>[<code class="code">when_ c e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> 
+         if [<code class="code">c</code>]<sub class="subscript">t</sub> <code class="code">= <span class="keyword">true</span></code> and [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code>.</li>
+<li>[<code class="code">when_ c e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALdismiss"></a>dismiss : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> -> 'b <a href="React.html#TYPEevent">React.event</a> -> 'b <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">dismiss c e</code> is the occurences of <code class="code">e</code> except the ones when <code class="code">c</code> occurs. 
+      <ul>
+<li>[<code class="code">dimiss c e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> 
+         if [<code class="code">c</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> and [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code>.</li>
+<li>[<code class="code">dimiss c e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALuntil"></a>until : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> -> 'b <a href="React.html#TYPEevent">React.event</a> -> 'b <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">until c e</code> is <code class="code">e</code>'s occurences until <code class="code">c</code> occurs.
+      <ul>
+<li>[<code class="code">until c e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> if [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> and
+         [<code class="code">c</code>]<sub class="subscript">&lt;=t</sub> <code class="code">= <span class="constructor">None</span></code></li>
+<li>[<code class="code">until c e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<br>
+<a name="accum"></a>
+<h1>Accumulating</h1><br>
+<pre><span class="keyword">val</span> <a name="VALaccum"></a>accum : <code class="type">('a -> 'a) <a href="React.html#TYPEevent">React.event</a> -> 'a -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">accum ef i</code> accumulates a value, starting with <code class="code">i</code>, using <code class="code">e</code>'s
+      functional occurrences.
+      <ul>
+<li>[<code class="code">accum ef i</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> (f i)</code> if [<code class="code">ef</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> f</code>
+      and [<code class="code">ef</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">None</span></code>.
+      </li>
+<li>[<code class="code">accum ef i</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> (f acc)</code> if [<code class="code">ef</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> f</code> 
+      and [<code class="code">accum ef i</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">Some</span> acc</code>.</li>
+<li>[<code class="code">accum ef i</code>] <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfold"></a>fold : <code class="type">('a -> 'b -> 'a) -> 'a -> 'b <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">fold f i e</code> accumulates <code class="code">e</code>'s occurrences with <code class="code">f</code> starting with <code class="code">i</code>. 
+      <ul>
+<li>[<code class="code">fold f i e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> (f i v)</code> if
+      [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> and [<code class="code">e</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">None</span></code>.</li>
+<li>[<code class="code">fold f i e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> (f acc v)</code> if
+      [<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">Some</span> v</code> and [<code class="code">fold f i e</code>]<sub class="subscript">&lt;t</sub> <code class="code">= <span class="constructor">Some</span> acc</code>.</li>
+<li>[<code class="code">fold f i e</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<br>
+<a name="combine"></a>
+<h1>Combining</h1><br>
+<pre><span class="keyword">val</span> <a name="VALselect"></a>select : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> list -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">select el</code> is the occurrences of every event in <code class="code">el</code>. 
+      If more than one event occurs <a href="React.html#simultaneity">simultaneously</a>
+      the leftmost is taken and the others are lost.
+      <ul>
+<li>[<code class="code">select el</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code"><span class="constructor">List</span>.find (<span class="keyword">fun</span> e <span class="keywordsign">-&gt;</span> </code>[<code class="code">e</code>]<sub class="subscript">t</sub> 
+      <code class="code">&lt;&gt; <span class="constructor">None</span>) el</code>]<sub class="subscript">t</sub></li>
+<li>[<code class="code">select el</code>]<sub class="subscript">t</sub> <code class="code">= <span class="constructor">None</span></code> otherwise.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALmerge"></a>merge : <code class="type">('a -> 'b -> 'a) -> 'a -> 'b <a href="React.html#TYPEevent">React.event</a> list -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">merge f a el</code> merges the <a href="React.html#simultaneity">simultaneous</a>
+	  occurrences of every event in <code class="code">el</code> using <code class="code">f</code> and the accumulator <code class="code">a</code>.
+<p>
+
+	  [<code class="code">merge f a el</code>]<sub class="subscript">t</sub> 
+	  <code class="code">= <span class="constructor">List</span>.fold_left f a (<span class="constructor">List</span>.filter (<span class="keyword">fun</span> o <span class="keywordsign">-&gt;</span> o &lt;&gt; <span class="constructor">None</span>) 
+				   (<span class="constructor">List</span>.map</code> []<sub class="subscript">t</sub><code class="code"> el))</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALswitch"></a>switch : <code class="type">'a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a> <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a></code></pre><div class="info">
+<code class="code">switch e ee</code> is <code class="code">e</code>'s occurrences until there is an 
+      occurrence <code class="code">e'</code> on <code class="code">ee</code>, the occurrences of <code class="code">e'</code> are then used
+      until there is a new occurrence on <code class="code">ee</code>, etc.. 
+      <ul>
+<li>[<code class="code">switch e ee</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">e</code>]<sub class="subscript">t</sub> if [<code class="code">ee</code>]<sub class="subscript">&lt;=t</sub> <code class="code">= <span class="constructor">None</span></code>.</li>
+<li>[<code class="code">switch e ee</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">e'</code>]<sub class="subscript">t</sub> if [<code class="code">ee</code>]<sub class="subscript">&lt;=t</sub> 
+	  <code class="code">= <span class="constructor">Some</span> e'</code>.</li>
+</ul>
+<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfix"></a>fix : <code class="type">('a <a href="React.html#TYPEevent">React.event</a> -> 'a <a href="React.html#TYPEevent">React.event</a> * 'b) -> 'b</code></pre><div class="info">
+<code class="code">fix ef</code> allows to refer to the value an event had an
+      infinitesimal amount of time before.
+<p>
+
+      In <code class="code">fix ef</code>, <code class="code">ef</code> is called with an event <code class="code">e</code> that represents
+      the event returned by <code class="code">ef</code> delayed by an infinitesimal amount of
+      time.  If <code class="code">e', r = ef e</code> then <code class="code">r</code> is returned by <code class="code">fix</code> and <code class="code">e</code>
+      is such that :
+      <ul>
+<li>[<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">=</code> <code class="code"><span class="constructor">None</span></code> if t = 0 </li>
+<li>[<code class="code">e</code>]<sub class="subscript">t</sub> <code class="code">=</code> [<code class="code">e'</code>]<sub class="subscript">t-dt</sub> otherwise</li>
+</ul>
+ 
+<p>
+
+      <b>Raises.</b> <code class="code"><span class="constructor">Invalid_argument</span></code> if <code class="code">e'</code> is directly a delayed event (i.e. 
+      an event given to a fixing function).<br>
+</div>
+</body></html>

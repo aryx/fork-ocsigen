@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Js.Optdef.html">
+<link rel="Up" href="Js.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Js" rel="Chapter" href="Js.html">
+<link title="Dom" rel="Chapter" href="Dom.html">
+<link title="Dom_html" rel="Chapter" href="Dom_html.html">
+<link title="Dom_events" rel="Chapter" href="Dom_events.html">
+<link title="Lwt_js" rel="Chapter" href="Lwt_js.html">
+<link title="Firebug" rel="Chapter" href="Firebug.html">
+<link title="Regexp" rel="Chapter" href="Regexp.html">
+<link title="Url" rel="Chapter" href="Url.html">
+<link title="XmlHttpRequest" rel="Chapter" href="XmlHttpRequest.html">
+<link title="Event_arrows" rel="Chapter" href="Event_arrows.html"><title>Js.Unsafe</title>
+</head>
+<body>
+<div class="navbar"><a href="Js.Optdef.html">Previous</a>
+&nbsp;<a href="Js.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_Js.Unsafe.html">Js.Unsafe</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Unsafe: <code class="code">sig</code> <a href="Js.Unsafe.html">..</a> <code class="code">end</code></pre>Unsafe Javascript operations<br>
+<hr width="100%">
+<pre><span id="VALvariable"><span class="keyword">val</span> variable</span> : <code class="type">string -> 'a</code></pre><div class="info">
+Access a Javascript variable.  <code class="code">variable "foo"</code> will
+        return the current value of variable <code class="code">foo</code>.<br>
+</div>
+<pre><span id="TYPEany"><span class="keyword">type</span> <code class="type"></code>any</span> </pre>
+<div class="info">
+Top type.  Used for putting values of different types
+        in a same array.<br>
+</div>
+
+<pre><span id="VALinject"><span class="keyword">val</span> inject</span> : <code class="type">'a -> <a href="Js.Unsafe.html#TYPEany">any</a></code></pre><div class="info">
+Coercion to top type.<br>
+</div>
+<pre><span id="VALcoerce"><span class="keyword">val</span> coerce</span> : <code class="type">< .. > <a href="Js.html#TYPEt">Js.t</a> -> < .. > <a href="Js.html#TYPEt">Js.t</a></code></pre><div class="info">
+Unsafe coercion between to Javascript objects.<br>
+</div>
+<pre><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">'a -> 'b -> 'c</code></pre><div class="info">
+Get the value of an object property.  The expression <code class="code">get o s</code>
+        returns the value of property <code class="code">s</code> of object <code class="code">o</code>.<br>
+</div>
+<pre><span id="VALset"><span class="keyword">val</span> set</span> : <code class="type">'a -> 'b -> 'c -> unit</code></pre><div class="info">
+Set an object property.  The expression <code class="code">set o s v</code>
+        set the property <code class="code">s</code> of object <code class="code">o</code> to value <code class="code">v</code>.<br>
+</div>
+<pre><span id="VALcall"><span class="keyword">val</span> call</span> : <code class="type">'a -> 'b -> <a href="Js.Unsafe.html#TYPEany">any</a> array -> 'c</code></pre><div class="info">
+Performs a Javascript function call.  The expression
+        <code class="code">call f o a</code> calls the Javascript function <code class="code">f</code> with the
+        arguments given by the array <code class="code">o</code>, and binding <code class="code">this</code> to <code class="code">o</code>.<br>
+</div>
+<pre><span id="VALfun_call"><span class="keyword">val</span> fun_call</span> : <code class="type">'a -> <a href="Js.Unsafe.html#TYPEany">any</a> array -> 'b</code></pre><div class="info">
+Performs a Javascript function call.  The expression
+        <code class="code">fun_call f a</code> calls the Javascript function <code class="code">f</code> with the
+        arguments given by the array <code class="code">o</code>.<br>
+</div>
+<pre><span id="VALmeth_call"><span class="keyword">val</span> meth_call</span> : <code class="type">'a -> string -> <a href="Js.Unsafe.html#TYPEany">any</a> array -> 'b</code></pre><div class="info">
+Performs a Javascript method call.  The expression
+        <code class="code">meth_call o m a</code> calls the Javascript method <code class="code">m</code> of object <code class="code">o</code>
+        with the arguments given by the array <code class="code">a</code>.<br>
+</div>
+<pre><span id="VALnew_obj"><span class="keyword">val</span> new_obj</span> : <code class="type">'a -> <a href="Js.Unsafe.html#TYPEany">any</a> array -> 'b</code></pre><div class="info">
+Create a Javascript object.  The expression <code class="code">new_obj c a</code>
+        creates a Javascript object with constructor <code class="code">c</code> using the
+        arguments given by the array <code class="code">a</code>.<br>
+</div>
+<pre><span id="VALpure_expr"><span class="keyword">val</span> pure_expr</span> : <code class="type">(unit -> 'a) -> 'a</code></pre><div class="info">
+Asserts that an expression is pure, and can therefore be
+        optimized away by the compiler if unused.<br>
+</div>
+</body></html>

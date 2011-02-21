@@ -1,0 +1,455 @@
+pristine:0000001973-5ca438813b704bd0f7bd6e186a35983843d35c9bad935252aedd6e1ba4c4af90
+Starting with inventory:
+0000154393-c1ec0afb065c4bc6fb1c3c75f04d8fd2facada1aa0b77fa26694a7fe81093cd8
+[TAG 1.90.0
+balat at pps.jussieu.fr**20110126143612
+ Ignore-this: 80f31f51771366bea29a928301e9e487
+] 
+hash: 0000065076-71311c5e5ad78254e6e2df964613bff8b4631f1ed4af7a1e95e84c6c4de2ba71
+[Makefile: fix dependancy on ocsigen.deriving.syntax
+chambart@crans.org**20110126163818
+ Ignore-this: a72beed39001e0a4a22001c36dcbc5d0
+] 
+hash: 0000001186-00e57f8a6fff1f78e245b77a82b98825494abd709ec0ce1fbd0311ceaec77bc5
+[META: fixing dependency to camlp4.lib
+balat at pps.jussieu.fr**20110126174710
+ Ignore-this: 6b6af32a4222a4d64e4d892f35aef5be
+] 
+hash: 0000000431-4214b621fb45ffec47a49d7d6e9ebb7e62bb750c6a210f944a5e8aa308cd1d23
+[Doc: adding graffiti to tutorial
+balat at pps.jussieu.fr**20110126183020
+ Ignore-this: 6336c8f72678f18879fcd91516a8501d
+] 
+hash: 0000000507-a35f9921eed264e030d972a413d14c9f2c8c25c560c8bd66ba9c007f89181c7e
+[Doc: fix link to graffiti
+balat at pps.jussieu.fr**20110126183135
+ Ignore-this: 22079caee3f4b869df6852ba7c7db59a
+] 
+hash: 0000000482-120220c2e8c8a3a04c0de875b1fec86ab2301d0bb8604b7d3b911e800e45a4d7
+[Doc: removing the graffiti object tag (because of the "iframe" bug)
+balat at pps.jussieu.fr**20110126184035
+ Ignore-this: d08104b2aa09472f6af910b1d7150289
+] 
+hash: 0000000539-e1ae111981816dbb3dd3cb9be6871be14909390acac0f3097e0d95415a896237
+[Doc: adding static files for graffiti example
+balat at pps.jussieu.fr**20110126185511
+ Ignore-this: 2761528e15dc2644ec6ab1c33c69d20f
+] 
+hash: 0000043718-3104dd5258535e6bb8ece4c15c2b62e5c58ac02b30c23109c09a6a3701797a76
+[Makefile: small fix in "make docinstall"
+gregoire.henry@pps.jussieu.fr**20110127065053
+ Ignore-this: 456569472100343b5a7cac37ab5b9847
+] 
+hash: 0000000545-4955137d2412d43db8fd634d17705810be684915fa8b31a3cfed26cba5e3d1ca
+[HTTP client: Adding functions for GET and POST from string URLs
+balat at pps.jussieu.fr**20110128161930
+ Ignore-this: 66d9f269bf856b7f1a2e06833b05755
+] 
+hash: 0000002178-50681dab29239024ea13e4b862ad81ac9dc3c6ecf8ab6e2e089367681bb1415c
+[Tutorial: update changes to the Makefile
+chambart@crans.org**20110128163137
+ Ignore-this: bc91ed6fb6524190811562c740d721a2
+] 
+hash: 0000001025-f7661f5ff1ce11f0af42628460c2d19dac4a42fb6c40d132ad06b927b71c6ed2
+[Eliom: Do not send request id when wrapping nodes
+chambart@crans.org**20110128181207
+ Ignore-this: eb58969b72f6ab55c95fac43ab861aa0
+] 
+hash: 0000000661-d11463056fa3b7d42457529d67a5bac6dc807ae6b8dc908f8c30a0ce2d3fb967
+[Eliom: now possible to set a priority on services
+balat at pps.jussieu.fr**20110128193001
+ Ignore-this: 9fc7849a117f8ad2dfa297410f156714
+] 
+hash: 0000017100-3e6270c4d14a386b65eae0db9b7f8ed0e080b2cebcc74fd2d46dfc3cd96193da
+[Eliom: wrap node - removing useless variable
+balat at pps.jussieu.fr**20110131152359
+ Ignore-this: 9cc8da31ffabafc908ddbdb909e72574
+] 
+hash: 0000000225-36ff8c21c61f53efb12f5b8d192efc2ab79d908ca825937184d5d4da43dbb9f8
+[Eliom: new implementation of service priorities
+balat at pps.jussieu.fr**20110131152724
+ Ignore-this: da71858e62f2204da4dee3ae0ab27dec
+ Priorities now work correctly when mixing services with and without suffixes
+] 
+hash: 0000010286-c339ad71b979ddd5cc064767db0d6eae475a5d1b285af2a00740374aaf947cd6
+[Eliom: Now raising "Wrong parameters" instead of "is a directory" when a suffix is not complete (prod, set ...)
+balat at pps.jussieu.fr**20110131172008
+ Ignore-this: 958aca0a5eb3f6819e3eb3d6fd6c94da
+] 
+hash: 0000000735-904404be4f71601dd00b427ac185627c5f922ec41f06fcc5a5dbac8a0ea7bcd0
+[Ocsigen_cache: fixing a potential assertion failure with timers
+balat at pps.jussieu.fr**20110203142604
+ Ignore-this: 72704f43dd3e903526fc5c461cf4d19e
+ (now using finalizers to remove from the table when a piece of data goes out of the dlist)
+] 
+hash: 0000002260-0d6243d25419466914835ad7477c5a40de1d3c19eba3561bfd041e2b8f5075d2
+[Ocsigen server and Eliom: now accepting any content type for POST data, and to create Eliom services taking any POST data as parameter
+balat at pps.jussieu.fr**20110205124131
+ Ignore-this: 76da1183e786d35999297d928145d185
+] 
+hash: 0000025956-92f69bddb412e428d962c37f92db1b8c03264f10576cbd7fe46df07f7e3cbe8c
+[Makefile: do not require ocamlduce for building documentation.
+gregoire.henry@pps.jussieu.fr**20110206140936
+ Ignore-this: 4eec11012c3092b4de03889f9e2a27ea
+] 
+hash: 0000000555-b289c1a8778b26909d7278dd1417e319edfabf4fa91eb0a0fc3052f7bbf03bc2
+[Tutorial: add section on how to use Eliom_output.Customize
+chambart@crans.org**20110131152904
+ Ignore-this: 87d697c55620f60c1177f8d68fff4ae
+] 
+hash: 0000002747-29e176bea266047853b24e046d03bee82c1798d5a25d052b9d105603fe1550f2
+[Tutorial: correct bug with position of the canvas
+chambart@crans.org**20110131161905
+ Ignore-this: f7c60af50fcea5c7b6a85afcfa7f9507
+] 
+hash: 0000002730-330b46ce80191000176316afdff1ebe345210c3a26dfb742f03286548312d169
+[Eliom: client: allow to record unload function on client side
+chambart@crans.org**20110131181624
+ Ignore-this: 5d60c6407dc98b950d36590d0357e587
+] 
+hash: 0000000709-cd728872fba745f740d8ead68f11aa67feda369e2534a08deee1988e21da4ff2
+[Eliom: comet client: protect comet streams from cancels
+chambart@crans.org**20110201173749
+ Ignore-this: 88903da4fe5303d9fb4b18db80d6320c
+] 
+hash: 0000000397-2e89b9664ce984de01490cbd98940dc79acf2f2a9d0856232f4c26d794c4c8ef
+[Eliom: client comet: protect new streams from cancel.
+chambart@crans.org**20110202122110
+ Ignore-this: 7efc9393f9b980fa6565db0a536fadfb
+] 
+hash: 0000000566-8d4d429f9dcb13b036ae7bc09239f4c73b0d6eaef3dbe3fc979b0e99b608e158
+[Eliom: comet: change the encoding of comet request to allow more control and implement client side channel closing
+chambart@crans.org**20110202144217
+ Ignore-this: 5020613c22289c9f438e3abf0743bcd
+] 
+hash: 0000008823-9d4e13e27be6fbde17b5b951b7aed822ed898bbd5eaae19ff175d62fd633cf28
+[Eliom: comet: server side implementation of closing channels
+chambart@crans.org**20110202145647
+ Ignore-this: 3b3a055516b16019632831e048039ff4
+] 
+hash: 0000000825-d0ed4365f9d0ec044c3cb7edaeb67990eb9ad318a8e537f32377f852130e99b3
+[Tutorial: beginning of chapter 3
+chambart@crans.org**20110202172618
+ Ignore-this: fb8557876b6021ae7d31e16536cde0ec
+] 
+hash: 0000024347-6ae0982016c56dcb4b8f20d21ce88230ead90ec6de3b296800e6066286e8cd12
+[Tutorial: chapter 3: section on cleaning
+chambart@crans.org**20110202175837
+ Ignore-this: 9f5673b308df678b1d11ddc352b135
+] 
+hash: 0000007530-39e1211ad994b9cab5874983bde1b6062b9aad1ceb8f49c1592ec90a89d41be4
+[Eliom: store change_current_page in client process informations, and not anymore in a volatile table
+chambart@crans.org**20110203132628
+ Ignore-this: cb5b83af69668e85aadeafcaa961a295
+] 
+hash: 0000002276-44cdd05549e3223faaf3a61240eeb9044f52383775f03477f774b62a06da6e68
+[Tutorial: continue chapter 3
+chambart@crans.org**20110203135931
+ Ignore-this: 58319253dd8b191e986ed11ab90b49a9
+] 
+hash: 0000012461-1d190a2a1fe4e95dea1239093f70ae9b28a80acc32b27a5f1042488cfc32179d
+[Tutorial: update chapter2: Eliom_session.close_session -> Eliom_state.close_session
+chambart@crans.org**20110203140010
+ Ignore-this: 67fc78cc18deafe29eb1d51da3e62d47
+] 
+hash: 0000000657-37b4e0448a85bc06d6d276c1e994fbbff511e5bb92cafc3a18a746640eebb8a7
+[Tutorial: escape >> by ~>>
+chambart@crans.org**20110203142215
+ Ignore-this: 1ea6d7da1ade0d40afa7068491f30422
+] 
+hash: 0000000785-6f3d17663880f3ceaad4124fdb867d2d20a6024a332fdd5f279bed637d4b9997
+[Tutorial: beginning the section on macaque
+chambart@crans.org**20110203191447
+ Ignore-this: c40b18a3c675adf57e7ce4b549025399
+] 
+hash: 0000019831-041f6e5de5461bc86966b0112add52b155b6692f9f41d4361b9efa310863ed66
+[Tutorial: chapter 3 move some code to server.ml
+chambart@crans.org**20110207162737
+ Ignore-this: c8e18b869baee6eb288ab42cd904ccf0
+] 
+hash: 0000003328-aa53991ea30857f585754f400afe369d6d171c0d158ae5119d56f7a2d73dcf03
+[Tutorial: chapter 3 section on atom feed
+chambart@crans.org**20110208170307
+ Ignore-this: e6b47baac771c2dd8e9eb94948ecd202
+] 
+hash: 0000018247-c426b2a4d327d6f1f291cbeaa6528725088a9bbf4508d58259f1c9fbc9c652bb
+[Ocsigen_htt_p_client: adding some comments
+balat at pps.jussieu.fr**20110209144110
+ Ignore-this: 609e8661696fc6f586e96b043c616991
+] 
+hash: 0000003193-edebe3d2d2c0738ffb679aa80cd14657bc3db298c7bf1ebc08539b6610544509
+[Eliom: a few changes in testsuite
+balat at pps.jussieu.fr**20110209170052
+ Ignore-this: 2ec5ef76813b33f147d9d323f2bf25e0
+] 
+hash: 0000005031-3a4459fd524ba950f14f8fe27791507631d4344338d43e94c263f6776de451b3
+[Tutorial: chapter 3, small fixes
+chambart@crans.org**20110208174302
+ Ignore-this: dd2c5cfdc3ba591562f09a9682cbb113
+] 
+hash: 0000002830-4b4a0af9437c0230ea4e3157deb5f4224f5c0c96d97a1c21e71b56e51fe59d31
+[Tutorial: chapter 3, audio player example
+chambart@crans.org**20110209161527
+ Ignore-this: 3b65c3d4f337b264eddccb578ed2d38a
+] 
+hash: 0000012854-5d4888cb8e4cf9c48ab2888de1fd26dce5ceb2efcfb063a4fea0b37d69f9d129
+[Eliom doc: removing doc from tutoeliom.ml (now in manual)
+balat at pps.jussieu.fr**20110209184605
+ Ignore-this: c5ca3f1846c869397207735be3734618
+] 
+hash: 0000128553-45128bddcdb2c3abee2fcc250d0d6084c9d7c508dbe378841c19a8704289ac06
+[Some minor editing and rewording
+tmeyer@members.fsf.org**20110210020356] 
+hash: 0000021020-441c37c713ce489ce914785065a3a26bd415ecaad1d39228e09eaa2a829a36b1
+[Eliom: fixing makefile problems with make depend
+balat at pps.jussieu.fr**20110210131532
+ Ignore-this: 6899b458d802230876c232edd397f759
+] 
+hash: 0000000530-8a6d1a66a979c5e4472903daff123eb882ab0f7b43b3fad15dd086fa090ab886
+[Eliom: reorganizing test suite
+balat at pps.jussieu.fr**20110210133732
+ Ignore-this: ec43e2317c06b35a09e24ffcb63ff1bf
+] 
+hash: 0000255907-3c63bf3e3baf2ab89afc6ba8cfabb71ce54f976c0a0e97fd4cfd9d42b2f61daa
+[Eliom: renaming files/tutorial/ into files/tests/
+balat at pps.jussieu.fr**20110211183741
+ Ignore-this: f0bba29d84c60b2e2cd7c3bad53ddb04
+] 
+hash: 0000001470-75cffe77143307f9fbc8dbfce5544150f933f43a376f2d9c16db521ea0e40787
+[Eliom: client: comet: change the configuration method of comet activity
+chambart@crans.org**20110209175550
+ Ignore-this: 968dd65cf8f3cfcb8531366630e46b02
+] 
+hash: 0000008385-1d7f66a739263937c1d59cc382b954dd24df88b4acac6f78623ff2b8d38dcc57
+[Eliom: client: do not start the comet machinery when starting application
+chambart@crans.org**20110209180551
+ Ignore-this: 2c9c1f5412a072332f0c4bc91654b9a2
+ when an application starts Eliom_client_main unwrap change_page_event.
+ Normaly it would launch a comet request. We now delay it until a form is
+ posted or another comet channel is created.
+ 
+] 
+hash: 0000000960-6d390bd19c30f835b650cc5f003c9d64d5a66057601f53212ec7c6aa998ff21d
+[Eliom tests: adding a test for forms towards internal suffix services
+balat at pps.jussieu.fr**20110211192803
+ Ignore-this: c2b622e0278d7ed5352a3b234c30cd5a
+] 
+hash: 0000002132-f6c31b88e4c7218901316b083989424d4e58180216fb70d464be392a2082b5e5
+[Eliom: Make Eliom_appl work with Eliom_output.Any
+balat at pps.jussieu.fr**20110214170245
+ Ignore-this: 8381b0fc39cd960c382218f4232478b3
+ Not relying any more on pre_service to set cpi, appl_name and content_only
+ cpi is created if someone needs it (lazy).
+ Forms and links must be created by the functions from the right module (created with Eliom_appl),
+ because they rely on the name of the application set as aparameter of Eliom_appl to decide the kind of link/form.
+ (was: the name of the application set by the pre_service)
+] 
+hash: 0000022701-e9dd4a50b0ae0272ac4cc2af9ab036ac2f3abf498481bfbdab0e329405b7f2ac
+[Eliom client: removing one warning (on_unload)
+balat at pps.jussieu.fr**20110214171209
+ Ignore-this: efb3b8523c8873d1b6381e7b12d066b6
+] 
+hash: 0000000295-37c2abb47728e9b050c4e25a589a2aae5260a11337b79a9d581a149c5fec3070
+[Eliom: not possible any more to set "pre_service" functions
+balat at pps.jussieu.fr**20110214171236
+ Ignore-this: c05cbb49cce5720bf92213b6861cfbb8
+ (was not compatible with Eliom_output.Any)
+] 
+hash: 0000002513-c3b5b3cfbd52cf76b1437318757fcc8a44d9336078aff77316d0d10efd0dafe0
+[Eliom: fixing form with suffixes in Eliom applications
+balat at pps.jussieu.fr**20110214183058
+ Ignore-this: 653b6951dad4aecb51ba5a3e14242f7
+ no redirection when there is an application running client sides
+] 
+hash: 0000000460-8c34ad1c1afad5fd9a19ce865e745d1692f0b24800347da410511c2e14b68b69
+[Eliom: now setting the URL after forms
+balat at pps.jussieu.fr**20110214200543
+ Ignore-this: 41406a45a82ae8da32179d58190e950b
+] 
+hash: 0000004059-03676597bb54c1dc56273ea9e27b945e7ef5c2c0a00977cb510126a798628fb2
+[Eliom: internal forms with suffix now display the suffix form of the uri
+balat at pps.jussieu.fr**20110215110740
+ Ignore-this: 9e9b77157ac4394d8f7dcd990b8dd6b9
+] 
+hash: 0000007151-e2ce2c0df9457c86a8e85e93fb6bbb487ecaa2071710df7802279be09744b18a
+[Eliom: cleaning Eliom_request_info api ref
+balat at pps.jussieu.fr**20110215171708
+ Ignore-this: e51f503b44a2b5fc627817655d04248c
+] 
+hash: 0000001263-d2b10f8307a72c29477329e2bb34be8f020fd9c3f95ea2fa6cc831d5c69ddda7
+[Eliom: (internal change) internal form parameter now removed earlier and ri updated
+balat at pps.jussieu.fr**20110215183447
+ Ignore-this: ac9890dc63d14f3c573f95e788f27be9
+] 
+hash: 0000004988-645abd212f874b213c6f924e8d46d388e7f9dffa68a360c6dfadb5edb3c89113
+[Eliom: Implementing internal application forms towards redirections
+balat at pps.jussieu.fr**20110217184022
+ Ignore-this: 8ca524c6ca4ba1cba07431ea1e4e615f
+] 
+hash: 0000023067-139a9af43e6c575febac647f5079edc2a151ff42e30028f72009f62f1e0bc0df
+[Eliom: fixing void_coservices inside applications
+balat at pps.jussieu.fr**20110217184634
+ Ignore-this: 5efb61e89fb2de75aeea2e8d462ebe72
+] 
+hash: 0000001078-b76cfac64fee9d49525190e3e7a2ed1029a9ecc14d3c7b353c89135aaae47679
+[Server, accescontrol, revproxy: handle X-Forwarded-For and X-Forwarded-Proto header
+chambart@crans.org**20110216161443
+ Ignore-this: 3e0ad68ba8814400a058eabfadbc6023
+ Two new tags in accesscontrol extension:
+ 	<allow-forward-for/> : with optionnal parameter: check-equal-ip
+ 		if there is an X-Forwarded-For header in the request,
+ 		the informations of the request are changed to match
+ 		the announced ip ( ri_remote_ip, ri_remote_ip_parsed ).
+ 		if check-equal-ip="true" this occur only if the announced ip
+ 		in the header is the same as the ip of the connection.
+ 	<allow-forward-proto/>
+ 		if the X-Forwarded-Proto header is set to https, the connection is
+ 		considered as secured even if the connection is not in ssl.
+ 
+] 
+hash: 0000005710-353af69a4a0734be6723bf5774e062db4a469533c67bd74efa0f20282aeb4bae
+[accesscontrol, revproxy documentation: document <allow-forward-for>
+chambart@crans.org**20110216164443
+ Ignore-this: ec9081a7592ec286d782edf7dab707df
+] 
+hash: 0000000924-3c5fd87553b82061829b7386c89a8a7ee9e03501bf0d6e732f833eaecd84180c
+[Server: Log X-Forwarded-For informations
+chambart@crans.org**20110216170001
+ Ignore-this: 61e6b88238f71b7bb7ea5fc2e8018189
+] 
+hash: 0000001392-85607180e775c515bc81f8a10198de7bad3d058c2a7d40997e7b5b8496fcfb8d
+[Update changelog for X-Forward-for
+chambart@crans.org**20110217133212
+ Ignore-this: af31afd21b9dd03555991ffb76593dd5
+] 
+hash: 0000000221-da77b1153b17d6277de0ff33fe76c684bee147e137820bd3b7162c9b9f814f05
+[pad: doc -> docs/
+Y**20110220220143
+ Ignore-this: 467336cd564bbe852d4e758ec89f9796
+] 
+hash: 0000000103-6067c7d0f2062c83cc495def8016bc38a9937b3e05e69b7d3e58ead76bcec94c
+[pad: added tmp/
+Y**20110220221003
+ Ignore-this: efb7b5c9d447ce780d62fc9808b75758
+] 
+hash: 0000000096-ae500bf784cf991942772c8975cbcc080acdfa985a441c89dd79faa095c0999b
+[pad: moved ocamlbuild stuff in tmp/, and files I dunno what they are for
+Y**20110220221131
+ Ignore-this: 8822e11ea04425e807a124555088f187
+] 
+hash: 0000000378-bf1eee3e584335e013a76a88bbefdce0c24ce18e73c830d169db18bd417d7f63
+[pad: darcs mv tutorial -> docs/tutorial/
+Y**20110220221203
+ Ignore-this: 2d5147f6540fe03bd152b36b4bf899da
+] 
+hash: 0000000140-2d82539c8fb3ccd2addaf9097b0958bfea695c0dc2a1d6da07b3f4cddcf3f26f
+[moved toplevel files to .txt format.
+Y**20110220224500
+ Ignore-this: 76f7f5145879e315608f4f4ed122fbb9
+] 
+hash: 0000000220-316570aff095ba99e13aa1bbf5ca443c71301d8c2fbed70c1ef87f60b56aa556
+[deriving: remove mention of type-conf that was generating many warnings
+Y**20110220231011
+ Ignore-this: 191a0987008d0daa6d7b80262c20dc45
+] 
+hash: 0000000284-b3500e132746b77fab7e741bce716d11fdd169b406ed4c59bac8e0ec9cc2be87
+[added external/ empty dir
+Y**20110220231209
+ Ignore-this: bc7301a288ce8897a7685f490dcc9940
+] 
+hash: 0000000111-01e9c37a58394394f3e4fe0273cbb48d9f9921f4306258dc48066c490d9ed344
+[move deriving/ in external/ocamlderiving/
+Y**20110220233710
+ Ignore-this: 21db77d231f4d278bd359be3a24e8976
+] 
+hash: 0000000150-e2f9e7639591cc7cd3800e9d595aeeae76ce0ebdc2dd66b9717e446f9d2548ac
+[CE on Makefiles when moved deriving/ in extenal/
+Y**20110220233751
+ Ignore-this: f76176122bb272693bbc05cd4697a5ad
+] 
+hash: 0000002471-f879b500d72322fe6ff294daea885d1c99dab44ed68d6b3e731ef07b7d2fcb2a
+[move xmlp4/ to web_html/
+Y**20110220235134
+ Ignore-this: fe9b2e782675e1a46c5c1f7ece8c79a9
+] 
+hash: 0000000116-22cd8e141abb45b7608f83f7fc4c11c32fc3c3a2b75f4f6a6a0a4e961a749db8
+[CE on Makefiles when moved xmlp4/ to web_html/
+Y**20110220235159
+ Ignore-this: 6192eeb0af33b9f92ab8a516c256112d
+] 
+hash: 0000005689-a32e54ef6c4c5143f4f20c84ea2246df4b9bff72ca106d32f03d2b2c35415c66
+[move eliom/tests to tests/
+Y**20110221002059
+ Ignore-this: ca041d90dcdd48cecf214dd3f6ae542b
+] 
+hash: 0000000121-4738bbece1bc8fb8fa34915bc50d41b532819b69d047397ba9c2d4b2d9723e2a
+[CE on Makefiles when moved eliom/tests/
+Y**20110221002121
+ Ignore-this: d790278cf9d552570197333158ed22a4
+] 
+hash: 0000004303-366477025d9896b6b2a23bb48b5e6bb3bf15453a6d5af90f560d6aa8d71d7c90
+[added docs/old
+Y**20110221002707
+ Ignore-this: cc4909d0014c8253692515f60bc5e742
+] 
+hash: 0000000100-9d6dfa851d9e6d761dc94f53fc23c6b6d6c29405a75766d58e59cd44a382f9b2
+[moved again tmp/ to docs/old/ocamlbuild/
+Y**20110221002719
+ Ignore-this: 89f878b8d3386702beddf3d424659a19
+] 
+hash: 0000000141-f7751de902c053f18da111db2dab08183a4c7e3ae18a00ccc195b6ae4899d564
+[moved oldocsigenmod to docs/old/
+Y**20110221003028
+ Ignore-this: 192d8a4c601660b9e6f9635ee06e5a69
+] 
+hash: 0000000152-d3fb13f4d226fea8bedbf2129b9ee2b29185e5d4976ce7eeafd8ea2f9926cc9d
+[added demos/
+Y**20110221003440
+ Ignore-this: 9550eb57c7e99451d19d15d95add66b7
+] 
+hash: 0000000095-d81fbc0f588b2e82804f0897c578382dcd7dfdb46f749e70a2e1ba9d11ceb364
+[moved tests/miniwiki and miniforum to demos/
+Y**20110221005249
+ Ignore-this: b786757ae6ba75b669baa204f3d480a4
+] 
+hash: 0000000192-7c2438e564dd3a34483ca12d31e70df24bfbe0f8df5e853824600299824bf526
+[adjusted Makefile to new tests/ location
+Y**20110221005321
+ Ignore-this: 24f93398c5d484eeee7404854577f56a
+] 
+hash: 0000000430-5045461f2286b0c34a04fdda8b7438d7301847c538d7d1fe6404abb3c32cd3e9
+[removed miniwiki from default eliom testsuite (miniwiki is now in demos/)
+Y**20110221005339
+ Ignore-this: f076c3fc73f3ed6fe09b5763685e3d23
+] 
+hash: 0000001102-96396696702564a3ed8ec9f6fd24a284283586fbf715771a806a1c751408c794
+[modified tests/monitoring.ml to not be in conflict with elion testsuite
+Y**20110221010525
+ Ignore-this: b7289b0f79acc098ee283eafa579e585
+] 
+hash: 0000000209-3dda39c04f92c3428a4aa5ff98db285b4b728ae79054431cdce1cec4df3fd5d6
+[moved eliom/doc/src to docs/eliom/
+Y**20110221011000
+ Ignore-this: 5737e402dc276062650bd9e9972a2787
+] 
+hash: 0000000154-cf31fe25940cc7a16162e2399234b13e8fe165065031a1490a68d98912604466
+[renamed docs/src to docs/server
+Y**20110221011130
+ Ignore-this: 8941988b623fd84471c41de1eab6236c
+] 
+hash: 0000000175-2b09d298d8abc95326a05776cde6c9050b5bd58ca02be5faa60fec357cfe57c8
+[moved etc, pages, var, to files/
+Y**20110221011922
+ Ignore-this: 8bde8e29ca90e5e7e7497cbb03a9663e
+] 
+hash: 0000000173-f4458b9ef631c3c54238da9299eb5b7306071fdac09c79a4e2f01c795ad818be
+[moved baselib/ to commons/
+Y**20110221013818
+ Ignore-this: 2e1de583ccdee2036024fc4dd489cd42
+] 
+hash: 0000000119-a4fa738d987a448e31d94d6c34acf3f5e083e4d43cababde30c58977e2dd2a42
+[CEs on Makefiles because renamed baselib in commons
+Y**20110221013849
+ Ignore-this: 48868cf4cf193d13411227008f1b2cda
+] 
+hash: 0000003344-b9efd77bd646a52a2678c61ad49c64d5699f2412540c1836f0104e55d60bab5f

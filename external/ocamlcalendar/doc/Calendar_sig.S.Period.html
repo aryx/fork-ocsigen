@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Calendar_sig.S.Time.html">
+<link rel="Up" href="Calendar_sig.S.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Utils" rel="Chapter" href="Utils.html">
+<link title="Time_Zone" rel="Chapter" href="Time_Zone.html">
+<link title="Period" rel="Chapter" href="Period.html">
+<link title="Time_sig" rel="Chapter" href="Time_sig.html">
+<link title="Time" rel="Chapter" href="Time.html">
+<link title="Ftime" rel="Chapter" href="Ftime.html">
+<link title="Date_sig" rel="Chapter" href="Date_sig.html">
+<link title="Date" rel="Chapter" href="Date.html">
+<link title="Calendar_sig" rel="Chapter" href="Calendar_sig.html">
+<link title="Calendar_builder" rel="Chapter" href="Calendar_builder.html">
+<link title="Calendar" rel="Chapter" href="Calendar.html">
+<link title="Fcalendar" rel="Chapter" href="Fcalendar.html">
+<link title="Printer" rel="Chapter" href="Printer.html">
+<link title="Version" rel="Chapter" href="Version.html"><link title="Arithmetic operations" rel="Section" href="#3_Arithmeticoperations">
+<link title="Period is an additive monoid" rel="Section" href="#3_Periodisanadditivemonoid">
+<link title="Periods are comparable" rel="Section" href="#3_Periodsarecomparable">
+<link title="Constructors" rel="Section" href="#3_Constructors">
+<link title="Coercions" rel="Section" href="#3_Coercions">
+<title>Calendar_sig.S.Period</title>
+</head>
+<body>
+<div class="navbar"><a href="Calendar_sig.S.Time.html">Previous</a>
+&nbsp;<a href="Calendar_sig.S.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_Calendar_sig.S.Period.html">Calendar_sig.S.Period</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Period: <code class="code"><span class="keyword">sig</span></code> <a href="Calendar_sig.S.Period.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>A period is the number of seconds between two calendars.<br>
+<hr width="100%">
+<br>
+<a name="3_Arithmeticoperations"></a>
+<h3>Arithmetic operations</h3><br>
+<pre><span class="keyword">type</span> <a name="TYPEperiod"></a><code class="type">+[< <a href="Period.html#TYPEdate_field">Period.date_field</a> ]</code> period </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEt"></a><code class="type"></code>t = <code class="type"><a href="Period.html#TYPEdate_field">Period.date_field</a> <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code> </pre>
+<div class="info">
+Type of a period.<br>
+</div>
+
+<br>
+<a name="3_Periodisanadditivemonoid"></a>
+<h3>Period is an additive monoid</h3><br>
+<pre><span class="keyword">val</span> <a name="VALempty"></a>empty : <code class="type">[< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+The empty period.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALadd"></a>add : <code class="type">([< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Day `Week ] as 'a) <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -><br>       'a <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -> 'a <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+Addition of periods.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALsub"></a>sub : <code class="type">([< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Day `Week ] as 'a) <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -><br>       'a <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -> 'a <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+Substraction of periods.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALopp"></a>opp : <code class="type">([< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Day `Week ] as 'a) <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -><br>       'a <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+Opposite of a period.<br>
+</div>
+<br>
+<a name="3_Periodsarecomparable"></a>
+<h3>Periods are comparable</h3><br>
+<pre><span class="keyword">val</span> <a name="VALequal"></a>equal : <code class="type">[< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -><br>       [< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -> bool</code></pre><div class="info">
+Equality function between two periods.<br>
+<b>Since</b> 1.09.0<br>
+<b>See also</b> <a href="Utils.Comparable.html#VALequal">Utils.Comparable.equal</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALcompare"></a>compare : <code class="type">[< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -><br>       [< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -> int</code></pre><div class="info">
+Comparison function between two periods.<br>
+<b>See also</b> <a href="Utils.Comparable.html#VALcompare">Utils.Comparable.compare</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALhash"></a>hash : <code class="type">[< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -> int</code></pre><div class="info">
+Hash function for periods.<br>
+<b>Since</b> 2.0<br>
+<b>See also</b> <a href="Utils.Comparable.html#VALhash">Utils.Comparable.hash</a><br>
+</div>
+<br>
+<a name="3_Constructors"></a>
+<h3>Constructors</h3><br>
+<pre><span class="keyword">val</span> <a name="VALmake"></a>make : <code class="type">int -><br>       int -> int -> int -> int -> <a href="Calendar_sig.S.html#TYPEsecond">Calendar_sig.S.second</a> -> <a href="Calendar_sig.S.Period.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">make year month day hour minute second</code> makes a period of the
+	  specified length.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALlmake"></a>lmake : <code class="type">?year:int -><br>       ?month:int -><br>       ?day:int -><br>       ?hour:int -><br>       ?minute:int -><br>       ?second:<a href="Calendar_sig.S.html#TYPEsecond">Calendar_sig.S.second</a> -> unit -> <a href="Calendar_sig.S.Period.html#TYPEt">t</a></code></pre><div class="info">
+Labelled version of <code class="code">make</code>.
+	  The default value of each argument is <code class="code">0</code>.<br>
+</div>
+<br>
+Those functions have the same behavious as those defined in
+	<a href="Date_sig.S.Period.html"><code class="code"><span class="constructor">Date_sig</span>.<span class="constructor">S</span>.<span class="constructor">Period</span></code></a>.<br>
+<pre><span class="keyword">val</span> <a name="VALyear"></a>year : <code class="type">int -> [< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Year ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.Period.html#VALyear">Date_sig.S.Period.year</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALmonth"></a>month : <code class="type">int -> [< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Month `Year ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.Period.html#VALmonth">Date_sig.S.Period.month</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALweek"></a>week : <code class="type">int -> [< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Day `Week ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.Period.html#VALweek">Date_sig.S.Period.week</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALday"></a>day : <code class="type">int -> [< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Day `Week ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.Period.html#VALday">Date_sig.S.Period.day</a><br>
+</div>
+<br>
+Those functions have the same behavious as those defined in
+	.<br>
+<pre><span class="keyword">val</span> <a name="VALhour"></a>hour : <code class="type">int -> [< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Day `Week ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.Period.html#VALhour">Time_sig.S.Period.hour</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALminute"></a>minute : <code class="type">int -> [< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Day `Week ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.Period.html#VALminute">Time_sig.S.Period.minute</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALsecond"></a>second : <code class="type"><a href="Calendar_sig.S.html#TYPEsecond">Calendar_sig.S.second</a> -><br>       [< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Day `Week ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.Period.html#VALsecond">Time_sig.S.Period.second</a><br>
+</div>
+<br>
+<a name="3_Coercions"></a>
+<h3>Coercions</h3><br>
+<pre><span class="keyword">val</span> <a name="VALfrom_date"></a>from_date : <code class="type">([< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] as 'a) Date.Period.period -><br>       'a <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+Convert a date period to a calendar period.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_time"></a>from_time : <code class="type">([< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] as 'a) Time.Period.period -><br>       'a <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a></code></pre><div class="info">
+Convert a time period to a calendar period.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_date"></a>to_date : <code class="type">([< Date.field ] as 'a) <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -> 'a Date.Period.period</code></pre><div class="info">
+Convert a calendar period to a date period.
+	  The fractional time period is ignored.<br>
+<b>Example:</b> <code class="code">to_date (hour 60)</code> is equivalent to <code class="code"><span class="constructor">Date</span>.<span class="constructor">Period</span>.days 2</code>.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONNot_computable"></a>Not_computable</pre>
+<div class="info">
+<code class="code">= <span class="constructor">Date</span>.<span class="constructor">Period</span>.<span class="constructor">Not_computable</span></code>.<br>
+<b>Since</b> 1.04<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_time"></a>to_time : <code class="type">([< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] as 'a) <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -><br>       'a Time.Period.period</code></pre><div class="info">
+<span class="warning">Deprecated.</span>since 2.02: use <a href="Calendar_sig.S.Period.html#VALsafe_to_time"><code class="code"><span class="constructor">Calendar_sig</span>.<span class="constructor">S</span>.<span class="constructor">Period</span>.safe_to_time</code></a> instead<br>
+Convert a calendar period to a date period.<br>
+<b>Since</b> 1.04<br>
+<b>Raises</b> <code>Not_computable</code> if the time period is not computable.<br>
+<b>Examples:</b><ul><li><code class="code">to_time (year 1)</code> raises <code class="code"><span class="constructor">Not_computable</span></code> because
+	  a year is not a constant number of days.<br>
+</li><li><code class="code">to_time (second 30)</code> returns a time period of <code class="code">30</code> seconds<br>
+</li><li><code class="code">to_time (day 6)</code> returns a time period of <code class="code">24 * 3600 * 6 =
+	  518400</code> seconds<br>
+</li></ul></div>
+<pre><span class="keyword">val</span> <a name="VALsafe_to_time"></a>safe_to_time : <code class="type">([< `Day | `Week ] as 'a) <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -><br>       'a Time.Period.period</code></pre><div class="info">
+Equivalent to <a href="Calendar_sig.S.Period.html#VALto_time"><code class="code"><span class="constructor">Calendar_sig</span>.<span class="constructor">S</span>.<span class="constructor">Period</span>.to_time</code></a> but never raises any exception.<br>
+<b>Since</b> 2.02<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALymds"></a>ymds : <code class="type">[< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] <a href="Calendar_sig.S.Period.html#TYPEperiod">period</a> -><br>       int * int * int * <a href="Calendar_sig.S.html#TYPEsecond">Calendar_sig.S.second</a></code></pre><div class="info">
+Number of years, months, days and seconds in a period.<br>
+<b>Since</b> 1.09.0<br>
+<b>Examples:</b><ul><li><code class="code">ymds (make (-1) (-2) (-3) (-1) (-2) (-3)</code> returns
+	  <code class="code">-1, -2, -4, 82677</code>.<br>
+</li><li><code class="code">ymds (make 1 2 3 1 2 3)</code> returns <code class="code">1, 2, 3, 3723</code><br>
+</li></ul></div>
+</body></html>

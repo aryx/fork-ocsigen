@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Firebug.html">
+<link rel="next" href="Url.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Js" rel="Chapter" href="Js.html">
+<link title="Dom" rel="Chapter" href="Dom.html">
+<link title="Dom_html" rel="Chapter" href="Dom_html.html">
+<link title="Dom_events" rel="Chapter" href="Dom_events.html">
+<link title="Lwt_js" rel="Chapter" href="Lwt_js.html">
+<link title="Firebug" rel="Chapter" href="Firebug.html">
+<link title="Regexp" rel="Chapter" href="Regexp.html">
+<link title="Url" rel="Chapter" href="Url.html">
+<link title="XmlHttpRequest" rel="Chapter" href="XmlHttpRequest.html">
+<link title="Event_arrows" rel="Chapter" href="Event_arrows.html"><title>Regexp</title>
+</head>
+<body>
+<div class="navbar"><a href="Firebug.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Url.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Regexp.html">Regexp</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Regexp: <code class="code">sig</code> <a href="Regexp.html">..</a> <code class="code">end</code></pre>Types for regexps<br>
+<hr width="100%">
+<pre><span id="TYPEregexp"><span class="keyword">type</span> <code class="type"></code>regexp</span> </pre>
+<div class="info">
+The type for regexps.<br>
+</div>
+
+<pre><span id="TYPEresult"><span class="keyword">type</span> <code class="type"></code>result</span> </pre>
+<div class="info">
+The type for match result.<br>
+</div>
+
+<br>
+Constructors<br>
+<pre><span id="VALregexp"><span class="keyword">val</span> regexp</span> : <code class="type">string -> <a href="Regexp.html#TYPEregexp">regexp</a></code></pre><div class="info">
+Simple regexp constructor.<br>
+</div>
+<pre><span id="VALquote"><span class="keyword">val</span> quote</span> : <code class="type">string -> string</code></pre><div class="info">
+Escapes characters with special meaning in the regexp context.<br>
+</div>
+<pre><span id="VALregexp_string"><span class="keyword">val</span> regexp_string</span> : <code class="type">string -> <a href="Regexp.html#TYPEregexp">regexp</a></code></pre><div class="info">
+<code class="code">regexp_string s</code> creates a regexp matching the exact string <code class="code">s</code>.<br>
+</div>
+<br>
+Functions<br>
+<pre><span id="VALstring_match"><span class="keyword">val</span> string_match</span> : <code class="type"><a href="Regexp.html#TYPEregexp">regexp</a> -> string -> int -> <a href="Regexp.html#TYPEresult">result</a> option</code></pre><div class="info">
+<code class="code">string_match r s i</code> matches the string <code class="code">s</code> starting from the <code class="code">i</code>th
+    character. Evaluates to <code class="code">None</code> if <code class="code">s</code> (from the <code class="code">i</code>th character) doesn't
+    match <code class="code">r</code>.<br>
+</div>
+<pre><span id="VALsearch"><span class="keyword">val</span> search</span> : <code class="type"><a href="Regexp.html#TYPEregexp">regexp</a> -> string -> int -> (int * <a href="Regexp.html#TYPEresult">result</a>) option</code></pre><div class="info">
+<code class="code">search r s i</code> evaluates to the index of the match and the match result or
+    <code class="code">None</code> if <code class="code">s</code> (starting from <code class="code">i</code>) doesn't match <code class="code">r</code>.<br>
+</div>
+<pre><span id="VALmatched_string"><span class="keyword">val</span> matched_string</span> : <code class="type"><a href="Regexp.html#TYPEresult">result</a> -> string</code></pre><div class="info">
+<code class="code">matched_string r</code> return the exact substring that matched when evaluating
+    <code class="code">r</code>.<br>
+</div>
+<pre><span id="VALmatched_group"><span class="keyword">val</span> matched_group</span> : <code class="type"><a href="Regexp.html#TYPEresult">result</a> -> int -> string option</code></pre><div class="info">
+<code class="code">matched_group r i</code> is the <code class="code">i</code>th group matched. Groups in matches are
+  * obtained with parentheses. Groups are 1-based.<br>
+</div>
+<pre><span id="VALglobal_replace"><span class="keyword">val</span> global_replace</span> : <code class="type"><a href="Regexp.html#TYPEregexp">regexp</a> -> string -> string -> string</code></pre><div class="info">
+<code class="code">global_replace r s by</code> replaces all of the matches of <code class="code">r</code> in <code class="code">s</code> by <code class="code">by</code>.<br>
+</div>
+<pre><span id="VALreplace_first"><span class="keyword">val</span> replace_first</span> : <code class="type"><a href="Regexp.html#TYPEregexp">regexp</a> -> string -> string -> string</code></pre><div class="info">
+<code class="code">replace_first r s by</code> replaces the first match of <code class="code">r</code> in <code class="code">s</code> by <code class="code">by</code>.<br>
+</div>
+<pre><span id="VALsplit"><span class="keyword">val</span> split</span> : <code class="type"><a href="Regexp.html#TYPEregexp">regexp</a> -> string -> string list</code></pre><div class="info">
+<code class="code">split r s</code> splits the string <code class="code">s</code> erasing matches with <code class="code">r</code>.
+    <code class="code">split (regexp " ") "toto tutu tata"</code> is <code class="code">["toto";"tutu";"tata"]</code>.<br>
+</div>
+<pre><span id="VALbounded_split"><span class="keyword">val</span> bounded_split</span> : <code class="type"><a href="Regexp.html#TYPEregexp">regexp</a> -> string -> int -> string list</code></pre><div class="info">
+<code class="code">bounded_split r s i</code> is like <code class="code">split r s</code> except that the result's length is
+    less than <code class="code">i</code>.<br>
+</div>
+</body></html>

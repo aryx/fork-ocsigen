@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Url.html">
+<link rel="next" href="Event_arrows.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Js" rel="Chapter" href="Js.html">
+<link title="Dom" rel="Chapter" href="Dom.html">
+<link title="Dom_html" rel="Chapter" href="Dom_html.html">
+<link title="Dom_events" rel="Chapter" href="Dom_events.html">
+<link title="Lwt_js" rel="Chapter" href="Lwt_js.html">
+<link title="Firebug" rel="Chapter" href="Firebug.html">
+<link title="Regexp" rel="Chapter" href="Regexp.html">
+<link title="Url" rel="Chapter" href="Url.html">
+<link title="XmlHttpRequest" rel="Chapter" href="XmlHttpRequest.html">
+<link title="Event_arrows" rel="Chapter" href="Event_arrows.html"><title>XmlHttpRequest</title>
+</head>
+<body>
+<div class="navbar"><a href="Url.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Event_arrows.html">Next</a>
+</div>
+<center><h1>Module <a href="type_XmlHttpRequest.html">XmlHttpRequest</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> XmlHttpRequest: <code class="code">sig</code> <a href="XmlHttpRequest.html">..</a> <code class="code">end</code></pre>XmlHttpRequest object.<br>
+<hr width="100%">
+<br><code><span id="TYPEreadyState"><span class="keyword">type</span> <code class="type"></code>readyState</span> = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">UNSENT</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">OPENED</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">HEADERS_RECEIVED</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">LOADING</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">DONE</span></code></td>
+
+</tr></table>
+
+
+<pre><span id="TYPExmlHttpRequest"><span class="keyword">class type</span> <a href="XmlHttpRequest.xmlHttpRequest-c.html">xmlHttpRequest</a></span> = <code class="code">object</code> <a href="XmlHttpRequest.xmlHttpRequest-c.html">..</a> <code class="code">end</code></pre><pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">unit -> <a href="XmlHttpRequest.xmlHttpRequest-c.html">xmlHttpRequest</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><br>
+The next part of this module allow one to use Ocaml with no need for
+     Javascript documentation.<br>
+<br><code><span id="TYPEhttp_frame"><span class="keyword">type</span> <code class="type"></code>http_frame</span> = {</code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code>code&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code>headers&nbsp;: <code class="type">string -> string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code>content&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info">
+The type for XHR results. The code field is the http status code of the
+    answer. The headers field is a function associating values to any header
+    name.<br>
+</div>
+
+<pre><span id="VALsend_string"><span class="keyword">val</span> send_string</span> : <code class="type">?headers:(string * string) list -><br>       ?content_type:string -><br>       ?post_args:(string * string) list -><br>       ?get_args:(string * string) list -> string -> <a href="XmlHttpRequest.html#TYPEhttp_frame">http_frame</a> Lwt.t</code></pre><div class="info">
+<code class="code">send_string ?headers ?content_type ?post_args ?get_args url</code> makes an
+      asynchronous request to the specified <code class="code">url</code> with specified options. The
+      result is a cancelable thread returning an HTTP frame. If <code class="code">post_args</code> is
+      <code class="code">None</code>, a GET request is used. If <code class="code">post_args</code> is <code class="code">Some _</code> (even <code class="code">Some []</code>)
+      then a POST request is made.<br>
+</div>
+<pre><span id="VALsend"><span class="keyword">val</span> send</span> : <code class="type">?headers:(string * string) list -><br>       ?content_type:string -><br>       ?post_args:(string * string) list -><br>       ?get_args:(string * string) list -><br>       <a href="Url.html#TYPEurl">Url.url</a> -> <a href="XmlHttpRequest.html#TYPEhttp_frame">http_frame</a> Lwt.t</code></pre><div class="info">
+<code class="code">send</code> is the same as <a href="XmlHttpRequest.html#VALsend_string"><code class="code">XmlHttpRequest.send_string</code></a> except that the Url argument has type
+      <a href="Url.html#TYPEurl"><code class="code">Url.url</code></a>.<br>
+</div>
+</body></html>

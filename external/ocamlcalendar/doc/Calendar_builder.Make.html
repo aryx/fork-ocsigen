@@ -1,0 +1,431 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Calendar_builder.Make_Precise.html">
+<link rel="Up" href="Calendar_builder.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Utils" rel="Chapter" href="Utils.html">
+<link title="Time_Zone" rel="Chapter" href="Time_Zone.html">
+<link title="Period" rel="Chapter" href="Period.html">
+<link title="Time_sig" rel="Chapter" href="Time_sig.html">
+<link title="Time" rel="Chapter" href="Time.html">
+<link title="Ftime" rel="Chapter" href="Ftime.html">
+<link title="Date_sig" rel="Chapter" href="Date_sig.html">
+<link title="Date" rel="Chapter" href="Date.html">
+<link title="Calendar_sig" rel="Chapter" href="Calendar_sig.html">
+<link title="Calendar_builder" rel="Chapter" href="Calendar_builder.html">
+<link title="Calendar" rel="Chapter" href="Calendar.html">
+<link title="Fcalendar" rel="Chapter" href="Fcalendar.html">
+<link title="Printer" rel="Chapter" href="Printer.html">
+<link title="Version" rel="Chapter" href="Version.html"><link title="Datatypes" rel="Section" href="#2_Datatypes">
+<link title="Constructors" rel="Section" href="#2_Constructors">
+<link title="Conversions" rel="Section" href="#2_Conversions">
+<link title="Getters" rel="Section" href="#2_Getters">
+<link title="Calendars are comparable" rel="Section" href="#2_Calendarsarecomparable">
+<link title="Coercions" rel="Section" href="#2_Coercions">
+<link title="Period" rel="Section" href="#2_Period">
+<link title="Arithmetic operations on calendars and periods" rel="Section" href="#2_Arithmeticoperationsoncalendarsandperiods">
+<title>Calendar_builder.Make</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="Calendar_builder.html">Up</a>
+&nbsp;<a href="Calendar_builder.Make_Precise.html">Next</a>
+</div>
+<center><h1>Functor <a href="type_Calendar_builder.Make.html">Calendar_builder.Make</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Make: <div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">D</span></code><code class="code"> : </code><code class="type"><a href="Date_sig.S.html">Date_sig.S</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><div class="sig_block"><code class="code"><span class="keyword">functor</span> (</code><code class="code"><span class="constructor">T</span></code><code class="code"> : </code><code class="type"><a href="Time_sig.S.html">Time_sig.S</a></code><code class="code">) <span class="keywordsign">-&gt;</span> </code><code class="type"><a href="Calendar_sig.S.html">Calendar_sig.S</a></code><code class="type">  with module Date = D and module Time = T</code></div></div></pre>Implement a calendar from a date implementation and a time implementation.
+<p>
+
+    This module uses float. Then results may be very unprecise.<br>
+<b>Since</b> 2.0<br>
+<table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%">
+<code>D</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Date_sig.S.html">Date_sig.S</a></code>
+<tr>
+<td align="center" valign="top" width="15%">
+<code>T</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Time_sig.S.html">Time_sig.S</a></code>
+</table>
+</td>
+</tr>
+</table>
+<hr width="100%">
+<br>
+<a name="2_Datatypes"></a>
+<h2>Datatypes</h2><br>
+<pre><span class="keyword">module</span> <a href="Calendar_sig.S.Date.html">Date</a>: <code class="type"><a href="Date_sig.S.html">Date_sig.S</a></code><code class="type"> </code></pre><div class="info">
+Date implementation used by this calendar.
+</div>
+<pre><span class="keyword">module</span> <a href="Calendar_sig.S.Time.html">Time</a>: <code class="type"><a href="Time_sig.S.html">Time_sig.S</a></code><code class="type"> </code></pre><div class="info">
+Time implementation used by this calendar.
+</div>
+<pre><span class="keyword">type</span> <a name="TYPEt"></a><code class="type"></code>t </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEday"></a><code class="type"></code>day = <code class="type">Date.day</code> = </pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Sun</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Mon</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tue</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Wed</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Thu</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Fri</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Sat</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >Days of the week.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+
+<pre><span class="keyword">type</span> <a name="TYPEmonth"></a><code class="type"></code>month = <code class="type">Date.month</code> = </pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Jan</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Feb</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Mar</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Apr</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">May</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Jun</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Jul</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Aug</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Sep</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Oct</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Nov</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Dec</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >Months of the year.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+
+<pre><span class="keyword">type</span> <a name="TYPEyear"></a><code class="type"></code>year = <code class="type">Date.year</code> </pre>
+<div class="info">
+Year as an int<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEsecond"></a><code class="type"></code>second = <code class="type">Time.second</code> </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEfield"></a><code class="type"></code>field = <code class="type">[ `Day | `Hour | `Minute | `Month | `Second | `Week | `Year ]</code> </pre>
+<div class="info">
+The different fields of a calendar.<br>
+</div>
+
+<br>
+<a name="2_Constructors"></a>
+<h2>Constructors</h2><br>
+<pre><span class="keyword">val</span> <a name="VALmake"></a>make : <code class="type">int -> int -> int -> int -> int -> <a href="Calendar_sig.S.html#TYPEsecond">second</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">make year month day hour minute second</code> makes the calendar
+	"year-month-day; hour-minute-second".<br>
+<b>Raises</b><ul><li><code>D.Out_of_bounds</code> when a date is outside the Julian period.</li>
+<li><code>D.Undefined</code> when a date belongs to <code class="code">[<span class="constructor">October</span> 5th, 1582; <span class="constructor">October</span>
+	14th, 1582]</code>.</li>
+</ul>
+</div>
+<pre><span class="keyword">val</span> <a name="VALlmake"></a>lmake : <code class="type">year:int -><br>       ?month:int -><br>       ?day:int -><br>       ?hour:int -><br>       ?minute:int -> ?second:<a href="Calendar_sig.S.html#TYPEsecond">second</a> -> unit -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Labelled version of <code class="code">make</code>.
+	The default value of <code class="code">month</code> and <code class="code">day</code> (resp. of <code class="code">hour</code>, <code class="code">minute</code>
+	and <code class="code">second</code>) is <code class="code">1</code> (resp. <code class="code">0</code>).<br>
+<b>Since</b> 1.05<br>
+<b>Raises</b><ul><li><code>D.Out_of_bounds</code> when a date is outside the Julian period.</li>
+<li><code>D.Undefined</code> when a date belongs to <code class="code">[<span class="constructor">October</span> 5th, 1582; <span class="constructor">October</span>
+	14th, 1582]</code>.</li>
+</ul>
+</div>
+<pre><span class="keyword">val</span> <a name="VALcreate"></a>create : <code class="type">Date.t -> Time.t -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">create d t</code> creates a calendar from the given date and time.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALnow"></a>now : <code class="type">unit -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<code class="code">now ()</code> returns the current date and time (in the current time
+	zone).<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_jd"></a>from_jd : <code class="type">float -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Return the Julian day.
+	More precise than <code class="code"><span class="constructor">Date</span>.from_jd</code>: the fractional part represents the
+	time.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_mjd"></a>from_mjd : <code class="type">float -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Return the Modified Julian day.
+	It is <code class="code"><span class="constructor">Julian</span> day - 2 400 000.5</code> (more precise than <code class="code"><span class="constructor">Date</span>.from_mjd</code>).<br>
+</div>
+<br>
+<a name="2_Conversions"></a>
+<h2>Conversions</h2><br>
+<br>
+Those functions have the same behaviour as those defined in
+       <a href="Time_sig.S.html"><code class="code"><span class="constructor">Time_sig</span>.<span class="constructor">S</span></code></a>.<br>
+<pre><span class="keyword">val</span> <a name="VALconvert"></a>convert : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Time_Zone.html#TYPEt">Time_Zone.t</a> -> <a href="Time_Zone.html#TYPEt">Time_Zone.t</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.html#VALconvert">Time_sig.S.convert</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_gmt"></a>to_gmt : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.html#VALto_gmt">Time_sig.S.to_gmt</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_gmt"></a>from_gmt : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.html#VALfrom_gmt">Time_sig.S.from_gmt</a><br>
+</div>
+<br>
+<a name="2_Getters"></a>
+<h2>Getters</h2><br>
+<br>
+Those functions have the same behavious as those defined in
+      <a href="Date_sig.S.html"><code class="code"><span class="constructor">Date_sig</span>.<span class="constructor">S</span></code></a>.<br>
+<pre><span class="keyword">val</span> <a name="VALdays_in_month"></a>days_in_month : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALdays_in_month">Date_sig.S.days_in_month</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALday_of_week"></a>day_of_week : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEday">day</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALdays_of_week">Date_sig.S.days_of_week</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALday_of_month"></a>day_of_month : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALdays_of_month">Date_sig.S.days_of_month</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALday_of_year"></a>day_of_year : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALdays_of_year">Date_sig.S.days_of_year</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALweek"></a>week : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALweek">Date_sig.S.week</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALmonth"></a>month : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEmonth">month</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALmonth">Date_sig.S.month</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALyear"></a>year : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALyear">Date_sig.S.year</a><br>
+</div>
+<br>
+<code class="code">to_jd</code> and <code class="code">to_mjd</code> are more precise than <a href="Date_sig.S.html#VALto_jd"><code class="code"><span class="constructor">Date_sig</span>.<span class="constructor">S</span>.to_jd</code></a> and
+      <a href="Date_sig.S.html#VALto_mjd"><code class="code"><span class="constructor">Date_sig</span>.<span class="constructor">S</span>.to_mjd</code></a>.<br>
+<pre><span class="keyword">val</span> <a name="VALto_jd"></a>to_jd : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> float</code></pre><pre><span class="keyword">val</span> <a name="VALto_mjd"></a>to_mjd : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> float</code></pre><br>
+Those functions have the same behavious as those defined in
+      <a href="Time_sig.S.html"><code class="code"><span class="constructor">Time_sig</span>.<span class="constructor">S</span></code></a>.<br>
+<pre><span class="keyword">val</span> <a name="VALhour"></a>hour : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.html#VALhour">Time_sig.S.hour</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALminute"></a>minute : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.html#VALminute">Time_sig.S.minute</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALsecond"></a>second : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEsecond">second</a></code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.html#VALsecond">Time_sig.S.second</a><br>
+</div>
+<br>
+<a name="2_Calendarsarecomparable"></a>
+<h2>Calendars are comparable</h2><br>
+<pre><span class="keyword">val</span> <a name="VALequal"></a>equal : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+Equality function between two calendars.<br>
+<b>See also</b> <a href="Utils.Comparable.html#VALequal">Utils.Comparable.equal.</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALcompare"></a>compare : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+Comparison function between two calendars.<br>
+<b>See also</b> <a href="Utils.Comparable.html#VALcompare">Utils.Comparable.compare.</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALhash"></a>hash : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> int</code></pre><div class="info">
+Hash function for calendars.<br>
+<b>Since</b> 2.0<br>
+<b>See also</b> <a href="Utils.Comparable.html#VALhash">Utils.Comparable.hash.</a><br>
+</div>
+<br>
+Those functions have the same behavious as those defined in
+      <a href="Date_sig.S.html"><code class="code"><span class="constructor">Date_sig</span>.<span class="constructor">S</span></code></a>.<br>
+<pre><span class="keyword">val</span> <a name="VALis_leap_day"></a>is_leap_day : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALis_leap_day">Date_sig.S.is_leap_day</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALis_gregorian"></a>is_gregorian : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALis_gregorian">Date_sig.S.is_gregorian</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALis_julian"></a>is_julian : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALis_julian">Date_sig.S.is_julian</a><br>
+</div>
+<br>
+Those functions have the same behavious as those defined in
+      <a href="Time_sig.S.html"><code class="code"><span class="constructor">Time_sig</span>.<span class="constructor">S</span></code></a>.<br>
+<pre><span class="keyword">val</span> <a name="VALis_pm"></a>is_pm : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.html#VALis_pm">Time_sig.S.is_pm</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALis_am"></a>is_am : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> bool</code></pre><div class="info">
+<b>See also</b> <a href="Time_sig.S.html#VALis_am">Time_sig.S.is_am</a><br>
+</div>
+<br>
+<a name="2_Coercions"></a>
+<h2>Coercions</h2><br>
+<pre><span class="keyword">val</span> <a name="VALto_unixtm"></a>to_unixtm : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> Unix.tm</code></pre><div class="info">
+Convert a calendar into the <code class="code">unix.tm</code> type.
+	The field <code class="code">isdst</code> is always <code class="code"><span class="keyword">false</span></code>. More precise than
+	<a href="Date_sig.S.html#VALto_unixtm"><code class="code"><span class="constructor">Date_sig</span>.<span class="constructor">S</span>.to_unixtm</code></a>.<br>
+<b>Since</b> 1.01<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_unixtm"></a>from_unixtm : <code class="type">Unix.tm -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Inverse of <code class="code">to_unixtm</code>. Assumes the current time zone.
+	So, The following invariant holds:
+	<code class="code">hour (from_unixtm u) = u.<span class="constructor">Unix</span>.tm_hour</code>.<br>
+<b>Since</b> 1.01<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_unixfloat"></a>to_unixfloat : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> float</code></pre><div class="info">
+Convert a calendar to a float such than
+	<code class="code">to_unixfloat (make 1970 1 1 0 0 0)</code> returns <code class="code">0.0</code> at UTC.
+	So such a float is convertible with those of the module <code class="code"><span class="constructor">Unix</span></code>.
+	More precise than <a href="Date_sig.S.html#VALto_unixfloat"><code class="code"><span class="constructor">Date_sig</span>.<span class="constructor">S</span>.to_unixfloat</code></a>.<br>
+<b>Since</b> 1.01<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_unixfloat"></a>from_unixfloat : <code class="type">float -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Inverse of <code class="code">to_unixfloat</code>. Assumes the current time zone.
+	So, the following invariant holds:
+	<code class="code">hour (from_unixfloat u) = (<span class="constructor">Unix</span>.gmtime u).<span class="constructor">Unix</span>.tm_hour</code>.<br>
+<b>Since</b> 1.01<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfrom_date"></a>from_date : <code class="type">Date.t -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+Convert a date to a calendar.
+	The time is midnight in the current time zone.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_date"></a>to_date : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> Date.t</code></pre><div class="info">
+Convert a calendar to a date. Time part of the calendar is ignored.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALto_time"></a>to_time : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> Time.t</code></pre><div class="info">
+Convert a calendar to a time. Date part of the calendar is ignored.<br>
+<b>Since</b> 1.03<br>
+</div>
+<br>
+<a name="2_Period"></a>
+<h2>Period</h2><br>
+<pre><span class="keyword">module</span> <a href="Calendar_sig.S.Period.html">Period</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Calendar_sig.S.Period.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info">
+A period is the number of seconds between two calendars.
+</div>
+<br>
+<a name="2_Arithmeticoperationsoncalendarsandperiods"></a>
+<h2>Arithmetic operations on calendars and periods</h2><br>
+<br>
+Those functions have the same behavious as those defined in
+      <a href="Date_sig.S.html"><code class="code"><span class="constructor">Date_sig</span>.<span class="constructor">S</span></code></a>.<br>
+<pre><span class="keyword">val</span> <a name="VALadd"></a>add : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -><br>       [< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] <a href="Calendar_sig.S.Period.html#TYPEperiod">Period.period</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALadd">Date_sig.S.add</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALsub"></a>sub : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -><br>       <a href="Calendar_sig.S.html#TYPEt">t</a> -><br>       [< <a href="Period.html#TYPEdate_field">Period.date_field</a> > `Day `Week ] <a href="Calendar_sig.S.Period.html#TYPEperiod">Period.period</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALsub">Date_sig.S.sub</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALprecise_sub"></a>precise_sub : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.Period.html#TYPEt">Period.t</a></code></pre><div class="info">
+<b>Since</b> 2.03<br>
+<b>See also</b> <a href="Date_sig.S.html#VALprecise_sub">Date_sig.S.precise_sub</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALrem"></a>rem : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -><br>       [< <a href="Period.html#TYPEdate_field">Period.date_field</a> ] <a href="Calendar_sig.S.Period.html#TYPEperiod">Period.period</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALrem">Date_sig.S.rem</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALnext"></a>next : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEfield">field</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALnext">Date_sig.S.next</a><br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALprev"></a>prev : <code class="type"><a href="Calendar_sig.S.html#TYPEt">t</a> -> <a href="Calendar_sig.S.html#TYPEfield">field</a> -> <a href="Calendar_sig.S.html#TYPEt">t</a></code></pre><div class="info">
+<b>See also</b> <a href="Date_sig.S.html#VALprev">Date_sig.S.prev</a><br>
+</div>
+</body></html>

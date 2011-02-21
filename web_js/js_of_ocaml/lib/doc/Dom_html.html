@@ -1,0 +1,588 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Dom.html">
+<link rel="next" href="Dom_events.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Js" rel="Chapter" href="Js.html">
+<link title="Dom" rel="Chapter" href="Dom.html">
+<link title="Dom_html" rel="Chapter" href="Dom_html.html">
+<link title="Dom_events" rel="Chapter" href="Dom_events.html">
+<link title="Lwt_js" rel="Chapter" href="Lwt_js.html">
+<link title="Firebug" rel="Chapter" href="Firebug.html">
+<link title="Regexp" rel="Chapter" href="Regexp.html">
+<link title="Url" rel="Chapter" href="Url.html">
+<link title="XmlHttpRequest" rel="Chapter" href="XmlHttpRequest.html">
+<link title="Event_arrows" rel="Chapter" href="Event_arrows.html"><link title="CSS style declaration" rel="Section" href="#2_CSSstyledeclaration">
+<link title="Events" rel="Section" href="#2_Events">
+<link title="HTML elements" rel="Section" href="#2_HTMLelements">
+<link title="Canvas object" rel="Section" href="#2_Canvasobject">
+<link title="Document objects" rel="Section" href="#2_Documentobjects">
+<link title="Window objects" rel="Section" href="#2_Windowobjects">
+<link title="Event handlers" rel="Section" href="#2_Eventhandlers">
+<link title="Position helper functions" rel="Section" href="#2_Positionhelperfunctions">
+<link title="Helper functions for creating HTML elements" rel="Section" href="#2_HelperfunctionsforcreatingHTMLelements">
+<link title="Coercion functions" rel="Section" href="#2_Coercionfunctions">
+<title>Dom_html</title>
+</head>
+<body>
+<div class="navbar"><a href="Dom.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Dom_events.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Dom_html.html">Dom_html</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Dom_html: <code class="code">sig</code> <a href="Dom_html.html">..</a> <code class="code">end</code></pre>DOM HTML binding
+<p>
+
+This is a partial binding to the DOM HTML API.<br>
+<hr width="100%">
+<br>
+<span id="2_CSSstyledeclaration"><h2>CSS style declaration</h2></span><br>
+<pre><span id="TYPEcssStyleDeclaration"><span class="keyword">class type</span> <a href="Dom_html.cssStyleDeclaration-c.html">cssStyleDeclaration</a></span> = <code class="code">object</code> <a href="Dom_html.cssStyleDeclaration-c.html">..</a> <code class="code">end</code></pre><br>
+<span id="2_Events"><h2>Events</h2></span><br>
+<pre><span id="TYPEevent_listener"><span class="keyword">type</span> <code class="type">(-'a, -'b)</code> event_listener</span> </pre>
+<div class="info">
+The type of event listener functions.  The first type parameter
+      <code class="code">'a</code> is the type of the target object; the second parameter
+      <code class="code">'b</code> is the type of the event object.<br>
+</div>
+
+<pre><span id="TYPEevent"><span class="keyword">class type</span> <a href="Dom_html.event-c.html">event</a></span> = <code class="code">object</code> <a href="Dom_html.event-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEmouseEvent"><span class="keyword">class type</span> <a href="Dom_html.mouseEvent-c.html">mouseEvent</a></span> = <code class="code">object</code> <a href="Dom_html.mouseEvent-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEkeyboardEvent"><span class="keyword">class type</span> <a href="Dom_html.keyboardEvent-c.html">keyboardEvent</a></span> = <code class="code">object</code> <a href="Dom_html.keyboardEvent-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEmousewheelEvent"><span class="keyword">class type</span> <a href="Dom_html.mousewheelEvent-c.html">mousewheelEvent</a></span> = <code class="code">object</code> <a href="Dom_html.mousewheelEvent-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEmouseScrollEvent"><span class="keyword">class type</span> <a href="Dom_html.mouseScrollEvent-c.html">mouseScrollEvent</a></span> = <code class="code">object</code> <a href="Dom_html.mouseScrollEvent-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEeventTarget"><span class="keyword">class type</span> <a href="Dom_html.eventTarget-c.html">eventTarget</a></span> = <code class="code">object</code> <a href="Dom_html.eventTarget-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Common properties of event target objects: <code class="code">onclick</code>,
+    <code class="code">onkeypress</code>, ...
+</div>
+<br>
+<span id="2_HTMLelements"><h2>HTML elements</h2></span><br>
+<pre><span id="TYPEelement"><span class="keyword">class type</span> <a href="Dom_html.element-c.html">element</a></span> = <code class="code">object</code> <a href="Dom_html.element-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Properties common to all HTML elements
+</div>
+<pre><span id="TYPEclientRect"><span class="keyword">class type</span> <a href="Dom_html.clientRect-c.html">clientRect</a></span> = <code class="code">object</code> <a href="Dom_html.clientRect-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Rectangular box (used for element bounding boxes)
+</div>
+<pre><span id="TYPEclientRectList"><span class="keyword">class type</span> <a href="Dom_html.clientRectList-c.html">clientRectList</a></span> = <code class="code">object</code> <a href="Dom_html.clientRectList-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEcollection"><span class="keyword">class type</span> <code class="type">['a]</code> <a href="Dom_html.collection-c.html">collection</a></span> = <code class="code">object</code> <a href="Dom_html.collection-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Collection of HTML elements
+</div>
+<pre><span id="TYPEhtmlElement"><span class="keyword">class type</span> <a href="Dom_html.htmlElement-c.html">htmlElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEheadElement"><span class="keyword">class type</span> <a href="Dom_html.headElement-c.html">headElement</a></span> = <code class="code">object</code> <a href="Dom_html.headElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPElinkElement"><span class="keyword">class type</span> <a href="Dom_html.linkElement-c.html">linkElement</a></span> = <code class="code">object</code> <a href="Dom_html.linkElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEtitleElement"><span class="keyword">class type</span> <a href="Dom_html.titleElement-c.html">titleElement</a></span> = <code class="code">object</code> <a href="Dom_html.titleElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEmetaElement"><span class="keyword">class type</span> <a href="Dom_html.metaElement-c.html">metaElement</a></span> = <code class="code">object</code> <a href="Dom_html.metaElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEbaseElement"><span class="keyword">class type</span> <a href="Dom_html.baseElement-c.html">baseElement</a></span> = <code class="code">object</code> <a href="Dom_html.baseElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEstyleElement"><span class="keyword">class type</span> <a href="Dom_html.styleElement-c.html">styleElement</a></span> = <code class="code">object</code> <a href="Dom_html.styleElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEbodyElement"><span class="keyword">class type</span> <a href="Dom_html.bodyElement-c.html">bodyElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEformElement"><span class="keyword">class type</span> <a href="Dom_html.formElement-c.html">formElement</a></span> = <code class="code">object</code> <a href="Dom_html.formElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEoptGroupElement"><span class="keyword">class type</span> <a href="Dom_html.optGroupElement-c.html">optGroupElement</a></span> = <code class="code">object</code> <a href="Dom_html.optGroupElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEoptionElement"><span class="keyword">class type</span> <a href="Dom_html.optionElement-c.html">optionElement</a></span> = <code class="code">object</code> <a href="Dom_html.optionElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEselectElement"><span class="keyword">class type</span> <a href="Dom_html.selectElement-c.html">selectElement</a></span> = <code class="code">object</code> <a href="Dom_html.selectElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEinputElement"><span class="keyword">class type</span> <a href="Dom_html.inputElement-c.html">inputElement</a></span> = <code class="code">object</code> <a href="Dom_html.inputElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEtextAreaElement"><span class="keyword">class type</span> <a href="Dom_html.textAreaElement-c.html">textAreaElement</a></span> = <code class="code">object</code> <a href="Dom_html.textAreaElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEbuttonElement"><span class="keyword">class type</span> <a href="Dom_html.buttonElement-c.html">buttonElement</a></span> = <code class="code">object</code> <a href="Dom_html.buttonElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPElabelElement"><span class="keyword">class type</span> <a href="Dom_html.labelElement-c.html">labelElement</a></span> = <code class="code">object</code> <a href="Dom_html.labelElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEfieldSetElement"><span class="keyword">class type</span> <a href="Dom_html.fieldSetElement-c.html">fieldSetElement</a></span> = <code class="code">object</code> <a href="Dom_html.fieldSetElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPElegendElement"><span class="keyword">class type</span> <a href="Dom_html.legendElement-c.html">legendElement</a></span> = <code class="code">object</code> <a href="Dom_html.legendElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEuListElement"><span class="keyword">class type</span> <a href="Dom_html.uListElement-c.html">uListElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEoListElement"><span class="keyword">class type</span> <a href="Dom_html.oListElement-c.html">oListElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEdListElement"><span class="keyword">class type</span> <a href="Dom_html.dListElement-c.html">dListElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEliElement"><span class="keyword">class type</span> <a href="Dom_html.liElement-c.html">liElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEdivElement"><span class="keyword">class type</span> <a href="Dom_html.divElement-c.html">divElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEparagraphElement"><span class="keyword">class type</span> <a href="Dom_html.paragraphElement-c.html">paragraphElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEheadingElement"><span class="keyword">class type</span> <a href="Dom_html.headingElement-c.html">headingElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEquoteElement"><span class="keyword">class type</span> <a href="Dom_html.quoteElement-c.html">quoteElement</a></span> = <code class="code">object</code> <a href="Dom_html.quoteElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEpreElement"><span class="keyword">class type</span> <a href="Dom_html.preElement-c.html">preElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEbrElement"><span class="keyword">class type</span> <a href="Dom_html.brElement-c.html">brElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEhrElement"><span class="keyword">class type</span> <a href="Dom_html.hrElement-c.html">hrElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEmodElement"><span class="keyword">class type</span> <a href="Dom_html.modElement-c.html">modElement</a></span> = <code class="code">object</code> <a href="Dom_html.modElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEanchorElement"><span class="keyword">class type</span> <a href="Dom_html.anchorElement-c.html">anchorElement</a></span> = <code class="code">object</code> <a href="Dom_html.anchorElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEimageElement"><span class="keyword">class type</span> <a href="Dom_html.imageElement-c.html">imageElement</a></span> = <code class="code">object</code> <a href="Dom_html.imageElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEobjectElement"><span class="keyword">class type</span> <a href="Dom_html.objectElement-c.html">objectElement</a></span> = <code class="code">object</code> <a href="Dom_html.objectElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEparamElement"><span class="keyword">class type</span> <a href="Dom_html.paramElement-c.html">paramElement</a></span> = <code class="code">object</code> <a href="Dom_html.paramElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEareaElement"><span class="keyword">class type</span> <a href="Dom_html.areaElement-c.html">areaElement</a></span> = <code class="code">object</code> <a href="Dom_html.areaElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEmapElement"><span class="keyword">class type</span> <a href="Dom_html.mapElement-c.html">mapElement</a></span> = <code class="code">object</code> <a href="Dom_html.mapElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEscriptElement"><span class="keyword">class type</span> <a href="Dom_html.scriptElement-c.html">scriptElement</a></span> = <code class="code">object</code> <a href="Dom_html.scriptElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEtableCellElement"><span class="keyword">class type</span> <a href="Dom_html.tableCellElement-c.html">tableCellElement</a></span> = <code class="code">object</code> <a href="Dom_html.tableCellElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEtableRowElement"><span class="keyword">class type</span> <a href="Dom_html.tableRowElement-c.html">tableRowElement</a></span> = <code class="code">object</code> <a href="Dom_html.tableRowElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEtableColElement"><span class="keyword">class type</span> <a href="Dom_html.tableColElement-c.html">tableColElement</a></span> = <code class="code">object</code> <a href="Dom_html.tableColElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEtableSectionElement"><span class="keyword">class type</span> <a href="Dom_html.tableSectionElement-c.html">tableSectionElement</a></span> = <code class="code">object</code> <a href="Dom_html.tableSectionElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEtableCaptionElement"><span class="keyword">class type</span> <a href="Dom_html.tableCaptionElement-c.html">tableCaptionElement</a></span> = <code class="type"><a href="Dom_html.element-c.html">element</a></code></pre><pre><span id="TYPEtableElement"><span class="keyword">class type</span> <a href="Dom_html.tableElement-c.html">tableElement</a></span> = <code class="code">object</code> <a href="Dom_html.tableElement-c.html">..</a> <code class="code">end</code></pre><br>
+<span id="2_Canvasobject"><h2>Canvas object</h2></span><br>
+<pre><span id="TYPEcontext"><span class="keyword">type</span> <code class="type"></code>context</span> </pre>
+
+<pre><span id="VAL_2d_"><span class="keyword">val</span> _2d_</span> : <code class="type"><a href="Dom_html.html#TYPEcontext">context</a></code></pre><pre><span id="TYPEcanvasPattern"><span class="keyword">type</span> <code class="type"></code>canvasPattern</span> </pre>
+
+<pre><span id="TYPEcanvasElement"><span class="keyword">class type</span> <a href="Dom_html.canvasElement-c.html">canvasElement</a></span> = <code class="code">object</code> <a href="Dom_html.canvasElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEcanvasRenderingContext2D"><span class="keyword">class type</span> <a href="Dom_html.canvasRenderingContext2D-c.html">canvasRenderingContext2D</a></span> = <code class="code">object</code> <a href="Dom_html.canvasRenderingContext2D-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEcanvasGradient"><span class="keyword">class type</span> <a href="Dom_html.canvasGradient-c.html">canvasGradient</a></span> = <code class="code">object</code> <a href="Dom_html.canvasGradient-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEtextMetrics"><span class="keyword">class type</span> <a href="Dom_html.textMetrics-c.html">textMetrics</a></span> = <code class="code">object</code> <a href="Dom_html.textMetrics-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEimageData"><span class="keyword">class type</span> <a href="Dom_html.imageData-c.html">imageData</a></span> = <code class="code">object</code> <a href="Dom_html.imageData-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEcanvasPixelArray"><span class="keyword">class type</span> <a href="Dom_html.canvasPixelArray-c.html">canvasPixelArray</a></span> = <code class="code">object</code> <a href="Dom_html.canvasPixelArray-c.html">..</a> <code class="code">end</code></pre><pre><span id="VALpixel_get"><span class="keyword">val</span> pixel_get</span> : <code class="type"><a href="Dom_html.canvasPixelArray-c.html">canvasPixelArray</a> <a href="Js.html#TYPEt">Js.t</a> -> int -> int</code></pre><pre><span id="VALpixel_set"><span class="keyword">val</span> pixel_set</span> : <code class="type"><a href="Dom_html.canvasPixelArray-c.html">canvasPixelArray</a> <a href="Js.html#TYPEt">Js.t</a> -> int -> int -> unit</code></pre><br>
+<span id="2_Documentobjects"><h2>Document objects</h2></span><br>
+<pre><span id="TYPEdocument"><span class="keyword">class type</span> <a href="Dom_html.document-c.html">document</a></span> = <code class="code">object</code> <a href="Dom_html.document-c.html">..</a> <code class="code">end</code></pre><pre><span id="VALdocument"><span class="keyword">val</span> document</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><div class="info">
+The current document<br>
+</div>
+<pre><span id="TYPEframeSetElement"><span class="keyword">class type</span> <a href="Dom_html.frameSetElement-c.html">frameSetElement</a></span> = <code class="code">object</code> <a href="Dom_html.frameSetElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEframeElement"><span class="keyword">class type</span> <a href="Dom_html.frameElement-c.html">frameElement</a></span> = <code class="code">object</code> <a href="Dom_html.frameElement-c.html">..</a> <code class="code">end</code></pre><pre><span id="TYPEiFrameElement"><span class="keyword">class type</span> <a href="Dom_html.iFrameElement-c.html">iFrameElement</a></span> = <code class="code">object</code> <a href="Dom_html.iFrameElement-c.html">..</a> <code class="code">end</code></pre><br>
+<span id="2_Windowobjects"><h2>Window objects</h2></span><br>
+<pre><span id="TYPElocation"><span class="keyword">class type</span> <a href="Dom_html.location-c.html">location</a></span> = <code class="code">object</code> <a href="Dom_html.location-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Location information
+</div>
+<pre><span id="TYPEhistory"><span class="keyword">class type</span> <a href="Dom_html.history-c.html">history</a></span> = <code class="code">object</code> <a href="Dom_html.history-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Browser history information
+</div>
+<pre><span id="TYPEundoManager"><span class="keyword">class type</span> <a href="Dom_html.undoManager-c.html">undoManager</a></span> = <code class="code">object</code> <a href="Dom_html.undoManager-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Undo manager
+</div>
+<pre><span id="TYPEselection"><span class="keyword">class type</span> <a href="Dom_html.selection-c.html">selection</a></span> = <code class="code">object</code> <a href="Dom_html.selection-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Information on current selection
+</div>
+<pre><span id="TYPEinterval_id"><span class="keyword">type</span> <code class="type"></code>interval_id</span> </pre>
+
+<pre><span id="TYPEtimeout_id"><span class="keyword">type</span> <code class="type"></code>timeout_id</span> </pre>
+
+<pre><span id="TYPEwindow"><span class="keyword">class type</span> <a href="Dom_html.window-c.html">window</a></span> = <code class="code">object</code> <a href="Dom_html.window-c.html">..</a> <code class="code">end</code></pre><div class="info">
+Specification of window objects
+</div>
+<pre><span id="VALwindow"><span class="keyword">val</span> window</span> : <code class="type"><a href="Dom_html.window-c.html">window</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><div class="info">
+The current window<br>
+</div>
+<br>
+<span id="2_Eventhandlers"><h2>Event handlers</h2></span><br>
+<pre><span id="VALno_handler"><span class="keyword">val</span> no_handler</span> : <code class="type">('a, 'b) <a href="Dom_html.html#TYPEevent_listener">event_listener</a></code></pre><div class="info">
+Void event handler (Javascript <code class="code">null</code> value).<br>
+</div>
+<pre><span id="VALhandler"><span class="keyword">val</span> handler</span> : <code class="type">((#<a href="Dom_html.event-c.html">event</a> as 'a) <a href="Js.html#TYPEt">Js.t</a> -> bool <a href="Js.html#TYPEt">Js.t</a>) -><br>       ('b, 'a <a href="Js.html#TYPEt">Js.t</a>) <a href="Dom_html.html#TYPEevent_listener">event_listener</a></code></pre><div class="info">
+Create an event handler that invokes the provided function.
+      If the handler returns false, the default action is prevented.<br>
+</div>
+<pre><span id="VALfull_handler"><span class="keyword">val</span> full_handler</span> : <code class="type">('a -> (#<a href="Dom_html.event-c.html">event</a> as 'b) <a href="Js.html#TYPEt">Js.t</a> -> bool <a href="Js.html#TYPEt">Js.t</a>) -><br>       ('a, 'b <a href="Js.html#TYPEt">Js.t</a>) <a href="Dom_html.html#TYPEevent_listener">event_listener</a></code></pre><div class="info">
+Create an event handler that invokes the provided function.
+      The event target (implicit parameter <code class="code">this</code>) is also passed as
+      argument to the function.<br>
+</div>
+<pre><span id="VALinvoke_handler"><span class="keyword">val</span> invoke_handler</span> : <code class="type">('a, 'b) <a href="Dom_html.html#TYPEevent_listener">event_listener</a> -> 'a -> 'b -> bool <a href="Js.html#TYPEt">Js.t</a></code></pre><div class="info">
+Invoke an existing handler.  Useful to chain event handlers.<br>
+</div>
+<pre><span id="VALeventTarget"><span class="keyword">val</span> eventTarget</span> : <code class="type">#<a href="Dom_html.event-c.html">event</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><div class="info">
+Returns which HTML element is the target of this event.<br>
+</div>
+<pre><span id="VALeventRelatedTarget"><span class="keyword">val</span> eventRelatedTarget</span> : <code class="type">#<a href="Dom_html.mouseEvent-c.html">mouseEvent</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a> <a href="Js.html#TYPEopt">Js.opt</a></code></pre><div class="info">
+Returns this event related target.<br>
+</div>
+<pre><span class="keyword">module</span> <a href="Dom_html.Event.html">Event</a>: <code class="code">sig</code> <a href="Dom_html.Event.html">..</a> <code class="code">end</code></pre><div class="info">
+Event types: <code class="code">mousedown</code>, <code class="code">keypress</code>, ...
+</div>
+<pre><span id="TYPEevent_listener_id"><span class="keyword">type</span> <code class="type"></code>event_listener_id</span> </pre>
+
+<pre><span id="VALaddEventListener"><span class="keyword">val</span> addEventListener</span> : <code class="type">(#<a href="Dom_html.eventTarget-c.html">eventTarget</a> as 'a) <a href="Js.html#TYPEt">Js.t</a> -><br>       'b <a href="Dom_html.Event.html#TYPEtyp">Event.typ</a> -><br>       ('a <a href="Js.html#TYPEt">Js.t</a>, 'b) <a href="Dom_html.html#TYPEevent_listener">event_listener</a> -><br>       bool <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.html#TYPEevent_listener_id">event_listener_id</a></code></pre><div class="info">
+Add an event listener.  This function matches the
+      <code class="code">addEventListener</code> DOM method, except that it returns
+      an id for removing the listener.<br>
+</div>
+<pre><span id="VALremoveEventListener"><span class="keyword">val</span> removeEventListener</span> : <code class="type"><a href="Dom_html.html#TYPEevent_listener_id">event_listener_id</a> -> unit</code></pre><div class="info">
+Remove the given event listener.<br>
+</div>
+<pre><span id="VALaddMousewheelEventListener"><span class="keyword">val</span> addMousewheelEventListener</span> : <code class="type">#<a href="Dom_html.eventTarget-c.html">eventTarget</a> <a href="Js.html#TYPEt">Js.t</a> -><br>       (<a href="Dom_html.mouseEvent-c.html">mouseEvent</a> <a href="Js.html#TYPEt">Js.t</a> -> dx:int -> dy:int -> bool <a href="Js.html#TYPEt">Js.t</a>) -><br>       bool <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.html#TYPEevent_listener_id">event_listener_id</a></code></pre><div class="info">
+Add a mousewheel event listener.  The callback is provided the
+      event and the numbers of ticks the mouse wheel moved.  Positive
+      means down / right.<br>
+</div>
+<br>
+<span id="2_Positionhelperfunctions"><h2>Position helper functions</h2></span><br>
+<pre><span id="VALeventAbsolutePosition"><span class="keyword">val</span> eventAbsolutePosition</span> : <code class="type">#<a href="Dom_html.mouseEvent-c.html">mouseEvent</a> <a href="Js.html#TYPEt">Js.t</a> -> int * int</code></pre><div class="info">
+Returns the absolute position of the mouse pointer.<br>
+</div>
+<pre><span id="VALelementClientPosition"><span class="keyword">val</span> elementClientPosition</span> : <code class="type">#<a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a> -> int * int</code></pre><div class="info">
+Position of an element relative to the viewport<br>
+</div>
+<pre><span id="VALgetDocumentScroll"><span class="keyword">val</span> getDocumentScroll</span> : <code class="type">unit -> int * int</code></pre><div class="info">
+Viewport top/left position<br>
+</div>
+<br>
+<span id="2_HelperfunctionsforcreatingHTMLelements"><h2>Helper functions for creating HTML elements</h2></span><br>
+<pre><span id="VALcreateHtml"><span class="keyword">val</span> createHtml</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.htmlElement-c.html">htmlElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateHead"><span class="keyword">val</span> createHead</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.headElement-c.html">headElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateLink"><span class="keyword">val</span> createLink</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.linkElement-c.html">linkElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateTitle"><span class="keyword">val</span> createTitle</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.titleElement-c.html">titleElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateMeta"><span class="keyword">val</span> createMeta</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.metaElement-c.html">metaElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateBase"><span class="keyword">val</span> createBase</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.baseElement-c.html">baseElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateStyle"><span class="keyword">val</span> createStyle</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.styleElement-c.html">styleElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateBody"><span class="keyword">val</span> createBody</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.bodyElement-c.html">bodyElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateForm"><span class="keyword">val</span> createForm</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.formElement-c.html">formElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateOptgroup"><span class="keyword">val</span> createOptgroup</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.optGroupElement-c.html">optGroupElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateOption"><span class="keyword">val</span> createOption</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.optionElement-c.html">optionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateSelect"><span class="keyword">val</span> createSelect</span> : <code class="type">?_type:<a href="Js.js_string-c.html">Js.js_string</a> <a href="Js.html#TYPEt">Js.t</a> -><br>       ?name:<a href="Js.js_string-c.html">Js.js_string</a> <a href="Js.html#TYPEt">Js.t</a> -><br>       <a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.selectElement-c.html">selectElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateInput"><span class="keyword">val</span> createInput</span> : <code class="type">?_type:<a href="Js.js_string-c.html">Js.js_string</a> <a href="Js.html#TYPEt">Js.t</a> -><br>       ?name:<a href="Js.js_string-c.html">Js.js_string</a> <a href="Js.html#TYPEt">Js.t</a> -><br>       <a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.inputElement-c.html">inputElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateTextarea"><span class="keyword">val</span> createTextarea</span> : <code class="type">?_type:<a href="Js.js_string-c.html">Js.js_string</a> <a href="Js.html#TYPEt">Js.t</a> -><br>       ?name:<a href="Js.js_string-c.html">Js.js_string</a> <a href="Js.html#TYPEt">Js.t</a> -><br>       <a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.textAreaElement-c.html">textAreaElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateButton"><span class="keyword">val</span> createButton</span> : <code class="type">?_type:<a href="Js.js_string-c.html">Js.js_string</a> <a href="Js.html#TYPEt">Js.t</a> -><br>       ?name:<a href="Js.js_string-c.html">Js.js_string</a> <a href="Js.html#TYPEt">Js.t</a> -><br>       <a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.buttonElement-c.html">buttonElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateLabel"><span class="keyword">val</span> createLabel</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.labelElement-c.html">labelElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateFieldset"><span class="keyword">val</span> createFieldset</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.fieldSetElement-c.html">fieldSetElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateLegend"><span class="keyword">val</span> createLegend</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.legendElement-c.html">legendElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateUl"><span class="keyword">val</span> createUl</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.uListElement-c.html">uListElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateOl"><span class="keyword">val</span> createOl</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.oListElement-c.html">oListElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateDl"><span class="keyword">val</span> createDl</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.dListElement-c.html">dListElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateLi"><span class="keyword">val</span> createLi</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.liElement-c.html">liElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateDiv"><span class="keyword">val</span> createDiv</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.divElement-c.html">divElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateP"><span class="keyword">val</span> createP</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.paragraphElement-c.html">paragraphElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateH1"><span class="keyword">val</span> createH1</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateH2"><span class="keyword">val</span> createH2</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateH3"><span class="keyword">val</span> createH3</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateH4"><span class="keyword">val</span> createH4</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateH5"><span class="keyword">val</span> createH5</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateH6"><span class="keyword">val</span> createH6</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateQ"><span class="keyword">val</span> createQ</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.quoteElement-c.html">quoteElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateBlockquote"><span class="keyword">val</span> createBlockquote</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.quoteElement-c.html">quoteElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreatePre"><span class="keyword">val</span> createPre</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.preElement-c.html">preElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateBr"><span class="keyword">val</span> createBr</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.brElement-c.html">brElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateHr"><span class="keyword">val</span> createHr</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.hrElement-c.html">hrElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateIns"><span class="keyword">val</span> createIns</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.modElement-c.html">modElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateDel"><span class="keyword">val</span> createDel</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.modElement-c.html">modElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateA"><span class="keyword">val</span> createA</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.anchorElement-c.html">anchorElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateImg"><span class="keyword">val</span> createImg</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.imageElement-c.html">imageElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateObject"><span class="keyword">val</span> createObject</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.objectElement-c.html">objectElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateParam"><span class="keyword">val</span> createParam</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.paramElement-c.html">paramElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateMap"><span class="keyword">val</span> createMap</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.mapElement-c.html">mapElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateArea"><span class="keyword">val</span> createArea</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.areaElement-c.html">areaElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateScript"><span class="keyword">val</span> createScript</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.scriptElement-c.html">scriptElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateTable"><span class="keyword">val</span> createTable</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableElement-c.html">tableElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateCaption"><span class="keyword">val</span> createCaption</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableCaptionElement-c.html">tableCaptionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateCol"><span class="keyword">val</span> createCol</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableColElement-c.html">tableColElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateColgroup"><span class="keyword">val</span> createColgroup</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableColElement-c.html">tableColElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateThead"><span class="keyword">val</span> createThead</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableSectionElement-c.html">tableSectionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateTfoot"><span class="keyword">val</span> createTfoot</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableSectionElement-c.html">tableSectionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateTbody"><span class="keyword">val</span> createTbody</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableSectionElement-c.html">tableSectionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateTr"><span class="keyword">val</span> createTr</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableRowElement-c.html">tableRowElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateTh"><span class="keyword">val</span> createTh</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableCellElement-c.html">tableCellElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateTd"><span class="keyword">val</span> createTd</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.tableCellElement-c.html">tableCellElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateSub"><span class="keyword">val</span> createSub</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateSup"><span class="keyword">val</span> createSup</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateSpan"><span class="keyword">val</span> createSpan</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateTt"><span class="keyword">val</span> createTt</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateI"><span class="keyword">val</span> createI</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateB"><span class="keyword">val</span> createB</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateBig"><span class="keyword">val</span> createBig</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateSmall"><span class="keyword">val</span> createSmall</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateEm"><span class="keyword">val</span> createEm</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateStrong"><span class="keyword">val</span> createStrong</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateCite"><span class="keyword">val</span> createCite</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateDfn"><span class="keyword">val</span> createDfn</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateCode"><span class="keyword">val</span> createCode</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateSamp"><span class="keyword">val</span> createSamp</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateKbd"><span class="keyword">val</span> createKbd</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateVar"><span class="keyword">val</span> createVar</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateAbbr"><span class="keyword">val</span> createAbbr</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateDd"><span class="keyword">val</span> createDd</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateDt"><span class="keyword">val</span> createDt</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateNoscript"><span class="keyword">val</span> createNoscript</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="VALcreateAddress"><span class="keyword">val</span> createAddress</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><pre><span id="EXCEPTIONCanvas_not_available"><span class="keyword">exception</span> Canvas_not_available</span></pre>
+<pre><span id="VALcreateCanvas"><span class="keyword">val</span> createCanvas</span> : <code class="type"><a href="Dom_html.document-c.html">document</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.canvasElement-c.html">canvasElement</a> <a href="Js.html#TYPEt">Js.t</a></code></pre><div class="info">
+<b>Raises</b> <code>Canvas_not_available</code> when canvas elements are not
+      supported by the browser.<br>
+</div>
+<br>
+<span id="2_Coercionfunctions"><h2>Coercion functions</h2></span><br>
+<br><code><span id="TYPEtaggedElement"><span class="keyword">type</span> <code class="type"></code>taggedElement</span> = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">A</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.anchorElement-c.html">anchorElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Area</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.areaElement-c.html">areaElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Base</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.baseElement-c.html">baseElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Blockquote</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.quoteElement-c.html">quoteElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Body</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.bodyElement-c.html">bodyElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Br</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.brElement-c.html">brElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Button</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.buttonElement-c.html">buttonElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Canvas</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.canvasElement-c.html">canvasElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Caption</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableCaptionElement-c.html">tableCaptionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Col</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableColElement-c.html">tableColElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Colgroup</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableColElement-c.html">tableColElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Del</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.modElement-c.html">modElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Div</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.divElement-c.html">divElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Dl</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.dListElement-c.html">dListElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Fieldset</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.fieldSetElement-c.html">fieldSetElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Form</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.formElement-c.html">formElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Frameset</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.frameSetElement-c.html">frameSetElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Frame</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.frameElement-c.html">frameElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">H1</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">H2</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">H3</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">H4</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">H5</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">H6</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.headingElement-c.html">headingElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Head</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.headElement-c.html">headElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Hr</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.hrElement-c.html">hrElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Html</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.htmlElement-c.html">htmlElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Iframe</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.iFrameElement-c.html">iFrameElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Img</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.imageElement-c.html">imageElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Input</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.inputElement-c.html">inputElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Ins</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.modElement-c.html">modElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Label</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.labelElement-c.html">labelElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Legend</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.legendElement-c.html">legendElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Li</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.liElement-c.html">liElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Link</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.linkElement-c.html">linkElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Map</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.mapElement-c.html">mapElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Meta</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.metaElement-c.html">metaElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Object</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.objectElement-c.html">objectElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Ol</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.oListElement-c.html">oListElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Optgroup</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.optGroupElement-c.html">optGroupElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Option</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.optionElement-c.html">optionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">P</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.paramElement-c.html">paramElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Param</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.paramElement-c.html">paramElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Pre</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.preElement-c.html">preElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Q</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.quoteElement-c.html">quoteElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Script</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.scriptElement-c.html">scriptElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Select</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.selectElement-c.html">selectElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Style</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.styleElement-c.html">styleElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Table</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableElement-c.html">tableElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tbody</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableSectionElement-c.html">tableSectionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Td</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableColElement-c.html">tableColElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Textarea</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.textAreaElement-c.html">textAreaElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tfoot</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableSectionElement-c.html">tableSectionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Th</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableColElement-c.html">tableColElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Thead</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableSectionElement-c.html">tableSectionElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Title</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.titleElement-c.html">titleElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tr</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.tableRowElement-c.html">tableRowElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Ul</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.uListElement-c.html">uListElement</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Other</span> <span class="keyword">of</span> <code class="type"><a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a></code></code></td>
+
+</tr></table>
+
+
+<pre><span id="VALtagged"><span class="keyword">val</span> tagged</span> : <code class="type">#<a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a> -> <a href="Dom_html.html#TYPEtaggedElement">taggedElement</a></code></pre><pre><span id="VALopt_tagged"><span class="keyword">val</span> opt_tagged</span> : <code class="type">#<a href="Dom_html.element-c.html">element</a> <a href="Js.html#TYPEt">Js.t</a> <a href="Js.html#TYPEopt">Js.opt</a> -> <a href="Dom_html.html#TYPEtaggedElement">taggedElement</a> option</code></pre><pre><span class="keyword">module</span> <a href="Dom_html.CoerceTo.html">CoerceTo</a>: <code class="code">sig</code> <a href="Dom_html.CoerceTo.html">..</a> <code class="code">end</code></pre></body></html>

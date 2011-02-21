@@ -1,0 +1,9 @@
+repo:/data/users/pad/github/ocsigen-sync/lwt
+thisrepo:/data/users/pad/github/fork-ocsigen/external/lwt
+cache:/home/pad/.darcs/cache
+repo:http://ocsigen.org/darcs/lwt
+thisrepo:/Users/yoann.padioleau/todo_src_html/web-ocsigen/lwt
+cache:/Users/yoann.padioleau/.darcs/cache
+repo:/home/glondu/lwt_0
+thisrepo:/var/www/darcs/lwt
+cache:/home/glondu/.darcs/cache

@@ -1,0 +1,70 @@
+ocsigen_extensions.cmi: ../commons/polytables.cmi ../commons/ocsigen_lib.cmi \
+    ../http/ocsigen_http_frame.cmi ../http/ocsigen_http_com.cmi \
+    ../http/ocsigen_cookies.cmi ../http/ocsigen_charset_mime.cmi
+ocsigen_parseconfig.cmi: ocsigen_extensions.cmi
+ocsigen_http_client.cmi: ../commons/ocsigen_stream.cmi \
+    ../http/ocsigen_http_frame.cmi ocsigen_extensions.cmi \
+    ../http/http_headers.cmi
+../extensions/ocsigen_LocalFiles.cmi: ../http/ocsigen_http_frame.cmi \
+    ocsigen_extensions.cmi
+ocsigen_server.cmi:
+ocsigen_extensions.cmo: ../commons/polytables.cmi \
+    ../commons/ocsigen_messages.cmi ../commons/ocsigen_loader.cmi \
+    ../commons/ocsigen_lib.cmi ../http/ocsigen_http_frame.cmi \
+    ../http/ocsigen_http_com.cmi ../http/ocsigen_cookies.cmi \
+    ../commons/ocsigen_config.cmi ../http/ocsigen_charset_mime.cmi \
+    ocsigen_extensions.cmi
+ocsigen_extensions.cmx: ../commons/polytables.cmx \
+    ../commons/ocsigen_messages.cmx ../commons/ocsigen_loader.cmx \
+    ../commons/ocsigen_lib.cmx ../http/ocsigen_http_frame.cmx \
+    ../http/ocsigen_http_com.cmx ../http/ocsigen_cookies.cmx \
+    ../commons/ocsigen_config.cmx ../http/ocsigen_charset_mime.cmx \
+    ocsigen_extensions.cmi
+ocsigen_parseconfig.cmo: ../commons/ocsigen_messages.cmi \
+    ../commons/ocsigen_loader.cmi ../commons/ocsigen_lib.cmi \
+    ocsigen_extensions.cmi ../commons/ocsigen_config.cmi \
+    ../http/ocsigen_charset_mime.cmi ocsigen_parseconfig.cmi
+ocsigen_parseconfig.cmx: ../commons/ocsigen_messages.cmx \
+    ../commons/ocsigen_loader.cmx ../commons/ocsigen_lib.cmx \
+    ocsigen_extensions.cmx ../commons/ocsigen_config.cmx \
+    ../http/ocsigen_charset_mime.cmx ocsigen_parseconfig.cmi
+ocsigen_http_client.cmo: ../commons/ocsigen_stream.cmi \
+    ../http/ocsigen_senders.cmi ../commons/ocsigen_messages.cmi \
+    ../commons/ocsigen_lib.cmi ../http/ocsigen_http_frame.cmi \
+    ../http/ocsigen_http_com.cmi ../http/ocsigen_headers.cmi \
+    ocsigen_extensions.cmi ../commons/ocsigen_config.cmi \
+    ../http/http_headers.cmi ocsigen_http_client.cmi
+ocsigen_http_client.cmx: ../commons/ocsigen_stream.cmx \
+    ../http/ocsigen_senders.cmx ../commons/ocsigen_messages.cmx \
+    ../commons/ocsigen_lib.cmx ../http/ocsigen_http_frame.cmx \
+    ../http/ocsigen_http_com.cmx ../http/ocsigen_headers.cmx \
+    ocsigen_extensions.cmx ../commons/ocsigen_config.cmx \
+    ../http/http_headers.cmx ocsigen_http_client.cmi
+../extensions/ocsigen_LocalFiles.cmo: ../http/ocsigen_senders.cmi \
+    ../commons/ocsigen_messages.cmi ocsigen_extensions.cmi \
+    ../extensions/ocsigen_LocalFiles.cmi
+../extensions/ocsigen_LocalFiles.cmx: ../http/ocsigen_senders.cmx \
+    ../commons/ocsigen_messages.cmx ocsigen_extensions.cmx \
+    ../extensions/ocsigen_LocalFiles.cmi
+ocsigen_server.cmo: ../commons/polytables.cmi ../commons/ocsigen_stream.cmi \
+    ../http/ocsigen_senders.cmi ../http/ocsigen_range.cmi \
+    ocsigen_parseconfig.cmi ../commons/ocsigen_messages.cmi \
+    ../commons/ocsigen_loader.cmi ../commons/ocsigen_lib.cmi \
+    ../http/ocsigen_http_frame.cmi ../http/ocsigen_http_com.cmi \
+    ocsigen_http_client.cmi ../http/ocsigen_headers.cmi \
+    ocsigen_extensions.cmi ../commons/ocsigen_config.cmi \
+    ../commons/ocsigen_cache.cmi ../http/multipart.cmo \
+    ../http/http_headers.cmi ../commons/dynlink_wrapper.cmo \
+    ocsigen_server.cmi
+ocsigen_server.cmx: ../commons/polytables.cmx ../commons/ocsigen_stream.cmx \
+    ../http/ocsigen_senders.cmx ../http/ocsigen_range.cmx \
+    ocsigen_parseconfig.cmx ../commons/ocsigen_messages.cmx \
+    ../commons/ocsigen_loader.cmx ../commons/ocsigen_lib.cmx \
+    ../http/ocsigen_http_frame.cmx ../http/ocsigen_http_com.cmx \
+    ocsigen_http_client.cmx ../http/ocsigen_headers.cmx \
+    ocsigen_extensions.cmx ../commons/ocsigen_config.cmx \
+    ../commons/ocsigen_cache.cmx ../http/multipart.cmx \
+    ../http/http_headers.cmx ../commons/dynlink_wrapper.cmx \
+    ocsigen_server.cmi
+server_main.cmo: ocsigen_server.cmi
+server_main.cmx: ocsigen_server.cmx
