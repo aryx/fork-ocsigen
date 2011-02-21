@@ -122,8 +122,11 @@ xHTML5.mli: xHTML5.ml xhtml5types.cmi
 	@$(SED) -n '/BEGIN INTERFACE/,/END INTERFACE/p' $< \
 	  | $(SED) -e '/BEGIN INTERFACE/d' -e '/END INTERFACE/d' > $@.new
 	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then $(RM) $@.new; else $(MV) $@.new $@; fi
+
+#pad: added rm -f *.o
 clean:
 	rm -f *cm* xHTML5.mli xHTML.mli xhtmltypes.mli xhtml5types.mli
+	rm -f *.o
 
 depend: *.mli *.ml
 	ocamldep *.mli *.ml > .depend
