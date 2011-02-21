@@ -1,0 +1,72 @@
+# -*- sh -*-
+
+# generic object files
+.depend
+
+*.annot
+*.cm*
+*.byte
+*.opt
+
+*.so
+*.a
+*.o
+
+._d/
+._ncdi/
+._bcdi/
+
+# vcs
+
+# runtime files
+files/var/lib/
+
+# generated files
+
+web_js/js_of_ocaml/lib/doc/*.html
+web_js/js_of_ocaml/examples/*/*.js
+web_js/oclosure/examples/*.js
+external/ocamlderiving/tmp/deriving/
+
+# lex/yacc generated files
+http/http_lexer.ml
+http/http_parser.ml
+http/http_parser.mli
+web_html/syntax/camllexer.ml
+web_html/syntax/xmllexer.ml
+web_js/js_of_ocaml/examples/wiki/wikicreole.ml
+
+# object files
+
+web_js/js_of_ocaml/.hgignore
+server/ocsigen
+server/ocsigen.opt
+web_js/js_of_ocaml/compiler/js_of_ocaml
+web_hs/js_of_ocaml/runtime/runtime.js
+external/ocamllwt/setup.data
+external/ocamllwt/src/unix/lwt_config.h
+external/ocamllwt/src/unix/lwt_config.ml
+web_js/oclosure/.boring
+eliom/.depend.bak
+commons/ocsigen_config.ml
+external/ocamlderiving/lib/._d/pa_deriving.d
+Makefile.config
+#/ocsimore/Makefile.config
+
+ocsigen.conf.local
+ocsigen.conf.opt.local
+
+# symlinks
+extensions/deriving
+extensions/extensions
+files/ocsigen
+
+# generated .mli because very close to .ml, mostly type definitions
+web_html/xhtml/xHTML.mli
+web_html/xhtml/xHTML5.mli
+web_html/xhtml/xhtml5types.mli
+web_html/xhtml/xhtmltypes.mli
+
+# misc
+web_js/js_of_ocaml/lib/stubs.c
+web_js/js_of_ocaml/tests/tests.js
