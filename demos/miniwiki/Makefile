@@ -15,15 +15,16 @@ CMXS=
 CMXSCMD=
 endif
 
-
 OBJS=$(FILES:.ml=.cmo)
 OBJSOPT=$(CMXS)
 
 byte: $(OBJS)
-	cp $(OBJS) ..
 
 opt: $(OBJSOPT)
 	$(CMXSCMD)
+
+run:
+	../../server/ocsigen -c files/miniwiki.conf
 
 
 .SUFFIXES:
@@ -45,6 +46,7 @@ opt: $(OBJSOPT)
 
 clean:
 	-rm -f *.cm[ioxa] *.cmxa *.cmxs *.o *~ $(NAME)
+	-rm -f files/*.log files/ocsigen_command
 
 depend:
 	$(CAMLDEP) $(PP) $(LIB) $(FILES:.ml=.mli) $(FILES) > .depend

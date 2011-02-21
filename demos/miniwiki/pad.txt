@@ -9,7 +9,6 @@ was in pad.conf.local
         </eliom>
       </site>
 
-
 was in META.eliom_tests
 
 package "miniwiki" (
