@@ -1,3 +1,4 @@
+
 ifeq "$(OCAMLDUCE)" "YES"
 DUCECMA=eliom/eliom_duce.cma
 DUCECMO=
@@ -18,41 +19,43 @@ DUCEEXAMPLES=
 DUCEPACK=
 endif
 
+# pad: this is used by 'make install'
+
 CMITOINSTALL = \
-        $(DOCPREF)baselib/ocsigen_getcommandline.cmi \
+        $(DOCPREF)commons/ocsigen_getcommandline.cmi \
 	$(DOCPREF)server/ocsigen_extensions.cmi \
 	$(DOCPREF)server/ocsigen_parseconfig.cmi \
 	$(DOCPREF)server/ocsigen_server.cmi \
 	$(DOCPREF)server/ocsigen_http_client.cmi \
-	$(DOCPREF)xmlp4/xml-pretty/xhtmlpretty.cmi \
-	$(DOCPREF)xmlp4/xml-pretty/xhtmlpretty_streams.cmi \
-	$(DOCPREF)xmlp4/xml-pretty/xhtmlcompact.cmi \
-	$(DOCPREF)xmlp4/xml-pretty/xhtmlcompact_streams.cmi \
-	$(DOCPREF)xmlp4/xml-pretty/xhtml5pretty.cmi \
-	$(DOCPREF)xmlp4/xml-pretty/xhtml5pretty_streams.cmi \
-	$(DOCPREF)xmlp4/xml-pretty/xhtml5compact.cmi \
-	$(DOCPREF)xmlp4/xml-pretty/xhtml5compact_streams.cmi \
-	$(DOCPREF)xmlp4/xhtml/xHTML.cmi \
-	$(DOCPREF)xmlp4/xhtml/xHTML5.cmi \
-	$(DOCPREF)xmlp4/xhtml/sVG.cmi \
-	$(DOCPREF)xmlp4/xhtml/svgtypes.cmi \
-	$(DOCPREF)xmlp4/xhtml/xML.cmi \
-	$(DOCPREF)xmlp4/xhtml/xhtmltypes.cmi \
-	$(DOCPREF)xmlp4/xhtml/xhtml5types.cmi \
-	$(DOCPREF)xmlp4/xhtml/uri.cmi \
-	$(DOCPREF)xmlp4/simplexmlparser.cmi \
+	$(DOCPREF)web_html/xml-pretty/xhtmlpretty.cmi \
+	$(DOCPREF)web_html/xml-pretty/xhtmlpretty_streams.cmi \
+	$(DOCPREF)web_html/xml-pretty/xhtmlcompact.cmi \
+	$(DOCPREF)web_html/xml-pretty/xhtmlcompact_streams.cmi \
+	$(DOCPREF)web_html/xml-pretty/xhtml5pretty.cmi \
+	$(DOCPREF)web_html/xml-pretty/xhtml5pretty_streams.cmi \
+	$(DOCPREF)web_html/xml-pretty/xhtml5compact.cmi \
+	$(DOCPREF)web_html/xml-pretty/xhtml5compact_streams.cmi \
+	$(DOCPREF)web_html/xhtml/xHTML.cmi \
+	$(DOCPREF)web_html/xhtml/xHTML5.cmi \
+	$(DOCPREF)web_html/xhtml/sVG.cmi \
+	$(DOCPREF)web_html/xhtml/svgtypes.cmi \
+	$(DOCPREF)web_html/xhtml/xML.cmi \
+	$(DOCPREF)web_html/xhtml/xhtmltypes.cmi \
+	$(DOCPREF)web_html/xhtml/xhtml5types.cmi \
+	$(DOCPREF)web_html/xhtml/uri.cmi \
+	$(DOCPREF)web_html/simplexmlparser.cmi \
 	$(DOCPREF)http/ocsigen_charset_mime.cmi \
 	$(DOCPREF)http/ocsigen_senders.cmi \
 	$(DOCPREF)http/framepp.cmi \
 	$(DOCPREF)http/ocsigen_http_com.cmi \
 	$(DOCPREF)http/http_headers.cmi \
 	$(DOCPREF)http/ocsigen_headers.cmi \
-	$(DOCPREF)baselib/ocsigen_cache.cmi \
-	$(DOCPREF)baselib/ocsigen_lib.cmi \
-	$(DOCPREF)baselib/ocsigen_config.cmi \
+	$(DOCPREF)commons/ocsigen_cache.cmi \
+	$(DOCPREF)commons/ocsigen_lib.cmi \
+	$(DOCPREF)commons/ocsigen_config.cmi \
 	$(DOCPREF)http/ocsigen_http_frame.cmi \
-	$(DOCPREF)baselib/ocsigen_stream.cmi \
-	$(DOCPREF)baselib/ocsigen_messages.cmi \
+	$(DOCPREF)commons/ocsigen_stream.cmi \
+	$(DOCPREF)commons/ocsigen_messages.cmi \
 	$(DOCPREF)extensions/ocsigen_LocalFiles.cmi
 
 PLUGINSCMITOINSTALL = \
@@ -84,7 +87,7 @@ PLUGINSCMITOINSTALL = \
        $(DOCPREF)extensions/accesscontrol.cmi \
        $(DOCPREF)extensions/authbasic.cmi \
        $(DOCPREF)extensions/ocsipersist.cmi \
-       $(DOCPREF)baselib/polytables.cmi \
+       $(DOCPREF)commons/polytables.cmi \
        $(DOCPREF)eliom/eliommod_cli.cmi \
        $(DUCECMI)
 #       $(DOCPREF)extensions/extendconfiguration.cmi \

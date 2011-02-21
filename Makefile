@@ -392,7 +392,7 @@ partialinstall:
 	$(OCAMLFIND) install $(OCSIGENNAME) -destdir "$(TEMPROOT)$(MODULEINSTALLDIR)" $(TOINSTALL)
 	$(INSTALL) -m 644 $(CLIENTCMITOINSTALL) $(CLIENTCMOTOINSTALL) $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/client
 	$(INSTALL) -m 644 $(ELIOMSYNTAXTOINSTALL) $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/syntax
-	$(INSTALL) -m 644 $(ELIOMTESTS) $(TEMPROOT)$(ELIOMTESTSINSTALLDIR)
+#pad:	$(INSTALL) -m 644 $(ELIOMTESTS) $(TEMPROOT)$(ELIOMTESTSINSTALLDIR)
 #	$(INSTALL) -m 644 $(PLUGINSTOINSTALL) $(TEMPROOT)$(EXTRALIBDIR)/extensions
 	-$(INSTALL) -m 755 extensions/ocsipersist-dbm/ocsidbm $(TEMPROOT)$(EXTRALIBDIR)/extensions
 	[ ! -f extensions/ocsipersist-dbm/ocsidbm.opt ] || \
@@ -415,6 +415,8 @@ docinstall:
 	make -C doc install
 
 install: partialinstall
+
+install_root:
 	mkdir -p $(TEMPROOT)$(CONFIGDIR)
 	mkdir -p $(TEMPROOT)$(CONFIGDIR)/conf.d
 	mkdir -p $(TEMPROOT)$(STATICPAGESDIR)
