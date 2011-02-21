@@ -23,6 +23,11 @@ New compilation procedure:
 
 TODO see install_dependencies.sh
 
+ocsigen is quite flexible in the choice of its subcomponents:
+ - for html: raw string, xHTML, xHTML with camlp4 extension, ocamlduce
+ - for db: ocsipersist dbm, ocsipersist sqlite, macaque ?
+ - for js: manual?, obrowser (but dead?), js_of_ocaml/, js_of_ocaml + oclosure
+
 --------------------------------------------
 Code organization
 --------------------------------------------
