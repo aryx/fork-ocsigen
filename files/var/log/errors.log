@@ -1,9 +1,0 @@
-Feb 20 15:02:07: main: Fatal - Findlib package ocsigen.ext.ocsipersist-sqlite not found: maybe you forgot <findlib path="..."/>?
-Feb 20 16:13:24: main: Fatal - Error in configuration file: Findlib error: Findlib package eliom_tests.miniwiki not found: maybe you forgot <findlib path="..."/>?
-Feb 20 16:13:54: main: Fatal - Error in configuration file: Findlib error: Findlib package eliom_tests.miniwiki not found: maybe you forgot <findlib path="..."/>?
-Feb 20 16:19:17: main: Fatal - Error in configuration file: Findlib error: Findlib package eliom_tests.miniwiki not found: maybe you forgot <findlib path="..."/>?
-Feb 20 16:43:42: main: Fatal - Error in configuration file: Findlib error: Findlib package eliom_tests.miniwiki not found: maybe you forgot <findlib path="..."/>?
-Feb 20 16:46:34: main: Fatal - Error in configuration file: Findlib error: Findlib package eliom_tests.testsuite not found: maybe you forgot <findlib path="..."/>?
-Feb 20 16:47:01: main: Fatal - Error in configuration file: Findlib error: Findlib package eliom_tests.testsuite not found: maybe you forgot <findlib path="..."/>?
-Feb 20 16:50:10: main: Fatal - Error in configuration file: Findlib error: Findlib package eliom_tests.testsuite not found: maybe you forgot <findlib path="..."/>?
-Feb 20 17:03:45: main: Fatal - Error in configuration file: Error while parsing configuration file: Eliom: while loading /home/pad/ocsigen/tests/monitoring.cmo: Eliom: Duplicate registration of service "". Please correct the module.
