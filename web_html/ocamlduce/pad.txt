@@ -1,0 +1,1 @@
+by default ocsigen uses xHTML (and the camlp4 syntax extension).
