@@ -1,0 +1,10 @@
+"nis_chkpwd" : include
+<myocamlfind.*> : use_unix
+<**/*.ml*> : pkg_threads, pkg_ocsigen, pkg_calendar, pkg_ocsigen.ext.eliom, pkg_ocsigen.xhtml, dtypes, warn_Y, warn_Z, notocamlduce
+<**/*_sql*.ml*>: pkg_pgocaml, pkg_pgocaml.syntax, syntax_camlp4o, notocamlduce
+<sql.ml*> : pkg_pgocaml
+<ocsimore_pam.ml*> : pkg_pam
+<ocsimore.cma> : with_nis_chkpwd, pkg_pam
+<**/*_client*> : pkg_obrowser, pkg_ocsigen.eliom_obrowser_client, pkg_ocsigen.lwt_obrowser, -pkg_ocsigen
+"widget.ml" : warn_v
+"updatedb_sql.byte": pkg_threads,  pkg_pgocaml, pkg_ocsigen.server
