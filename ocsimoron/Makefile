@@ -13,7 +13,7 @@ TARGET=lib
 SRC=ocsimoron.ml 
 
 # when ocsigen is installed, can use package name instead of those -I
-LIBSOCSIGEN=$(LIBDIRS2)
+LIBSOCSIGEN=$(LIBDIRS1)
 LIBS = -package lwt.unix,pcre $(LIBSOCSIGEN) -I $(TOP)/commons
 
 ##############################################################################

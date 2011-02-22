@@ -149,14 +149,15 @@ endif
 # Install.
 #
 
-findlib_install:
+#pad: make findlib install the default old
+install:
 	ocamlfind install $(PACKAGE) META pgocaml.a pgocaml.cma pgocaml.cmxa pGOCaml_generic.cm[ix] pGOCaml.cm[ix] pa_pgsql.cmo pGOCaml_generic.mli pGOCaml.mli
 
 reinstall:
 	ocamlfind remove $(PACKAGE)
 	ocamlfind install $(PACKAGE) META pgocaml.a pgocaml.cma pgocaml.cmxa pGOCaml_generic.cm[ix] pGOCaml.cm[ix] pa_pgsql.cmo pGOCaml_generic.mli pGOCaml.mli
 
-install:
+install_oldschool:
 	rm -rf $(DESTDIR)$(OCAMLLIBDIR)/$(PACKAGE)
 	install -c -m 0755 -d $(DESTDIR)$(OCAMLLIBDIR)/$(PACKAGE)
 	install -c -m 0644 *.cmi *.mli *.cmo *.cma *.cmxa *.a META \
