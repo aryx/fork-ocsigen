@@ -1,29 +1,41 @@
-I've copied the ocsigen darcs repo, then darcs mv files and directories around,
-created git repo on top of this darcs repo and added external/ stuff
-so have one clean complete battery-included github-enabled ocsigen 
-repository. I've also moved js_of_ocaml/ and oclosure/ under web_js/,
-lwt and deriving in external/, and macaque and pgocaml under database/.
-I've also moved what appear to be dead code/config/files in tmp/
- (e.g. ocamlbuild stuff)
+The goal of this fork is to have one clean complete battery-included 
+github-enabled ocsigen repository. 
+
+I've copied the original ocsigen darcs repo, then 'darcs mv' files and
+directories around, then created a git repo on top of this darcs repo
+and added external/ stuff. I've also moved js_of_ocaml/ and oclosure/
+under web_js/, lwt and deriving in external/, and macaque/ and pgocaml/
+under database/. I've also moved what appear to be dead docs/old (e.g.
+ocamlbuild stuff).
 
 New compilation procedure:
-  - install libev C library, openssl C library, pcre C library, postgres
+  - install libev C library, openssl C library, pcre C library, the 
+    postgres C library and postgres server.
   - compile and 'make install' ocaml libraries in external/:
     react, ssl, lwt (with ./configure  --enable-react --enable-ssl),
     pcre, ocamlnet, cryptokit, ocaml-text, calendar,
     csv, extlib,
     and deriving.
   - compile and 'make install' js_of_ocaml and oclosure
-  - compile and 'make install' pgocaml (actually findlib_install) and macaque
-  - => can now ./configure ocsigen and compiles it
+  - compile and 'make install' pgocaml and macaque
+  - => can now './configure' ocsigen and compiles it
     make depend
     make
     ./server/ocsigen -c pad.conf.local
     open http://<server_machine>:8080/miniwiki in your browser
      (where <server_machine> is usually localhost, unless you
      run the server on one machine and browse the web from another)
+  - a small demo is in demos/hello. Just do 'make depend; make; make run'
 
 TODO see install_dependencies.sh
+
+for postgres after the install of the postgres server you need to:
+ sudo mkdir -p /opt/local/var/db/postgresql81/defaultdb
+ sudo chown postgres81:postgres /opt/local/var/db/postgresql81/defaultdb
+ sudo su postgres81 -c '/opt/local/lib/postgresql81/bin/initdb -D /opt/local/var/db/postgresql81/defaultdb'
+ sudo -u postgres81 /opt/local/lib/postgresql81/bin/postmaster -D /opt/local/var/db/postgresql81/defaultdb
+ sudo -u postgres81 /opt/local/lib/postgresql81/bin/createdb `whoami`
+ sudo -u postgres81 /opt/local/lib/postgresql81/bin/createuser `whoami`
 
 ocsigen is quite flexible in the choice of its subcomponents:
  - for html: raw string, xHTML, xHTML with camlp4 extension, ocamlduce

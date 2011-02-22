@@ -110,3 +110,4 @@ tests/syntax_temp_files/eliom_testsuite3_type_inference.mli
 /database/pgocaml/pgocaml_prof
 /external/ocamlextlib/.cvsignore
 /external/ocamlextlib/META
+/database/pgocaml/demos/project
