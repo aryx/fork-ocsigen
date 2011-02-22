@@ -2,17 +2,19 @@ I've copied the ocsigen darcs repo, then darcs mv files and directories around,
 created git repo on top of this darcs repo and added external/ stuff
 so have one clean complete battery-included github-enabled ocsigen 
 repository. I've also moved js_of_ocaml/ and oclosure/ under web_js/,
-and lwt and deriving in external/.
+lwt and deriving in external/, and macaque and pgocaml under database/.
 I've also moved what appear to be dead code/config/files in tmp/
  (e.g. ocamlbuild stuff)
 
 New compilation procedure:
-  - install libev C library, openssl C library, pcre C library
-  - compile and 'make install' libs in external/:
+  - install libev C library, openssl C library, pcre C library, postgres
+  - compile and 'make install' ocaml libraries in external/:
     react, ssl, lwt (with ./configure  --enable-react --enable-ssl),
     pcre, ocamlnet, cryptokit, ocaml-text, calendar,
-    deriving
+    csv, extlib,
+    and deriving.
   - compile and 'make install' js_of_ocaml and oclosure
+  - compile and 'make install' pgocaml (actually findlib_install) and macaque
   - => can now ./configure ocsigen and compiles it
     make depend
     make
