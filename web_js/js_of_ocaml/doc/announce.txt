@@ -1,0 +1,79 @@
+Hi,
+
+I'm happy to announce the first official release of Js_of_ocaml,
+a compiler from OCaml bytecode to Javascript.
+
+This tool let you write OCaml programs that run on Web browsers.
+
+Js_of_ocaml is easy to install, and use thereafter, as it works with
+an existing installation of OCaml, with no need to recompile any
+library.  It comes with bindings for a large part of the browser APIs.
+
+The project page is:   http://ocsigen.org/js_of_ocaml/
+
+EXAMPLES
+
+The compiler has been used to implement some noteworthy examples,
+such as:
+- an interactive 3D view of the Earth
+        http://ocsigen.org/js_of_ocaml/planet
+- a graph viewer
+        http://ocsigen.org/js_of_ocaml/graph
+
+PERFORMANCES
+
+According to our benchmarks, with state of the art Javascript engines,
+the generated programs runs typically faster than with the OCaml
+bytecode interpreter ( http://ocsigen.org/js_of_ocaml/performances ).
+
+Js_of_ocaml performs dead code elimination in order to generate
+compact code: the Javascript file produced is usually smaller than
+the input bytecode file, and often much smaller.
+
+LINKS
+
+Project home page  http://ocsigen.org/js_of_ocaml/
+Download           http://ocsigen.org/download/js_of_ocaml-1.0.tar.gz
+Get source code    darcs get http://ocsigen.org/darcs/js_of_ocaml/
+Documentation      https://ocsigen.org/js_of_ocaml/lib/overview
+
+FURTHER TECHNICAL DETAILS
+
+Js_of_ocaml performs a fairly faithful translation.  The order of
+evaluation is preserved.  Modular arithmetic is used for integers (but
+with 32 bit integer).  It does not support tail calls (function calls
+in tail position), as this would be too expansive.  However tail
+recursion (self call in tail position) is properly optimized.
+
+Explicit coercion functions can be used to convert Ocaml values to
+Javascript values, and conversely (for instance, to map OCaml mutable
+strings to Javascript immutable UTF-16 strings, or to map OCaml
+booleans to Javascript booleans).  A Camlp4 syntax extension makes it
+possible to invoke Javascript methods in a type safe way.
+
+COMPARISON TO OCAMLJS
+
+Ocamljs is a compiler from OCaml source code to Javascript.  Jake
+Donham has written a fair comparison of the two tools:
+
+  http://ambassadortothecomputers.blogspot.com/2010/08/ocamljs-03.html
+
+Ocamljs is a back-end to the existing OCaml compiler.  Thus, contrary
+to Js_of_ocaml, you need to perform a distinct installation of OCaml
+to use Ocamljs, and you have to recompile all the libraries you may
+need.
+
+Ocamljs follows a different philosophy: it attempts to merge OCaml
+datatypes with the corresponding Javascript datatypes.  For instance,
+OCaml objects are implemented as Javascript objects.  Conversely,
+Javascript objects are given an OCaml object type.  A mixed
+representation of strings is used: mutable OCaml-style strings and
+immutable Javascript strings both have the same type.  All this is
+good for interoperability, but can be a source of incompatibilities
+and can result in runtime errors not caught by the type checker.
+
+Ocamljs optimizes tail recursion, but this comes at a large
+performance cost.
+
+-- 
+Jerome Vouillon 
