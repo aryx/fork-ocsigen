@@ -1,0 +1,7 @@
+# Specifications for the Csv module                        -*-conf-*-
+name = "csv"
+version = "1.2.1"
+description = "Read and write CSV files"
+requires = ""
+archive(byte) = "csv.cma"
+archive(native) = "csv.cmxa"
