@@ -5,6 +5,8 @@ MAKESUBDIRS= ocamlpcre ocamlcalendar ocamlcryptokit ocamltext \
  ocamlssl ocamlreact \
  ocamllwt \
  ocamlderiving \
+ ocamlcsv \
+ ocamlextlib \
 
 
 clean:
