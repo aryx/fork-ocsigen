@@ -1,17 +1,18 @@
-The goal of this fork is to have one clean complete battery-included 
-github-enabled ocsigen repository. 
+The goal of this fork is to have a battery-included github-enabled ocsigen
+repository.
 
 I've copied the original ocsigen darcs repo, then 'darcs mv' files and
 directories around, then created a git repo on top of this darcs repo
 and added external/ stuff. I've also moved js_of_ocaml/ and oclosure/
 under web_js/, lwt and deriving in external/, and macaque/ and pgocaml/
-under database/. I've also moved what appear to be dead docs/old (e.g.
+under database/. I've also moved what appear to be dead in docs/old (e.g.
 ocamlbuild stuff).
 
 New compilation procedure:
-  - install libev C library, openssl C library, pcre C library, the 
-    postgres C library and postgres server.
-  - compile and 'make install' ocaml libraries in external/:
+  - install the libev C library, openssl C library, pcre C library, the 
+    postgres C library and postgres server using your favourite package
+    manager
+  - compile 'make install' ocaml libraries in external/:
     react, ssl, lwt (with ./configure  --enable-react --enable-ssl),
     pcre, ocamlnet, cryptokit, ocaml-text, calendar,
     csv, extlib,
@@ -29,15 +30,18 @@ New compilation procedure:
 
 TODO see install_dependencies.sh
 
-for postgres after the install of the postgres server you need to:
+For postgres after the install of the postgres server you need to:
  sudo mkdir -p /opt/local/var/db/postgresql81/defaultdb
  sudo chown postgres81:postgres /opt/local/var/db/postgresql81/defaultdb
  sudo su postgres81 -c '/opt/local/lib/postgresql81/bin/initdb -D /opt/local/var/db/postgresql81/defaultdb'
  sudo -u postgres81 /opt/local/lib/postgresql81/bin/postmaster -D /opt/local/var/db/postgresql81/defaultdb
  sudo -u postgres81 /opt/local/lib/postgresql81/bin/createdb `whoami`
  sudo -u postgres81 /opt/local/lib/postgresql81/bin/createuser `whoami`
-then each time you reboot:
+
+Then each time you reboot:
  sudo -u postgres81 /opt/local/lib/postgresql81/bin/postmaster -D /opt/local/var/db/postgresql81/defaultdb
+On Linux you may want to subsitute postgres81 by just postgres and
+/opt/local/lib/postgresql81/bin/ by /usr/bin
 
 ocsigen is quite flexible in the choice of its subcomponents:
  - for html: raw string, xHTML, xHTML with camlp4 extension, ocamlduce
@@ -52,19 +56,12 @@ Are web_js/ web_css/ web_html/ good names ? ocsigen tries
 to abstract away from this ugliness so perhaps we should call it
 client_side/, server_side/ ? But ocsigen also wants to blur
 the distinction between client_side and server_side so actually
-better to have eliom/ single dir and support libraries like web_js/, web_html/
-for the ugly stuff.
+better to have eliom/ in a single dir and support libraries like 
+web_js/, web_html/ for the ugly stuff.
 
 Should we move xmlp4 (web_html/) in external/ ? No because html/xml are
-fundemental to web apps. Lwt is not, hence the move to external/.
-Same for deriving.
-
---------------------------------------------
-Misc notes
---------------------------------------------
-
-Need absolute path in the ocsigen conf file, otherwise can't
-file static files apparently ... (maybe because of security check ?)
+fundemental to web apps (just like pgocaml and macaque). Lwt is not, 
+hence the move to external/. Same for deriving.
 
 --------------------------------------------
 Original compilation procedure:
