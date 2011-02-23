@@ -36,6 +36,8 @@ for postgres after the install of the postgres server you need to:
  sudo -u postgres81 /opt/local/lib/postgresql81/bin/postmaster -D /opt/local/var/db/postgresql81/defaultdb
  sudo -u postgres81 /opt/local/lib/postgresql81/bin/createdb `whoami`
  sudo -u postgres81 /opt/local/lib/postgresql81/bin/createuser `whoami`
+then each time you reboot:
+ sudo -u postgres81 /opt/local/lib/postgresql81/bin/postmaster -D /opt/local/var/db/postgresql81/defaultdb
 
 ocsigen is quite flexible in the choice of its subcomponents:
  - for html: raw string, xHTML, xHTML with camlp4 extension, ocamlduce
