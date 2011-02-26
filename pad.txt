@@ -9,6 +9,7 @@ under database/. I've also moved what appear to be dead in docs/old (e.g.
 ocamlbuild stuff).
 
 New compilation procedure:
+  - install ocaml 3.12 (with gdbm support) and findlib
   - install the libev C library, openssl C library, pcre C library, the 
     postgres C library and postgres server using your favourite package
     manager
@@ -16,10 +17,11 @@ New compilation procedure:
     react, ssl, lwt (with ./configure  --enable-react --enable-ssl),
     pcre, ocamlnet, cryptokit, ocaml-text, calendar,
     csv, extlib,
-    and deriving.
-  - compile and 'make install' js_of_ocaml and oclosure
-  - compile and 'make install' pgocaml and macaque
+  - compile and 'make install' js_of_ocaml and oclosure (compiling oclosure
+    takes quite some time and needs more than 1Gig of RAM)
+  - [optional] compile and 'make install' pgocaml and macaque
   - => can now './configure' ocsigen and compiles it
+    TOFIX had then to go to external/ocaml/deriving; make make install
     make depend
     make
     ./server/ocsigen -c pad.conf.local
@@ -67,7 +69,6 @@ hence the move to external/. Same for deriving.
 Original compilation procedure:
 --------------------------------------------
 
-To compile ocsigen, first install ocaml 3.12 and findlib. Then:
 
 --------------------------------------------
 Install for LWT and JS
