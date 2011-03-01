@@ -18,10 +18,10 @@ New compilation procedure:
     pcre, ocamlnet, cryptokit, ocaml-text, calendar,
     csv, extlib,
   - compile and 'make install' js_of_ocaml and oclosure (compiling oclosure
-    takes quite some time and needs more than 1Gig of RAM)
+    takes quite some time and needs more than 1.5Go of RAM)
   - [optional] compile and 'make install' pgocaml and macaque
   - => can now './configure' ocsigen and compiles it
-    TOFIX had then to go to external/ocaml/deriving; make make install
+    TOFIX had then to go to external/ocaml/deriving; make; make install
     make depend
     make
     ./server/ocsigen -c pad.conf.local
