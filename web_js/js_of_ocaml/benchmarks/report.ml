@@ -4,13 +4,15 @@
 
 (****)
 
-let reference = ref (-1)
+let reference = ref None
+let nreference = ref (-1)
 let maximum = ref (-1.)
 let gnuplot = ref true
 let table = ref false
 let omitted = ref []
 let errors = ref false
 let script = ref false
+let conf = ref "report.config"
 
 (****)
 
@@ -40,60 +42,112 @@ let rec merge f l1 l2 =
       else
         (n1, f v1 v2) :: merge f r1 r2
 
-let read_column ?title ?color meas spec =
+let merge_blank l2 =
+  List.map (fun (n2, v2) -> (n2, (0.0, 0.0) :: v2)) l2
+
+let read_column ?title ?color meas spec refe =
   let l =
-  List.map
-    (fun nm ->
-       let l = read_measures meas spec nm in
-       let a = Array.of_list l in
-       let (m, i) = mean_with_confidence a in
-       (nm, [(m, i)]))
-    (benchs meas (no_ext spec))
+    List.map
+      (fun nm ->
+        let l = read_measures meas spec nm in
+        let a = Array.of_list l in
+        let (m, i) = mean_with_confidence a in
+        (nm, [(m, i)]))
+      (benchs meas (no_ext spec))
   in
   let nm =
     match title with
-      Some nm -> nm
-    | None    -> dir meas (no_ext spec)
+      | Some nm -> nm
+      | None    -> dir meas (no_ext spec)
   in
-  ([(nm, color)], l)
+  if refe then reference := Some l;
+  Some ([Some (nm, color)], l)
 
-let rec merge_columns l =
-  match l with
-    [] ->
-      ([], [])
-  | [c] ->
-      c
-  | (h, c) :: r ->
-      let (h', t) = merge_columns r in
+let read_blank_column () = None
+
+let rec list_create n a =
+  if n = 0
+  then []
+  else a::list_create (n-1) a
+
+let merge_columns l old_table =
+  let rec aux = function
+    | [] | [None] -> ([], [])
+    | [Some c] -> c
+    | Some (h, c) :: r ->
+      let (h', t) = aux r in
       (h @ h', merge (fun v1 v2 -> v1 @ v2) c t)
+    | None :: r ->
+      let (h', t) = aux r in
+(*VVV utile ? *)
+      (None::h', merge_blank t)
+  in
+  let rec remove_head_blank = function
+    | None :: l -> let (n, ll) = remove_head_blank l in (n+1, ll)
+    | l -> (0, l)
+  in
+  let rec add_blanks n (h, t) =
+    if n = 0
+    then (h, t)
+    else
+      let zeros = list_create n (0.0, 0.0) in
 
-let normalize n (h, t) =
-  (h,
-   List.map
-     (fun (nm, l) ->
-        let (r, _) = List.nth l n in
-        if r <> r then begin
-          Format.eprintf "No reference available for '%s'@." nm;
-          exit 1
-        end;
-        (nm, List.map (fun (v, i) -> (v /. r, i /. r)) l))
-     t)
+(*VVV utile ? *)
+      let nodisplays = list_create n None in
+
+      (h @ nodisplays , List.map (fun (a, l) -> (a, l @ zeros)) t)
+  in
+  (* if there was an old table, we keep only the lines corresponding
+     to entries in that table *)
+  let l = match l, old_table with
+    | [], _ -> []
+    | _, None -> l
+    | (Some (h, c))::ll, Some o ->
+      (Some (h, (merge (fun v1 v2 -> v1) c o)))::ll
+    | None::ll, Some o -> 
+      (Some ([None], (List.map (fun (nm, _) -> (nm, [0.0, 0.0])) o)))::ll
+  in
+  let (nb_blanks, l) = remove_head_blank (List.rev l) in
+  let l = List.rev l in
+  add_blanks nb_blanks (aux l)
+
+let normalize (h, t) =
+  match !reference with
+    | None -> (h, t)
+    | Some rr ->
+      (h,
+       List.map
+         (fun (nm, l) ->
+           let (r, _) = List.hd (List.assoc nm rr) in
+           if r <> r then begin
+             Format.eprintf "No reference available for '%s'@." nm;
+             exit 1
+           end;
+           (nm, List.map (fun (v, i) -> (v /. r, i /. r)) l))
+         t)
 
 let stats (h, t) =
   for i = 0 to List.length h - 1 do
-    let (nm, _) = List.nth h i in
-    let l = List.map (fun (_, l) -> fst (List.nth l i)) t in
-    let a = Array.of_list l in
-    Array.sort compare a;
-    let p = List.fold_right (fun x p -> x *. p) l 1. in
-    Format.eprintf "%s:@.  %f %f@." nm
-      (p ** (1. /. float (List.length l)))
-      a.(Array.length a / 2)
+    match List.nth h i with
+      | Some (nm, _) ->
+        let l = List.map (fun (_, l) -> fst (List.nth l i)) t in
+        let a = Array.of_list l in
+        Array.sort compare a;
+        let p = List.fold_right (fun x p -> x *. p) l 1. in
+        Format.eprintf "%s:@.  %f %f@." nm
+          (p ** (1. /. float (List.length l)))
+          a.(Array.length a / 2)
+      | None -> ()
   done
 
-let text_output (h, t) =
+let text_output _no_header (h, t) =
   Format.printf "-";
-  List.iter (fun (s, _) -> Format.printf " - \"%s\"" s) h;
+  List.iter (fun v ->
+    let nm = match v with
+      | Some (nm, _) -> nm
+      | None -> ""
+    in
+    Format.printf " - \"%s\"" nm) h;
   Format.printf "@.";
   List.iter
     (fun (nm, l) ->
@@ -102,34 +156,65 @@ let text_output (h, t) =
        Format.printf "@.")
     t
 
-let gnuplot_output ch (h, t) =
+let gnuplot_output ch no_header (h, t) =
+  let labels = ref [] in
   let n = List.length (snd (List.hd t)) in
-  Printf.fprintf ch "\
-    set style data histograms\n\
-    set style fill solid 1 border rgb 'black'\n\
-    set style histogram errorbars gap 1%s\n\
-    set xtics border in scale 0,0 nomirror rotate by -30  \
-              offset character 0, 0, 0\n"
-    (if !errors then " lw 1" else "");
- if !maximum > 0. then
-   Printf.fprintf ch "set yrange [0:%f]\n" !maximum
- else
-   Printf.fprintf ch "set yrange [0:]\n";
- Printf.fprintf ch "plot";
+  if not no_header
+  then begin
+    Printf.fprintf ch "\
+      set multiplot\n\
+      set style data histograms\n\
+      set style fill solid 1 border rgb 'black'\n\
+      set style histogram errorbars gap 1%s\n\
+      set xtics border in scale 0,0 nomirror rotate by -30  \
+                offset character 0, 0, 0\n"
+      (if !errors then " lw 1" else "");
+    if !maximum > 0. then
+      Printf.fprintf ch "set yrange [0:%f]\n" !maximum
+    else
+      Printf.fprintf ch "set yrange [0:]\n";
+  end;
+
+  (* labels *)
   for i = 0 to n - 1 do
-    if i > 0 then Printf.fprintf ch ", \"-\" using 2:3 title columnhead lw 0"
-    else Printf.fprintf ch " \"-\" using 2:3:xtic(1) title columnhead lw 0";
-    match snd (List.nth h i) with
-      Some c -> Printf.fprintf ch "lc rgb '%s'" c
-    | None   -> ()
+    let nn = ref 0. in
+    List.iter
+      (fun (nm, l) ->
+         let (v, ii) = List.nth l i in
+         if !maximum > 0. && v > !maximum
+         then Printf.fprintf ch "set label \"%.2f\" at %f,%f center\n"
+           v (!nn +. float i /. float n -. 0.5 (* why? *))
+           (!maximum *. 1.03);
+         nn := !nn +. 1.)
+      t;
+  done;
+
+  Printf.fprintf ch "plot";
+  for i = 0 to n - 1 do
+    match List.nth h i with
+      | Some (_, col) ->
+        if i > 0
+        then Printf.fprintf ch ", \"-\" using 2:3 title columnhead lw 0"
+        else Printf.fprintf ch " \"-\" using 2:3:xtic(1) title columnhead lw 0";
+        (match col with
+          | Some c -> Printf.fprintf ch "lc rgb '%s'" c
+          | None   -> ());
+      | None ->
+        if i > 0
+        then Printf.fprintf ch ", \"-\" using 2:3 notitle lw 0"
+        else Printf.fprintf ch " \"-\" using 2:3:xtic(1) notitle lw 0";
   done;
   Printf.fprintf ch "\n";
   for i = 0 to n - 1 do
-    Printf.fprintf ch "- - \"%s\"\n" (fst (List.nth h i));
+    let nm = match List.nth h i with
+      | Some (nm, _) -> nm
+      | None -> ""
+    in
+    Printf.fprintf ch "- - \"%s\"\n" nm;
     List.iter
       (fun (nm, l) ->
-         let (v, i) = List.nth l i in
-         Printf.fprintf ch "\"%s\" %f %f\n" nm v (if i <> i then 0. else i))
+         let (v, ii) = List.nth l i in
+         Printf.fprintf ch "\"%s\" %f %f\n" nm v (if ii <> ii then 0. else ii))
       t;
     Printf.fprintf ch "e\n"
   done
@@ -137,20 +222,44 @@ let gnuplot_output ch (h, t) =
 let filter (h, t) =
   (h, List.filter (fun (nm, _) -> not (List.mem nm !omitted)) t)
 
-let output_table r (l:  ((string * 'a option) list * _) list)=
-  let t = merge_columns l in
-  let t = filter t in
-  let t = normalize (if !reference <= 0 then r - 1 else !reference - 1) t in
-  stats t;
-  if !table then
-    text_output t
-  else if !script then
-    gnuplot_output stdout t
-  else begin
-    let ch = Unix.open_process_out "gnuplot -persist" in
-    gnuplot_output ch t;
-    close_out ch
-  end
+let output_table =
+  let old_table = ref None in
+  fun r (l:  ((string * 'a option) option list * _) option list) f ->
+    let t = merge_columns l !old_table in
+    old_table := Some (snd t);
+    let t = filter t in
+    let t = normalize t in
+    stats t;
+    f t
+
+let output_tables r conf =
+  let output_function, close =
+    if !table
+    then text_output, fun () -> ()
+    else if !script
+    then gnuplot_output stdout, fun () -> ()
+    else begin
+      let ch = Unix.open_process_out "gnuplot -persist" in
+      (gnuplot_output ch,
+       fun () -> close_out ch)
+    end
+  in
+  let no_header = ref false in
+  List.iter
+    (fun conf ->
+      output_table r
+        (List.map
+           (function
+             | None -> read_blank_column ()
+             | Some (dir1, dir2, color, title, refe) -> 
+               read_column ~title ~color dir1 (dir2, "") refe)
+           conf)
+        (output_function !no_header);
+      no_header := true;
+    )
+    conf;
+  close ()
+
 
 (*
 let f _ =
@@ -167,27 +276,31 @@ let f _ =
   output_table 1 [c3; c2; c1]
 *)
 
+(*
 let f _ =
   let c1 = read_column (times ^ "/v8") js_of_ocaml in
   let c2 = read_column (times ^ "/v8") js_of_ocaml_unsafe in
   output_table 1 [c1; c2]
 
 let f _ =
-  let o = read_column ~color:"#729fcf" times opt in
-  let b = read_column ~color:"#204a87" times byte in
-  let c1 = read_column ~color:"#d98e2d" (times ^ "/v8") js_of_ocaml in
-  let c2 = read_column ~color:"#a75f0c" (times ^ "/nitro") js_of_ocaml in
-  let c3 = read_column ~color:"#a40000" (times ^ "/tm") js_of_ocaml in
-  output_table 2 [o; b; c1; c2; c3]
-(*
+  let o = read_column ~title:"ocamlopt" ~color:"#729fcf" times opt in
+  let b = read_column ~title:"ocamlc" ~color:"#204a87" times byte in
+  let c0 = read_column ~title:"old V8 (august?)" ~color:"#fbaf4f" (times ^ "/oldv8") js_of_ocaml in
+  let c1 = read_column ~title:"V8" ~color:"#d98e2d" (times ^ "/v8") js_of_ocaml in
+  let c2 = read_column ~title:"Nitro" ~color:"#a75f0c" (times ^ "/nitro") js_of_ocaml in
+  let c3 = read_column ~title:"TraceMonkey" ~color:"#a40000" (times ^ "/tm") js_of_ocaml in
+  output_table 2 [o; b; c0; c1; c2; c3]
 *)
+
+(*
+
 let f _ =
   let o = read_column ~title:"ocamlopt" ~color:"#729fcf" times opt in
   let b = read_column ~title:"ocamlc" ~color:"#326bbe" times byte in
   let c1 = read_column ~title:"V8" ~color:"#d98e2d" (times ^ "/v8") js_of_ocaml in
   let c2 = read_column ~title:"Nitro" ~color:"#a75f0c" (times ^ "/nitro") js_of_ocaml in
   output_table 2 [o; b; c1; c2]
-
+*)
 
 (*
 let f _ =
@@ -225,20 +338,85 @@ let f _ =
 
 (****)
 
+let read_config () =
+  let f = !conf in
+  if not (Sys.file_exists f) then begin
+    Format.eprintf "Configuration file '%s' not found!@." f;
+    exit 1
+  end;
+  let fullinfo = ref [] in
+  let info = ref [] in
+  let i = ref 0 in
+  let reference = ref false in
+  let ch = open_in f in
+  let split_at_space l =
+    try
+      let i = String.index l ' ' in
+      (String.sub l 0 i, String.sub l (i + 1) (String.length l - i - 1))
+    with Not_found -> (l, "")
+  in
+  let get_info dir0 rem refe =
+    let (dir1, rem) = split_at_space rem in
+    let (dir2, rem) = split_at_space rem in
+    let (color, title) = split_at_space rem in
+    let dir1 = if dir1 = "\"\"" then dir0 else dir0^"/"^dir1 in
+    info := Some (dir1, dir2, color, title, refe) :: !info
+  in
+  begin try
+    while true do
+      let l = input_line ch in
+      if String.length l = 0
+      then
+        (if !info <> []
+         then (fullinfo := (List.rev !info)::!fullinfo ; info := []; i:=0))
+      else
+        if l.[0] <> '#'
+        then begin
+          incr i;
+          reference := !nreference = !i;
+          let (kind, rem) = split_at_space l in
+          let (kind2, rem) = split_at_space rem in
+          (match kind with
+            | "histogram" -> ()
+            | "histogramref" ->
+              if !nreference = -1 then reference := true
+            | _ ->
+              Format.eprintf "Unknown config options '%s'@." kind;
+              exit 1);
+          (match kind2 with
+            | "blank" -> info := None :: !info
+            | "times" -> get_info times rem !reference
+            | "sizes" -> get_info sizes rem !reference
+            | _ ->
+              Format.eprintf "Unknown config options '%s'@." kind2;
+              exit 1);
+        end
+    done
+  with End_of_file -> () end;
+  close_in ch;
+  if !info <> [] then fullinfo := (List.rev !info)::!fullinfo;
+  (!reference, List.rev !fullinfo)
+
 let _ =
   let options =
-    [("-ref", Arg.Set_int reference, "<col> use column <col> as the baseline");
+    [("-ref", Arg.Set_int nreference, "<col> use column <col> as the baseline");
      ("-max", Arg.Set_float maximum, "<m> truncate graph at level <max>");
      ("-table", Arg.Set table, " output a text table");
      ("-omit", Arg.String (fun s -> omitted := str_split s ',' @ !omitted),
       " omit the given benchmarks");
      ("-errors", Arg.Set errors, " display error bars");
+     ("-config", Arg.Set_string conf, "<file> use <file> as a config file");
      ("-script", Arg.Set script, " output gnuplot script")]
   in
   Arg.parse (Arg.align options)
     (fun s -> raise (Arg.Bad (Format.sprintf "unknown option `%s'" s)))
     (Format.sprintf "Usage: %s [options]" Sys.argv.(0));
-  f ()
+
+  let r, conf = read_config () in
+
+  output_tables r conf
+
+(* f () *)
 
 (*
 http://hacks.mozilla.org/2009/07/tracemonkey-overview/
