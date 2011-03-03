@@ -17,7 +17,7 @@ open Eliom_parameters
 let count =
   let next =
     let c = ref 0 in
-      (fun () -> c := !c + 1; !c)
+    (fun () -> c := !c + 1; !c)
   in
   Eliom_output.Xhtml5.register_service
     ~path:["count"]
