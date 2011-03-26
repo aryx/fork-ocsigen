@@ -112,3 +112,5 @@ tests/syntax_temp_files/eliom_testsuite3_type_inference.mli
 /external/ocamlextlib/META
 /database/pgocaml/demos/project
 /external/ocamlnet/src/netsys/depend
+/external/ocamlcalendar/config.status
+/external/ocamltext/setup.data
