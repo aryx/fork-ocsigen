@@ -22,9 +22,7 @@ SRC= \
  \
  app.ml
 
-
-
-# when ocsigen is installed, can use package name instead of those -I
+# when ocsigen is installed, one can use package names instead of those -I
 LIBSOCSIGEN=$(LIBDIRS2)
 LIBS = -package lwt.unix,pcre $(LIBSOCSIGEN)
 

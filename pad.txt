@@ -13,12 +13,12 @@ New compilation procedure:
   - install the libev C library, openssl C library, pcre C library, the 
     postgres C library and postgres server using your favourite package
     manager
-  - compile 'make install' ocaml libraries in external/:
+  - compile and then 'make install' the ocaml libraries in external/:
     react, ssl, lwt (with ./configure  --enable-react --enable-ssl),
     pcre, ocamlnet, cryptokit, ocaml-text, calendar,
     csv, extlib,
-  - compile and 'make install' js_of_ocaml and oclosure (compiling oclosure
-    takes quite some time and needs more than 1.5Go of RAM)
+  - compile and then 'make install' js_of_ocaml and oclosure 
+    (compiling oclosure takes quite some time and needs more than 1.5Go of RAM)
   - [optional] compile and 'make install' pgocaml and macaque
   - => can now './configure' ocsigen and compiles it
     TOFIX had then to go to external/ocaml/deriving; make; make install
@@ -29,6 +29,7 @@ New compilation procedure:
      (where <server_machine> is usually localhost, unless you
      run the server on one machine and browse the web from another)
   - a small demo is in demos/hello. Just do 'make depend; make; make run'
+    and then open http://<server_machine>:8080/coucou in your browser
 
 TODO see install_dependencies.sh
 
@@ -47,7 +48,7 @@ On Linux you may want to subsitute postgres81 by just postgres and
 
 ocsigen is quite flexible in the choice of its subcomponents:
  - for html: raw string, xHTML, xHTML with camlp4 extension, ocamlduce
- - for db: ocsipersist dbm, ocsipersist sqlite, macaque ?
+ - for db: ocsipersist dbm, ocsipersist sqlite, macaque + pgocaml
  - for js: manual?, obrowser (but dead?), js_of_ocaml/, js_of_ocaml + oclosure
 
 --------------------------------------------
