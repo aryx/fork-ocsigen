@@ -1,24 +1,21 @@
+#############################################################################
+# Configuration section
+#############################################################################
 include Makefile.config
 include Makefile.filelist
 
+##############################################################################
+# Variables
+##############################################################################
+TOP=$(shell pwd)
+
+PROGS=server/ocsigen
+
 VERSION := $(shell head -n 1 VERSION)
 
-# sed commands used for generation of META files
-SED_COMMAND_FOR_META =
-SED_COMMAND_FOR_META += -e "s/_VERSION_/$(VERSION)/"
-SED_COMMAND_FOR_META += -e "s/_CAMLZIPNAME_/$(CAMLZIPNAME)/"
-SED_COMMAND_FOR_META += -e "s@_DIRECTORY_@$(MODULEINSTALLDIR)/$(OCSIGENNAME)@"
-SED_COMMAND_FOR_META += -e "s@_OCSINAME_@$(OCSIGENNAME)@"
-
-ifeq "$(LOGDIR)" ""
-LOGDIR = "error"
-endif
-ifeq "$(STATICPAGESDIR)" ""
-STATICPAGESDIR = "error"
-endif
-ifeq "$(DATADIR)" ""
-DATADIR = "error"
-endif
+#------------------------------------------------------------------------------
+#package dependencies
+#------------------------------------------------------------------------------
 
 ifeq "$(OCSIPERSISTSQLITE)" "YES"
 SQLITECMATOINSTALL= extensions/ocsipersist-sqlite.cma
@@ -35,15 +32,21 @@ DBMCMATOINSTALL= extensions/ocsipersist-dbm/ocsipersist-dbm.cma
 else
 endif
 
-METAS = files/META files/META.ocsigen_xhtml files/META.ocsigen files/META.eliom_tests files/META.eliom_tests.global
+#------------------------------------------------------------------------------
+# Main variables
+#------------------------------------------------------------------------------
 
+DIRS=lib web_html http server extensions eliom tests
 
-INSTALL = install
-TARGETSBYTE = lib.byte web_html.byte http.byte server.byte extensions.byte eliom.byte tests.byte
+TARGETSBYTE=$(DIRS:=.byte)
+
+METAS = files/META \
+  files/META.ocsigen_xhtml files/META.ocsigen \
+  files/META.eliom_tests files/META.eliom_tests.global
 
 # plugins are cma (and cmxs) that can be loaded dynamically by the server
 PLUGINSCMATOINSTALL = $(SQLITECMATOINSTALL) $(DBMCMATOINSTALL) \
-	eliom/eliom.cma $(DEFLATEMODCMATOINSTALL) $(DUCECMA) \
+	eliom/eliom.cma \
 	lib/parsecommandline.cma lib/donotparsecommandline.cma
 PLUGINSCMOTOINSTALL = \
 	$(SQLITECMOTOINSTALL) $(DBMCMOTOINSTALL) $(DEFLATEMODCMOTOINSTALL) \
@@ -106,7 +109,6 @@ endif
 
 ifeq "$(NATIVECODE)" "YES"
 PLUGINSTOINSTALLX=$(CMXS)
-
 TOINSTALLXTEMP=$(CMAOTOINSTALL:.cmo=.cmx)
 TOINSTALLX=$(CMATOINSTALL:.cma=.cmxa) \
            $(CMATOINSTALL:.cma=.a) \
@@ -177,13 +179,17 @@ ELIOMTESTS=$(ELIOMTESTSBYTE) $(ELIOMTESTSOPT) $(ELIOMTESTSCMI)
 REPS=$(TARGETSBYTE:.byte=)
 STD_METAS_DIR=$(MODULEINSTALLDIR)
 
+##############################################################################
+# Top rules
+##############################################################################
+
+.PHONY: $(REPS) deriving clean distclean
+
 all: $(BYTE) $(OPT) $(OCSIGENNAME).conf.local $(METAS)
 
 byte: web_htmlpre.byte $(TARGETSBYTE)
 
 opt: web_htmlpre.opt $(TARGETSBYTE:.byte=.opt)
-
-.PHONY: $(REPS) deriving clean distclean
 
 
 lib: lib.byte
@@ -197,12 +203,9 @@ lib.opt:
 web_html: web_html.byte
 
 web_html.byte:
-#	touch web_html/.depend
-#	$(MAKE) -C web_html depend
 	$(MAKE) -C web_html byte
 
 web_htmlpre.byte:
-#	$(MAKE) -C web_html depend
 	$(MAKE) -C web_html web_htmlpre.byte
 
 web_htmlpre.opt:
@@ -215,8 +218,6 @@ deriving:
 	cd external/ocamlderiving && OCAMLFIND_DESTDIR=`pwd`/tmp $(MAKE) install
 
 web_html.opt:
-#	touch web_html/.depend
-#	$(MAKE) -C web_html depend
 	$(MAKE) -C web_html opt
 
 http: http.byte
@@ -266,9 +267,21 @@ servertop: files/META.ocsigen
 doc:
 	$(MAKE) -C doc
 
+
+#------------------------------------------------------------------------------
+# META files
+#------------------------------------------------------------------------------
+
 external/ocamlderiving/lib/META.gen:
 	echo "Please run make depend"
 	exit 1
+
+# sed commands used for generation of META files
+SED_COMMAND_FOR_META =
+SED_COMMAND_FOR_META += -e "s/_VERSION_/$(VERSION)/"
+SED_COMMAND_FOR_META += -e "s/_CAMLZIPNAME_/$(CAMLZIPNAME)/"
+SED_COMMAND_FOR_META += -e "s@_DIRECTORY_@$(MODULEINSTALLDIR)/$(OCSIGENNAME)@"
+SED_COMMAND_FOR_META += -e "s@_OCSINAME_@$(OCSIGENNAME)@"
 
 files/META: files/META.in VERSION external/ocamlderiving/lib/META.gen
 	sed $(SED_COMMAND_FOR_META) < $< > $@
@@ -321,6 +334,16 @@ files/META.eliom_tests: files/META.eliom_tests.in VERSION
 files/META.eliom_tests.global: files/META.eliom_tests.in VERSION
 	sed $(SED_COMMAND_FOR_META) -e "s%_ELIOMTESTSINSTALLDIR_%$(ELIOMTESTSINSTALLDIR)%g"< $< > $@
 
+ifeq "$(LOGDIR)" ""
+LOGDIR = "error"
+endif
+ifeq "$(STATICPAGESDIR)" ""
+STATICPAGESDIR = "error"
+endif
+ifeq "$(DATADIR)" ""
+DATADIR = "error"
+endif
+
 $(OCSIGENNAME).conf.local: Makefile.config files/ocsigen.conf.in
 	cat files/ocsigen.conf.in \
 	| sed s%80\</port\>%8080\</port\>%g \
@@ -356,27 +379,36 @@ $(OCSIGENNAME).conf.local: Makefile.config files/ocsigen.conf.in
 	| sed s%sqlite3.cmxs\"/\>%sqlite3.cmxs\"/\>\ \<\!--\ Create\ sqlite3.cmxs\ using:\ ocamlopt\ -shared\ -linkall\ -I\ \<path\ to\ ocaml\'s\ sqlite3\ directory\>\ -o\ sqlite3.cmxs\ \<path\ to\>/libsqlite3_stubs.a\ \<path\ to\>/sqlite3.cmxa\ --\>%g \
 	> $(OCSIGENNAME).conf.opt.local
 
+
+#------------------------------------------------------------------------------
+# clean/depend
+#------------------------------------------------------------------------------
+
 clean:
-	-make -C external/ocamlderiving clean
-	-@for i in $(REPS) ; do $(MAKE) -C $$i clean ; done
-	-rm -f $(OCSIGENNAME).conf.local $(OCSIGENNAME).conf.opt.local
-	-rm -f $(METAS) $(OCSIGENNAME)-*.tar.gz
-	-find . -name "*~" -delete
-	-make -C external clean
-	-make -C web_js clean
+	make -C external/ocamlderiving clean
+	@for i in $(REPS) ; do $(MAKE) -C $$i clean ; done
+	rm -f $(OCSIGENNAME).conf.local $(OCSIGENNAME).conf.opt.local
+	rm -f $(METAS) $(OCSIGENNAME)-*.tar.gz
+	find . -name "*~" -delete
+	make -C external clean
+	make -C web_js clean
 
 distclean: clean
-	-cd external/ocamlderiving && make clean
-	-find . -name "*depend" -delete
-	-make -C doc clean
-	-rm -f Makefile.config
+	cd external/ocamlderiving && make clean
+	find . -name "*depend" -delete
+	make -C doc clean
+	rm -f Makefile.config
 
 depend: deriving
 	$(MAKE) -C web_html depend
 	$(MAKE) -C web_html web_htmlpre.byte $(DEPOPT)
-#	@for i in $(REPS) ; do touch "$$i"/.depend; $(MAKE) -C $$i depend ; done
 	@for i in $(REPS) ; do $(MAKE) -C $$i depend ; done
 
+##############################################################################
+# Install
+##############################################################################
+
+INSTALL=install
 
 .PHONY: partialinstall install doc docinstall logrotate dist
 partialinstall:
@@ -495,9 +527,6 @@ logrotate:
 	   | sed s%_COMMANDPIPE_%$(COMMANDPIPE)%g \
 	  > $(TEMPROOT)/etc/logrotate.d/$(OCSIGENNAME); }
 
-dist:
-	DARCS_REPO=$(PWD) darcs dist -d $(OCSIGENNAME)-$(VERSION)
-
 .PHONY: uninstall fulluninstall
 uninstall:
 	-${OCAMLFIND} query ${OCSIGENNAME} \
@@ -516,3 +545,15 @@ fulluninstall: uninstall
 #	rm -f $(CONFIGDIR)/$(OCSIGENNAME).conf
 #	rm -f $(LOGDIR)/$(OCSIGENNAME).log
 #	rm -rf $(MODULEINSTALLDIR)
+
+
+##############################################################################
+# Package rules
+##############################################################################
+
+dist:
+	DARCS_REPO=$(PWD) darcs dist -d $(OCSIGENNAME)-$(VERSION)
+
+##############################################################################
+# Developer rules
+##############################################################################
