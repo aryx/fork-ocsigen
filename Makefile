@@ -13,40 +13,7 @@ PROGS=server/ocsigen
 #------------------------------------------------------------------------------
 #package dependencies
 #------------------------------------------------------------------------------
-ifeq "$(OCSIPERSISTSQLITE)" "YES"
-SQLITECMATOINSTALL= extensions/ocsipersist-sqlite.cma
-else
-endif
-
-ifeq "$(CAMLZIP)" "YES"
-DEFLATEMODCMOTOINSTALL= extensions/deflatemod.cmo
-else
-endif
-
-ifeq "$(OCSIPERSISTDBM)" "YES"
-DBMCMATOINSTALL= extensions/ocsipersist-dbm/ocsipersist-dbm.cma 
-else
-endif
-
-ifeq "$(OCAMLDUCE)" "YES"
-DUCECMA=eliom/eliom_duce.cma
-DUCECMO=
-#eliom/eliom_duce.cma
-# eliom/ocsigenrss.cma
-DUCECMI=$(DOCPREF)eliom/eliom_duce.cmi \
-        $(DOCPREF)eliom/xhtmltypes_duce.cmi \
-        $(DOCPREF)eliom/eliom_duce_tools.cmi
-# eliom/rss2.cmi eliom/ocsigenrss.cmi
-DUCEEXAMPLES=examples/ocamlduce/exampleduce.cmo
-# examples/ocamlduce/examplerss.cmo
-DUCEPACK=,ocamlduce
-else
-DUCECMA=
-DUCECMO=
-DUCECMI=
-DUCEEXAMPLES=
-DUCEPACK=
-endif
+# see Makefile.config
 
 #------------------------------------------------------------------------------
 # Main variables
@@ -55,105 +22,34 @@ endif
 DIRS=lib web_html http server extensions eliom tests
 MAKESUBDIRS=$(DIRS)
 
-# plugins are cma (and cmxs) that can be loaded dynamically by the server
-PLUGINSCMATOINSTALL = $(SQLITECMATOINSTALL) $(DBMCMATOINSTALL) \
-	eliom/eliom.cma $(DEFLATEMODCMATOINSTALL) $(DUCECMA) \
-	lib/parsecommandline.cma lib/donotparsecommandline.cma
-
-PLUGINSCMOTOINSTALL = \
-	$(SQLITECMOTOINSTALL) $(DBMCMOTOINSTALL) $(DEFLATEMODCMOTOINSTALL) \
-	extensions/staticmod.cmo extensions/cgimod.cmo \
-        extensions/revproxy.cmo extensions/userconf.cmo \
-        extensions/outputfilter.cmo extensions/authbasic.cmo \
-	extensions/redirectmod.cmo extensions/rewritemod.cmo \
-	extensions/accesscontrol.cmo extensions/extendconfiguration.cmo \
-	extensions/ocsigen_comet.cmo \
-	lib/polytables.cmo $(DUCECMO)
-
-PLUGINSCMITOINSTALL = extensions/ocsipersist.cmi \
-       eliom/eliom_mkforms.cmi eliom/eliom_mkreg.cmi \
-       eliom/eliom_tools_common.cmi eliom/eliom_tools.cmi \
-       $(DUCECMI) \
-       eliom/eliom_config.cmi eliom/eliom_request_info.cmi \
-       eliom/eliom_state.cmi eliom/eliom_references.cmi \
-       eliom/eliom_parameters.cmi \
-       eliom/eliom_services.cmi eliom/eliom_output.cmi \
-       eliom/eliom_uri.cmi \
-	eliom/extensions/eliom_s2s.cmi eliom/extensions/eliom_openid.cmi \
-       eliom/eliommod.cmi eliom/eliom_common.cmi eliom/eliom_extensions.cmi \
-       eliom/eliom_client_types.cmi \
-       eliom/eliom_react.cmi eliom/eliom_comet.cmi eliom/eliom_bus.cmi \
-       eliom/extensions/atom_feed.cmi eliom/extensions/eliom_atom.cmi \
-       extensions/ocsigen_comet.cmi \
-       extensions/accesscontrol.cmi extensions/extendconfiguration.cmi \
-       lib/polytables.cmi \
-       eliom/eliommod_cli.cmi
-
-# Put here only those which do not have cmxs (Vincent: Why?)
-CMATOINSTALL= web_html/xhtmlsyntax.cma web_html/xhtmlpretty.cma	\
-	web_html/xhtml.cma server/ocsigen.cma 
-CMOTOINSTALL= server/server_main.cmo
-DOCPREF=
 
 ELIOMTESTSCMOA= tests/eliom_testsuite.cma tests/monitoring.cmo	\
 	tests/miniwiki/miniwiki.cmo $(DUCEELIOMTESTS)
 ELIOMTESTSCMI = tests/eliom_testsuite1.cmi tests/eliom_testsuite2.cmi tests/eliom_testsuite3.cmi tests/eliom_testsuite.cmi
 
 ifeq "$(BYTECODE)" "YES"
-TOINSTALLBYTE=$(CMATOINSTALL) $(CMOTOINSTALL)
-PLUGINSTOINSTALLBYTE=$(PLUGINSCMATOINSTALL) $(PLUGINSCMOTOINSTALL)
 ELIOMTESTSBYTE=$(ELIOMTESTSCMOA)
 BYTE=byte
 else
-TOINSTALLBYTE=
-PLUGINSTOINSTALLBYTE=
 ELIOMTESTSBYTE=
 BYTE=
 endif
 
-ifeq "$(NATDYNLINK)" "YES"
-CMXS=$(PLUGINSCMOTOINSTALL:.cmo=.cmxs) $(PLUGINSCMATOINSTALL:.cma=.cmxs)
-EXAMPLECMXS=$($(ELIOMTESTSCMOA:.cmo=.cmxs):.cma=.cmxs)
-else
-CMXS=
-EXAMPLECMXS=
-endif
 
 ifeq "$(NATIVECODE)" "YES"
-PLUGINSTOINSTALLX=$(CMXS)
-TOINSTALLXTEMP=$(CMAOTOINSTALL:.cmo=.cmx)
-TOINSTALLX=$(CMATOINSTALL:.cma=.cmxa) \
-           $(CMATOINSTALL:.cma=.a) \
-	   $(CMOTOINSTALL:.cmo=.cmx) \
-	   $(CMOTOINSTALL:.cmo=.o) \
-	   $(PLUGINSCMOTOINSTALL:.cmo=.cmx) \
-	   $(PLUGINSCMOTOINSTALL:.cmo=.o) \
-	   $(PLUGINSCMATOINSTALL:.cma=.cmxa) \
-	   $(PLUGINSCMATOINSTALL:.cma=.a)
 ELIOMTESTSOPT=$(EXAMPLECMXS)
 OPT=opt
 DEPOPT=web_htmlpre.opt
 else
-TOINSTALLX=
-PLUGINSTOINSTALLX=
 ELIOMTESTSOPT=
 OPT=
 endif
-
-STATICSTUBS = server/lib$(OCSIGENNAME).a
-
-PLUGINSTOINSTALL=$(PLUGINSTOINSTALLBYTE) $(PLUGINSTOINSTALLX)
-TOINSTALL=$(TOINSTALLBYTE) $(TOINSTALLX) $(CMITOINSTALL) \
-  $(PLUGINSCMITOINSTALL) $(PLUGINSTOINSTALL) $(STATICSTUBS) \
-  files/META
 
 ELIOMTESTS=$(ELIOMTESTSBYTE) $(ELIOMTESTSOPT) $(ELIOMTESTSCMI)
 
 METAS= files/META \
   files/META.ocsigen_xhtml files/META.ocsigen \
   files/META.eliom_tests files/META.eliom_tests.global
-
-STD_METAS_DIR=$(MODULEINSTALLDIR)
 
 ##############################################################################
 # Top rules
