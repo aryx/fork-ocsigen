@@ -1,7 +1,7 @@
 /*
  * Copyright 2009 The Closure Library Authors. All Rights Reserved.
  *
- * Use of this source code is governed by an Apache 2.0 License.
+ * Use of this source code is governed by the Apache License, Version 2.0.
  * See the COPYING file for details.
  */
 
@@ -27,19 +27,15 @@
  * layout, but doesn't give it inline behavior.  Subsequently setting display
  * to inline does the trick.
  */
-/* pad: buggy on firefox 4 at least
 * html .goog-inline-block {
   display: inline;
 }
-*/
 
 /*
  * IE7-only hack.  On IE, "display: inline-block" only gives the element
  * layout, but doesn't give it inline behavior.  Subsequently setting display
  * to inline does the trick.
  */
-/* pad: buggy on firefox 4 at least
 *:first-child+html .goog-inline-block {
   display: inline;
 }
-*/

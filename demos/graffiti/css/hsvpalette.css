@@ -1,7 +1,7 @@
 /*
  * Copyright 2008 The Closure Library Authors. All Rights Reserved.
  *
- * Use of this source code is governed by an Apache 2.0 License.
+ * Use of this source code is governed by the Apache License, Version 2.0.
  * See the COPYING file for details.
  */
 
@@ -58,7 +58,6 @@
   background-color: #000;
 }
 
-/*
 .goog-hsv-palette-hs-image,
 .goog-hsv-palette-v-image,
 .goog-hsv-palette-hs-handle,
@@ -86,7 +85,6 @@
 .goog-hsv-palette-noalpha .goog-hsv-palette-sm-v-handle {
   background-image: url(../images/hsv-sprite-sm.gif);
 }
-*/
 
 .goog-hsv-palette-hs-image,
 .goog-hsv-palette-sm-hs-image {
