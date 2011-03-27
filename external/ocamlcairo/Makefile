@@ -1,5 +1,5 @@
 
-all opt doc install clean :
+all opt doc clean :
 	$(MAKE) -C src $@
 
 
@@ -21,7 +21,7 @@ config.make : config.make.in configure
 	$(error run ./configure)
 include config.make
 
-install_findlib:
+install:
 	ocamlfind install cairo META src/*.cm* src/*.so
 .PHONY : all opt doc install clean
 
