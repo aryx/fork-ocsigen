@@ -12,3 +12,6 @@ deriving/ from ocsigen darcs repo, itself a light modif of yellop deriving
  package.
 
 extlib/ and csv/ are needed by pgocaml, itself needed by macaque.
+
+ocamlcairo/ is needed only to compile the graffiti demo.
+
