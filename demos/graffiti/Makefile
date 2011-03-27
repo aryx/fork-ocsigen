@@ -46,6 +46,7 @@ include Makefile.eliom
 
 run:
 	cp -a css/ $(STATICDIR)
+	cp -a images/ $(STATICDIR)
 	ocsigen -c config/${PROJECTNAME}.conf
 
 ########################################################################

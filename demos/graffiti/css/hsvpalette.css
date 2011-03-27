@@ -58,6 +58,7 @@
   background-color: #000;
 }
 
+/*
 .goog-hsv-palette-hs-image,
 .goog-hsv-palette-v-image,
 .goog-hsv-palette-hs-handle,
@@ -85,6 +86,7 @@
 .goog-hsv-palette-noalpha .goog-hsv-palette-sm-v-handle {
   background-image: url(../images/hsv-sprite-sm.gif);
 }
+*/
 
 .goog-hsv-palette-hs-image,
 .goog-hsv-palette-sm-hs-image {
