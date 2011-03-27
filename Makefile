@@ -13,7 +13,6 @@ PROGS=server/ocsigen
 #------------------------------------------------------------------------------
 #package dependencies
 #------------------------------------------------------------------------------
-
 ifeq "$(OCSIPERSISTSQLITE)" "YES"
 SQLITECMATOINSTALL= extensions/ocsipersist-sqlite.cma
 else
@@ -55,8 +54,6 @@ endif
 
 DIRS=lib web_html http server extensions eliom tests
 MAKESUBDIRS=$(DIRS)
-
-TARGETSBYTE=$(DIRS:=.byte)
 
 # plugins are cma (and cmxs) that can be loaded dynamically by the server
 PLUGINSCMATOINSTALL = $(SQLITECMATOINSTALL) $(DBMCMATOINSTALL) \
@@ -344,7 +341,7 @@ depend: deriving
 # Install
 ##############################################################################
 
-include Makefile.install
+#include Makefile.install
 
 ##############################################################################
 # Package rules
