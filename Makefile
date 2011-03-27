@@ -193,34 +193,35 @@ CLIENTCMITOINSTALL= \
 
 ELIOMTESTS=$(ELIOMTESTSBYTE) $(ELIOMTESTSOPT) $(ELIOMTESTSCMI)
 
-REPS=$(TARGETSBYTE:.byte=)
+METAS= files/META \
+  files/META.ocsigen_xhtml files/META.ocsigen \
+  files/META.eliom_tests files/META.eliom_tests.global
+
 STD_METAS_DIR=$(MODULEINSTALLDIR)
 
 ##############################################################################
 # Top rules
 ##############################################################################
 
-.PHONY: $(REPS) deriving clean distclean
+.PHONY: all opt deriving clean distclean
 
 all: $(BYTE) $(OPT) $(OCSIGENNAME).conf.local $(METAS)
 
-byte: web_htmlpre.byte $(TARGETSBYTE)
+byte: 
+#	$(MAKE) deriving
+	$(MAKE) web_htmlpre.byte
+	$(MAKE) rec 
 
-opt: web_htmlpre.opt $(TARGETSBYTE:.byte=.opt)
+opt: 
+	$(MAKE) web_htmlpre.opt
+	$(MAKE) rec.opt 
 
+rec:
+	set -e; for i in $(MAKESUBDIRS); do $(MAKE) -C $$i byte || exit 1; done 
 
-lib: lib.byte
+rec.opt:
+	set -e; for i in $(MAKESUBDIRS); do $(MAKE) -C $$i opt || exit 1; done 
 
-lib.byte:
-	$(MAKE) -C lib byte
-
-lib.opt:
-	$(MAKE) -C lib opt
-
-web_html: web_html.byte
-
-web_html.byte:
-	$(MAKE) -C web_html byte
 
 web_htmlpre.byte:
 	$(MAKE) -C web_html web_htmlpre.byte
@@ -234,48 +235,6 @@ deriving:
 	mkdir -p external/ocamlderiving/tmp
 	cd external/ocamlderiving && OCAMLFIND_DESTDIR=`pwd`/tmp $(MAKE) install
 
-web_html.opt:
-	$(MAKE) -C web_html opt
-
-http: http.byte
-
-http.byte:
-	$(MAKE) -C http byte
-
-http.opt:
-	$(MAKE) -C http opt
-
-extensions: extensions.byte
-
-extensions.byte:
-	$(MAKE) -C extensions byte
-
-extensions.opt:
-	$(MAKE) -C extensions opt
-
-eliom: eliom.byte
-
-eliom.byte:
-	$(MAKE) -C eliom byte
-
-eliom.opt:
-	$(MAKE) -C eliom opt
-
-tests: tests.byte
-
-tests.byte:
-	$(MAKE) -C tests byte
-
-tests.opt:
-	$(MAKE) -C tests opt
-
-server: server.byte
-
-server.byte:
-	$(MAKE) -C server byte
-
-server.opt:
-	$(MAKE) -C server opt
 
 .PHONY: servertop
 servertop: files/META.ocsigen
@@ -284,7 +243,6 @@ servertop: files/META.ocsigen
 doc:
 	$(MAKE) -C doc
 
-
 #------------------------------------------------------------------------------
 # META files
 #------------------------------------------------------------------------------
@@ -292,6 +250,8 @@ doc:
 external/ocamlderiving/lib/META.gen:
 	echo "Please run make depend"
 	exit 1
+
+VERSION := $(shell head -n 1 VERSION)
 
 # sed commands used for generation of META files
 SED_COMMAND_FOR_META =
@@ -403,7 +363,7 @@ $(OCSIGENNAME).conf.local: Makefile.config files/ocsigen.conf.in
 
 clean:
 	make -C external/ocamlderiving clean
-	@for i in $(REPS) ; do $(MAKE) -C $$i clean ; done
+	@for i in $(DIRS) ; do $(MAKE) -C $$i clean ; done
 	rm -f $(OCSIGENNAME).conf.local $(OCSIGENNAME).conf.opt.local
 	rm -f $(METAS) $(OCSIGENNAME)-*.tar.gz
 	find . -name "*~" -delete
@@ -419,7 +379,7 @@ distclean: clean
 depend: deriving
 	$(MAKE) -C web_html depend
 	$(MAKE) -C web_html web_htmlpre.byte $(DEPOPT)
-	@for i in $(REPS) ; do $(MAKE) -C $$i depend ; done
+	@for i in $(DIRS) ; do $(MAKE) -C $$i depend ; done
 
 ##############################################################################
 # Install
