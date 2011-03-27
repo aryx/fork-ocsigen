@@ -114,3 +114,4 @@ tests/syntax_temp_files/eliom_testsuite3_type_inference.mli
 /external/ocamlnet/src/netsys/depend
 /external/ocamlcalendar/config.status
 /external/ocamltext/setup.data
+/external/ocamlcalendar/Makefile
