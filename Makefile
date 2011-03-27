@@ -19,30 +19,32 @@ PROGS=server/ocsigen
 # Main variables
 #------------------------------------------------------------------------------
 
+#pad: other dirs: 
+# commons external, web_css web_js, database, files ocsimore ocsimoron
+# demos docs 
+
 DIRS=lib web_html http server extensions eliom tests
 MAKESUBDIRS=$(DIRS)
-
 
 ELIOMTESTSCMOA= tests/eliom_testsuite.cma tests/monitoring.cmo	\
 	tests/miniwiki/miniwiki.cmo $(DUCEELIOMTESTS)
 ELIOMTESTSCMI = tests/eliom_testsuite1.cmi tests/eliom_testsuite2.cmi tests/eliom_testsuite3.cmi tests/eliom_testsuite.cmi
 
 ifeq "$(BYTECODE)" "YES"
-ELIOMTESTSBYTE=$(ELIOMTESTSCMOA)
 BYTE=byte
+ELIOMTESTSBYTE=$(ELIOMTESTSCMOA)
 else
-ELIOMTESTSBYTE=
 BYTE=
+ELIOMTESTSBYTE=
 endif
 
-
 ifeq "$(NATIVECODE)" "YES"
-ELIOMTESTSOPT=$(EXAMPLECMXS)
 OPT=opt
+ELIOMTESTSOPT=$(EXAMPLECMXS)
 DEPOPT=web_htmlpre.opt
 else
-ELIOMTESTSOPT=
 OPT=
+ELIOMTESTSOPT=
 endif
 
 ELIOMTESTS=$(ELIOMTESTSBYTE) $(ELIOMTESTSOPT) $(ELIOMTESTSCMI)
@@ -55,7 +57,7 @@ METAS= files/META \
 # Top rules
 ##############################################################################
 
-.PHONY: all opt deriving clean distclean
+.PHONY: all opt deriving clean distclean servertop
 
 all: $(BYTE) $(OPT) $(OCSIGENNAME).conf.local $(METAS)
 
@@ -87,13 +89,8 @@ deriving:
 	mkdir -p external/ocamlderiving/tmp
 	cd external/ocamlderiving && OCAMLFIND_DESTDIR=`pwd`/tmp $(MAKE) install
 
-
-.PHONY: servertop
 servertop: files/META.ocsigen
 	cd server && ${MAKE} top
-
-doc:
-	$(MAKE) -C doc
 
 #------------------------------------------------------------------------------
 # META files
@@ -222,16 +219,16 @@ clean:
 	make -C external clean
 	make -C web_js clean
 
-distclean: clean
-	cd external/ocamlderiving && make clean
-	find . -name "*depend" -delete
-	make -C doc clean
-	rm -f Makefile.config
-
 depend: deriving
 	$(MAKE) -C web_html depend
 	$(MAKE) -C web_html web_htmlpre.byte $(DEPOPT)
 	@for i in $(DIRS) ; do $(MAKE) -C $$i depend ; done
+
+##############################################################################
+# Documentation
+##############################################################################
+doc:
+	$(MAKE) -C doc
 
 ##############################################################################
 # Install
@@ -242,6 +239,12 @@ depend: deriving
 ##############################################################################
 # Package rules
 ##############################################################################
+
+distclean: clean
+	cd external/ocamlderiving && make clean
+	find . -name "*depend" -delete
+	make -C doc clean
+	rm -f Makefile.config
 
 dist:
 	DARCS_REPO=$(PWD) darcs dist -d $(OCSIGENNAME)-$(VERSION)
