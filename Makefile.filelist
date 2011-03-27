@@ -1,23 +1,4 @@
-
-ifeq "$(OCAMLDUCE)" "YES"
-DUCECMA=eliom/eliom_duce.cma
-DUCECMO=
-#eliom/eliom_duce.cma
-# eliom/ocsigenrss.cma
-DUCECMI=$(DOCPREF)eliom/eliom_duce.cmi \
-        $(DOCPREF)eliom/xhtmltypes_duce.cmi \
-        $(DOCPREF)eliom/eliom_duce_tools.cmi
-# eliom/rss2.cmi eliom/ocsigenrss.cmi
-DUCEEXAMPLES=examples/ocamlduce/exampleduce.cmo
-# examples/ocamlduce/examplerss.cmo
-DUCEPACK=,ocamlduce
-else
-DUCECMA=
-DUCECMO=
-DUCECMI=
-DUCEEXAMPLES=
-DUCEPACK=
-endif
+#-*- Makefile -*-
 
 # pad: this is used by 'make install'
 

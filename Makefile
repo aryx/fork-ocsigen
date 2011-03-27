@@ -1,7 +1,7 @@
 #############################################################################
 # Configuration section
 #############################################################################
-include Makefile.config
+include Makefile.config # this file includes in turn Makefile.options
 include Makefile.filelist
 
 ##############################################################################
@@ -10,8 +10,6 @@ include Makefile.filelist
 TOP=$(shell pwd)
 
 PROGS=server/ocsigen
-
-VERSION := $(shell head -n 1 VERSION)
 
 #------------------------------------------------------------------------------
 #package dependencies
@@ -32,22 +30,40 @@ DBMCMATOINSTALL= extensions/ocsipersist-dbm/ocsipersist-dbm.cma
 else
 endif
 
+ifeq "$(OCAMLDUCE)" "YES"
+DUCECMA=eliom/eliom_duce.cma
+DUCECMO=
+#eliom/eliom_duce.cma
+# eliom/ocsigenrss.cma
+DUCECMI=$(DOCPREF)eliom/eliom_duce.cmi \
+        $(DOCPREF)eliom/xhtmltypes_duce.cmi \
+        $(DOCPREF)eliom/eliom_duce_tools.cmi
+# eliom/rss2.cmi eliom/ocsigenrss.cmi
+DUCEEXAMPLES=examples/ocamlduce/exampleduce.cmo
+# examples/ocamlduce/examplerss.cmo
+DUCEPACK=,ocamlduce
+else
+DUCECMA=
+DUCECMO=
+DUCECMI=
+DUCEEXAMPLES=
+DUCEPACK=
+endif
+
 #------------------------------------------------------------------------------
 # Main variables
 #------------------------------------------------------------------------------
 
 DIRS=lib web_html http server extensions eliom tests
+MAKESUBDIRS=$(DIRS)
 
 TARGETSBYTE=$(DIRS:=.byte)
 
-METAS = files/META \
-  files/META.ocsigen_xhtml files/META.ocsigen \
-  files/META.eliom_tests files/META.eliom_tests.global
-
 # plugins are cma (and cmxs) that can be loaded dynamically by the server
 PLUGINSCMATOINSTALL = $(SQLITECMATOINSTALL) $(DBMCMATOINSTALL) \
-	eliom/eliom.cma \
+	eliom/eliom.cma $(DEFLATEMODCMATOINSTALL) $(DUCECMA) \
 	lib/parsecommandline.cma lib/donotparsecommandline.cma
+
 PLUGINSCMOTOINSTALL = \
 	$(SQLITECMOTOINSTALL) $(DBMCMOTOINSTALL) $(DEFLATEMODCMOTOINSTALL) \
 	extensions/staticmod.cmo extensions/cgimod.cmo \
@@ -57,6 +73,7 @@ PLUGINSCMOTOINSTALL = \
 	extensions/accesscontrol.cmo extensions/extendconfiguration.cmo \
 	extensions/ocsigen_comet.cmo \
 	lib/polytables.cmo $(DUCECMO)
+
 PLUGINSCMITOINSTALL = extensions/ocsipersist.cmi \
        eliom/eliom_mkforms.cmi eliom/eliom_mkreg.cmi \
        eliom/eliom_tools_common.cmi eliom/eliom_tools.cmi \
