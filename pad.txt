@@ -20,6 +20,7 @@ New compilation procedure:
   - compile and then 'make install' js_of_ocaml and oclosure 
     (compiling oclosure takes quite some time and needs more than 1.5Go of RAM)
   - [optional] compile and 'make install' pgocaml and macaque
+  - [optional] compile and 'make install' ocamlcairo for the graffiti demo
   - => can now './configure' ocsigen and compiles it
     TOFIX had then to go to external/ocaml/deriving; make; make install
     make depend
