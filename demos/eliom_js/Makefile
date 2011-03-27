@@ -163,7 +163,7 @@ clean::
 	   $(STATICDIR)/${PROJECTNAME}.js $(STATICDIR)/${PROJECTNAME}_req.js
 
 clean::
-	rm -f var/*.logs var/ocsigen_command
+	rm -f var/*.log var/ocsigen_command
 
 distclean:
 	-rm -f *~ .\#* \#*\#
