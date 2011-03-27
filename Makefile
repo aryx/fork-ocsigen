@@ -2,7 +2,6 @@
 # Configuration section
 #############################################################################
 include Makefile.config # this file includes in turn Makefile.options
-include Makefile.filelist
 
 ##############################################################################
 # Variables
@@ -150,46 +149,6 @@ PLUGINSTOINSTALL=$(PLUGINSTOINSTALLBYTE) $(PLUGINSTOINSTALLX)
 TOINSTALL=$(TOINSTALLBYTE) $(TOINSTALLX) $(CMITOINSTALL) \
   $(PLUGINSCMITOINSTALL) $(PLUGINSTOINSTALL) $(STATICSTUBS) \
   files/META
-
-ELIOMSYNTAXTOINSTALL= \
-	eliom/syntax/pa_eliom_seed.cmo \
-	eliom/syntax/pa_eliom_client_client.cmo \
-	eliom/syntax/pa_eliom_client_server.cmo \
-	eliom/syntax/pa_eliom_type_filter.cmo
-
-CLIENTCMOTOINSTALL= \
-	eliom/client/eliom_client.cma eliom/client/eliom_client_main.cmo \
-	eliom/client/eliom_client.js \
-	eliom/client/dlleliom_client.so
-
-CLIENTCMITOINSTALL= \
-        eliom/client/eliom_client.cmi \
-	eliom/client/eliom_common_comet.cmi \
-        eliom/client/eliom_output.cmi \
-        eliom/client/ocsigen_cookies.cmi \
-        eliom/client/xhtml5types.cmi \
-        eliom/client/eliom_client_comet.cmi \
-        eliom/client/eliom_client_bus.cmi \
-        eliom/client/eliom_mkforms.cmi \
-        eliom/client/eliom_process.cmi \
-        eliom/client/xHTML.cmi \
-        eliom/client/eliom_client_react.cmi \
-        eliom/client/eliom_request.cmi \
-        eliom/client/ocsigen_lib.cmi \
-        eliom/client/xhtmltypes.cmi \
-        eliom/client/eliom_services.cmi \
-        eliom/client/polytables.cmi \
-        eliom/client/xML.cmi \
-        eliom/client/eliom_client_types.cmi \
-        eliom/client/eliom_config.cmi \
-        eliom/client/eliom_request_info.cmi \
-        eliom/client/eliom_state.cmi \
-        eliom/client/regexp.cmi \
-        eliom/client/eliom_common.cmi \
-        eliom/client/eliom_parameters.cmi \
-        eliom/client/eliom_uri.cmi \
-        eliom/client/xHTML5.cmi \
-	eliom/client/eliommod_cli.cmi
 
 ELIOMTESTS=$(ELIOMTESTSBYTE) $(ELIOMTESTSOPT) $(ELIOMTESTSCMI)
 
@@ -385,144 +344,7 @@ depend: deriving
 # Install
 ##############################################################################
 
-INSTALL=install
-
-.PHONY: partialinstall install doc docinstall logrotate dist
-partialinstall:
-	mkdir -p $(TEMPROOT)$(MODULEINSTALLDIR)
-	mkdir -p $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/client
-	mkdir -p $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/syntax
-	mkdir -p $(TEMPROOT)$(ELIOMTESTSINSTALLDIR)
-	mkdir -p $(TEMPROOT)$(EXTRALIBDIR)/METAS
-	mkdir -p $(TEMPROOT)$(EXTRALIBDIR)/extensions
-	mkdir -p $(TEMPROOT)$(STD_METAS_DIR)
-	$(MAKE) -C server install
-	mkdir -p "$(TEMPROOT)$(MODULEINSTALLDIR)"
-	$(OCAMLFIND) install $(OCSIGENNAME) -destdir "$(TEMPROOT)$(MODULEINSTALLDIR)" $(TOINSTALL)
-	$(INSTALL) -m 644 $(CLIENTCMITOINSTALL) $(CLIENTCMOTOINSTALL) $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/client
-	$(INSTALL) -m 644 $(ELIOMSYNTAXTOINSTALL) $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/syntax
-#pad:	$(INSTALL) -m 644 $(ELIOMTESTS) $(TEMPROOT)$(ELIOMTESTSINSTALLDIR)
-#	$(INSTALL) -m 644 $(PLUGINSTOINSTALL) $(TEMPROOT)$(EXTRALIBDIR)/extensions
-	-$(INSTALL) -m 755 extensions/ocsipersist-dbm/ocsidbm $(TEMPROOT)$(EXTRALIBDIR)/extensions
-	[ ! -f extensions/ocsipersist-dbm/ocsidbm.opt ] || \
-	$(INSTALL) -m 755 extensions/ocsipersist-dbm/ocsidbm.opt $(TEMPROOT)$(EXTRALIBDIR)/extensions
-#	$(INSTALL) -m 644 META.ocsigen_ext.global $(TEMPROOT)$(EXTRALIBDIR)/METAS/META.ocsigen_ext
-	$(INSTALL) -m 644 files/META.eliom_tests.global $(TEMPROOT)$(EXTRALIBDIR)/METAS/META.eliom_tests
-	$(INSTALL) -m 644 files/META.ocsigen_xhtml $(TEMPROOT)$(STD_METAS_DIR)
-	chmod a+rx $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)
-	chmod a+r $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/*
-	chmod a+rx $(TEMPROOT)$(MODULEINSTALLDIR)
-	chmod a+rx $(TEMPROOT)$(ELIOMTESTSINSTALLDIR)
-	chmod a+rx $(TEMPROOT)$(EXTRALIBDIR)
-	chmod a+rx $(TEMPROOT)$(EXTRALIBDIR)/METAS
-	chmod a+rx $(TEMPROOT)$(EXTRALIBDIR)/extensions
-	chmod a+rx $(TEMPROOT)$(STD_METAS_DIR)
-	chmod a+rx "$(TEMPROOT)$(MODULEINSTALLDIR)"
-	cd external/ocamlderiving && OCAMLFIND_DESTDIR=`${OCAMLFIND} query ${OCSIGENNAME}` $(MAKE) install
-
-docinstall:
-	make -C doc install
-
-install: partialinstall
-
-install_root:
-	mkdir -p $(TEMPROOT)$(CONFIGDIR)
-	mkdir -p $(TEMPROOT)$(CONFIGDIR)/conf.d
-	mkdir -p $(TEMPROOT)$(STATICPAGESDIR)
-	mkdir -p $(TEMPROOT)$(STATICPAGESDIR)/miniwiki
-	mkdir -p $(TEMPROOT)$(STATICPAGESDIR)/tutorial
-	mkdir -p $(TEMPROOT)$(STATICPAGESDIR)/ocsigenstuff
-	mkdir -p $(TEMPROOT)$(DATADIR)
-	mkdir -p $(TEMPROOT)$(DATADIR)/miniwiki
-	mkdir -p `dirname $(TEMPROOT)$(COMMANDPIPE)`
-	[ -p $(TEMPROOT)$(COMMANDPIPE) ] || { mkfifo $(TEMPROOT)$(COMMANDPIPE); \
-	  chmod 660 $(TEMPROOT)$(COMMANDPIPE); \
-	  $(CHOWN) -R $(OCSIGENUSER):$(OCSIGENGROUP) $(TEMPROOT)$(COMMANDPIPE);}
-#	-mv $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.old
-	cat files/ocsigen.conf.in \
-	| sed s%_LOGDIR_%$(LOGDIR)%g \
-	| sed s%_STATICPAGESDIR_%$(STATICPAGESDIR)%g \
-	| sed s%_CONFIGDIR_%$(CONFIGDIR)%g \
-	| sed s%_DATADIR_%$(DATADIR)%g \
-	| sed s%_BINDIR_%$(BINDIR)%g \
-	| sed s%_EXTRALIBDIR_%$(EXTRALIBDIR)/extensions%g \
-	| sed s%_UP_%$(UPLOADDIR)%g \
-	| sed s%_OCSIGENUSER_%$(OCSIGENUSER)%g \
-	| sed s%_OCSIGENGROUP_%$(OCSIGENGROUP)%g \
-	| sed s%_OCSIGENNAME_%$(OCSIGENNAME)%g \
-	| sed s%_COMMANDPIPE_%$(COMMANDPIPE)%g \
-	| sed s%_MIMEFILE_%$(CONFIGDIR)/mime.types%g \
-	| sed s%_MODULEINSTALLDIR_%$(MODULEINSTALLDIR)/$(OCSIGENNAME)%g \
-	| sed s%_ELIOMINSTALLDIR_%$(MODULEINSTALLDIR)/$(OCSIGENNAME)%g \
-	| sed s%_ELIOMTESTSINSTALLDIR_%$(ELIOMTESTSINSTALLDIR)%g \
-	| sed s%_METADIR_%$(EXTRALIBDIR)/METAS%g \
-	| sed s%_CAMLZIPNAME_%$(CAMLZIPNAME)%g \
-	> $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.sample
-	cat $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.sample \
-	| sed s%[.]cmo%.cmxs%g \
-	| sed s%[.]cma%.cmxs%g \
-	> $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.opt.sample
-	-mv $(TEMPROOT)$(CONFIGDIR)/mime.types $(TEMPROOT)$(CONFIGDIR)/mime.types.old
-	cp -f files/mime.types $(TEMPROOT)$(CONFIGDIR)
-	mkdir -p $(TEMPROOT)$(LOGDIR)
-	chmod u+rwx $(TEMPROOT)$(LOGDIR)
-	chmod a+rx $(TEMPROOT)$(CONFIGDIR)
-	chmod a+rx $(TEMPROOT)$(CONFIGDIR)/conf.d
-	[ -f $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf ] || \
-	{ cp $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.sample \
-             $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf; \
-	  chmod a+r $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf; }
-	chmod a+r $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.sample
-	[ -f $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf ] || \
-	{ cp $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.opt.sample \
-             $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.opt; \
-	  chmod a+r $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.opt; }
-	chmod a+r $(TEMPROOT)$(CONFIGDIR)/$(OCSIGENNAME).conf.opt.sample
-	chmod a+r $(TEMPROOT)$(CONFIGDIR)/mime.types
-	$(INSTALL) -m 644 files/tutorial/style.css $(TEMPROOT)$(STATICPAGESDIR)/tutorial
-	$(INSTALL) -m 644 files/tutorial/bulles-bleues.png $(TEMPROOT)$(STATICPAGESDIR)/tutorial
-	$(INSTALL) -m 644 files/tutorial/ocsigen5.png $(TEMPROOT)$(STATICPAGESDIR)/tutorial
-	$(INSTALL) -m 644 files/ocsigenstuff/* $(TEMPROOT)$(STATICPAGESDIR)/ocsigenstuff
-	$(INSTALL) -m 644 tests/miniwiki/files/style.css $(TEMPROOT)$(STATICPAGESDIR)/miniwiki
-	$(INSTALL) -m 644 tests/miniwiki/wikidata/* $(TEMPROOT)$(DATADIR)/miniwiki
-	$(CHOWN) -R $(OCSIGENUSER):$(OCSIGENGROUP) $(TEMPROOT)$(LOGDIR)
-	$(CHOWN) -R $(OCSIGENUSER):$(OCSIGENGROUP) $(TEMPROOT)$(STATICPAGESDIR)
-	$(CHOWN) -R $(OCSIGENUSER):$(OCSIGENGROUP) $(TEMPROOT)$(DATADIR)
-	chmod 750 $(TEMPROOT)$(DATADIR)
-	$(INSTALL) -d -m 755 $(TEMPROOT)$(MANDIR)
-	$(INSTALL) -m 644 files/ocsigen.1 $(TEMPROOT)$(MANDIR)
-	@echo
-	@echo "## Run \"make doc\" and \"make docinstall\" to build and install the ocamldoc."
-
-logrotate:
-	[ -d /etc/logrotate.d ] && \
-	 { mkdir -p $(TEMPROOT)/etc/logrotate.d ; \
-	   cat files/logrotate.in \
-	   | sed s%LOGDIR%$(LOGDIR)%g \
-	   | sed s%USER%$(OCSIGENUSER)%g \
-	   | sed s%GROUP%$(OCSIGENGROUP)%g \
-	   | sed s%_COMMANDPIPE_%$(COMMANDPIPE)%g \
-	  > $(TEMPROOT)/etc/logrotate.d/$(OCSIGENNAME); }
-
-.PHONY: uninstall fulluninstall
-uninstall:
-	-${OCAMLFIND} query ${OCSIGENNAME} \
-	  && cd external/ocamlderiving \
-	  && OCAMLFIND_DESTDIR=`${OCAMLFIND} query ${OCSIGENNAME}` $(MAKE) uninstall
-	-rm -Rf $(TEMPROOT)$(DOCDIR)
-	-rm -Rf $(TEMPROOT)$(EXTRALIBDIR)
-	-rm -Rf $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/client
-	-rm -Rf $(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/syntax
-	-$(MAKE) -C server uninstall
-	-rm -Rf "$(TEMPROOT)$(MODULEINSTALLDIR)/$(OCSIGENNAME)/client"
-	-$(OCAMLFIND) remove $(OCSIGENNAME) -destdir "$(TEMPROOT)$(MODULEINSTALLDIR)"
-
-fulluninstall: uninstall
-# dangerous
-#	rm -f $(CONFIGDIR)/$(OCSIGENNAME).conf
-#	rm -f $(LOGDIR)/$(OCSIGENNAME).log
-#	rm -rf $(MODULEINSTALLDIR)
-
+include Makefile.install
 
 ##############################################################################
 # Package rules
