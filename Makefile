@@ -93,15 +93,14 @@ PLUGINSCMITOINSTALL = extensions/ocsipersist.cmi \
        lib/polytables.cmi \
        eliom/eliommod_cli.cmi
 
-
 # Put here only those which do not have cmxs (Vincent: Why?)
-CMATOINSTALL = web_html/xhtmlsyntax.cma web_html/xhtmlpretty.cma	\
+CMATOINSTALL= web_html/xhtmlsyntax.cma web_html/xhtmlpretty.cma	\
 	web_html/xhtml.cma server/ocsigen.cma 
-CMOTOINSTALL = server/server_main.cmo
+CMOTOINSTALL= server/server_main.cmo
 DOCPREF=
-ELIOMTESTSCMOA = tests/eliom_testsuite.cma tests/monitoring.cmo	\
-	tests/miniwiki/miniwiki.cmo $(DUCEELIOMTESTS)
 
+ELIOMTESTSCMOA= tests/eliom_testsuite.cma tests/monitoring.cmo	\
+	tests/miniwiki/miniwiki.cmo $(DUCEELIOMTESTS)
 ELIOMTESTSCMI = tests/eliom_testsuite1.cmi tests/eliom_testsuite2.cmi tests/eliom_testsuite3.cmi tests/eliom_testsuite.cmi
 
 ifeq "$(BYTECODE)" "YES"
@@ -148,8 +147,9 @@ endif
 STATICSTUBS = server/lib$(OCSIGENNAME).a
 
 PLUGINSTOINSTALL=$(PLUGINSTOINSTALLBYTE) $(PLUGINSTOINSTALLX)
-TOINSTALL=$(TOINSTALLBYTE) $(TOINSTALLX) $(CMITOINSTALL) $(PLUGINSCMITOINSTALL) $(PLUGINSTOINSTALL) $(STATICSTUBS) files/META
-
+TOINSTALL=$(TOINSTALLBYTE) $(TOINSTALLX) $(CMITOINSTALL) \
+  $(PLUGINSCMITOINSTALL) $(PLUGINSTOINSTALL) $(STATICSTUBS) \
+  files/META
 
 ELIOMSYNTAXTOINSTALL= \
 	eliom/syntax/pa_eliom_seed.cmo \
