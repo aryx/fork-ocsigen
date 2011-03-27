@@ -1,5 +1,7 @@
 include ../Makefile.config
 
+MAKEDIRS=xhtml syntax xml-pretty
+
 byte:
 	$(MAKE) -C xhtml byte
 	$(MAKE) -C syntax byte
@@ -20,6 +22,7 @@ depend:
 	$(MAKE) -C xhtml depend
 	$(MAKE) -C syntax depend
 	$(MAKE) -C xml-pretty depend
+
 
 web_htmlpre.byte:
 	$(MAKE) -C xhtml byte

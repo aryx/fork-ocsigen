@@ -1,6 +1,8 @@
-include ../Makefile.config
+TOP = ..
 
-export OCAMLPATH := ../deriving/tmp:${OCAMLPATH}
+include $(TOP)/Makefile.config
+
+export OCAMLPATH := $(TOP)/deriving/tmp:${OCAMLPATH}
 
 ifeq "$(NATIVECODE)" "YES"
   ifeq "$(NATDYNLINK)" "YES"
@@ -47,7 +49,6 @@ else
   DEPOPT=$(DEPOPTBASE)
 endif
 opt: $(DEPOPT)
-#	cp -f $(OBJSOPT) $(OBJSOPT:.cmx=.o) $(CMI) ../lib
 
 parsecommandline.cma: commandline/ocsigen_getcommandline.cmo
 	$(CAMLC) -a -o $@  $<
