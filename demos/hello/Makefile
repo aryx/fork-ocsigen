@@ -47,10 +47,10 @@ opt: $(OBJSOPT)
 	$(CMXSCMD)
 
 run:
-	../../server/ocsigen -c files/hello.conf
+	../../server/ocsigen -c config/hello.conf
 
 clean::
-	-rm -f files/*.log files/ocsigen_command
+	-rm -f var/*.log var/ocsigen_command
 
 ##############################################################################
 # Generic ocaml rules
