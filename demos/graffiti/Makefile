@@ -1,3 +1,4 @@
+TOP=../..
 
 PROJECTNAME := graffiti
 
@@ -45,8 +46,10 @@ include Makefile.eliom
 ########################################################################
 
 run:
+	rm -f $(STATICDIR)/css/*
 	cp -a css/ $(STATICDIR)
 	cp -a images/ $(STATICDIR)
+	cp -a $(TOP)/files/mime.types $(STATICDIR)
 	ocsigen -c config/${PROJECTNAME}.conf
 
 ########################################################################
