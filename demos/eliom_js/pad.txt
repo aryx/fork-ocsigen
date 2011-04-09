@@ -1,1 +1,4 @@
 this was in files/tutorial/graffity/v3/
+
+I've removed the use of Makefile.eliom which is obscuring too many stuff IMHO.
+

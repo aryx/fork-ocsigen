@@ -14,4 +14,3 @@ module My_appl =
 let main_service =
   My_appl.register_service ~path:[""] ~get_params:Eliom_parameters.unit
     (fun () () -> Lwt.return [h1 [pcdata "Graffiti"]])
-

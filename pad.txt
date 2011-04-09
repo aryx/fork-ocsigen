@@ -1,12 +1,14 @@
 The goal of this fork is to have a battery-included github-enabled ocsigen
-repository.
+repository with a few demos.
 
 I've copied the original ocsigen darcs repo, then 'darcs mv' files and
 directories around, then created a git repo on top of this darcs repo
 and added external/ stuff. I've also moved js_of_ocaml/ and oclosure/
 under web_js/, lwt and deriving in external/, and macaque/ and pgocaml/
 under database/. I've also moved what appear to be dead in docs/old (e.g.
-ocamlbuild stuff).
+ocamlbuild stuff). I've finally removed the use of Makefile.eliom
+which were obscuring what was happening and was not handling dependencies
+and incremental compilation correctly.
 
 New compilation procedure:
   - install ocaml 3.12 (with gdbm support) and findlib

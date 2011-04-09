@@ -1,0 +1,49 @@
+
+from pa_elion_seed.ml:
+
+(* Eliom's syntax extension implements five kinds of quotations:
+    - a toplevel structure item "{client{ ... }}" for client side code ;
+    - a toplevel structure item "{server{ ... }}" (optional) for server side code ;
+    - a toplevel structure item "{shared{ ... }}" for code that will be used
+      both for the server and the client ;
+    - a expression "{{ ... }}" for client side code inside server side expressions ;
+    - a escaped expression "%ident" for referencing server value from
+      client side code expressions.
+
+   == Compilation of Eliom source generates:
+
+     - a .cmo (or a .cmx) to be loaded by the ocsigen server ;
+     - a .js to be executed by the client.
+
+     The {client{... }} sections are ignored on the server side.
+     The {server{... }} sections are ignored on the client side.
+
+     '{{ ... }}' are compiled on the client as a function
+     parameterized by the values of escaped expressions. On the
+     server-side, '{{ ... }}' are compiled as a distant call.  To keep
+     the link, each '{{ ... }}' is associated unique integer (see
+     gen_closure_num).
+
+     In order to type-check escaped-value with the same type on both
+     sides, compilation of Eliom sources infers the static type of
+     escaped values on the server-side and adds static type constraint
+     on the client-side. Inferred types also permits to specialize
+     marshaling (on the server-side) and unmarshalling (on the
+     client-side) of escaped values.
+
+   == Compilation of Eliom is implemented in three step:
+
+     a) infers types of escaped values on the server-side code
+     b) generate the source file for the server-side
+     c) generate the source file for the client-side
+
+     Each compilation step is based an a specific preprocessor:
+
+     a) pa_eliom_type_inference
+     b) pa_eliom_client_server
+     c) pa_eliom_client_client
+
+   This module define code shared by the three preprocessors.
+
+
+pad: cf also my ocaml.org and web-development.org
