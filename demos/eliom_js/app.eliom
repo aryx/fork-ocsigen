@@ -3,7 +3,9 @@ open XHTML5.M
 module My_appl =
   Eliom_output.Eliom_appl (
     struct
-      let application_name = "graffiti"
+      (* must be the name of the .js file *)
+      let application_name = "client"
+
       let params = Eliom_output.default_appl_params
     end)
 

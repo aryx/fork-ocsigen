@@ -1,4 +1,6 @@
 this was in files/tutorial/graffity/v3/
 
-I've removed the use of Makefile.eliom which is obscuring too many stuff IMHO.
+I've removed the use of Makefile.eliom which was obscuring too many
+stuff IMHO and was not handling dependencies and incremental
+compilation correctly.
 
