@@ -16,6 +16,8 @@
 ._ncdi/
 ._bcdi/
 
+.DS_Store
+
 # vcs
 
 # runtime files
