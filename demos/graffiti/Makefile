@@ -18,7 +18,7 @@ INCLUDES_SERVER=-package cairo -package ocsigen.ext.eliom \
 INCLUDES_CLIENT=-package js_of_ocaml -package oclosure -package ocsigen.ext.eliom_client \
   -package js_of_ocaml.syntax -syntax camlp4o
 
-#INCLUDES=-package ocsigen.deriving.syntax -syntax camlp4o -package ocsigen.ext.eliom -package cairo -package js_of_ocaml.syntax -package oclosure -package ocsigen.ext.eliom_client
+INCLUDES_SHARED=-package ocsigen.deriving.syntax -syntax camlp4o
 
 FLAGS=-dtypes -g
 
@@ -44,7 +44,7 @@ clean::
 	rm -f client client.js
 
 shared.cmo: shared.ml
-	ocamlfind ocamlc -thread -c $(FLAGS) -package ocsigen.deriving.syntax -syntax camlp4o $^
+	ocamlfind ocamlc -thread -c $(FLAGS) $(INCLUDES_SHARED) $^
 server.cmo: server.ml
 	ocamlfind ocamlc -thread -c $(FLAGS) $(INCLUDES_SERVER) $^
 client.cmo: client.ml
@@ -98,6 +98,7 @@ distclean::
 beforedepend::
 
 depend:: beforedepend
-	ocamlfind ocamldep $(INCLUDES) *.mli *.ml > .depend
+	ocamlfind ocamldep $(INCLUDES_SHARED) $(INCLUDES_CLIENT)  $(SRC_CLIENT) > .depend
+	ocamlfind ocamldep $(INCLUDES_SHARED) $(INCLUDES_SERVER)  $(SRC_SERVER) >> .depend
 
 -include .depend

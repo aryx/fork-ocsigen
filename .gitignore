@@ -119,3 +119,5 @@ tests/syntax_temp_files/eliom_testsuite3_type_inference.mli
 /external/ocamlcalendar/Makefile
 /demos/eliom_js/client
 /demos/eliom_js/client.js
+/demos/graffiti/client
+/demos/graffiti/client.js
