@@ -1,3 +1,4 @@
 was tutorial/files/multi_graffity_v1/. I've renamed common.ml to shared.ml
-splitted the Makefile, and move config in config/
+cleaned-up the Makefile, and move config in config/.
+
 
