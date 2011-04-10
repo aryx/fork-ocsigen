@@ -1,5 +1,7 @@
+pad: cf also my ocaml.org and web-development.org
 
-from pa_elion_seed.ml:
+
+from pa_eliom_seed.ml:
 
 (* Eliom's syntax extension implements five kinds of quotations:
     - a toplevel structure item "{client{ ... }}" for client side code ;
@@ -46,4 +48,3 @@ from pa_elion_seed.ml:
    This module define code shared by the three preprocessors.
 
 
-pad: cf also my ocaml.org and web-development.org
