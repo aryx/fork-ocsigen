@@ -117,6 +117,7 @@ tests/syntax_temp_files/eliom_testsuite3_type_inference.mli
 /external/ocamlcalendar/config.status
 /external/ocamltext/setup.data
 /external/ocamlcalendar/Makefile
+
 /demos/eliom_js/client
 /demos/eliom_js/client.js
 /demos/graffiti/client
