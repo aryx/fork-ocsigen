@@ -9,12 +9,12 @@
 LIBS_SERVER=-package ocsigen.ext.eliom
 LIBS_CLIENT=-package ocsigen.ext.eliom_client
 
-INCLUDES=-package ocsigen.ext.eliom_client -package ocsigen.ext.eliom 
+INCLUDES_SERVER=-package ocsigen.ext.eliom \
+  -package ocsigen.deriving.syntax -syntax camlp4o 
+INCLUDES_CLIENT=-package ocsigen.ext.eliom_client \
+  -package js_of_ocaml.syntax -syntax camlp4o
 
 FLAGS=-dtypes -g
-
-ELIOMJS=/opt/local/lib/ocaml/site-lib/ocsigen/client/eliom_client.js
-REQUIREMENTSML=/opt/local/lib/ocaml/site-lib/oclosure/requirements.ml
 
 ##############################################################################
 # Top rules
@@ -25,6 +25,9 @@ all: server.cma client.js
 server.cma: app_server.cmo
 	ocamlfind ocamlc -a -o $@ -thread $(LIBS_SERVER) $^
 
+ELIOMJS=$(shell ocamlfind query ocsigen.ext.eliom_client)/eliom_client.js
+REQUIREMENTSML=$(shell ocamlfind query oclosure)/requirements.ml
+
 client.js: app_client.cmo
 	ocamlfind ocamlc $(LIBS_CLIENT) -linkpkg $^ -o client
 	js_of_ocaml -pretty . $(ELIOMJS) client -o $@
@@ -33,6 +36,11 @@ client.js: app_client.cmo
 
 clean::
 	rm -f client client.js
+
+app_server.cmo: app_server.ml
+	ocamlfind ocamlc -thread -c $(FLAGS) $(INCLUDES_SERVER) $^
+app_client.cmo: app_client.ml
+	ocamlfind ocamlc -thread -c $(FLAGS) $(INCLUDES_CLIENT) $^
 
 # .eliom file expansion
 app.type.mli: app.eliom

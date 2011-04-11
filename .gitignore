@@ -122,3 +122,5 @@ tests/syntax_temp_files/eliom_testsuite3_type_inference.mli
 /demos/eliom_js/client.js
 /demos/graffiti/client
 /demos/graffiti/client.js
+/demos/canvas/client
+/demos/canvas/client.js
