@@ -1,12 +1,13 @@
-open XHTML5.M
+(* open XHTML5.M *)
+(* open Client *)
+module H = XHTML5.M
   
-open Shared
-  
-open Server
-  
+(* pad: could remove the need to pass the canvas_box and retrive it instead
+ * via a getElementById in client.ml.
+ *)
 let include_canvas (name : string)
                    (canvas_box : [ | Xhtml5types.div ] XHTML5.M.elt) =
-  let (bus, image_string) = get_bus_image name in
+  let (bus, image_string) = Server.bus_image name in
   let imageservice =
     Eliom_output.Text.register_coservice' ~timeout: 10.
       (* the service is available fo 10 seconds only, but it is long
@@ -22,12 +23,19 @@ let include_canvas (name : string)
             ^ "')"))
   
 let () =
-  My_appl.register ~service: multigraffiti_service
+  Server.App.register ~service: Server.service
     (fun name () -> (* the page element in wich we will include the canvas *)
-       let canvas_box = div []
+       (* this div is qualified with original module name otherwise one get
+     * an error message when used above in the '%canvas_box'
+     *)
+       let canvas_box = XHTML5.M.div []
        in
          (include_canvas name canvas_box;
           Lwt.return
-            [ h1 [ pcdata name ]; choose_drawing_form (); canvas_box ]))
+            [ H.h1 [ H.pcdata name ];
+              (* if want switch to another drawing
+       *  Server.choose_drawing_form ();
+       *)
+              canvas_box ]))
   
 
