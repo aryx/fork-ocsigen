@@ -19,6 +19,9 @@ module App = Eliom_output.Eliom_appl (struct
   let params = Eliom_output.default_appl_params
 end)
 
+(* pad: you don't really need eliom here, a pure js_of_ocaml solution
+ * would work fine
+ *)
 let main_service =
   App.register_service ~path:[""] ~get_params:Eliom_parameters.unit
     (fun () () ->
