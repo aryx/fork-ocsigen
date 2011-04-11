@@ -1,18 +1,18 @@
-open XHTML5.M
+module H = XHTML5.M
 
-module My_appl =
-  Eliom_output.Eliom_appl (
-    struct
-      (* must be the name of the .js file *)
-      let application_name = "client"
+module App = Eliom_output.Eliom_appl (struct
+    (* must be the name of the .js file *)
+  let application_name = "client"
 
-      let params = Eliom_output.default_appl_params
-    end)
+  let params = Eliom_output.default_appl_params
+end)
 
 {client{
   let _ = Dom_html.window##alert(Js.string "Hello")
 }}
 
 let main_service =
-  My_appl.register_service ~path:[""] ~get_params:Eliom_parameters.unit
-    (fun () () -> Lwt.return [h1 [pcdata "Graffiti"]])
+  App.register_service ~path:[""] ~get_params:Eliom_parameters.unit
+    (fun () () -> Lwt.return [
+      H.h1 [H.pcdata "Graffiti"]
+    ])
