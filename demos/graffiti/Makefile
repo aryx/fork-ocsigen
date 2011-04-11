@@ -22,8 +22,8 @@ INCLUDES_SHARED=-package ocsigen.deriving.syntax -syntax camlp4o
 
 FLAGS=-dtypes -g
 
-ELIOMJS=/opt/local/lib/ocaml/site-lib/ocsigen/client/eliom_client.js
-REQUIREMENTSML=/opt/local/lib/ocaml/site-lib/oclosure/requirements.ml
+ELIOMJS=$(shell ocamlfind query ocsigen.ext.eliom_client)/eliom_client.js
+REQUIREMENTSML=$(shell ocamlfind query oclosure)/requirements.ml
 
 ##############################################################################
 # Top rules
@@ -54,7 +54,6 @@ app_server.cmo: app_server.ml
 	ocamlfind ocamlc -thread -c $(FLAGS) $(INCLUDES_SERVER) $^
 app_client.cmo: app_client.ml
 	ocamlfind ocamlc -thread -c $(FLAGS) $(INCLUDES_CLIENT) $^
-
 
 # .eliom file expansion
 app.type.mli: app.eliom shared.cmo server.cmo client.cmo

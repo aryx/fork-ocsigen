@@ -23,9 +23,10 @@ module My_appl =
               XHTML5.M.link ~rel:[ `Stylesheet ]
                 ~href:(XHTML5.M.uri_of_string"./css/slider.css")
                 ();
-              (* need internet ... *)
               XHTML5.M.script
-                ~a:[XHTML5.M.a_src (XHTML5.M.uri_of_string "http://closure-library.googlecode.com/svn/trunk/closure/goog/base.js")
+                ~a:[XHTML5.M.a_src (XHTML5.M.uri_of_string "./js/goog/base.js"
+    (*"http://closure-library.googlecode.com/svn/trunk/closure/goog/base.js"*)
+                )
                    ] (XHTML5.M.pcdata "");
               XHTML5.M.script
                 ~a:[XHTML5.M.a_src (XHTML5.M.uri_of_string "./client_req.js")
