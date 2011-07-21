@@ -4,18 +4,18 @@
  * Laboratoire PPS - CNRS Université Paris Diderot
  *
  * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, with linking exception;
+ * either version 2.1 of the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
 (*XXX
@@ -353,12 +353,14 @@ let parallel_renaming ctx params args continuation queue =
        fun queue ->
        let ((px, cx), queue) = access_queue queue x in
        let (st, queue) =
+(*
          let idx = Var.idx y in
          let len = Array.length ctx.Ctx.live in
          match if idx >= len then 2 else ctx.Ctx.live.(Var.idx y) with
            0 -> assert false
          | 1 -> enqueue queue px y cx
-         | _ -> flush_queue queue (px >= flush_p)
+         | _ -> *)
+         flush_queue queue (px >= flush_p)
                   [J.Variable_statement [Var.to_string y, Some cx]]
        in
        st @ continuation queue)
@@ -378,6 +380,8 @@ let get_apply_fun n =
     x
 
 let generate_apply_funs cont =
+  let funs = !apply_funs in
+  apply_funs := Util.IntMap.empty;
   Util.IntMap.fold
     (fun n x cont ->
        let f = Var.to_string (Var.fresh ()) in
@@ -397,7 +401,7 @@ let generate_apply_funs cont =
                              J.ECall (J.EVar "caml_call_gen",
                                       [f'; J.EArr (List.map (fun x -> Some x) params')])))))]) ::
        cont)
-    !apply_funs cont
+    funs cont
 
 (****)
 
@@ -619,7 +623,7 @@ let _ =
 
 (****)
 
-let rec translate_expr ctx queue e =
+let rec translate_expr ctx queue x e =
   match e with
     Const i ->
       (int i, const_p, queue)
@@ -660,13 +664,21 @@ let rec translate_expr ctx queue e =
       (*FIX: should flush only the closure free variables...*)
       (*FIX: if there are several closures in a row, we should process them
         simultaneously (possibly recursive functions)*)
+      let all_vars = AddrMap.find pc ctx.Ctx.mutated_vars in
       let vars =
-        AddrMap.find pc ctx.Ctx.mutated_vars
+        all_vars
+        >> VarSet.remove x
         >> VarSet.elements
         >> List.map Var.to_string
       in
+      let fun_name =
+        if vars <> [] && VarSet.mem x all_vars then
+          Some (Var.to_string x)
+        else
+          None
+      in
       let cl =
-        J.EFun (None, List.map Var.to_string args,
+        J.EFun (fun_name, List.map Var.to_string args,
                 compile_closure ctx cont)
       in
       let cl =
@@ -749,6 +761,17 @@ let rec translate_expr ctx queue e =
           let ((pv, cv), queue) = access_queue queue v in
           (J.EBin (J.Eq, J.EDot (co, f), cv),
            or_p (or_p po pv) mutator_p, queue)
+      | Extern "%object_literal", fields ->
+          let rec build_fields l =
+            match l with
+              [] ->
+                []
+            | Pc (String nm) :: Pc (String v) :: r ->
+                (J.PNS nm, J.EStr (v, `Bytes)) :: build_fields r
+            | _ ->
+                assert false
+          in
+          (J.EObj (build_fields fields), const_p, queue)
       | Extern name, l ->
           let name = Primitive.resolve name in
           begin match internal_prim name with
@@ -817,7 +840,7 @@ and translate_instr ctx expr_queue instr =
       let (st, expr_queue) =
         match i with
           Let (x, e) ->
-            let (ce, prop, expr_queue) = translate_expr ctx expr_queue e in
+            let (ce, prop, expr_queue) = translate_expr ctx expr_queue x e in
             begin match ctx.Ctx.live.(Var.idx x) with
               0 -> flush_queue expr_queue (prop >= flush_p)
                      [J.Expression_statement ce]
@@ -1307,14 +1330,19 @@ and compile_closure ctx (pc, args) =
   if debug () then Format.eprintf "}@]@ ";
   Js_simpl.source_elements res
 
-let compile_program ctx pc =
+let compile_program standalone ctx pc =
   let res = compile_closure ctx (pc, []) in
   if debug () then Format.eprintf "@.@.";
 (*
   Primitive.list_used ();
 *)
-  [J.Statement (J.Expression_statement
-                  (J.ECall (J.EFun (None, [], generate_apply_funs res), [])))]
+  if standalone then
+    let f = J.EFun (None, [], generate_apply_funs res) in
+    [J.Statement (J.Expression_statement (J.ECall (f, [])))]
+  else
+    let f = J.EFun (None, [Var.to_string (Var.fresh ())],
+                    generate_apply_funs res) in
+    [J.Statement (J.Expression_statement f)]
 
 (**********************)
 
@@ -1324,13 +1352,16 @@ let list_missing l =
     List.iter (fun nm -> Format.eprintf "  %s@." nm) l
   end
 
-let f ch ((pc, blocks, _) as p) live_vars =
-  Format.fprintf ch
-    "// This program was compiled from OCaml by js_of_ocaml 1.0@.";
+let f ch ?(standalone=true) ((pc, blocks, _) as p) live_vars =
   let mutated_vars = Freevars.f p in
   let ctx = Ctx.initial blocks live_vars mutated_vars in
-  let p = compile_program ctx pc in
+  let p = compile_program standalone ctx pc in
   if !compact then Format.pp_set_margin ch 999999998;
-  let missing = Linker.resolve_deps !compact ch (Primitive.get_used ()) in
-  list_missing missing;
+  if standalone then begin
+    Format.fprintf ch
+      "// This program was compiled from OCaml by js_of_ocaml 1.0@.";
+    let missing = Linker.resolve_deps !compact ch (Primitive.get_used ()) in
+    list_missing missing
+  end;
+  Hashtbl.clear add_names;
   Js_output.program ch p

@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
+open Lwt
 open Js
 
 type readyState = UNSENT | OPENED | HEADERS_RECEIVED | LOADING | DONE
@@ -33,6 +34,7 @@ class type xmlHttpRequest = object ('self)
   method setRequestHeader : js_string t -> js_string t -> unit meth
   method send : js_string t opt -> unit meth
   method send_document : Dom.element Dom.document -> unit meth
+  method send_formData : Form.formData t -> unit meth
   method abort : unit meth
   method status : int readonly_prop
   method statusText : js_string t readonly_prop
@@ -40,6 +42,12 @@ class type xmlHttpRequest = object ('self)
   method getAllResponseHeaders : js_string t meth
   method responseText : js_string t readonly_prop
   method responseXML : Dom.element Dom.document t opt readonly_prop
+end
+
+class type xmlHttpRequest_binary = object
+  inherit xmlHttpRequest
+  method sendAsBinary : js_string t opt -> unit meth
+  method sendAsBinary_presence : unit optdef readonly_prop
 end
 
 let xmlHttpRequest () : xmlHttpRequest t constr =
@@ -55,11 +63,55 @@ let create () =
   try jsnew (activeXObject ()) (Js.string "Microsoft.XMLHTTP") with _ ->
   assert false
 
-
 let encode = Url.encode_arguments
+let encode_url args =
+  let args = List.map (fun (n,v) -> to_string n,to_string v) args in
+    string (Url.encode_arguments args)
 
+let generateBoundary () =
+  let nine_digits () =
+    string_of_int (truncate (Js.to_float (Js.math##random()) *. 1000000000.))
+  in
+  "js_of_ocaml-------------------" ^ nine_digits () ^ nine_digits ()
 
+(* TODO: test with elements = [] *)
+let encode_multipart boundary elements =
+  let b = jsnew array_empty () in
+  (Lwt_list.iter_s
+     (fun v ->
+       ignore(b##push(Js.string ("--"^boundary^"\r\n")));
+       match v with
+	 | name,`String value ->
+	   ignore(b##push_3(Js.string ("Content-Disposition: form-data; name=\"" ^ name ^ "\"\r\n\r\n"),
+			    value,
+			    Js.string "\r\n"));
+	   return ()
+	 | name,`File value ->
+	   File.readAsBinaryString (value :> File.blob Js.t)
+	   >>= (fun file ->
+	     ignore(b##push_4(Js.string ("Content-Disposition: form-data; name=\"" ^ name ^ "\"; filename=\""),
+			      File.filename value,
+			      Js.string "\"\r\n",
+			      Js.string "Content-Type: application/octet-stream\r\n"));
+	     ignore(b##push_3(Js.string "\r\n",
+			      file,
+			      Js.string "\r\n"));
+	     return ())
+     )
+     elements)
+  >|= ( fun () -> ignore(b##push(Js.string ("--"^boundary^"--\r\n"))); b )
 
+let encode_url l =
+  String.concat "&"
+    (List.map
+       (function
+	 | name,`String s -> ((Url.urlencode name) ^ "=" ^ (Url.urlencode (to_string s)))
+	 | name,`File s -> ((Url.urlencode name) ^ "=" ^ (Url.urlencode (to_string (s##name))))
+) l)
+
+let partition_string_file l = List.partition (function
+  | _,`String _ -> true
+  | _,`File _ -> false ) l
 
 (* Higher level interface: *)
 
@@ -71,18 +123,45 @@ type http_frame =
       content: string;
     }
 
-let send_string
+let perform_raw_url
     ?(headers = [])
     ?content_type
-    ?post_args
+    ?(post_args:(string * string) list option)
     ?(get_args=[])
+    ?(form_arg:Form.form_contents option)
     url =
 
-  let method_, content_type =
-    match post_args, content_type with
-      | None, ct -> "GET", ct
-      | Some _, None -> "POST", (Some "application/x-www-form-urlencoded")
-      | Some _, ct -> "POST", ct
+  let form_arg =
+    match form_arg with
+      | None ->
+	( match post_args with
+	  | None -> None
+	  | Some post_args ->
+	    let contents = Form.empty_form_contents () in
+	    List.iter (fun (name,value) -> Form.append contents (name,`String (string value))) post_args;
+	    Some contents )
+      | Some form_arg ->
+	( match post_args with
+	  | None -> ()
+	  | Some post_args ->
+	    List.iter (fun (name,value) -> Form.append form_arg (name,`String (string value))) post_args; );
+	Some form_arg
+  in
+
+  let method_, content_type, post_encode =
+    match form_arg, content_type with
+      | None, ct -> "GET", ct, `Urlencode
+      | Some form_args, None ->
+	(match form_args with
+	  | `Fields l ->
+	    let strings,files = partition_string_file !l in
+	    (match files with
+	      | [] -> "POST", (Some "application/x-www-form-urlencoded"), `Urlencode
+	      | _ ->
+		let boundary = generateBoundary () in
+		"POST", (Some ("multipart/form-data; boundary="^boundary)), `Form_data (boundary))
+	  | `FormData f -> "POST", None, `Urlencode)
+      | Some _, ct -> "POST", ct, `Urlencode
   in
   let url = match get_args with
     | [] -> url
@@ -116,20 +195,36 @@ let send_string
       else ();
       Js._false);
 
-  (match post_args with
+  (match form_arg with
      | None -> req##send (Js.null)
-     | Some l -> req##send (Js.some (Js.string (encode l)))
-  );
+     | Some (`Fields l) ->
+       ignore (
+	 match post_encode with
+	   | `Urlencode -> req##send(Js.some (string (encode_url !l)));return ()
+	   | `Form_data boundary ->
+	     (encode_multipart boundary !l >|=
+		 (fun data ->
+		   let data = Js.some (data##join(Js.string "")) in
+		   (* Firefox specific interface:
+		      Chrome can use FormData: don't need this *)
+		   let req = (Js.Unsafe.coerce req:xmlHttpRequest_binary t) in
+		   if Optdef.test req##sendAsBinary_presence
+		   then req##sendAsBinary(data)
+		   else req##send(data))))
+     | Some (`FormData f) -> req##send_formData(f));
 
   Lwt.on_cancel res (fun () -> req##abort ()) ;
   res
 
-let send
+let perform
     ?(headers = [])
     ?content_type
     ?post_args
     ?(get_args=[])
+    ?form_arg
     url =
-  send_string ~headers ?content_type ?post_args ~get_args
+  perform_raw_url ~headers ?content_type ?post_args ~get_args ?form_arg
     (Url.string_of_url url)
+
+let get s = perform_raw_url s
 

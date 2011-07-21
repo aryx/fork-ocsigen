@@ -1,3 +1,11 @@
+(* Js_of_ocaml examples
+ * http://www.ocsigen.org/js_of_ocaml/
+ * Copyright (C) 2008 Benjamin Canou
+ *
+ *           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ *  TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+ *
+ *)
 
 let (>>=) = Lwt.bind
 module Html = Dom_html
@@ -273,7 +281,7 @@ let build_table ?style ?tr_style ?td_style f t =
   m
 
 let http_get url =
-  XmlHttpRequest.send_string url >>= fun r ->
+  XmlHttpRequest.get url >>= fun r ->
   let cod = r.XmlHttpRequest.code in
   let msg = r.XmlHttpRequest.content in
   if cod = 0 || cod = 200

@@ -8,25 +8,30 @@ OBJS=util.cmx dgraph.cmx \
      instr.cmx code.cmx primitive.cmx subst.cmx pure_fun.cmx deadcode.cmx \
      flow.cmx inline.cmx \
      tailcall.cmx freevars.cmx phisimpl.cmx \
-     linker.cmx generate.cmx parse.cmx main.cmx
+     linker.cmx generate.cmx parse.cmx driver.cmx
 
-compile: $(OBJS:cmx=cmo)
-	ocamlfind ocamlc -package findlib,str -linkpkg -g str.cma -o $@ $^
+COMPOBJS=$(OBJS) main.cmx
 
-$(COMPILER): $(OBJS)
+compile: $(COMPOBJS:cmx=cmo)
+	ocamlfind ocamlc -package findlib,str -linkpkg -o $@ $^
+
+$(COMPILER): $(COMPOBJS)
 	ocamlfind ocamlopt -package findlib,str -linkpkg -o $@ $^
+
+compiler.cma: $(OBJS:cmx=cmo)
+	ocamlfind ocamlc -a -o $@ $^
 
 %.cmx: %.ml
 	ocamlfind ocamlopt -package findlib,str -c $<
 
 %.cmo: %.ml
-	ocamlfind ocamlc -package findlib,str -g -c $<
+	ocamlfind ocamlc -package findlib,str -c $<
 
 %.cmi: %.mli
 	ocamlfind ocamlc -package findlib,str -c $<
 
 clean:
-	rm -f *.cm[iox] *.o
+	rm -f *.cm[aiox] *.o
 	rm -f js_of_ocaml compile
 
 depend:

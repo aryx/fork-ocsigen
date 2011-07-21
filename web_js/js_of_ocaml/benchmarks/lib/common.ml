@@ -1,3 +1,22 @@
+(* Js_of_ocaml benchmarks
+ * http://www.ocsigen.org/js_of_ocaml/
+ * Copyright (C) 2011 Jérôme Vouillon
+ * Laboratoire PPS - CNRS Université Paris Diderot
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *)
 
 let (>>) x f = f x
 
@@ -78,6 +97,7 @@ let src = "sources"
 let code = "build"
 let times = Filename.concat "results/times" (Unix.gethostname ())
 let sizes = "results/sizes"
+let compiletimes = Filename.concat "results/compiletimes" (Unix.gethostname ())
 
 let ml = ("ml", ".ml")
 let js = ("js", ".js")
@@ -153,8 +173,11 @@ let write_measures meas spec nm l =
 (****)
 
 let benchs loc ((_, ext) as spec) =
-  Sys.readdir (dir loc spec) >>
+  let dir = dir loc spec in
+  Sys.readdir dir >>
   Array.to_list >>
+  List.filter (fun nm -> let k = (Unix.stat (dir^"/"^nm)).Unix.st_kind in
+                         k = Unix.S_REG || k = Unix.S_LNK) >>
   List.filter (fun nm -> ext = "" || Filename.check_suffix nm ext) >>
   (if ext = "" then fun x -> x else List.map Filename.chop_extension) >>
   List.sort compare

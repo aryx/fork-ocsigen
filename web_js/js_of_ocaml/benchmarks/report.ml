@@ -1,4 +1,23 @@
 #! /usr/bin/ocaml unix.cma
+(* Js_of_ocaml benchmarks
+ * http://www.ocsigen.org/js_of_ocaml/
+ * Copyright (C) 2011 Jérôme Vouillon
+ * Laboratoire PPS - CNRS Université Paris Diderot
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *)
 
 #use "lib/common.ml"
 
@@ -10,9 +29,16 @@ let maximum = ref (-1.)
 let gnuplot = ref true
 let table = ref false
 let omitted = ref []
+let appended = ref []
 let errors = ref false
 let script = ref false
 let conf = ref "report.config"
+let svg = ref false
+let svgfontsize = ref 7
+let svgwidth = ref 500
+let svgheight = ref 150
+let edgecaption = ref false
+let ylabel = ref ""
 
 (****)
 
@@ -157,10 +183,13 @@ let text_output _no_header (h, t) =
     t
 
 let gnuplot_output ch no_header (h, t) =
-  let labels = ref [] in
   let n = List.length (snd (List.hd t)) in
   if not no_header
   then begin
+    if !svg
+    then Printf.fprintf ch "set terminal svg fsize %d size %d %d\n" !svgfontsize !svgwidth !svgheight;
+    if !edgecaption
+    then Printf.fprintf ch "set key tmargin horizontal Left left reverse\n";
     Printf.fprintf ch "\
       set multiplot\n\
       set style data histograms\n\
@@ -169,6 +198,7 @@ let gnuplot_output ch no_header (h, t) =
       set xtics border in scale 0,0 nomirror rotate by -30  \
                 offset character 0, 0, 0\n"
       (if !errors then " lw 1" else "");
+    if !ylabel <> "" then Printf.fprintf ch "set ylabel \"%s\"\n" !ylabel;
     if !maximum > 0. then
       Printf.fprintf ch "set yrange [0:%f]\n" !maximum
     else
@@ -182,9 +212,9 @@ let gnuplot_output ch no_header (h, t) =
       (fun (nm, l) ->
          let (v, ii) = List.nth l i in
          if !maximum > 0. && v > !maximum
-         then Printf.fprintf ch "set label \"%.2f\" at %f,%f center\n"
+         then Printf.fprintf ch "set label font \",5\" \"%.2f\" at %f,%f center\n"
            v (!nn +. float i /. float n -. 0.5 (* why? *))
-           (!maximum *. 1.03);
+           (!maximum *. 1.04 +. 0.1);
          nn := !nn +. 1.)
       t;
   done;
@@ -197,12 +227,13 @@ let gnuplot_output ch no_header (h, t) =
         then Printf.fprintf ch ", \"-\" using 2:3 title columnhead lw 0"
         else Printf.fprintf ch " \"-\" using 2:3:xtic(1) title columnhead lw 0";
         (match col with
-          | Some c -> Printf.fprintf ch "lc rgb '%s'" c
+          | Some c -> Printf.fprintf ch " lc rgb '%s'" c
           | None   -> ());
       | None ->
         if i > 0
-        then Printf.fprintf ch ", \"-\" using 2:3 notitle lw 0"
-        else Printf.fprintf ch " \"-\" using 2:3:xtic(1) notitle lw 0";
+        then Printf.fprintf ch ", \"-\" using 2:3 title columnhead lw 0"
+        else Printf.fprintf ch " \"-\" using 2:3:xtic(1) title columnhead lw 0";
+(* notitle does not work ... I don't know why ... *)
   done;
   Printf.fprintf ch "\n";
   for i = 0 to n - 1 do
@@ -220,7 +251,17 @@ let gnuplot_output ch no_header (h, t) =
   done
 
 let filter (h, t) =
-  (h, List.filter (fun (nm, _) -> not (List.mem nm !omitted)) t)
+  let l1 = List.filter
+    (fun (nm, _) -> 
+      not ((List.mem nm !appended) || (List.mem nm !omitted)))
+    t
+  in
+  let app =
+    List.fold_left 
+      (fun beg nm -> try (nm, List.assoc nm t)::beg with Not_found -> beg)
+      [] !appended
+  in 
+  (h, l1 @ app)
 
 let output_table =
   let old_table = ref None in
@@ -386,6 +427,7 @@ let read_config () =
           (match kind2 with
             | "blank" -> info := None :: !info
             | "times" -> get_info times rem !reference
+            | "compiletimes" -> get_info compiletimes rem !reference
             | "sizes" -> get_info sizes rem !reference
             | _ ->
               Format.eprintf "Unknown config options '%s'@." kind2;
@@ -403,10 +445,20 @@ let _ =
      ("-max", Arg.Set_float maximum, "<m> truncate graph at level <max>");
      ("-table", Arg.Set table, " output a text table");
      ("-omit", Arg.String (fun s -> omitted := str_split s ',' @ !omitted),
-      " omit the given benchmarks");
+      " omit the given benchmark");
+     ("-append", Arg.String (fun s -> appended := str_split s ',' @ !appended),
+      " append the given benchmark at the end");
      ("-errors", Arg.Set errors, " display error bars");
      ("-config", Arg.Set_string conf, "<file> use <file> as a config file");
-     ("-script", Arg.Set script, " output gnuplot script")]
+     ("-script", Arg.Set script, " output gnuplot script");
+     ("-svg", Arg.Tuple [Arg.Set svg;
+                         Arg.Set_int svgfontsize;
+                         Arg.Set_int svgwidth;
+                         Arg.Set_int svgheight],
+      "<fontsize> <width> <height> svg output");
+     ("-edgecaption", Arg.Set edgecaption, " display caption outside the diagram");
+     ("-ylabel", Arg.Set_string ylabel, " Y axis label");
+    ]
   in
   Arg.parse (Arg.align options)
     (fun s -> raise (Arg.Bad (Format.sprintf "unknown option `%s'" s)))

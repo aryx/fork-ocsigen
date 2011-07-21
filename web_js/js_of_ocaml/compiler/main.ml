@@ -4,82 +4,43 @@
  * Laboratoire PPS - CNRS Université Paris Diderot
  *
  * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, with linking exception;
+ * either version 2.1 of the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
 let debug = Util.debug "main"
 
 let f js_files input_file output_file =
   List.iter Linker.add_file js_files;
+  let paths = [Findlib.package_directory "stdlib"] in
 
   let p =
     match input_file with
       None ->
-        Parse.f stdin
+        Parse.from_channel ~paths stdin
     | Some f ->
         let ch = open_in f in
-        let p = Parse.f ch in
+        let p = Parse.from_channel ~paths ch in
         close_in ch;
         p
   in
-if debug () then Code.print_program (fun _ _ -> "") p;
-
-if debug () then Format.eprintf "Tail-call optimization...@.";
-  let p = Tailcall.f p in
-
-if debug () then Format.eprintf "Variable passing simplification...@.";
-  let p = Phisimpl.f p in
-
-if debug () then Format.eprintf "Data flow...@.";
-  let p = Flow.f p in
-if debug () then Format.eprintf "Dead-code...@.";
-  let (p, live_vars) = Deadcode.f p in
-
-if debug () then Format.eprintf "Inlining...@.";
-  let p = Inline.f p live_vars in
-if debug () then Format.eprintf "Dead-code...@.";
-  let (p, live_vars) = Deadcode.f p in
-
-
-if debug () then Code.print_program (fun _ _ -> "") p;
-if debug () then Format.eprintf "Data flow...@.";
-  let p = Flow.f p in
-if debug () then Format.eprintf "Dead-code...@.";
-  let (p, live_vars) = Deadcode.f p in
-
-if debug () then Format.eprintf "Inlining...@.";
-  let p = Inline.f p live_vars in
-if debug () then Format.eprintf "Dead-code...@.";
-  let (p, live_vars) = Deadcode.f p in
-
-
-if debug () then Format.eprintf "Variable passing simplification...@.";
-  let p = Phisimpl.f p in
-
-if debug () then Format.eprintf "Data flow...@.";
-  let p = Flow.f p in
-if debug () then Format.eprintf "Dead-code...@.";
-  let (p, live_vars) = Deadcode.f p in
-
-if debug () then Code.print_program (fun _ _ -> "") p;
+  let output_program = Driver.f p in
   match output_file with
     None ->
-      Format.printf "%a" (fun ch -> Generate.f ch p) live_vars
+      output_program Format.std_formatter
   | Some f ->
       let ch = open_out f in
-      Format.fprintf (Format.formatter_of_out_channel ch)
-        "%a" (fun ch -> Generate.f ch p) live_vars;
+      output_program (Format.formatter_of_out_channel ch);
       close_out ch
 
 let _ =
@@ -92,10 +53,12 @@ let _ =
     [("-debug", Arg.String Util.set_debug, "<name> debug module <name>");
      ("-disable",
       Arg.String Util.set_disabled, "<name> disable optimization <name>");
-     ("-pretty", Arg.Unit Generate.set_pretty, " pretty print the output");
+     ("-pretty", Arg.Unit Driver.set_pretty, " pretty print the output");
      ("-noinline", Arg.Unit Inline.disable_inlining, " disable inlining");
      ("-noruntime", Arg.Unit (fun () -> no_runtime := true),
       " do not include the standard runtime");
+     ("-toplevel", Arg.Unit Parse.build_toplevel,
+      " compile a toplevel");
      ("-o", Arg.String (fun s -> output_file := Some s),
       "<file> set output file name to <file>")]
   in

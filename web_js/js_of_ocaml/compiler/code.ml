@@ -4,22 +4,42 @@
  * Laboratoire PPS - CNRS Université Paris Diderot
  *
  * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, with linking exception;
+ * either version 2.1 of the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
 (*FIX: this should probably be somewhere else... *)
 module VarPrinter = struct
+  let names = Hashtbl.create 107
+  let name v nm = Hashtbl.add names v nm
+  let propagate_name v v' =
+    try name v' (Hashtbl.find names v) with Not_found -> ()
+  let name v nm =
+    let is_alpha c = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') in
+    let is_num c = (c >= '0' && c <= '9') in
+    if String.length nm > 0 then begin
+      let nm = String.copy nm in
+      if not (is_alpha nm.[0]) then nm.[0] <- '_';
+      for i = 1 to String.length nm - 1 do
+        if not (is_alpha nm.[i] || is_num nm.[i]) then nm.[i] <- '_';
+      done;
+      let c = ref 0 in
+      for i = 0 to String.length nm - 1 do
+        if nm.[i] = '_' then incr c
+      done;
+      if !c < String.length nm then name v nm
+    end
+
   let reserved = Hashtbl.create 107
 
   let add_reserved s =
@@ -38,13 +58,26 @@ module VarPrinter = struct
   let c1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$"
   let c2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$"
 
-  let rec format_var x =
+  let rec format_ident x =
     assert (x >= 0);
     let char c x = String.make 1 (c.[x]) in
     if x < 54 then
        char c1 x
     else
-      format_var ((x - 54) / 64) ^ char c2 ((x - 54) mod 64)
+      format_ident ((x - 54) / 64) ^ char c2 ((x - 54) mod 64)
+
+  let pretty = ref false
+
+  let format_var i x =
+    let s = format_ident x in
+    if !pretty then begin
+      try
+        let nm = Hashtbl.find names i in
+        Format.sprintf "%s_%s_" nm s
+      with Not_found ->
+        Format.sprintf "_%s_" s
+    end else
+      s
 
   let rec to_string i =
     try
@@ -52,16 +85,21 @@ module VarPrinter = struct
     with Not_found ->
       incr last;
       let j = !last in
-      let s = format_var j in
+      let s = format_var i j in
       if Hashtbl.mem reserved s then
         to_string i
       else begin
         Hashtbl.add known i s;
         s
       end
+
+  let reset () =
+    Hashtbl.clear names; Hashtbl.clear known; last := -1
+
+  let _ = reset ()
 end
 
-let string_of_ident = VarPrinter.format_var
+let string_of_ident = VarPrinter.format_ident
 
 let add_reserved_name = VarPrinter.add_reserved
 
@@ -80,11 +118,19 @@ module Var : sig
   val count : unit -> int
 
   val compare : t -> t -> int
+
+  val name : t -> string -> unit
+  val propagate_name : t -> t -> unit
+  val set_pretty : unit -> unit
+
+  val reset : unit -> unit
 end = struct
 
   type t = int * int
 
   let last_var = ref 0
+
+  let reset () = last_var := 0; VarPrinter.reset ()
 
   type stream = int
 
@@ -117,6 +163,10 @@ end = struct
   let idx v = snd v
 
   let compare v1 v2 = compare (idx v1) (idx v2)
+
+  let name (_, i) nm = VarPrinter.name i nm
+  let propagate_name (_, i) (_, j) = VarPrinter.propagate_name i j
+  let set_pretty () = VarPrinter.pretty := true
 end
 
 module VarSet = Set.Make (Var)

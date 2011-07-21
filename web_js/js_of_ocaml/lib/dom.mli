@@ -68,15 +68,26 @@ class type node = object
   method cloneNode : bool t -> node t meth
 end
 
+class type tokenList = object
+  method length : int readonly_prop
+  method item : int -> js_string t optdef meth
+  method contains : js_string t -> bool t meth
+  method add : js_string t -> unit meth
+  method remove : js_string t -> unit meth
+  method toggle : js_string t -> bool t meth
+  method stringifier : js_string t prop
+end
+
 (** Specification of [Element] objects. *)
 class type element = object
   inherit node
   method tagName : js_string t readonly_prop
-  method getAttribute : js_string t -> js_string t meth
+  method getAttribute : js_string t -> js_string t opt meth
   method setAttribute : js_string t -> js_string t -> unit meth
   method removeAttribute : js_string t -> unit meth
   method hasAttribute : js_string t -> bool t meth
-  method getElementsByTagName : js_string t -> 'element nodeList t meth
+  method getElementsByTagName : js_string t -> element nodeList t meth
+  method classList : tokenList t readonly_prop
 end
 
 (** Specification of [CharacterData] objects. *)
@@ -126,3 +137,5 @@ val appendChild : #node t -> #node t -> unit
   (** The expression [appendChild n c] behave the same as
       [n##appendChild(c)] but avoid the need of coercing the
       different objects to [node t]. *)
+
+val list_of_nodeList : 'a nodeList t -> 'a t list

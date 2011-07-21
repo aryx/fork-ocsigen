@@ -202,6 +202,8 @@ and element = object
   method offsetHeight : int readonly_prop
   method scrollLeft : int prop
   method scrollTop : int prop
+  method scrollWidth : int prop
+  method scrollHeight : int prop
 
   method getClientRects : clientRectList t meth
   method getBoundingClientRect : clientRect t meth
@@ -353,6 +355,8 @@ class type formElement = object
   method target : js_string t prop
   method submit : unit meth
   method reset : unit meth
+
+  method onsubmit : ('self t, event t) event_listener writeonly_prop
 end
 
 class type optGroupElement = object
@@ -396,7 +400,7 @@ class type inputElement = object ('self)
   inherit element
   method defaultValue : js_string t prop
   method defaultChecked : js_string t prop
-  method form : formElement opt readonly_prop
+  method form : formElement t opt readonly_prop
   method accept : js_string t prop
   method accessKey : js_string t prop
   method align : js_string t prop
@@ -444,7 +448,7 @@ end
 
 class type buttonElement = object
   inherit element
-  method form : formElement opt readonly_prop
+  method form : formElement t opt readonly_prop
   method accessKey : js_string t prop
   method disabled : bool t prop
   method name : js_string t readonly_prop
@@ -802,6 +806,7 @@ class type document = object
   method referrer : js_string t readonly_prop
   method domain : js_string t readonly_prop
   method _URL : js_string t readonly_prop
+  method head : headElement t prop
   method body : bodyElement t prop
   method documentElement : htmlElement t readonly_prop
   method images : imageElement collection t readonly_prop
@@ -810,9 +815,81 @@ class type document = object
   method forms : formElement collection t readonly_prop
   method anchors : element collection t readonly_prop
   method cookie : js_string t prop
+  method designMode : js_string t prop
+  method open_ : unit meth
+  method close : unit meth
+  method write : js_string t -> unit meth
+  method execCommand : js_string t -> bool t -> js_string t opt -> unit meth
 
   inherit eventTarget
 end
+
+type interval_id
+type timeout_id
+
+class type location = object
+  method href : js_string t prop
+  method protocol : js_string t prop
+  method host : js_string t prop
+  method hostname : js_string t prop
+  method port : js_string t prop
+  method pathname : js_string t prop
+  method search : js_string t prop
+  method hash : js_string t prop
+
+  method assign : js_string t -> unit meth
+  method replace : js_string t -> unit meth
+  method reload : unit meth
+end
+
+class type history = object
+end
+
+class type undoManager = object
+end
+
+class type selection = object
+end
+
+class type window = object
+  method document : document t readonly_prop
+  method name : js_string t prop
+  method location : location t readonly_prop
+  method history : history t readonly_prop
+  method undoManager : undoManager t readonly_prop
+  method getSelection : selection t meth
+  method close : unit meth
+  method stop : unit meth
+  method focus : unit meth
+  method blur : unit meth
+
+  method top : window t readonly_prop
+  method parent : window t readonly_prop
+  method frameElement : element t opt readonly_prop
+
+  method alert : js_string t -> unit meth
+  method confirm : js_string t -> bool t meth
+  method prompt : js_string t -> js_string t -> js_string t meth
+  method print : unit meth
+
+  method setInterval : (unit -> unit) Js.callback -> float -> interval_id meth
+  method clearInterval : interval_id -> unit meth
+
+  method setTimeout : (unit -> unit) Js.callback -> float -> timeout_id meth
+  method clearTimeout : timeout_id -> unit meth
+
+  method onload : (window t, event t) event_listener prop
+  method onbeforeunload : (window t, event t) event_listener prop
+  method onblur : (window t, event t) event_listener prop
+  method onfocus : (window t, event t) event_listener prop
+  method onresize : (window t, event t) event_listener prop
+end
+
+let window : window t = Js.Unsafe.variable "window"
+
+let document = window##document
+
+(****)
 
 class type frameSetElement = object
   inherit element
@@ -844,7 +921,10 @@ class type iFrameElement = object
   method scrolling : js_string t prop
   method src : js_string t prop
   method contentDocument : document t opt readonly_prop
+  method contentWindow  : window t readonly_prop
 end
+
+(****)
 
 (*XXX Should provide creation functions a la lablgtk... *)
 
@@ -962,6 +1042,148 @@ let createCanvas doc : canvasElement t =
   let c = unsafeCreateElement doc "canvas" in
   if not (Opt.test c##getContext) then raise Canvas_not_available;
   c
+
+module CoerceTo = struct
+  let element e : element Js.t Js.opt =
+    if Js.instanceof e (Js.Unsafe.variable "HTMLElement") then
+      Js.some (Js.Unsafe.coerce e)
+    else
+      Js.null
+
+  let unsafeCoerce tag (e : #element t) =
+    if e##tagName##toLowerCase() == Js.string tag then
+      Js.some (Js.Unsafe.coerce e)
+    else
+      Js.null
+  let a e =  unsafeCoerce "a" e
+  let area e =  unsafeCoerce "area" e
+  let base e =  unsafeCoerce "base" e
+  let blockquote e =  unsafeCoerce "blockquote" e
+  let body e =  unsafeCoerce "body" e
+  let br e =  unsafeCoerce "br" e
+  let button e =  unsafeCoerce "button" e
+  let canvas e =  unsafeCoerce "canvas" e
+  let caption e =  unsafeCoerce "caption" e
+  let col e =  unsafeCoerce "col" e
+  let colgroup e = unsafeCoerce "colgroup" e
+  let del e = unsafeCoerce "del" e
+  let div e = unsafeCoerce "div" e
+  let dl e = unsafeCoerce "dl" e
+  let fieldset e = unsafeCoerce "fieldset" e
+  let form e = unsafeCoerce "form" e
+  let frameset e = unsafeCoerce "frameset" e
+  let frame e = unsafeCoerce "frame" e
+  let h1 e = unsafeCoerce "h1" e
+  let h2 e = unsafeCoerce "h2" e
+  let h3 e = unsafeCoerce "h3" e
+  let h4 e = unsafeCoerce "h4" e
+  let h5 e = unsafeCoerce "h5" e
+  let h6 e = unsafeCoerce "h6" e
+  let head e = unsafeCoerce "head" e
+  let hr e = unsafeCoerce "hr" e
+  let html e = unsafeCoerce "html" e
+  let iframe e = unsafeCoerce "iframe" e
+  let img e = unsafeCoerce "img" e
+  let input e = unsafeCoerce "input" e
+  let ins e = unsafeCoerce "ins" e
+  let label e = unsafeCoerce "label" e
+  let legend e = unsafeCoerce "legend" e
+  let li e = unsafeCoerce "li" e
+  let link e = unsafeCoerce "link" e
+  let map e = unsafeCoerce "map" e
+  let meta e = unsafeCoerce "meta" e
+  let _object e = unsafeCoerce "object" e
+  let ol e = unsafeCoerce "ol" e
+  let optgroup e = unsafeCoerce "optgroup" e
+  let option e = unsafeCoerce "option" e
+  let p e = unsafeCoerce "p" e
+  let param e = unsafeCoerce "param" e
+  let pre e = unsafeCoerce "pre" e
+  let q e = unsafeCoerce "q" e
+  let script e = unsafeCoerce "script" e
+  let select e = unsafeCoerce "select" e
+  let style e = unsafeCoerce "style" e
+  let table e = unsafeCoerce "table" e
+  let tbody e = unsafeCoerce "tbody" e
+  let td e = unsafeCoerce "td" e
+  let textarea e = unsafeCoerce "textarea" e
+  let tfoot e = unsafeCoerce "tfoot" e
+  let th e = unsafeCoerce "th" e
+  let thead e = unsafeCoerce "thead" e
+  let title e = unsafeCoerce "title" e
+  let tr e = unsafeCoerce "tr" e
+  let ul e = unsafeCoerce "ul" e
+end
+
+(****)
+
+let eventTarget (e : #event t) =
+  let target =
+    Optdef.get (e##target) (fun () ->
+    Optdef.get (e##srcElement) (fun () -> assert false))
+  in
+  (* Workaround for Safari bug *)
+  if target##nodeType == Dom.TEXT then
+    Js.Unsafe.coerce (Opt.get (target##parentNode) (fun () -> assert false))
+  else
+    target
+
+let eventRelatedTarget (e : #mouseEvent t) =
+  Optdef.get (e##relatedTarget) (fun () ->
+  match Js.to_string (e##_type) with
+    "mouseover" -> Optdef.get (e##fromElement) (fun () -> assert false)
+  | "mouseout"  -> Optdef.get (e##toElement) (fun () -> assert false)
+  | _           -> Js.null)
+
+let eventAbsolutePosition' (e : #mouseEvent t) =
+  let body = document##body in
+  let html = document##documentElement in
+  (e##clientX + body##scrollLeft + html##scrollLeft,
+   e##clientY + body##scrollTop + html##scrollTop)
+
+let eventAbsolutePosition (e : #mouseEvent t) =
+  Optdef.case (e##pageX) (fun () -> eventAbsolutePosition' e) (fun x ->
+  Optdef.case (e##pageY) (fun () -> eventAbsolutePosition' e) (fun y ->
+  (x, y)))
+
+let elementClientPosition (e : #element t) =
+  let r = e##getBoundingClientRect () in
+  let body = document##body in
+  let html = document##documentElement in
+  (truncate (Js.to_float r##left) - body##clientLeft - html##clientLeft,
+   truncate (Js.to_float r##top) - body##clientTop - html##clientTop)
+
+let getDocumentScroll () =
+  let body = document##body in
+  let html = document##documentElement in
+  (body##scrollLeft + html##scrollLeft, body##scrollTop + html##scrollTop)
+
+let hasMousewheelEvents () =
+  let d = createDiv document in
+  d##setAttribute(Js.string "onmousewheel", Js.string "return;");
+  Js.typeof (Js.Unsafe.get d (Js.string "onmousewheel")) ==
+  Js.string "function"
+
+let addMousewheelEventListener e h capt =
+  if hasMousewheelEvents () then
+    addEventListener e Event.mousewheel
+      (handler
+         (fun (e : mousewheelEvent t) ->
+            let dx = - Optdef.get (e##wheelDeltaX) (fun () -> 0) / 40 in
+            let dy =
+              - Optdef.get (e##wheelDeltaY) (fun () -> e##wheelDelta) / 40 in
+            h (e :> mouseEvent t) ~dx ~dy))
+      capt
+  else
+    addEventListener e Event._DOMMouseScroll
+      (handler
+         (fun (e : mouseScrollEvent t) ->
+            let d = e##detail in
+            if e##axis == e##_HORIZONTAL_AXIS then
+              h (e :> mouseEvent t) ~dx:d ~dy:0
+            else
+              h (e :> mouseEvent t) ~dx:0 ~dy:d))
+      capt
 
 type taggedElement =
   | A of anchorElement t
@@ -1087,204 +1309,3 @@ let tagged (e : #element t) =
   | _   -> Other (e : #element t :> element t)
 
 let opt_tagged e = Opt.case e (fun () -> None) (fun e -> Some (tagged e))
-
-module CoerceTo = struct
-  let unsafeCoerce tag (e : #element t) =
-    if e##tagName##toLowerCase() == Js.string tag then
-      Js.some (Js.Unsafe.coerce e)
-    else
-      Js.null
-  let a e =  unsafeCoerce "a" e
-  let area e =  unsafeCoerce "area" e
-  let base e =  unsafeCoerce "base" e
-  let blockquote e =  unsafeCoerce "blockquote" e
-  let body e =  unsafeCoerce "body" e
-  let br e =  unsafeCoerce "br" e
-  let button e =  unsafeCoerce "button" e
-  let canvas e =  unsafeCoerce "canvas" e
-  let caption e =  unsafeCoerce "caption" e
-  let col e =  unsafeCoerce "col" e
-  let colgroup e = unsafeCoerce "colgroup" e
-  let del e = unsafeCoerce "del" e
-  let div e = unsafeCoerce "div" e
-  let dl e = unsafeCoerce "dl" e
-  let fieldset e = unsafeCoerce "fieldset" e
-  let form e = unsafeCoerce "form" e
-  let frameset e = unsafeCoerce "frameset" e
-  let frame e = unsafeCoerce "frame" e
-  let h1 e = unsafeCoerce "h1" e
-  let h2 e = unsafeCoerce "h2" e
-  let h3 e = unsafeCoerce "h3" e
-  let h4 e = unsafeCoerce "h4" e
-  let h5 e = unsafeCoerce "h5" e
-  let h6 e = unsafeCoerce "h6" e
-  let head e = unsafeCoerce "head" e
-  let hr e = unsafeCoerce "hr" e
-  let html e = unsafeCoerce "html" e
-  let iframe e = unsafeCoerce "iframe" e
-  let img e = unsafeCoerce "img" e
-  let input e = unsafeCoerce "input" e
-  let ins e = unsafeCoerce "ins" e
-  let label e = unsafeCoerce "label" e
-  let legend e = unsafeCoerce "legend" e
-  let li e = unsafeCoerce "li" e
-  let link e = unsafeCoerce "link" e
-  let map e = unsafeCoerce "map" e
-  let meta e = unsafeCoerce "meta" e
-  let _object e = unsafeCoerce "object" e
-  let ol e = unsafeCoerce "ol" e
-  let optgroup e = unsafeCoerce "optgroup" e
-  let option e = unsafeCoerce "option" e
-  let p e = unsafeCoerce "p" e
-  let param e = unsafeCoerce "param" e
-  let pre e = unsafeCoerce "pre" e
-  let q e = unsafeCoerce "q" e
-  let script e = unsafeCoerce "script" e
-  let select e = unsafeCoerce "select" e
-  let style e = unsafeCoerce "style" e
-  let table e = unsafeCoerce "table" e
-  let tbody e = unsafeCoerce "tbody" e
-  let td e = unsafeCoerce "td" e
-  let textarea e = unsafeCoerce "textarea" e
-  let tfoot e = unsafeCoerce "tfoot" e
-  let th e = unsafeCoerce "th" e
-  let thead e = unsafeCoerce "thead" e
-  let title e = unsafeCoerce "title" e
-  let tr e = unsafeCoerce "tr" e
-  let ul e = unsafeCoerce "ul" e
-end
-
-type interval_id
-type timeout_id
-
-class type location = object
-  method href : js_string t prop
-  method protocol : js_string t prop
-  method host : js_string t prop
-  method hostname : js_string t prop
-  method port : js_string t prop
-  method pathname : js_string t prop
-  method search : js_string t prop
-  method hash : js_string t prop
-
-  method assign : js_string t -> unit meth
-  method replace : js_string t -> unit meth
-  method reload : unit meth
-end
-
-class type history = object
-end
-
-class type undoManager = object
-end
-
-class type selection = object
-end
-
-class type window = object
-  method document : document t readonly_prop
-  method name : js_string t prop
-  method location : location t readonly_prop
-  method history : history t readonly_prop
-  method undoManager : undoManager t readonly_prop
-  method getSelection : selection t meth
-  method close : unit meth
-  method stop : unit meth
-  method focus : unit meth
-  method blur : unit meth
-
-  method top : window t readonly_prop
-  method parent : window t readonly_prop
-  method frameElement : element t opt readonly_prop
-
-  method alert : js_string t -> unit meth
-  method confirm : js_string t -> bool t meth
-  method prompt : js_string t -> js_string t -> js_string t meth
-  method print : unit meth
-
-  method setInterval : (unit -> unit) Js.callback -> float -> interval_id meth
-  method clearInterval : interval_id -> unit meth
-
-  method setTimeout : (unit -> unit) Js.callback -> float -> timeout_id meth
-  method clearTimeout : timeout_id -> unit meth
-
-  method onload : (window t, event t) event_listener prop
-  method onbeforeunload : (window t, event t) event_listener prop
-  method onblur : (window t, event t) event_listener prop
-  method onfocus : (window t, event t) event_listener prop
-  method onresize : (window t, event t) event_listener prop
-end
-
-let window : window t = Js.Unsafe.variable "window"
-
-let document = window##document
-
-(****)
-
-let eventTarget (e : #event t) =
-  let target =
-    Optdef.get (e##target) (fun () ->
-    Optdef.get (e##srcElement) (fun () -> assert false))
-  in
-  (* Workaround for Safari bug *)
-  if target##nodeType == Dom.TEXT then
-    Js.Unsafe.coerce (Opt.get (target##parentNode) (fun () -> assert false))
-  else
-    target
-
-let eventRelatedTarget (e : #mouseEvent t) =
-  Optdef.get (e##relatedTarget) (fun () ->
-  match Js.to_string (e##_type) with
-    "mouseover" -> Optdef.get (e##fromElement) (fun () -> assert false)
-  | "mouseout"  -> Optdef.get (e##toElement) (fun () -> assert false)
-  | _           -> Js.null)
-
-let eventAbsolutePosition' (e : #mouseEvent t) =
-  let body = document##body in
-  let html = document##documentElement in
-  (e##clientX + body##scrollLeft + html##scrollLeft,
-   e##clientY + body##scrollTop + html##scrollTop)
-
-let eventAbsolutePosition (e : #mouseEvent t) =
-  Optdef.case (e##pageX) (fun () -> eventAbsolutePosition' e) (fun x ->
-  Optdef.case (e##pageY) (fun () -> eventAbsolutePosition' e) (fun y ->
-  (x, y)))
-
-let elementClientPosition (e : #element t) =
-  let r = e##getBoundingClientRect () in
-  let body = document##body in
-  let html = document##documentElement in
-  (truncate (Js.to_float r##left) - body##clientLeft - html##clientLeft,
-   truncate (Js.to_float r##top) - body##clientTop - html##clientTop)
-
-let getDocumentScroll () =
-  let body = document##body in
-  let html = document##documentElement in
-  (body##scrollLeft + html##scrollLeft, body##scrollTop + html##scrollTop)
-
-let hasMousewheelEvents () =
-  let d = createDiv document in
-  d##setAttribute(Js.string "onmousewheel", Js.string "return;");
-  Js.typeof (Js.Unsafe.get d (Js.string "onmousewheel")) ==
-  Js.string "function"
-
-let addMousewheelEventListener e h capt =
-  if hasMousewheelEvents () then
-    addEventListener e Event.mousewheel
-      (handler
-         (fun (e : mousewheelEvent t) ->
-            let dx = - Optdef.get (e##wheelDeltaX) (fun () -> 0) / 40 in
-            let dy =
-              - Optdef.get (e##wheelDeltaY) (fun () -> e##wheelDelta) / 40 in
-            h (e :> mouseEvent t) ~dx ~dy))
-      capt
-  else
-    addEventListener e Event._DOMMouseScroll
-      (handler
-         (fun (e : mouseScrollEvent t) ->
-            let d = e##detail in
-            if e##axis == e##_HORIZONTAL_AXIS then
-              h (e :> mouseEvent t) ~dx:d ~dy:0
-            else
-              h (e :> mouseEvent t) ~dx:0 ~dy:d))
-      capt

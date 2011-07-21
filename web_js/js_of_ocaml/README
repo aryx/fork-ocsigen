@@ -13,23 +13,32 @@ very stable API.
 === Requirements ===
 
   * Findlib
-  * Lwt (**version 2.2.1** at least)
+  * Lwt (**version 2.3.0** at least)
+
+  [optionnal]
+  * deriving-ocsigen (see: https://github.com/hnrgrgr/deriving)
 
 === Installation ===
-  * run {{{make}}} to compile everything
+
+  * edit {{{Makefile.conf}}} to change the default configuration
+  * run {{{make}}} to compile
   * run {{{make install}}} as root to install the compiler
     and its libraries
   * run {{{make uninstall}}} as root to uninstall them
+
+You can run {{{make toplevel}}} if you want to build a Web-based OCaml
+toplevel as well.
 
 === Usage ===
 
 Your program must first be compiled using the OCaml bytecode compiler
 {{{ocamlc}}}.  Javascript bindings, as well as a corresponding syntax
-extension, are provided by the {{{js_of_ocaml}}} package.
+extension, are provided by the {{{js_of_ocaml}}} and
+{{{js_of_ocaml.syntax}}} packages.
 
 {{{
-      ocamlfind ocamlc -package js_of_ocaml -syntax camlp4o -linkpkg \
-          -o cubes.byte cubes.ml
+      ocamlfind ocamlc -package js_of_ocaml,js_of_ocaml.syntax \
+          -syntax camlp4o -linkpkg -o cubes.byte cubes.ml
 }}}
 
 Then, run the {{{js_of_ocaml}}} compiler to produce Javascript code:

@@ -1,9 +1,10 @@
 
-all: check_lwt compiler library runtime examples tests
+all: check_lwt compiler library doc runtime examples
 
 include Makefile.conf
+-include Makefile.local
 
-.PHONY: compiler library runtime examples check_lwt
+.PHONY: compiler library runtime examples check_lwt doc
 
 compiler:
 	$(MAKE) -C compiler
@@ -11,26 +12,34 @@ library:
 	$(MAKE) -C lib
 runtime:
 	$(MAKE) -C runtime
-examples: compiler library
+toplevel: compiler library runtime
+	$(MAKE) -C toplevel
+examples: compiler library runtime
 	$(MAKE) -C examples
 tests: compiler library
-ifeq ($(wildcard tests),tests)
 	$(MAKE) -C tests
-endif
+doc: library
+	$(MAKE) -C doc
 
-LWTERROR="Js_of_ocaml requires Lwt version 2.2.1 at least.  Please upgrade."
+LWTERROR="Js_of_ocaml requires Lwt version 2.3.0 at least.  Please upgrade."
 check_lwt:
-	@if ocamlfind query lwt -l | ocaml tools/check_version.ml 2.2.1; then \
+	@if ocamlfind query lwt -l | ocaml tools/check_version.ml 2.3.0; then \
 	  echo $(LWTERROR); exit 1; \
 	fi
 
+include Makefile.filelist
+
+VERSION := $(shell head -n 1 VERSION)
 install:
-	ocamlfind install $(LIBRARY) lib/META lib/$(LIBNAME).cma lib/dll$(LIBNAME).so lib/*.cmi lib/*.mli lib/syntax/pa_js.cmo runtime/runtime.js
-	install compiler/$(COMPILER) $(BINDIR)
+	ocamlfind install -patch-version ${VERSION} $(LIBRARY) lib/META $(INTF) $(IMPL) $(NATIMPL) $(OTHERS)
+	install -d -m 755 $(BINDIR)
+	install $(BIN) $(BINDIR)
 
 uninstall:
 	ocamlfind remove $(LIBRARY)
 	rm -f $(BINDIR)/$(COMPILER)
+
+reinstall: uninstall install
 
 depend:
 	$(MAKE) -C compiler depend
@@ -43,13 +52,14 @@ clean:
 	$(MAKE) -C examples clean
 ifeq ($(wildcard tests),tests)
 	$(MAKE) -C tests clean
+	$(MAKE) -C doc clean
 endif
 
 realclean: clean
 	find . -name "*~" -print | xargs rm -f
 
 dist:
-	rm -r /tmp/js_of_ocaml &&\
+	rm -rf /tmp/js_of_ocaml-${VERSION} &&\
         cd /tmp &&\
-	darcs get http://ocsigen.org/darcs/js_of_ocaml/ &&\
-	tar zcvf js_of_ocaml.tar.gz js_of_ocaml --exclude benchmarks --exclude _darcs --exclude tests
+	darcs get http://ocsigen.org/darcs/js_of_ocaml/ js_of_ocaml-${VERSION} &&\
+	tar zcvf js_of_ocaml-${VERSION}.tar.gz js_of_ocaml-${VERSION} --exclude benchmarks --exclude _darcs --exclude tests

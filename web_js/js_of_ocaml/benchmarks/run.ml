@@ -1,4 +1,23 @@
 #! /usr/bin/ocaml unix.cma
+(* Js_of_ocaml benchmarks
+ * http://www.ocsigen.org/js_of_ocaml/
+ * Copyright (C) 2011 Jérôme Vouillon
+ * Laboratoire PPS - CNRS Université Paris Diderot
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *)
 
 let verbose = ref true;;
 
@@ -16,7 +35,7 @@ let run_command cmd =
       Format.eprintf "Command '%s' killed with signal %d.@." cmd s;
       raise Exit
   | _ ->
-      ()
+    ()
 
 let time cmd =
   let t1 = (Unix.times ()).Unix.tms_cutime in
@@ -26,7 +45,7 @@ let time cmd =
 
 (****)
 
-let compile_gen prog src_dir src_spec dst_dir dst_spec =
+let compile_gen ~comptime prog src_dir src_spec dst_dir dst_spec =
   mkdir (dir dst_dir dst_spec);
   List.iter
     (fun nm ->
@@ -35,12 +54,16 @@ let compile_gen prog src_dir src_spec dst_dir dst_spec =
        if need_update src dst then begin
          let cmd = prog src dst in
          try
-           run_command cmd
+           if comptime
+           then write_measures compiletimes dst_spec nm [time cmd]
+           else run_command cmd
          with Exit -> ()
+
        end)
     (benchs src_dir src_spec)
 
-let compile prog = compile_gen (Format.sprintf "%s %s -o %s" prog)
+let compile ~comptime prog =
+  compile_gen ~comptime (Format.sprintf "%s %s -o %s" prog)
 
 let warm_up_time = 1.0
 let min_measures = ref 10
@@ -49,6 +72,9 @@ let max_duration = ref 1200.
 
 let fast_run () =
   min_measures := 5; max_confidence := 0.15; max_duration := 30.
+
+let ffast_run () =
+  min_measures := 2; max_confidence := 42.; max_duration := 30.
 
 (****)
 
@@ -96,22 +122,39 @@ let measure code meas spec cmd =
 
 (****)
 
-let compile_no_ext prog src_dir src_spec dst_dir dst_spec =
-  compile_gen prog src_dir src_spec dst_dir (no_ext dst_spec)
+let compile_no_ext ~comptime prog src_dir src_spec dst_dir dst_spec =
+  compile_gen ~comptime prog src_dir src_spec dst_dir (no_ext dst_spec)
+
 let ml_size =
   compile_no_ext
-    (Format.sprintf "perl ./lib/remove_comments.pl %s | wc -c > %s")
-let file_size = compile_no_ext (Format.sprintf "wc -c < %s > %s")
-let runtime_size = compile_no_ext (Format.sprintf "head -n -1 %s | wc -c > %s")
-let gen_size = compile_no_ext (Format.sprintf "tail -1 %s | wc -c > %s")
+    ~comptime:false
+    (Format.sprintf "perl ./lib/remove_comments.pl %s | sed 's/^ *//g' | wc -c > %s")
+
+let file_size =
+  compile_no_ext ~comptime:false (Format.sprintf "wc -c < %s > %s")
+
+let compr_file_size =
+  compile_no_ext
+    ~comptime:false
+    (Format.sprintf "sed 's/^ *//g' %s | gzip -c | wc -c > %s")
+
+let runtime_size = 
+  compile_no_ext ~comptime:false (Format.sprintf "head -n -1 %s | wc -c > %s")
+
+let gen_size =
+  compile_no_ext ~comptime:false (Format.sprintf "tail -1 %s | wc -c > %s")
 
 (****)
-
-let has_ocamljs = Sys.command "ocamljs 2> /dev/null" = 0
 
 let compile_only = ref false
 let full = ref false
 let conf = ref "run.config"
+let do_ocamljs = ref true
+let nobyteopt = ref false
+
+let has_ocamljs = Sys.command "ocamljs 2> /dev/null" = 0
+let run_ocamljs () = !do_ocamljs && has_ocamljs
+
 
 let interpreters = ref []
 
@@ -155,7 +198,10 @@ let _ =
     [("-compile", Arg.Set compile_only, " only compiles");
      ("-all", Arg.Set full, " run all benchmarks");
      ("-config", Arg.Set_string conf, "<file> use <file> as a config file");
-     ("-fast", Arg.Unit fast_run, " perform less iterations")]
+     ("-fast", Arg.Unit fast_run, " perform less iterations");
+     ("-ffast", Arg.Unit ffast_run, " perform very few iterations");
+     ("-noocamljs", Arg.Clear do_ocamljs, " do not run ocamljs");
+     ("-nobyteopt", Arg.Set nobyteopt, " do not run benchs on bytecode and native programs")]
   in
   Arg.parse (Arg.align options)
     (fun s -> raise (Arg.Bad (Format.sprintf "unknown option `%s'" s)))
@@ -163,34 +209,38 @@ let _ =
 
   read_config ();
 
-  compile "ocamlc" src ml code byte;
-  compile "ocamlopt" src ml code opt;
-  compile "js_of_ocaml" code byte code js_of_ocaml;
-  compile "js_of_ocaml -noinline" code byte code js_of_ocaml_inline;
-  compile "js_of_ocaml -disable deadcode" code byte code js_of_ocaml_deadcode;
-  compile "js_of_ocaml -disable compactexpr" code byte code js_of_ocaml_compact;
-  compile "js_of_ocaml -disable optcall" code byte code js_of_ocaml_call;
-  if has_ocamljs then compile "ocamljs" src ml code ocamljs;
-  compile "ocamlc -unsafe" src ml code byte_unsafe;
-  compile "ocamlopt" src ml code opt_unsafe;
-  compile "js_of_ocaml" code byte_unsafe code js_of_ocaml_unsafe;
-  if has_ocamljs then compile "ocamljs -unsafe" src ml code ocamljs_unsafe;
+  compile ~comptime:true "ocamlc" src ml code byte;
+  compile ~comptime:true "ocamlopt" src ml code opt;
+  compile ~comptime:true "js_of_ocaml" code byte code js_of_ocaml;
+  compile ~comptime:true "js_of_ocaml -noinline" code byte code js_of_ocaml_inline;
+  compile ~comptime:true "js_of_ocaml -disable deadcode" code byte code js_of_ocaml_deadcode;
+  compile ~comptime:true "js_of_ocaml -disable compactexpr" code byte code js_of_ocaml_compact;
+  compile ~comptime:true "js_of_ocaml -disable optcall" code byte code js_of_ocaml_call;
+  if run_ocamljs () then compile ~comptime:true "ocamljs" src ml code ocamljs;
+  compile ~comptime:true "ocamlc -unsafe" src ml code byte_unsafe;
+  compile ~comptime:true "ocamlopt" src ml code opt_unsafe;
+  compile ~comptime:true "js_of_ocaml" code byte_unsafe code js_of_ocaml_unsafe;
+  if run_ocamljs () then compile ~comptime:true "ocamljs -unsafe" src ml code ocamljs_unsafe;
 
   ml_size src ml sizes ml;
   file_size code byte sizes byte;
   file_size code js_of_ocaml sizes (sub_spec js_of_ocaml "full");
+  compr_file_size code js_of_ocaml sizes (sub_spec js_of_ocaml "gzipped");
   runtime_size code js_of_ocaml sizes (sub_spec js_of_ocaml "runtime");
   gen_size code js_of_ocaml sizes (sub_spec js_of_ocaml "generated");
   gen_size code js_of_ocaml_inline sizes js_of_ocaml_inline;
   gen_size code js_of_ocaml_deadcode sizes js_of_ocaml_deadcode;
   gen_size code js_of_ocaml_compact sizes js_of_ocaml_compact;
   gen_size code js_of_ocaml_call sizes js_of_ocaml_call;
-  if has_ocamljs then file_size code ocamljs sizes ocamljs;
+  if run_ocamljs () then compr_file_size code ocamljs sizes ocamljs;
 
   if !compile_only then exit 0;
 
-  measure code times opt "";
-  measure code times byte "";
+  if not !nobyteopt then begin
+    measure code times opt "";
+    measure code times byte "";
+  end;
+
   let (compilers, suites) =
     if !full then
       (!interpreters,
@@ -200,7 +250,7 @@ let _ =
         js_of_ocaml_deadcode; 
         js_of_ocaml_compact; 
         js_of_ocaml_call; 
-        ocamljs; 
+        ocamljs;
         ocamljs_unsafe; ])
     else
       (begin match !interpreters with i :: r -> [i] | [] -> [] end,

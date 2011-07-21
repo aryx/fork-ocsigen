@@ -216,6 +216,8 @@ and element = object
   method offsetHeight : int readonly_prop
   method scrollLeft : int prop
   method scrollTop : int prop
+  method scrollWidth : int prop
+  method scrollHeight : int prop
 
   method getClientRects : clientRectList t meth
   method getBoundingClientRect : clientRect t meth
@@ -304,6 +306,8 @@ class type formElement = object
   method target : js_string t prop
   method submit : unit meth
   method reset : unit meth
+
+  method onsubmit : ('self t, event t) event_listener writeonly_prop
 end
 
 class type optGroupElement = object
@@ -347,7 +351,7 @@ class type inputElement = object ('self)
   inherit element
   method defaultValue : js_string t prop
   method defaultChecked : js_string t prop
-  method form : formElement opt readonly_prop
+  method form : formElement t opt readonly_prop
   method accept : js_string t prop
   method accessKey : js_string t prop
   method align : js_string t prop
@@ -395,7 +399,7 @@ end
 
 class type buttonElement = object
   inherit element
-  method form : formElement opt readonly_prop
+  method form : formElement t opt readonly_prop
   method accessKey : js_string t prop
   method disabled : bool t prop
   method name : js_string t readonly_prop (* Cannot be changed under IE *)
@@ -758,6 +762,7 @@ class type document = object
   method referrer : js_string t readonly_prop
   method domain : js_string t readonly_prop
   method _URL : js_string t readonly_prop
+  method head : headElement t prop
   method body : bodyElement t prop
   method documentElement : htmlElement t readonly_prop
   method images : imageElement collection t readonly_prop
@@ -766,48 +771,17 @@ class type document = object
   method forms : formElement collection t readonly_prop
   method anchors : element collection t readonly_prop
   method cookie : js_string t prop
+  method designMode : js_string t prop
+  method open_ : unit meth
+  method close : unit meth
+  method write : js_string t -> unit meth
+  method execCommand : js_string t -> bool t -> js_string t opt -> unit meth
 
   inherit eventTarget
 end
 
 val document : document t
   (** The current document *)
-
-(* {2 Frames } *)
-
-class type frameSetElement = object
-  inherit element
-  method cols : js_string t prop
-  method rows : js_string t prop
-end
-
-class type frameElement = object
-  inherit element
-  method frameBorder : js_string t prop
-  method longDesc : js_string t prop
-  method marginHeight : js_string t prop
-  method marginWidth : js_string t prop
-  method name : js_string t prop
-  method noResize : bool t prop
-  method scrolling : js_string t prop
-  method src : js_string t prop
-  method contentDocument : document t opt readonly_prop
-end
-
-class type iFrameElement = object
-  inherit element
-  method frameBorder : js_string t prop
-  method height : js_string t prop
-  method longDesc : js_string t prop
-  method marginHeight : js_string t prop
-  method marginWidth : js_string t prop
-  method name : js_string t prop
-  method scrolling : js_string t prop
-  method src : js_string t prop
-  method contentDocument : document t opt readonly_prop
-end
-
-(****)
 
 (** {2 Window objects} *)
 
@@ -882,6 +856,41 @@ end
 
 val window : window t
   (** The current window *)
+
+(* {2 Frames } *)
+
+class type frameSetElement = object
+  inherit element
+  method cols : js_string t prop
+  method rows : js_string t prop
+end
+
+class type frameElement = object
+  inherit element
+  method frameBorder : js_string t prop
+  method longDesc : js_string t prop
+  method marginHeight : js_string t prop
+  method marginWidth : js_string t prop
+  method name : js_string t prop
+  method noResize : bool t prop
+  method scrolling : js_string t prop
+  method src : js_string t prop
+  method contentDocument : document t opt readonly_prop
+end
+
+class type iFrameElement = object
+  inherit element
+  method frameBorder : js_string t prop
+  method height : js_string t prop
+  method longDesc : js_string t prop
+  method marginHeight : js_string t prop
+  method marginWidth : js_string t prop
+  method name : js_string t prop
+  method scrolling : js_string t prop
+  method src : js_string t prop
+  method contentDocument : document t opt readonly_prop
+  method contentWindow  : window t readonly_prop
+end
 
 (****)
 
@@ -1114,6 +1123,8 @@ val tagged : #element t -> taggedElement
 val opt_tagged : #element t opt -> taggedElement option
 
 module CoerceTo : sig
+  val element : #Dom.node t -> element t opt
+
   val a : #element t -> anchorElement t opt
   val area : #element t -> areaElement t opt
   val base : #element t -> baseElement t opt
