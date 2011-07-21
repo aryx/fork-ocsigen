@@ -246,6 +246,18 @@ type file_descr = {
 
   mutable blocking : bool Lwt.t Lazy.t;
   (* Is the file descriptor in blocking or non-blocking mode *)
+
+  mutable event_readable : Lwt_engine.event option;
+  (* The event used to check the file descriptor for readability. *)
+
+  mutable event_writable : Lwt_engine.event option;
+  (* The event used to check the file descriptor for writability. *)
+
+  hooks_readable : (unit -> unit) Lwt_sequence.t;
+  (* Hooks to call when the file descriptor becomes readable. *)
+
+  hooks_writable : (unit -> unit) Lwt_sequence.t;
+  (* Hooks to call when the file descriptor becomes writable. *)
 }
 
 #if windows
@@ -308,11 +320,16 @@ let is_blocking ?blocking ?(set_flags=true) fd =
 
 #endif
 
-let mk_ch ?blocking ?(set_flags=true) fd =
-  { fd = fd;
-    state = Opened;
-    set_flags = set_flags;
-    blocking = is_blocking ?blocking ~set_flags fd }
+let mk_ch ?blocking ?(set_flags=true) fd = {
+  fd = fd;
+  state = Opened;
+  set_flags = set_flags;
+  blocking = is_blocking ?blocking ~set_flags fd;
+  event_readable = None;
+  event_writable = None;
+  hooks_readable = Lwt_sequence.create ();
+  hooks_writable = Lwt_sequence.create ();
+}
 
 let rec check_descriptor ch =
   match ch.state with
@@ -341,8 +358,8 @@ let stub_writable fd = Unix.select [] [fd] [] (-1.0) <> ([], [], [])
 
 #else
 
-external stub_readable : Unix.file_descr -> bool = "lwt_unix_readable" "noalloc"
-external stub_writable : Unix.file_descr -> bool = "lwt_unix_writable" "noalloc"
+external stub_readable : Unix.file_descr -> bool = "lwt_unix_readable"
+external stub_writable : Unix.file_descr -> bool = "lwt_unix_writable"
 
 #endif
 
@@ -386,9 +403,39 @@ type 'a outcome =
   | Exn of exn
   | Requeued of io_event
 
-(* Retry a queued syscall, [cont] is the thread to wakeup
-   if the action succeed: *)
-let rec retry_syscall ev event ch wakener action =
+(* Wait a bit, then stop events that are no more used. *)
+let stop_events ch =
+  on_success
+    (pause ())
+    (fun () ->
+       if Lwt_sequence.is_empty ch.hooks_readable then begin
+         match ch.event_readable with
+           | Some ev ->
+               ch.event_readable <- None;
+               Lwt_engine.stop_event ev
+           | None ->
+               ()
+       end;
+       if Lwt_sequence.is_empty ch.hooks_writable then begin
+         match ch.event_writable with
+           | Some ev ->
+               ch.event_writable <- None;
+               Lwt_engine.stop_event ev
+           | None ->
+               ()
+       end)
+
+let register_readable ch =
+  if ch.event_readable = None then
+    ch.event_readable <- Some(Lwt_engine.on_readable ch.fd (fun _ -> Lwt_sequence.iter_l (fun f -> f ()) ch.hooks_readable))
+
+let register_writable ch =
+  if ch.event_writable = None then
+    ch.event_writable <- Some(Lwt_engine.on_writable ch.fd (fun _ -> Lwt_sequence.iter_l (fun f -> f ()) ch.hooks_writable))
+
+(* Retry a queued syscall, [wakener] is the thread to wakeup if the
+   action succeeds: *)
+let rec retry_syscall node event ch wakener action =
   let res =
     try
       check_descriptor ch;
@@ -410,31 +457,42 @@ let rec retry_syscall ev event ch wakener action =
   in
   match res with
     | Success v ->
-        Lwt_engine.stop_event !ev;
+        Lwt_sequence.remove !node;
+        stop_events ch;
         Lwt.wakeup wakener v
     | Exn e ->
-        Lwt_engine.stop_event !ev;
+        Lwt_sequence.remove !node;
+        stop_events ch;
         Lwt.wakeup_exn wakener e
     | Requeued event' ->
         if event <> event' then begin
-          Lwt_engine.stop_event !ev;
+          Lwt_sequence.remove !node;
+          stop_events ch;
           match event' with
             | Read ->
-                ev := Lwt_engine.on_readable ch.fd (fun _ -> retry_syscall ev event' ch wakener action)
+                node := Lwt_sequence.add_r (fun () -> retry_syscall node Read ch wakener action) ch.hooks_readable ;
+                register_readable ch
             | Write ->
-                ev := Lwt_engine.on_readable ch.fd (fun _ -> retry_syscall ev event' ch wakener action)
+                node := Lwt_sequence.add_r (fun () -> retry_syscall node Write ch wakener action) ch.hooks_writable;
+                register_writable ch
         end
+
+let dummy = Lwt_sequence.add_r ignore (Lwt_sequence.create ())
 
 let register_action event ch action =
   let waiter, wakener = Lwt.task () in
-  let ev = ref Lwt_engine.fake_event in
-  Lwt.on_cancel waiter (fun () -> Lwt_engine.stop_event !ev);
   match event with
     | Read ->
-        ev := Lwt_engine.on_readable ch.fd (fun _ -> retry_syscall ev event ch wakener action);
+        let node = ref dummy in
+        node := Lwt_sequence.add_r (fun () -> retry_syscall node Read ch wakener action) ch.hooks_readable;
+        on_cancel waiter (fun () -> Lwt_sequence.remove !node; stop_events ch);
+        register_readable ch;
         waiter
     | Write ->
-        ev := Lwt_engine.on_writable ch.fd (fun _ -> retry_syscall ev event ch wakener action);
+        let node = ref dummy in
+        node := Lwt_sequence.add_r (fun () -> retry_syscall node Write ch wakener action) ch.hooks_writable;
+        on_cancel waiter (fun () -> Lwt_sequence.remove !node; stop_events ch);
+        register_writable ch;
         waiter
 
 (* Wraps a system call *)
@@ -442,7 +500,7 @@ let wrap_syscall event ch action =
   try
     check_descriptor ch;
     lwt blocking = Lazy.force ch.blocking in
-    if not blocking || (event = Read && stub_readable ch.fd) || (event == Write && stub_writable ch.fd) then
+    if not blocking || (event = Read && stub_readable ch.fd) || (event = Write && stub_writable ch.fd) then
       return (action ())
     else
       register_action event ch action
@@ -462,6 +520,21 @@ let wrap_syscall event ch action =
 (* +-----------------------------------------------------------------+
    | Basic file input/output                                         |
    +-----------------------------------------------------------------+ *)
+
+type open_flag =
+    Unix.open_flag =
+  | O_RDONLY
+  | O_WRONLY
+  | O_RDWR
+  | O_NONBLOCK
+  | O_APPEND
+  | O_CREAT
+  | O_TRUNC
+  | O_EXCL
+  | O_NOCTTY
+  | O_DSYNC
+  | O_SYNC
+  | O_RSYNC
 
 #if windows
 
@@ -514,7 +587,7 @@ let wait_read ch =
 
 external stub_read : Unix.file_descr -> string -> int -> int -> int = "lwt_unix_read"
 external read_job : Unix.file_descr -> int -> [ `unix_read ] job = "lwt_unix_read_job"
-external read_result : [ `unix_read ] job -> string -> int -> int = "lwt_unix_read_result" "noalloc"
+external read_result : [ `unix_read ] job -> string -> int -> int = "lwt_unix_read_result"
 external read_free : [ `unix_read ] job -> unit = "lwt_unix_read_free" "noalloc"
 
 let read ch buf pos len =
@@ -537,7 +610,7 @@ let wait_write ch =
 
 external stub_write : Unix.file_descr -> string -> int -> int -> int = "lwt_unix_write"
 external write_job : Unix.file_descr -> string -> int -> int -> [ `unix_write ] job = "lwt_unix_write_job"
-external write_result : [ `unix_write ] job -> int = "lwt_unix_write_result" "noalloc"
+external write_result : [ `unix_write ] job -> int = "lwt_unix_write_result"
 external write_free : [ `unix_write ] job -> unit = "lwt_unix_write_free" "noalloc"
 
 let write ch buf pos len =
@@ -554,6 +627,12 @@ let write ch buf pos len =
 (* +-----------------------------------------------------------------+
    | Seeking and truncating                                          |
    +-----------------------------------------------------------------+ *)
+
+type seek_command =
+    Unix.seek_command =
+  | SEEK_SET
+  | SEEK_CUR
+  | SEEK_END
 
 #if windows
 
@@ -610,6 +689,35 @@ let ftruncate ch offset =
 (* +-----------------------------------------------------------------+
    | File status                                                     |
    +-----------------------------------------------------------------+ *)
+
+type file_perm = Unix.file_perm
+
+type file_kind =
+    Unix.file_kind =
+  | S_REG
+  | S_DIR
+  | S_CHR
+  | S_BLK
+  | S_LNK
+  | S_FIFO
+  | S_SOCK
+
+type stats =
+    Unix.stats =
+    {
+      st_dev : int;
+      st_ino : int;
+      st_kind : file_kind;
+      st_perm : file_perm;
+      st_nlink : int;
+      st_uid : int;
+      st_gid : int;
+      st_rdev : int;
+      st_size : int;
+      st_atime : float;
+      st_mtime : float;
+      st_ctime : float;
+    }
 
 #if windows
 
@@ -685,6 +793,23 @@ let isatty ch =
 
 module LargeFile =
 struct
+
+  type stats =
+      Unix.LargeFile.stats =
+      {
+        st_dev : int;
+        st_ino : int;
+        st_kind : file_kind;
+        st_perm : file_perm;
+        st_nlink : int;
+        st_uid : int;
+        st_gid : int;
+        st_rdev : int;
+        st_size : int64;
+        st_atime : float;
+        st_mtime : float;
+        st_ctime : float;
+      }
 
 #if windows
 
@@ -914,6 +1039,13 @@ let fchown ch uid gid =
 
 #endif
 
+type access_permission =
+    Unix.access_permission =
+  | R_OK
+  | W_OK
+  | X_OK
+  | F_OK
+
 #if windows
 
 let access name perms =
@@ -937,7 +1069,8 @@ let access name perms =
 let dup ch =
   check_descriptor ch;
   let fd = Unix.dup ch.fd in
-  { fd = fd;
+  {
+    fd = fd;
     state = Opened;
     set_flags = ch.set_flags;
     blocking =
@@ -950,7 +1083,12 @@ let dup ch =
                    Unix.set_nonblock fd;
                    return false)
       else
-        ch.blocking }
+        ch.blocking;
+    event_readable = None;
+    event_writable = None;
+    hooks_readable = Lwt_sequence.create ();
+    hooks_writable = Lwt_sequence.create ();
+  }
 
 let dup2 ch1 ch2 =
   check_descriptor ch1;
@@ -1044,6 +1182,8 @@ let chroot name =
   execute_job (chroot_job name) chroot_result chroot_free
 
 #endif
+
+type dir_handle = Unix.dir_handle
 
 #if windows
 
@@ -1267,6 +1407,15 @@ let readlink name =
    | Locking                                                         |
    +-----------------------------------------------------------------+ *)
 
+type lock_command =
+    Unix.lock_command =
+  | F_ULOCK
+  | F_LOCK
+  | F_TLOCK
+  | F_TEST
+  | F_RLOCK
+  | F_TRLOCK
+
 #if windows
 
 let lockf ch cmd size =
@@ -1288,6 +1437,27 @@ let lockf ch cmd size =
 (* +-----------------------------------------------------------------+
    | User id, group id                                               |
    +-----------------------------------------------------------------+ *)
+
+type passwd_entry =
+    Unix.passwd_entry =
+  {
+    pw_name : string;
+    pw_passwd : string;
+    pw_uid : int;
+    pw_gid : int;
+    pw_gecos : string;
+    pw_dir : string;
+    pw_shell : string
+  }
+
+type group_entry =
+    Unix.group_entry =
+  {
+    gr_name : string;
+    gr_passwd : string;
+    gr_gid : int;
+    gr_mem : string array
+  }
 
 #if windows
 
@@ -1369,6 +1539,16 @@ let getgrgid gid =
 
 #endif
 
+(* +-----------------------------------------------------------------+
+   | Sockets                                                         |
+   +-----------------------------------------------------------------+ *)
+
+type msg_flag =
+    Unix.msg_flag =
+  | MSG_OOB
+  | MSG_DONTROUTE
+  | MSG_PEEK
+
 #if windows
 let stub_recv = Unix.recv
 #else
@@ -1408,7 +1588,7 @@ let recvfrom ch buf pos len flags =
 #if windows
 let stub_sendto = Unix.sendto
 #else
-external stub_sendto : Unix.file_descr -> string -> int -> int -> Unix.msg_flag list -> Unix.sockaddr -> int = "lwt_unix_sendto_byte" "lwt_unix_bytes_sendto"
+external stub_sendto : Unix.file_descr -> string -> int -> int -> Unix.msg_flag list -> Unix.sockaddr -> int = "lwt_unix_sendto_byte" "lwt_unix_sendto"
 #endif
 
 let sendto ch buf pos len flags addr =
@@ -1472,9 +1652,32 @@ let send_msg ~socket ~io_vectors ~fds =
 
 #endif
 
+type inet_addr = Unix.inet_addr
+
+type socket_domain =
+    Unix.socket_domain =
+  | PF_UNIX
+  | PF_INET
+  | PF_INET6
+
+type socket_type =
+    Unix.socket_type =
+  | SOCK_STREAM
+  | SOCK_DGRAM
+  | SOCK_RAW
+  | SOCK_SEQPACKET
+
+type sockaddr = Unix.sockaddr = ADDR_UNIX of string | ADDR_INET of inet_addr * int
+
 let socket dom typ proto =
   let s = Unix.socket dom typ proto in
   mk_ch ~blocking:false s
+
+type shutdown_command =
+    Unix.shutdown_command =
+  | SHUTDOWN_RECEIVE
+  | SHUTDOWN_SEND
+  | SHUTDOWN_ALL
 
 let shutdown ch shutdown_command =
   check_descriptor ch;
@@ -1580,6 +1783,34 @@ let get_credentials ch =
    | Socket options                                                  |
    +-----------------------------------------------------------------+ *)
 
+type socket_bool_option =
+    Unix.socket_bool_option =
+  | SO_DEBUG
+  | SO_BROADCAST
+  | SO_REUSEADDR
+  | SO_KEEPALIVE
+  | SO_DONTROUTE
+  | SO_OOBINLINE
+  | SO_ACCEPTCONN
+  | TCP_NODELAY
+  | IPV6_ONLY
+
+type socket_int_option =
+    Unix.socket_int_option =
+  | SO_SNDBUF
+  | SO_RCVBUF
+  | SO_ERROR
+  | SO_TYPE
+  | SO_RCVLOWAT
+  | SO_SNDLOWAT
+
+type socket_optint_option = Unix.socket_optint_option = SO_LINGER
+
+type socket_float_option =
+    Unix.socket_float_option =
+  | SO_RCVTIMEO
+  | SO_SNDTIMEO
+
 let getsockopt ch opt =
   check_descriptor ch;
   Unix.getsockopt ch.fd opt
@@ -1619,6 +1850,32 @@ let getsockopt_error ch =
 (* +-----------------------------------------------------------------+
    | Host and protocol databases                                     |
    +-----------------------------------------------------------------+ *)
+
+type host_entry =
+    Unix.host_entry =
+    {
+      h_name : string;
+      h_aliases : string array;
+      h_addrtype : socket_domain;
+      h_addr_list : inet_addr array
+    }
+
+type protocol_entry =
+    Unix.protocol_entry =
+    {
+      p_name : string;
+      p_aliases : string array;
+      p_proto : int
+    }
+
+type service_entry =
+    Unix.service_entry =
+    {
+      s_name : string;
+      s_aliases : string array;
+      s_port : int;
+      s_proto : string
+    }
 
 #if windows
 
@@ -1732,6 +1989,25 @@ let getservbyport port x =
 
 #endif
 
+type addr_info =
+    Unix.addr_info =
+    {
+      ai_family : socket_domain;
+      ai_socktype : socket_type;
+      ai_protocol : int;
+      ai_addr : sockaddr;
+      ai_canonname : string;
+    }
+
+type getaddrinfo_option =
+    Unix.getaddrinfo_option =
+  | AI_FAMILY of socket_domain
+  | AI_SOCKTYPE of socket_type
+  | AI_PROTOCOL of int
+  | AI_NUMERICHOST
+  | AI_CANONNAME
+  | AI_PASSIVE
+
 #if windows
 
 let getaddrinfo host service opts =
@@ -1747,6 +2023,21 @@ let getaddrinfo host service opts =
   execute_job (getaddrinfo_job host service opts) getaddrinfo_result getaddrinfo_free
 
 #endif
+
+type name_info =
+    Unix.name_info =
+    {
+      ni_hostname : string;
+      ni_service : string;
+    }
+
+type getnameinfo_option =
+    Unix.getnameinfo_option =
+  | NI_NOFQDN
+  | NI_NUMERICHOST
+  | NI_NAMEREQD
+  | NI_NUMERICSERV
+  | NI_DGRAM
 
 #if windows
 
@@ -1767,6 +2058,69 @@ let getnameinfo addr opts =
 (* +-----------------------------------------------------------------+
    | Terminal interface                                              |
    +-----------------------------------------------------------------+ *)
+
+
+type terminal_io =
+    Unix.terminal_io =
+    {
+      mutable c_ignbrk : bool;
+      mutable c_brkint : bool;
+      mutable c_ignpar : bool;
+      mutable c_parmrk : bool;
+      mutable c_inpck : bool;
+      mutable c_istrip : bool;
+      mutable c_inlcr : bool;
+      mutable c_igncr : bool;
+      mutable c_icrnl : bool;
+      mutable c_ixon : bool;
+      mutable c_ixoff : bool;
+      mutable c_opost : bool;
+      mutable c_obaud : int;
+      mutable c_ibaud : int;
+      mutable c_csize : int;
+      mutable c_cstopb : int;
+      mutable c_cread : bool;
+      mutable c_parenb : bool;
+      mutable c_parodd : bool;
+      mutable c_hupcl : bool;
+      mutable c_clocal : bool;
+      mutable c_isig : bool;
+      mutable c_icanon : bool;
+      mutable c_noflsh : bool;
+      mutable c_echo : bool;
+      mutable c_echoe : bool;
+      mutable c_echok : bool;
+      mutable c_echonl : bool;
+      mutable c_vintr : char;
+      mutable c_vquit : char;
+      mutable c_verase : char;
+      mutable c_vkill : char;
+      mutable c_veof : char;
+      mutable c_veol : char;
+      mutable c_vmin : int;
+      mutable c_vtime : int;
+      mutable c_vstart : char;
+      mutable c_vstop : char;
+    }
+
+type setattr_when =
+    Unix.setattr_when =
+  | TCSANOW
+  | TCSADRAIN
+  | TCSAFLUSH
+
+type flush_queue =
+    Unix.flush_queue =
+  | TCIFLUSH
+  | TCOFLUSH
+  | TCIOFLUSH
+
+type flow_action =
+    Unix.flow_action =
+  | TCOOFF
+  | TCOON
+  | TCIOFF
+  | TCION
 
 #if windows
 
@@ -1884,10 +2238,9 @@ let tcflow ch act =
 let notification_buffer = String.create 4
 
 external init_notification : unit -> Unix.file_descr = "lwt_unix_init_notification"
+external poke_notification : unit -> unit = "lwt_unix_poke_notification"
 external send_notification : int -> unit = "lwt_unix_send_notification_stub"
 external recv_notifications : unit -> int array = "lwt_unix_recv_notifications"
-
-let notification_fd = init_notification ()
 
 let handle_notification id =
   match try Some(Notifiers.find notifiers id) with Not_found -> None with
@@ -1898,8 +2251,28 @@ let handle_notification id =
     | None ->
         ()
 
-let _ =
-  Lwt_engine.on_readable notification_fd (fun _ -> Array.iter handle_notification (recv_notifications ()))
+let pid = ref (Unix.getpid ())
+let ev_notifications = ref Lwt_engine.fake_event
+
+let rec handle_notifications ev =
+  (* Process available notifications. *)
+  Array.iter handle_notification (recv_notifications ());
+  (* If the pid changed, create a new notification file descriptor. *)
+  let current_pid = Unix.getpid () in
+  if !pid <> current_pid then begin
+    pid := current_pid;
+    (* Stop monitoring the current notification file descriptor. *)
+    Lwt_engine.stop_event !ev_notifications;
+    (* Resend a notification to be sure other process using the same
+       file descriptor won't get stuck. *)
+    poke_notification ();
+    (* Reinitialise the notification system with a new file
+       descriptor. *)
+    ev_notifications := Lwt_engine.on_readable (init_notification ()) handle_notifications;
+  end
+
+let () =
+  ev_notifications := Lwt_engine.on_readable (init_notification ()) handle_notifications
 
 (* +-----------------------------------------------------------------+
    | Signals                                                         |
@@ -1908,6 +2281,11 @@ let _ =
 module Signal_map = Map.Make(struct type t = int let compare a b = a - b end)
 
 let signals = ref Signal_map.empty
+let signal_count () =
+  Signal_map.fold
+    (fun signum (id, actions) len -> len + Lwt_sequence.length actions)
+    !signals
+    0
 
 type signal_handler_id = unit Lazy.t
 
@@ -1939,6 +2317,17 @@ let disable_signal_handler = Lazy.force
    | Processes                                                       |
    +-----------------------------------------------------------------+ *)
 
+type process_status =
+    Unix.process_status =
+  | WEXITED of int
+  | WSIGNALED of int
+  | WSTOPPED of int
+
+type wait_flag =
+    Unix.wait_flag =
+  | WNOHANG
+  | WUNTRACED
+
 let has_wait4 = not Lwt_sys.windows
 
 type resource_usage = { ru_utime : float; ru_stime : float }
@@ -1956,6 +2345,7 @@ external stub_wait4 : Unix.wait_flag list -> int -> int * Unix.process_status * 
 #endif
 
 let wait_children = Lwt_sequence.create ()
+let wait_count () = Lwt_sequence.length wait_children
 
 #if not windows
 let () =
@@ -2090,3 +2480,87 @@ let get_affinity ?pid () = raise (Lwt_sys.Not_available "get_affinity")
 let set_affinity ?pid l = raise (Lwt_sys.Not_available "set_affinity")
 
 #endif
+
+(* +-----------------------------------------------------------------+
+   | Error printing                                                  |
+   +-----------------------------------------------------------------+ *)
+
+let () =
+  Printexc.register_printer
+    (function
+       | Unix.Unix_error(error, func, arg) ->
+           let error =
+             match error with
+               | Unix.E2BIG -> "E2BIG"
+               | Unix.EACCES -> "EACCES"
+               | Unix.EAGAIN -> "EAGAIN"
+               | Unix.EBADF -> "EBADF"
+               | Unix.EBUSY -> "EBUSY"
+               | Unix.ECHILD -> "ECHILD"
+               | Unix.EDEADLK -> "EDEADLK"
+               | Unix.EDOM -> "EDOM"
+               | Unix.EEXIST -> "EEXIST"
+               | Unix.EFAULT -> "EFAULT"
+               | Unix.EFBIG -> "EFBIG"
+               | Unix.EINTR -> "EINTR"
+               | Unix.EINVAL -> "EINVAL"
+               | Unix.EIO -> "EIO"
+               | Unix.EISDIR -> "EISDIR"
+               | Unix.EMFILE -> "EMFILE"
+               | Unix.EMLINK -> "EMLINK"
+               | Unix.ENAMETOOLONG -> "ENAMETOOLONG"
+               | Unix.ENFILE -> "ENFILE"
+               | Unix.ENODEV -> "ENODEV"
+               | Unix.ENOENT -> "ENOENT"
+               | Unix.ENOEXEC -> "ENOEXEC"
+               | Unix.ENOLCK -> "ENOLCK"
+               | Unix.ENOMEM -> "ENOMEM"
+               | Unix.ENOSPC -> "ENOSPC"
+               | Unix.ENOSYS -> "ENOSYS"
+               | Unix.ENOTDIR -> "ENOTDIR"
+               | Unix.ENOTEMPTY -> "ENOTEMPTY"
+               | Unix.ENOTTY -> "ENOTTY"
+               | Unix.ENXIO -> "ENXIO"
+               | Unix.EPERM -> "EPERM"
+               | Unix.EPIPE -> "EPIPE"
+               | Unix.ERANGE -> "ERANGE"
+               | Unix.EROFS -> "EROFS"
+               | Unix.ESPIPE -> "ESPIPE"
+               | Unix.ESRCH -> "ESRCH"
+               | Unix.EXDEV -> "EXDEV"
+               | Unix.EWOULDBLOCK -> "EWOULDBLOCK"
+               | Unix.EINPROGRESS -> "EINPROGRESS"
+               | Unix.EALREADY -> "EALREADY"
+               | Unix.ENOTSOCK -> "ENOTSOCK"
+               | Unix.EDESTADDRREQ -> "EDESTADDRREQ"
+               | Unix.EMSGSIZE -> "EMSGSIZE"
+               | Unix.EPROTOTYPE -> "EPROTOTYPE"
+               | Unix.ENOPROTOOPT -> "ENOPROTOOPT"
+               | Unix.EPROTONOSUPPORT -> "EPROTONOSUPPORT"
+               | Unix.ESOCKTNOSUPPORT -> "ESOCKTNOSUPPORT"
+               | Unix.EOPNOTSUPP -> "EOPNOTSUPP"
+               | Unix.EPFNOSUPPORT -> "EPFNOSUPPORT"
+               | Unix.EAFNOSUPPORT -> "EAFNOSUPPORT"
+               | Unix.EADDRINUSE -> "EADDRINUSE"
+               | Unix.EADDRNOTAVAIL -> "EADDRNOTAVAIL"
+               | Unix.ENETDOWN -> "ENETDOWN"
+               | Unix.ENETUNREACH -> "ENETUNREACH"
+               | Unix.ENETRESET -> "ENETRESET"
+               | Unix.ECONNABORTED -> "ECONNABORTED"
+               | Unix.ECONNRESET -> "ECONNRESET"
+               | Unix.ENOBUFS -> "ENOBUFS"
+               | Unix.EISCONN -> "EISCONN"
+               | Unix.ENOTCONN -> "ENOTCONN"
+               | Unix.ESHUTDOWN -> "ESHUTDOWN"
+               | Unix.ETOOMANYREFS -> "ETOOMANYREFS"
+               | Unix.ETIMEDOUT -> "ETIMEDOUT"
+               | Unix.ECONNREFUSED -> "ECONNREFUSED"
+               | Unix.EHOSTDOWN -> "EHOSTDOWN"
+               | Unix.EHOSTUNREACH -> "EHOSTUNREACH"
+               | Unix.ELOOP -> "ELOOP"
+               | Unix.EOVERFLOW -> "EOVERFLOW"
+               | Unix.EUNKNOWNERR n -> Printf.sprintf "EUNKNOWNERR %d" n
+           in
+           Some(Printf.sprintf "Unix.Unix_error(Unix.%s, %S, %S)" error func arg)
+       | _ ->
+           None)
