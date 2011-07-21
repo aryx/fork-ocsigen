@@ -6,3 +6,6 @@
 ~$
 ^doc/*.html$
 ^docdiv(/|$)
+^.svn(/|$)
+\.pyc$
+^Makefile.local$

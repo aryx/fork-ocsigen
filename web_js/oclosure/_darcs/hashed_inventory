@@ -1,4 +1,4 @@
-pristine:0000001142-03b4f30741dfba5a871b134385a84e0f7a88b661ea766a46025b012cb2506af9
+pristine:0000001187-777fd3e3dcf86e6fae86153043ca563fead281228698024577c8ce2fbd8180e1
 [Tailorization
 tailor@macbook-de-gabriel.local**20100410203959
  Ignore-this: 16dea6e9ea3606bd480aa95ed0f0f905
@@ -914,3 +914,68 @@ gcardoso.w@gmail.com**20110216094752
  Ignore-this: 4b3541453a7dcf60c651285e6bae92d0
 ] 
 hash: 0000002031-6a1e295ee34a7b65d7f4bcdaf0359542a8bc607bdbdbfbda9792abe4539bb200
+[Doc: adapt to new website layout
+gregoire.henry@pps.jussieu.fr**20110304174255
+ Ignore-this: 1bfb0f153e55a4c523000c1ca3829f26
+] 
+hash: 0000008510-78855c8c3880dde07edfb9d4d879e03f279f3bea983e22aab6ed4c767f2084dc
+[Fix link in doc
+gregoire.henry@pps.jussieu.fr**20110422094701
+ Ignore-this: 515255f9a4f3ecff6c1412eef409c290
+] 
+hash: 0000000310-3e8d402fcaf32db854ed965ce2e07a8f8fe17e87b4d5599a066eb29fe6a804f1
+[Update doc menu
+gregoire.henry@pps.jussieu.fr**20110422095411
+ Ignore-this: c03d2e12fe8da2d4848eafc6fa0a085c
+] 
+hash: 0000000372-6caa089f290fd4489e98fb76360c633613c45407c8258936706a924a315f81c2
+[Fix logo displaying in doc.
+gregoire.henry@pps.jussieu.fr**20110422102622
+ Ignore-this: 73ca3c8ae7e9881ef692cbf37c5bc661
+] 
+hash: 0000000658-41c5ce85536eae1e975e76c74b095d7780c3035bbd1a20ed166836ae74b09954
+[Generic listener
+Samuel.Hym@gmail.com**20101010164937
+ Ignore-this: ab8a5e40a43f0f6c9ccaf2475f2ec810
+ 
+ Modification of the type of the callback of an event so that the event
+ value can be investigated.
+] 
+hash: 0000000321-e17b790b7f6bdbc3bd81b37348df86eacbc750388e1acca14531388ce8cc292a
+[Missing callback in type in EventTarget
+Samuel.Hym@gmail.com**20110207171859
+ Ignore-this: a210669ca7ef598f3290509c9adc9f80
+] 
+hash: 0000000583-d9960caac0b71fcdece20445229ff552d059b43fcc710d9ede6a23e669cded13
+[fix type of Goog.Positioning.AbsolutePosition.absolutePosition
+chambart@crans.org**20110630075942
+ Ignore-this: f99ebe2716ea63821ef99946c5f97598
+] 
+hash: 0000000659-e03eb1b566144e0920be46e9ed8868bf17788d56f0b84771f29ee78d95d1195c
+[Makefile: do not build examples by default
+gregoire.henry@pps.jussieu.fr**20110630093417
+ Ignore-this: 3c4931b7310f1988b30c9e56f4daa5df
+] 
+hash: 0000099665-4d81801ff3f24e1ba8c164f399c08a138becb73b81c3d589380cb61ff969ce1f
+[Import google-closure (svn1074)
+gregoire.henry@pps.jussieu.fr**20110630093919
+ Ignore-this: 40547a1384075c9aa4a14fe7b4e45629
+] 
+hash: 0015593999-1b01c2da487f6bb3b18c2b6e7321a68d92bf947ddd9d775ac2bc807897f5c6d1
+[Removed unused files
+gregoire.henry@pps.jussieu.fr**20110630104855
+ Ignore-this: f3095fa0a37485c7237ba1d81eb1d8f3
+] 
+hash: 0002775759-d0539a70da40226ab545eacb2fc00f6c978a912f1998e196a1b6ec3b410a7c41
+[Use google dependencies calculator to minimize the time needed to load the library
+gregoire.henry@pps.jussieu.fr**20110630160323
+ Ignore-this: 244d5b99a5487b166c9d22c15fb55f
+ 
+ See: http://code.google.com/closure/library/docs/closurebuilder.html
+] 
+hash: 0000093009-5c601fc8260d67bb93ad958b70d7ea73be3c985038954b86fc2f8df843677ffc
+[Makefile: allow Makefile.local
+gregoire.henry@pps.jussieu.fr**20110701171421
+ Ignore-this: 24e4b482588b0ed83376aeab6d2aa8fc
+] 
+hash: 0000000288-e965bff1b1bbae76b06f887643431868519f0fd9c8b57c4756ee87e6164df01c
