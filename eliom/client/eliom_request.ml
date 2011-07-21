@@ -110,7 +110,7 @@ let send ?cookies_info ?get_args ?post_args url =
         (Ocsigen_lib.encode_form_value cookies))::
           post_args)
     in
-    XmlHttpRequest.send_string ?get_args ~post_args url >>= fun r ->
+    XmlHttpRequest.perform_raw_url ?get_args ~post_args url >>= fun r ->
     if r.XmlHttpRequest.code = 204
     then
       match r.XmlHttpRequest.headers Eliom_common.full_xhr_redir_header with

@@ -23,7 +23,7 @@ PROGS=server/ocsigen
 # commons external, web_css web_js, database, files ocsimore ocsimoron
 # demos docs 
 
-DIRS=lib web_html http server extensions eliom tests
+DIRS=lib web_html http server extensions eliom #tests
 MAKESUBDIRS=$(DIRS)
 
 ELIOMTESTSCMOA= tests/eliom_testsuite.cma tests/monitoring.cmo	\

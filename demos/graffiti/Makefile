@@ -38,7 +38,7 @@ client.js: $(SRC_CLIENT:.ml=.cmo)
 	ocamlfind ocamlc $(LIBS_CLIENT) -linkpkg $^ -o client
 	js_of_ocaml -pretty . $(ELIOMJS) client -o $@
 	js_of_ocaml -pretty /tmp/static $(ELIOMJS) client -o /tmp/static/client.js
-	ocaml str.cma $(REQUIREMENTSML) /tmp/static/client.js
+	oclosure_req /tmp/static/client.js
 
 clean::
 	rm -f client client.js
