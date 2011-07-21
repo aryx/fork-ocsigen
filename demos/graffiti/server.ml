@@ -10,8 +10,10 @@ module App = Eliom_output.Eliom_appl (struct
       H.link ~rel:[`Stylesheet] ~href:(H.uri_of_string "css/common.css")  ();
       H.link ~rel:[`Stylesheet] ~href:(H.uri_of_string "css/hsvpalette.css")();
       H.link ~rel:[`Stylesheet] ~href:(H.uri_of_string "css/slider.css") ();
-     (*"http://closure-library.googlecode.com/svn/trunk/closure/goog/base.js"*)
-      H.script ~a:[H.a_src (H.uri_of_string "js/goog/base.js")] (H.pcdata "");
+      H.script ~a:[H.a_src (H.uri_of_string 
+"http://closure-library.googlecode.com/svn/trunk/closure/goog/base.js"
+(*"js/goog/base.js" *)
+  )] (H.pcdata "");
 
       H.script ~a:[H.a_src (H.uri_of_string "client_req.js")] (H.pcdata "");
     ];
