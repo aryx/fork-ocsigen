@@ -1,0 +1,51 @@
+ -p _build/server
+ocamlfind ocamlc \
+	     -syntax camlp4o \
+	     -package ocsigen.ext.eliom -I _build/server -package ocsigen.deriving.syntax -package cairo \
+	     -thread -o _build/server/shared.cmo -c shared.ml
+ocamlfind ocamlc \
+	     -syntax camlp4o \
+	     -package ocsigen.ext.eliom -I _build/server -package ocsigen.deriving.syntax -package cairo \
+	     -thread -o _build/server/server.cmo -c server.ml
+mkdir -p _build
+ocamlfind ocamlc \
+	    -syntax camlp4o -ppopt -impl \
+	    -thread -package ocsigen.ext.eliom,ocsigen.ext.eliom.syntax.type -I _build/server -package ocsigen.deriving.syntax -package cairo -i -impl graffiti.eliom > _build/graffiti.type.mli
+ocamlfind ocamlc \
+	    -package ocsigen.ext.eliom.syntax.server -package ocsigen.ext.eliom -I _build/server -package ocsigen.deriving.syntax -package cairo \
+	    -syntax camlp4o \
+	    -ppopt -type -ppopt _build/graffiti.type.mli -ppopt -impl \
+	    -thread -o _build/server/graffiti.cmo -c -impl graffiti.eliom
+ocamlfind ocamlc -a -o graffiti.cma -thread -I _build/server -package ocsigen.ext.eliom.syntax.server -package ocsigen.ext.eliom -I _build/server -package ocsigen.deriving.syntax -package cairo _build/server/shared.cmo _build/server/server.cmo _build/server/graffiti.cmo
+ocamlfind ocamlopt \
+	     -syntax camlp4o \
+	     -package ocsigen.ext.eliom -I _build/server -package ocsigen.deriving.syntax -package cairo \
+	     -thread -o _build/server/shared.cmx -c shared.ml
+ocamlfind ocamlopt \
+	     -syntax camlp4o \
+	     -package ocsigen.ext.eliom -I _build/server -package ocsigen.deriving.syntax -package cairo \
+	     -thread -o _build/server/server.cmx -c server.ml
+ocamlfind ocamlopt \
+	    -package ocsigen.ext.eliom.syntax.server -package ocsigen.ext.eliom -I _build/server -package ocsigen.deriving.syntax -package cairo \
+	    -syntax camlp4o \
+	    -ppopt -type -ppopt _build/graffiti.type.mli -ppopt -impl \
+	    -thread -o _build/server/graffiti.cmx -c -impl graffiti.eliom
+ocamlfind ocamlopt -a -o graffiti.cmxa -thread -I _build/server -package ocsigen.ext.eliom.syntax.server -package ocsigen.ext.eliom -I _build/server -package ocsigen.deriving.syntax -package cairo _build/server/shared.cmx _build/server/server.cmx _build/server/graffiti.cmx
+ocamlfind ocamlopt -linkall -shared -thread -o graffiti.cmxs graffiti.cmxa
+mkdir -p _build/client
+ocamlfind ocamlc \
+	     -syntax camlp4o \
+	     -package ocsigen.ext.eliom_client -I _build/client -package ocsigen.deriving.syntax -package oclosure -package js_of_ocaml.syntax \
+	     -o _build/client/shared.cmo -c shared.ml
+ocamlfind ocamlc \
+	     -syntax camlp4o \
+	     -package ocsigen.ext.eliom_client -I _build/client -package ocsigen.deriving.syntax -package oclosure -package js_of_ocaml.syntax \
+	     -o _build/client/client.cmo -c client.ml
+ocamlfind ocamlc \
+	    -package ocsigen.ext.eliom_client.syntax -package ocsigen.ext.eliom_client -I _build/client -package ocsigen.deriving.syntax -package oclosure -package js_of_ocaml.syntax \
+	    -syntax camlp4o \
+	    -ppopt -type -ppopt _build/graffiti.type.mli -ppopt -impl \
+	    -o _build/client/graffiti.cmo -c -impl graffiti.eliom
+ocamlfind ocamlc -package ocsigen.ext.eliom_client.syntax -package ocsigen.ext.eliom_client -I _build/client -package ocsigen.deriving.syntax -package oclosure -package js_of_ocaml.syntax -linkpkg _build/client/shared.cmo _build/client/client.cmo _build/client/graffiti.cmo -o _build/client/graffiti
+js_of_ocaml -pretty /tmp/static /home/pad/packages/Linux/stow/ocaml-3.12/lib/ocaml/site-lib/ocsigen/client/eliom_client.js _build/client/graffiti -o /tmp/static/graffiti.js
+ocaml str.cma /home/pad/packages/Linux/stow/ocaml-3.12/lib/ocaml/site-lib/oclosure/requirements.ml /tmp/static/graffiti.js

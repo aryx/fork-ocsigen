@@ -228,3 +228,10 @@ note that some of the ocsigen components use ocamlbuild, some use plain
 Makefile. Some use ocamlfind, some don't ...
 
 see also web-development.org#ocsigen
+
+--------------------------------------------
+Last
+--------------------------------------------
+
+'make deriving' in case of pbs
+
