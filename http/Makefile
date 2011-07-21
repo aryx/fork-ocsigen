@@ -7,7 +7,7 @@ FLAGS    =
 CAMLCOPT = $(OCAMLFIND) $(CAMLOPTNAME) $(DBG)
 CAMLDEP  = $(OCAMLFIND) ocamldep $(LIBDIRS)
 NAME 	 = test_pp
-LIB= -package netstring,ssl,lwt $(LIBDIRS) -I +camlp4
+LIB= -package netstring,ssl,lwt,tyxml $(LIBDIRS) -I +camlp4
 PP =
 # -pp "camlp4o ../lib/xhtmlsyntax.cma -- -loc loc" 
 ALL_CMO = multipart.cmo http_headers.cmo ocsigen_cookies.cmo		\

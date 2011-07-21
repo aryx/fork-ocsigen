@@ -1,0 +1,75 @@
+INTF := lib/uri.cmi \
+        \
+        lib/XML_sigs.cmi \
+        lib/XML_print.cmi \
+        lib/XML_iter.cmi \
+        lib/XML.cmi \
+	\
+        lib/XHTML_types.cmi \
+        lib/XHTML_sigs.cmi \
+        lib/XHTML_f.cmi \
+	\
+        lib/SVG_types.cmi \
+        lib/SVG_sigs.cmi \
+	lib/SVG_f.cmi \
+	\
+        lib/HTML5_types.cmi \
+        lib/HTML5_sigs.cmi \
+        lib/HTML5_f.cmi \
+	\
+        lib/XHTML.cmi \
+        lib/SVG.cmi \
+        lib/HTML5.cmi \
+	\
+        syntax/pa_tyxml.cmi \
+        syntax/simplexmlparser.cmi \
+
+IMPL := lib/${LIBNAME}_f.cma \
+        lib/${LIBNAME}.cma \
+        syntax/pa_${LIBNAME}.cmo \
+        syntax/xmllexer.cmo \
+        syntax/simplexmlparser.cmo \
+
+NATIMPL := lib/${LIBNAME}.cmxa \
+           lib/${LIBNAME}_f.cmxa \
+           syntax/xmllexer.cmx \
+      	   syntax/simplexmlparser.cmx \
+
+NATIMPL += $(patsubst %.cmxa,%.a,$(filter %.cmxa,${NATIMPL})) \
+           $(patsubst %.cmx,%.o,$(filter %.cmx,${NATIMPL}))   \
+
+ifeq "${NATDYNLINK}" "YES"
+NATIMPL += $(patsubst %.cmxa,%.cmxs,$(filter %.cmxa,${NATIMPL})) \
+           $(patsubst %.cmx,%.cmxs,$(filter %.cmx,${NATIMPL}))
+endif
+
+NOMLI :=
+
+DOC := $(filter-out ${NOMLI}, ${INTF:.cmi=.mli}) ${NOMLI:.mli=.ml}
+
+##
+
+DUCE_INTF := lib/XML_sigs_duce.cmi    \
+             lib/XML_print_duce.cmi   \
+             lib/XHTML_types_duce.cmi \
+             lib/XHTML_duce.cmi       \
+
+DUCE_IMPL    := lib/${LIBNAME}_duce.cma
+DUCE_NATIMPL := lib/${LIBNAME}_duce.cmxa lib/${LIBNAME}_duce.a
+
+ifeq "${NATDYNLINK}" "YES"
+DUCE_NATIMPL += lib/${LIBNAME}_duce.cmxs
+endif
+
+DUCE_NOMLI :=
+
+DUCE_DOC := $(filter-out ${DUCE_NOMLI}, ${DUCE_INTF:.cmi=.mli}) ${DUCE_NOMLI:.mli=.ml}
+
+ifeq "${OCAMLDUCE}" "YES"
+INTF    += ${DUCE_INTF}
+IMPL    += ${DUCE_IMPL}
+NATIMPL += ${DUCE_NATIMPL}
+DOC     += ${DUCE_DOC}
+endif
+
+MLI_TO_INSTALL := $(foreach X,$(INTF:.cmi=.ml),$(if $(wildcard $(X)i),$(X)i,$(X)))

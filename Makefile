@@ -20,10 +20,10 @@ PROGS=server/ocsigen
 #------------------------------------------------------------------------------
 
 #pad: other dirs: 
-# commons external, web_css web_js, database, files ocsimore ocsimoron
+# commons external, web_css web_js web_html, database, files ocsimore ocsimoron
 # demos docs 
 
-DIRS=lib web_html http server extensions eliom #tests
+DIRS=lib http server extensions     eliom #tests
 MAKESUBDIRS=$(DIRS)
 
 ELIOMTESTSCMOA= tests/eliom_testsuite.cma tests/monitoring.cmo	\
@@ -63,11 +63,9 @@ all: $(BYTE) $(OPT) $(OCSIGENNAME).conf.local $(METAS)
 
 byte: 
 #	$(MAKE) deriving
-	$(MAKE) web_htmlpre.byte
 	$(MAKE) rec 
 
 opt: 
-	$(MAKE) web_htmlpre.opt
 	$(MAKE) rec.opt 
 
 rec:
@@ -76,12 +74,6 @@ rec:
 rec.opt:
 	set -e; for i in $(MAKESUBDIRS); do $(MAKE) -C $$i opt || exit 1; done 
 
-
-web_htmlpre.byte:
-	$(MAKE) -C web_html web_htmlpre.byte
-
-web_htmlpre.opt:
-	$(MAKE) -C web_html web_htmlpre.opt
 
 deriving:
 	cd external/ocamlderiving && $(MAKE) all
@@ -218,6 +210,7 @@ clean:
 	find . -name "*~" -delete
 	make -C external clean
 	make -C web_js clean
+	make -C web_html clean
 
 depend: deriving
 	$(MAKE) -C web_html depend

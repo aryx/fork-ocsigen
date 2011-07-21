@@ -1,34 +1,4 @@
-include ../Makefile.config
+MAKESUBDIRS= tyxml
 
-MAKEDIRS=xhtml syntax xml-pretty
-
-byte:
-	$(MAKE) -C xhtml byte
-	$(MAKE) -C syntax byte
-	$(MAKE) -C xml-pretty byte
-
-opt: 
-	$(MAKE) -C xhtml opt
-	$(MAKE) -C syntax opt
-	$(MAKE) -C xml-pretty opt
-
-clean: 
-	rm -f *cm* *.o *.a
-	$(MAKE) -C xhtml clean
-	$(MAKE) -C syntax clean
-	$(MAKE) -C xml-pretty clean
-
-depend: 
-	$(MAKE) -C xhtml depend
-	$(MAKE) -C syntax depend
-	$(MAKE) -C xml-pretty depend
-
-
-web_htmlpre.byte:
-	$(MAKE) -C xhtml byte
-	$(MAKE) -C syntax byte
-	$(MAKE) -C syntax predep
-web_htmlpre.opt: 
-	$(MAKE) -C xhtml byte
-	$(MAKE) -C syntax byte
-	$(MAKE) -C syntax predep
+clean:
+	set -e; for i in $(MAKESUBDIRS); do $(MAKE) -C $$i clean || exit 1; done
