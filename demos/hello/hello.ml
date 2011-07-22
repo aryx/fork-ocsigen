@@ -1,3 +1,8 @@
+(* this open is done by eliomc, but if you want to compile without eliomc,
+ * then you need this. Otherwise you'll get a type error. Ugly ...
+ *)
+open Eliom_pervasives
+
 (* from the eliom tutorial *)
 let coucou =
   Eliom_output.Html5.register_service

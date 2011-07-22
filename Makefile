@@ -31,3 +31,6 @@ DARCSREPOS=\
 
 update_darcs:
 	set -e; for i in $(DARCSREPOS); do pushd .; cd $$i; darcs pull; popd; done 
+
+visual:
+	~/pfff/codemap.opt -ocaml_filter .
