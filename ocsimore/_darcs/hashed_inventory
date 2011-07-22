@@ -1,0 +1,2086 @@
+pristine:0000001365-5664220b0ec5c9f4cea8770cb1ec844783b430132211aa308187531a1fd85834
+Starting with inventory:
+0000022956-b47bbe81d6fb849c4bd0fb8fd27389dc8dee26b62fa3e3e9ececfd6853861e80
+[TAG 0.5
+balat at pps.jussieu.fr**20090320152605
+ Ignore-this: 2f1536fcc89318d9cfaaf8cc4099384d
+] 
+hash: 0000012133-cf35cd2062beaf67163500494386438f32ddaa1d00d12f7edaf58e97890f651e
+[Utf-8 in wikiname
+boris@yakobowski.org**20090320160036] 
+hash: 0000000261-e062fbf25964b351b47b97a6e8ec086a506d3d1dc2a1154c5a3145c86fedff5b
+[-dtypes in announce Makefile
+boris@yakobowski.org**20090320162543] 
+hash: 0000000154-ddf0f4900c64e71451e7fd6c019b5e80f7a375c8e0937f34f2496d22a354731e
+[Missing xmlns
+boris@yakobowski.org**20090320162553] 
+hash: 0000001170-ceb10b6d230e297da4063bafb4f4f6ae6214dbb6373a24e4f0e62393f52bd660
+[Name change in PGOCaml interface
+boris@yakobowski.org**20090323105802] 
+hash: 0000000249-e35fc0c8e71e8b44dceb4a9dd050d13cddd5d14c9126e504d83c1e8984abe895
+[Comments in wiki.ml
+boris@yakobowski.org**20090323124243] 
+hash: 0000001063-a7d42fc9cdcbc7ec13f73331b723c7ec0c525d425033d0a4c957856e471d4324
+[Checks for parallel wikiboxes updates
+boris@yakobowski.org**20090323141532] 
+hash: 0000004162-7eb36b5697ebf82d92c4313f3bd82b14399a7d7c2c45d2e2f70a8f473f68d3ca
+[Switching GUIDELINES to Ocsimore syntax
+balat at pps.jussieu.fr**20090323161314
+ Ignore-this: a61d63943b6ba2cdf82d428cdcf33891
+ for inclusion on the Web site
+ and small changes in Makefile, Changes
+] 
+hash: 0000005357-f0c7931de31e91af3f3f4d42168af41965434ff3c462bfbb31edcb3cf43c3f7f
+[Major code cleanup in Wiki_widgets.ml
+boris@yakobowski.org**20090323172930] 
+hash: 0000039584-b7668c7f90c4b0084639dfeed75381f9a7297b893562132d3914a9913e4d160a
+[Moving forum in another directory
+balat at pps.jussieu.fr**20090323175113
+ Ignore-this: 3800afa5e4fdf8f600bd4927c27245df
+] 
+hash: 0000000960-5864272bdda64855a726e23e26143b20e22ccbeee92136f250b4a53c53511022
+[New try for switching to ocamlbuild (does not work well for now)
+balat at pps.jussieu.fr**20090326143918
+ Ignore-this: fd37582196f9342215beeb09235eeec0
+] 
+hash: 0000005683-69320bc091298e5b519b1112ece650c08283c519460d49ad0b287f17f2722502
+[making update-db executable in configure script
+balat at pps.jussieu.fr**20090326145209
+ Ignore-this: 223abdeb00cf144094a823c01e75af31
+] 
+hash: 0000000271-01476bfeb5db16b9cc2f68a7f90c54570cdbd16c41ab5d5ff2cf270d69720fab
+[Removing USERGUIDE -> Web site
+balat at pps.jussieu.fr**20090327154301
+ Ignore-this: 465db1e8830d9b8abd5f8c0cf03ab170
+] 
+hash: 0000005523-5403fd7d4339d00a86eef42a1dab78914b6e35ad1f98634a3e778ace2408e385
+[Forum: new version of forum.ml forum_sql.ml and forum_createdb.sql
+balat at pps.jussieu.fr**20090327185944
+ Ignore-this: 4b83ba21e7485ae21891c4c907aef4c6
+ no widgets implemented for now
+] 
+hash: 0000047309-00eee79f7e9b7769a87672e31deb9c13f529e135aafeb713a92e5305a324a2b0
+[(small patch) Wiki: displaying full names in history
+balat at pps.jussieu.fr**20090328152843
+ Ignore-this: 6e29463b99a60ce8ea2d54b084dc0a19
+] 
+hash: 0000000693-aecbd7fa772cb94bbf4cffcb9805c7cd1122bca61a8f4be0628bed4fb86fdbca
+[(small patch) updating guidelines
+balat at pps.jussieu.fr**20090328153014
+ Ignore-this: 2d3aab9672b0f1108e766da867437791
+] 
+hash: 0000000927-ae9c90a47147b522e818fcf3f7d78e08c090d14f93069d9f86aecb32e0008c07
+[(small patch) adding missing function in users interface
+balat at pps.jussieu.fr**20090328153157
+ Ignore-this: 5b7e19ae8429f18d015de2e9ec6ee4f1
+] 
+hash: 0000000219-75c34cc3123a7ec71bd04e1db5506151cf4370b66e71bd4e84425c4c03cf39a0
+[Forum: first widget <<forum_message>>
+balat at pps.jussieu.fr**20090328164907
+ Ignore-this: 457eac61994ab95dc3a013f983e7c0ea
+] 
+hash: 0000012404-3b94fa582ba377e4a04d91b26a5230d0f101643867bb1c1c8b0e5b2cdeb3d0f5
+[Forum: new widget <<forum_thread>>
+balat at pps.jussieu.fr**20090330132118
+ Ignore-this: 12f207e3af02d6987587e441824f95b9
+] 
+hash: 0000005761-2c658e15fa48f598ccf4b8587c708c85f44811906ef1e0a6530d6df64413c194
+[Forum: new module forum_data for checking permissions
+balat at pps.jussieu.fr**20090330170905
+ Ignore-this: 6b6ebf76817c91189db0549c9d35d0ef
+] 
+hash: 0000033586-077b342ca480a54c784fb6014250cb7854fe6df86918ad23f752ede980109073
+[(small patch) adding default error message for exn Ocsimore_common.Permission_denied
+balat at pps.jussieu.fr**20090331093419
+ Ignore-this: c6bbc4b6b7564e8fa177c9e05c02e0b9
+] 
+hash: 0000000357-50ee144d721647169b6facbf7ad65b425b0a5786d57420cbb767652dcfb3fbdc
+[Forum: removing old code
+balat at pps.jussieu.fr**20090331093728
+ Ignore-this: 96533cc4d41fe541439f9ab3956e43c9
+] 
+hash: 0000062123-06801b41a31f278259bcedb7ad61dae53c2492a81f687a75ba2321f9759fe72a
+[Forum: adding groups deletor_if_author
+balat at pps.jussieu.fr**20090401171846
+ Ignore-this: 9ffa738c1395b7fda87e2e8170c2f8ac
+] 
+hash: 0000004514-66a89af705f1f6d17a0f4beb9901742eeeb2e3e1289c63fd7e22d5a90e833aef
+[Forum: adding service "add_message"
+balat at pps.jussieu.fr**20090401172541
+ Ignore-this: e59377ce9b78cc2877d5d01a3c746111
+] 
+hash: 0000003726-cead9c449e2fea22240e837725c6bb561e41edcedc45af9273bc09c37a70149f
+[Forum: adding fake comment link
+balat at pps.jussieu.fr**20090403124754
+ Ignore-this: fecbb93b6987355c3b486875c88a6dcb
+] 
+hash: 0000004168-7976ff1206ef470f4fdb05ea3e957d8fc7a77000d3e38ae4e2a435ba2b8853a5
+[Forum: making Forum.role lazy
+balat at pps.jussieu.fr**20090403125802
+ Ignore-this: ab8563bb3f5ff921cde7aeb928770d7c
+] 
+hash: 0000015246-bfc07a8021aad14f5b4d09550c436b345eb2fea13bfe6313860fa793c5598cbc
+[Forum: adding comment forms
+balat at pps.jussieu.fr**20090403155927
+ Ignore-this: 2be12770884462551d831fb36f6c0572
+] 
+hash: 0000009181-2ece000f6f6a5dd0f19cdb0eab7a074fdb17287c143b6ae06d63c699d99c60fc
+[Outdated comment on get_wikibox_data
+boris@yakobowski.org**20090325143523] 
+hash: 0000000373-98021807226086d9c58e4d47a93790abde97f53c6015e0beed2ae9c4efa91fe4
+[Update on css for wikipages
+boris@yakobowski.org**20090327132908] 
+hash: 0000054419-a7131e69b9590bb05def0658491c58a93d9a0d85044aa22cba119802e10f6042
+[Removed outdated and unused services.ml
+boris@yakobowski.org**20090401093324] 
+hash: 0000002459-ba31fba598fecd7365da9f6174c2611242457b54ef2643a869372f6d802c0ef0
+[Major cleanup of wiki; added wiki_{widgets_interface,services}
+boris@yakobowski.org**20090401094128] 
+hash: 0000099815-f761bf4bd1fb3b33e5758dacb7acdd417ecd4d3dfa55bfb47a2deb8291a0e0ee
+[Moved box_info into wiki_widgets_interface
+boris@yakobowski.org**20090401115800] 
+hash: 0000015515-b40d2e1b78e6964d55378e65a42fb4f88b4b9831ebbd15f85eeaf7c60d540a49
+[Moved find_serv* from Wiki_syntax to Wiki_services
+boris@yakobowski.org**20090401121608] 
+hash: 0000007623-45b0611784b29ebac8bf23d56844430aa0753f3cf1ef6007ac1b76d21a48e834
+[Reorganization of wiki, next step (some bugs, renaming of some types)
+boris@yakobowski.org**20090401132614] 
+hash: 0000029146-200b0885df46c12c17bb39b5e8be3b3994bb00fc7fdd2ac4e6f56b345c559b40
+[Useless debug code
+boris@yakobowski.org**20090401132715] 
+hash: 0000000248-b3d468c3da7177fdbd150d4ae3a2a0877f4bb3a1660be504597857bd11ce7cd0
+[Small code cleanup
+boris@yakobowski.org**20090401134039] 
+hash: 0000000880-7bd257eb292154dccf8cea596892c60a3d77ee1f64f0a2708ba5568ca02a1e16
+[White space
+boris@yakobowski.org**20090402094225] 
+hash: 0000001406-34106e6caf6ce4e1a162a1b25620e59ee443f1f867323c45e1f3cb7c760b8793
+[Default css for wikis; better templating mechanism
+boris@yakobowski.org**20090402094251] 
+hash: 0000008689-42bf5f11fa4770ff24cb0bcd06d279cef92c622fed6f95fa51df47d1c6b6a278
+[Language plpgsql
+boris@yakobowski.org**20090402131535] 
+hash: 0000000225-0065a5a82202bb6c707dfd670da1bad832e4c354132db3a88e07a3c5050ac1fb
+[Sql typo
+boris@yakobowski.org**20090402131546] 
+hash: 0000000521-4b8e2da48ee47e3501183bbe6d8aa5d0a1713b113082832e30bfc69bd6f5be8f
+[Better gestion of the creation of wikis
+boris@yakobowski.org**20090402131756] 
+hash: 0000021654-f8d1306b3c9e11dec690bc05bd20599de500adff8e4ba715ebfc476a15903aaf
+[Moved display_page in wiki_widgets; signature change for new_wikibox
+boris@yakobowski.org**20090402142519] 
+hash: 0000021001-be76fb1e94a67f3304f757f0e685627744a2c1d5511df2ee2ecee0a4293a6813
+[Better defaults in new wikipages
+boris@yakobowski.org**20090402151226] 
+hash: 0000000466-839287c37035da6410a5a848be906686cf12fbde9b261eb9aafb433bb2059d0d
+[Removed stripping of dotdot
+boris@yakobowski.org**20090402151243] 
+hash: 0000001114-c7b8bdd4a2ce4fcc9c25a2d96ca64e9da33085f1e9e62506319e6da10b7e49ba
+[Formatting
+boris@yakobowski.org**20090402151257] 
+hash: 0000000523-573ed4430c98e6619c950a46abdb3d458822099258937d4b00b801a6191db990
+[No more forum-related tables
+boris@yakobowski.org**20090408092904] 
+hash: 0000000281-def495657f65eea4bd54a3a02047055a5e808fe3b09203167f8eb40eaf9c13ed
+[Staticdir for admin wiki
+boris@yakobowski.org**20090408112139] 
+hash: 0000004687-a77ff573e9d776242d8636c1f1eca940a67a00e5a9c0b5c094cc074ea32fcd55
+[Remove bi_page field
+boris@yakobowski.org**20090408112217] 
+hash: 0000001221-824588d507110bf1bb9b59a7f3e33ef1fa6aa95b66aee79677148e681c4c58b6
+[Better autoconfiguration of the fields for the adminwiki
+boris@yakobowski.org**20090409085203] 
+hash: 0000002700-87a802a63394bdbd9e6e3c0e4a9a4925a83dc6b3e13bc0a4b99af56698fb26f0
+[Versioning of wiki css
+boris@yakobowski.org**20090409093259] 
+hash: 0000010296-c8b339afd4425114a85d1034a83f908cc703f519b776585b16b19eb655d55fca
+[Better iterator on wikis
+boris@yakobowski.org**20090409094220] 
+hash: 0000001280-4f48410a500f12b902623f94048c1b93826d93cf39a83aa49a2d21d8141bc0b0
+[Check that no two wikis are registered at the same path
+boris@yakobowski.org**20090409122158] 
+hash: 0000000770-23a0f5587a455fc20469c0a0e50eaea18210b4a65791aa5d5929e1a5277261b3
+[Improved registering of wikis
+boris@yakobowski.org**20090409124734] 
+hash: 0000007081-88a8e7c448a94876ea9102fe0cee63a3f3a8e37a67771e523c9949f22a1454a8
+[Copyright headers
+boris@yakobowski.org**20090409133639] 
+hash: 0000001724-585ad0ef98801eb7ea6ab2e719f02059955d71b7d6f1a3e5578b3c1f1fbd4374
+[Decoupling between send_page and display_page
+boris@yakobowski.org**20090409152745] 
+hash: 0000010156-26f724fff96a6c805bc449679a819f718d572baf226e462fe5325faa0bbeb8df
+[Correct registering of wikiperso
+boris@yakobowski.org**20090409162642] 
+hash: 0000000537-9f2fc231ecf4d5893e65d3f89838cf4bb0e66e58521fa9e6f4c0335b23acd8f0
+[Display of wikitext or css or deleted
+boris@yakobowski.org**20090413131739] 
+hash: 0000015209-26017b2a7f54d3793c33013fddc7f46baaad338844f36ca872d9856aecfa5eda
+[Bug in recording css
+boris@yakobowski.org**20090413171055] 
+hash: 0000001208-b091cf39a04b8486b26accb30550b5431ffd156132072b0825c51682f2dee3cf
+[Useless exception handler
+boris@yakobowski.org**20090413171127] 
+hash: 0000000767-c5046d9d43f71dff1c01d7ddfddd47196bbe2189144274258f8e21ad9de829fc
+[Forum: taking into account non arborescent forums
+balat at pps.jussieu.fr**20090403165012
+ Ignore-this: ab34232464f6e0b098d0a9c6b8806d64
+] 
+hash: 0000004289-01287f53bd1314a3e61a150f9b5bbf1f3a693ffec0bb5df2e9e5535c9a66b1e4
+[Forum: implementing "deleted" forums
+balat at pps.jussieu.fr**20090406135001
+ Ignore-this: 4c30e7ff491338d686dce1cf19972879
+] 
+hash: 0000009129-9397a2eb62b08b8421604fef580e1410b553e947fd8637a87a832f92d5dfb7a6
+[(small patch) using calendarLib.cma instead of calendarLib.cmo
+balat at pps.jussieu.fr**20090411143857
+ Ignore-this: c006746f32e8cdd883e02d224166e99
+] 
+hash: 0000000569-99111f834f95effce7a5098139fe3ff78703348d0998a8dc617cba4a5dfcc145
+[Using ocamlbuild by default
+balat at pps.jussieu.fr**20090413134945
+ Ignore-this: 916299a10dd06846a743b4c096235cc3
+ Use make -c Makefile.old to use old Makefile
+ TODO: nis_chkpwd with ocamlbuild
+] 
+hash: 0000000308-31badb8b92af20db139b7890d66144ddb4dcd1e13065438edf4130cc846e407c
+[Compiling forum by default
+balat at pps.jussieu.fr**20090413145506
+ Ignore-this: 3bf23885b1fab1af0c8ff1676dd26c9a
+] 
+hash: 0000003848-c20a3732369bcd65fd9d37ef10a132ec8a6dbf7b059d5e620eb14a71c6385ace
+[Modifying widget.ml to allow the class of widget to depend on the content
+balat at pps.jussieu.fr**20090422094659
+ Ignore-this: 20c3dd5a2e250703c70f32ceb446111e
+] 
+hash: 0000010393-f654e0acb04f66cfb94dcda78110896fea5680e05adc681810765e5d56ab6346
+[Forum: moderation
+balat at pps.jussieu.fr**20090422094745
+ Ignore-this: 74ac3c05093ff36710b64e39fdf7249f
+] 
+hash: 0000021120-721472a3b0fb553f75e2f79f61c50d2ed5cdb1c79f05665ffe691c3236c49ddc
+[Forum: adding moderate button
+balat at pps.jussieu.fr**20090422110118
+ Ignore-this: 594499ad9ab8b1aa625d2db1eb6ee828
+] 
+hash: 0000003620-18e85895a3a5c30afe8eeae75528fe7bab2640092f7ece27df97bc9a3fb9d504
+[Forum: message deletion
+balat at pps.jussieu.fr**20090422113910
+ Ignore-this: 590654e873cdff792d2a8c281b2b57b6
+] 
+hash: 0000001634-66c8867d63c637e391834a762e5c5ea79a03544f3a6b256a4f46fca1ffec7664
+[Deleted as NULL
+boris@yakobowski.org**20090414145416] 
+hash: 0000006968-b95e0fdfe5f33a0723c5b14af2283944be10f3f1bdbd34957bca0556f1eeece4
+[Renaming for better names
+boris@yakobowski.org**20090414155325] 
+hash: 0000001794-4379256da051f38daa5977707fa873def4ec8ac4b037a54e9d2ae09e27e03b85
+[Syntax error in sql update code
+boris@yakobowski.org**20090415110512] 
+hash: 0000000176-37f6172549c1c309b075c5c3d1d8e02044b4cf55982b5e6c136d090c9cec93b0
+[Code for previewing css (partial)
+boris@yakobowski.org**20090415231326] 
+hash: 0000004602-e3cffe308b9d537a373a820bcff5000f0b89cbcbd6d5978241d99f83d24083bc
+[Handling of css through wikiboxes
+boris@yakobowski.org**20090420180857] 
+hash: 0000016426-691a77372f8f81d91a0d4a23fa0c00ce98ec2609e1a8cda426b46281cd7e4f5b
+[Css using wikiboxes, the end
+boris@yakobowski.org**20090420210433] 
+hash: 0000013413-df8313f0a49e4157a132204a3b9bd91910d8fd4777c701c42cc551ad8b8c535d
+[Unused variables
+boris@yakobowski.org**20090421111727] 
+hash: 0000004573-6ab80b6a4d229524bc13a6efc8256070973f29920ddb8b547ce32ed111cc88d0
+[Bug in Makefile for PAM
+boris@yakobowski.org**20090421112125] 
+hash: 0000000207-4a343d2a0255238d072a249f060fa11183a00473c3c219e4ea90d19573cbda4e
+[Ocamlbuild classic display for emacs
+boris@yakobowski.org**20090421112137] 
+hash: 0000000200-e1ca43480ec1cc30f6a9a1aac456a65602bc98e58f1ce9017e4df766a9e57418
+[Ocaml warnings
+boris@yakobowski.org**20090421112153] 
+hash: 0000000210-40069bb7e91566a03c2964015680ecd07495e59b8bd5064abe19a1c3faaf56fa
+[Unused variables
+boris@yakobowski.org**20090421112200] 
+hash: 0000001420-4741e0fcdf292f06aa0b4ff4e8548290cae9706784cd5e7c981939b4febf322b
+[Major code cleanup and documentation
+boris@yakobowski.org**20090421210730] 
+hash: 0000052564-0301d0813967ed9952aa98511572c31983bfb7df55d88e1b8e074fec26cc8cc0
+[Comments on wiki_action_info
+boris@yakobowski.org**20090422121901] 
+hash: 0000002461-b1d1a68a383ab6cb42049fad0605c2a647671e67cb5fad257c353dc3ad3b31ff
+[New signature for bind_or_display_error
+boris@yakobowski.org**20090422140253] 
+hash: 0000031685-45f1d0dafa922c3f4d996eee4bb6f2648a6e298c425cd6da6f4d78d43c6f5908
+[Overriding of wikiboxes
+boris@yakobowski.org**20090422204625] 
+hash: 0000027959-bdcee48fb377a971a210d840bbc2284c1b28134f6092f379472c632d8bd7c3e5
+[Beginning of Wiki_data and new-style groups
+boris@yakobowski.org**20090423223253] 
+hash: 0000005115-c99715094a83fe271ae4960ccf1b4b2fbc8a0b17e4b57a03f01838a749a43e75
+[Missing wiki_data
+boris@yakobowski.org**20090426092845
+ Ignore-this: fc6e8d011262881d09dba9cd1f1bc645
+] 
+hash: 0000005842-1f6b96eccc61487b5ebb6b43576f1aea7077d4e6185024560772aaf15e139b3e
+[Cleaner use of userid in User_sql
+boris@yakobowski.org**20090428125057] 
+hash: 0000061356-6844a24002d6d2ec69e5dbe492ed54cf5093b591a316579be988ef38920b9cde
+[Wiki: rewriting the extension system
+balat at pps.jussieu.fr**20090428163701
+ Ignore-this: 74de313c936c20940864d603579c6f5b
+] 
+hash: 0000054306-94f418b093792ca0282c0723724eb02abd67b1c5fc9d9d62d30f1ff9c981a1aa
+[Resolving small conflict in user_widgets.ml
+balat at pps.jussieu.fr**20090428163924
+ Ignore-this: 8a2f87f173c3fcb08625dab4f8a873bd
+] 
+hash: 0000000651-88783d5e8b145ab86174f88217160e493cef8cbe853a43fa89159642d4a165b6
+[Wikicreole: underline, linethrough, monospace, subscripted, superscripted
+balat at pps.jussieu.fr**20090429113756
+ Ignore-this: 4d6014dd02c80c7d3ad9e987022507a5
+] 
+hash: 0000005675-9641105663b4466f13482b43556e809b62308c7868ef77219ae5eac5b3fdb642
+[Wikicreole: adding definition lists
+balat at pps.jussieu.fr**20090429134031
+ Ignore-this: f3adac6679b31f6881dd530d510e58da
+] 
+hash: 0000003743-64a33052110eadcb25fef278b6210e70397037a00dec5773c5709e08736339d1
+[Wikicreole: adding attributes for tables
+balat at pps.jussieu.fr**20090429145037
+ Ignore-this: aed175b90c28658e9cf598734feb7c
+] 
+hash: 0000005483-8fa0fa37e32ef944ae7c4edb69d61e91216e1f9a672529bd1a94ad750ba3c160
+[Wiki: fixing a bug in <<menu>>
+balat at pps.jussieu.fr**20090501171810
+ Ignore-this: 664e320c8fc51c60d20737467001ffdf
+] 
+hash: 0000000893-f04adf4666e1005700cf2354c51d59393c7ec3dec979226d495d89e6d24b9dd2
+[Annouce: update to lats Eliom version
+balat at pps.jussieu.fr**20090501192933
+ Ignore-this: 60579129b1940d70fdd9df17785f4968
+] 
+hash: 0000001506-7e397d13ace350cf0f4a245e0196a4b2aaa3e653557fca4bc4e1f55bb54cccf4
+[Adding dependency to obrowser + first try in forum
+balat at pps.jussieu.fr**20090501193011
+ Ignore-this: f44e53defe271e43ee179bdab2770336
+] 
+hash: 0000004410-3bd54cb930db6fd7b91e169303743300e05d146e92fc3000a6037b6c0f317ec6
+[EXPERIMENTAL: adding make install
+balat at pps.jussieu.fr**20090503184217
+ Ignore-this: ef94058dc5d0081b6fef1850478db256
+] 
+hash: 0000009829-d953fef262f6333db164862fd5c807d0603b97094ea8a3270375e9236a367540
+[(small patch) CHANGES: small change for inclusion on Web site
+balat at pps.jussieu.fr**20090503193505
+ Ignore-this: 9d7959749e3cdeb82c1b67d733c40c88
+] 
+hash: 0000000405-77a7fda37ba3f422bf40d8910c83d5e8cff19df7dd99a4a6f1abc3b653754470
+[Parallel compilation
+boris@yakobowski.org**20090430152306] 
+hash: 0000000190-f6ebb02df0ff8820c458aadd7367b9f7890aec287f3f03004abe6635e53338eb
+[Generic groups
+boris@yakobowski.org**20090430174446] 
+hash: 0000057816-f71bbb3c285e498d8342216e8cd292c575cc144497a3ecfbb8c6fde0bbb5982c
+[New interface for user with parameterized group
+boris@yakobowski.org**20090504151244
+ Ignore-this: 9e8b0027e3878ecd0e294e94eaf8109c
+] 
+hash: 0000014645-9020fa46d718dd3cbb79e1a9014678613ba738335fc492ba2c1822c462b26297
+[Moved GenericRights module to Users
+boris@yakobowski.org**20090504155047
+ Ignore-this: a13f65c6a31d4232cb8812d717d7094
+] 
+hash: 0000004266-3a4ab6abc3d2a538ab1b67c135580a8e84224114481e01604c23defa0df979ca
+[Next iteration of parameterized rights in wikis
+boris@yakobowski.org**20090505161832
+ Ignore-this: e10bef2c285a149f2a04a76a015379ff
+] 
+hash: 0000046308-4181099175d3584730d1a83f72cc8db9a615681ad72121b6b45ddda2dd8b4038
+[Forum: switching to parametrized groups
+balat at pps.jussieu.fr**20090506194103
+ Ignore-this: 8d0a0153fb7409e4b8f55b4a3dd05b1c
+] 
+hash: 0000062268-e392caca7ff2aadafcaac7b2ec424bab2efb2ecaff281c2be3a27fdfba86afcd
+[More wiki rights; typo sd_sp
+boris@yakobowski.org**20090507085734
+ Ignore-this: eda268ef56c28c2653262177848a670a
+] 
+hash: 0000016631-686e6ff4c416efa368317a685568fd9ae0a2faf5bf038e79b619eb19774c3023
+[Prefix for create_parameterized_group
+boris@yakobowski.org**20090507160032
+ Ignore-this: 7ec45644d8a269af40c9754e8e5b3cff
+] 
+hash: 0000002837-e7b22859bb9220f91e3658893f1ad8fb250f08495fc750321f34ee9754d1ee50
+[Removed obsolete options
+boris@yakobowski.org**20090507160109
+ Ignore-this: b6b92fb3490e004f9d2c7f7c7dd03370
+] 
+hash: 0000002391-f35159b5eb5cc9c0fbe1291273d8b16ed40403651cdf253f42d6309a18587b21
+[Conflict
+boris@yakobowski.org**20090507160129
+ Ignore-this: 6307e59faa0c7dcc8d6cd7a0603d7afb
+] 
+hash: 0000000752-4383fde42e89890b8803c2142d3768ceb573b54edf51af83192fdea8bf193d32
+[Reading rights for the admin wiki
+boris@yakobowski.org**20090511103157
+ Ignore-this: 53e982a77f8b45cfa31f413184b8a876
+] 
+hash: 0000000601-74fcdbbbb8a11c90ac8c8db2725c41c990c28f94ed7ee14e257ee37de120b6b9
+[Inversion name/fullname
+boris@yakobowski.org**20090511103215
+ Ignore-this: ef419ee3bd2f638b3215f466d27b3693
+] 
+hash: 0000000227-6ce7e4bd30fddb2104a391b151facef4bfa9624aea5bd3ca07b0ad1cb1abbe12
+[Correct saving of wikiboxes; code cleanup
+boris@yakobowski.org**20090511133904
+ Ignore-this: 264bd269a5d3bd96784508ce74830a3e
+] 
+hash: 0000007315-4df1423191c6079b0424e289364c0946f97bedd741437a6a810807de84b5c18f
+[First attempt at automatically creating form-changing permissions
+boris@yakobowski.org**20090511232351
+ Ignore-this: 36e3c8affc07f3577912fa20947eb6aa
+] 
+hash: 0000004038-cb70ef560b6bb3701298c26693b131f4b3d3bc5fe3598bb5486ec95b793ba7d4
+[Edition of permissions of wikiboxes
+boris@yakobowski.org**20090513140336
+ Ignore-this: b33efd9b5166a531b65c6311531507d3
+] 
+hash: 0000023432-abadc490316fbb42dd6a5ecba21381415969d04ddc9a529b878619d4ce7e7e13
+[Better gestion of group inclusion
+boris@yakobowski.org**20090514153656
+ Ignore-this: f2a9f5ca4cf818ee0fb5ace5d2c7044f
+] 
+hash: 0000006499-a1decb5c0ba66c331d73f37e420209c8ece9e0e9fd9c6361e5601c38dfd16bb0
+[Small changes for obrowser
+balat at pps.jussieu.fr**20090507173958
+ Ignore-this: f700b2698023e50c2bd0ea85cd300db8
+] 
+hash: 0000002318-7687d71f268709f1fa07a25532113fa97f498eecf2c291476aa608e9aa828a27
+[Switching to new Ocsigen version with sd in ri
+balat at pps.jussieu.fr**20090515124002
+ Ignore-this: b673f30e1343f1d4d985d788ec74b9a6
+ Removing sd and polytables (now in Ocsigen)l
+] 
+hash: 0000048022-7c854754cf65ae779e333b614f3bef6ef9fad2e0d99b09eb0a082f9547f587fc
+[Cache bug, and some code cleanup
+boris@yakobowski.org**20090515153022
+ Ignore-this: 6a1df8066623fb73fcfed22cb840483a
+] 
+hash: 0000007690-f880156bc06d8d98091c80f34bfe892069ad7f352ba366c2db75d73c5cd54eed
+[Removing polytables
+balat at pps.jussieu.fr**20090515165906
+ Ignore-this: 3dc7a3b4971bae5ad462d3be84ee77f1
+] 
+hash: 0000001705-9202401238a714a76ad89c78f734679acaf881684d9f2290826256748fedac8c
+[Do not compile by default
+boris@yakobowski.org**20090516145017
+ Ignore-this: c7896ae7c9215f16c2e9bf9bb77bbd7c
+] 
+hash: 0000000155-4cf825d6fc1ed25dacb597304baad9d9e7640abdadcdaa0bdb46f62865acdcad
+[Code cleanup
+boris@yakobowski.org**20090516163145
+ Ignore-this: 2f55da2aee4c46f419a3e6ede3250ea3
+] 
+hash: 0000009614-7f21b1fc51e5e6dff7fd78663e6fe477807feeb698cea46ce21f2a187e7af7af
+[Removed some css-specific permissions; use another wiki instead
+boris@yakobowski.org**20090516163205
+ Ignore-this: d94cf1a27adbd7272b334d7fa76668e
+] 
+hash: 0000008113-e3b23424b53a8ef04014d5737723aef9c56a2b4b29e9d6d4c95fbff76b10dc8f
+[Typo
+boris@yakobowski.org**20090518092106
+ Ignore-this: 821c7b2f5cbd5abd960cc39b1927ad2
+] 
+hash: 0000000244-ffdbfab3918274536b2ef1e548bdb3affe0063aec1c0d26c263865c7244f30da
+[Useless argument
+boris@yakobowski.org**20090518092110
+ Ignore-this: 87ec8dcbba9b87198b80250c59b91aa0
+] 
+hash: 0000000860-5c6c91ca43012e0cdcf7707c15a36a32fdd0ced330e90829a5ec5618b81acbf4
+[Creation of new css
+boris@yakobowski.org**20090518104604
+ Ignore-this: 18e31d393370984d3142ad62567a3d00
+] 
+hash: 0000002655-dfece6916cc41a1a235a078c6baa004225b5571f99ec70cc887f6a9f37aeb4d7
+[Current handling of wikibox permissions
+boris@yakobowski.org**20090518140918
+ Ignore-this: 3f08fdc42fb043caa95c596a707d3637
+] 
+hash: 0000008196-e0cfcbf525bbb68e6bcd2ac15cb0208252b8b10e63f35ea0457d6dc8b8d73a3d
+[Better abstraction for wiki rights
+boris@yakobowski.org**20090518150325
+ Ignore-this: 58f6304fc0b54252fe56907d51107ef6
+] 
+hash: 0000010269-77049669f3e2431dcd651d2e0de79edf5ef3e695fd4be22c71b846a2f9579665
+[Bug due to unflagged partial application
+boris@yakobowski.org**20090520111824
+ Ignore-this: 6b31d16442d706cb68e95ac6ac7112c0
+] 
+hash: 0000000815-cb95b2b4a4b0f0bb34138147b80ca9fc6d71fb84241cc0f8d0460680b32a5ddf
+[First step to having local extension tables
+boris@yakobowski.org**20090520111933
+ Ignore-this: 4f92b8c2f7103cd2609d69442e2fa5c4
+] 
+hash: 0000020024-eab54bc3f5095c9f333587962cb52b962356b270ae6d281746e24ffe2c66a4f2
+[Maps with default values
+boris@yakobowski.org**20090520150341
+ Ignore-this: fb90d4c89e57dbbba24875dbe8ad3128
+] 
+hash: 0000000834-553b1a0f2e72ea648664301a2adc05f1a7429027a95ef162ea4a15dd324e9c96
+[Code cleanup, better use of types to factor declarations
+boris@yakobowski.org**20090520150554
+ Ignore-this: d902c608742d5777ffb978e5385b3b86
+] 
+hash: 0000010941-97d21d002c40034cced28adc249544c1e251c6fd61e260e4d744491838590f98
+[Forgotten abstraction for the name of the help page
+boris@yakobowski.org**20090520165607
+ Ignore-this: 7a98206aa39a3fbf34ba32555a898ce2
+] 
+hash: 0000000344-343cb7be5f7f84d04dfedbfc192601ebeea702c60599c7dbf84fbc09d15f02bd
+[More generic syntax extensions
+boris@yakobowski.org**20090520170440
+ Ignore-this: 713b72a15d28494ed53f97d80c56f440
+] 
+hash: 0000027826-b1179a42121b2cf382f9fb4080fe2aff4147e33bbcd98d53f2c1300ed15a5933
+[Wiki: adding group wikiboxes_deletor
+balat at pps.jussieu.fr**20090521150714
+ Ignore-this: 2d70457ef56d713377d5fd1e51ae150a
+] 
+hash: 0000001735-81d469d9335a36ce14f8e53c86c571f40d26e5ef3c8dfcb4330bd11f676d7118
+[Wiki: creating group genwikiboxes_creators and renamming wikiboxes_creators into subwikiboxescreators
+balat at pps.jussieu.fr**20090521160817
+ Ignore-this: 3a607de9e9c70620c74f8e3314d549ff
+] 
+hash: 0000002038-4933e1e48c9bd87fc63d147a77486287359bb90176658132bd24746bbfcd78fe
+[Updated guidelines
+boris@yakobowski.org**20090521202858
+ Ignore-this: 6d1ebea736e2e4ff8f14573b6b5321db
+] 
+hash: 0000007278-b2ebd03f9b8d62864d512d9db40b3575b8414976ea772b03fe4d7dd17e144b9e
+[Forgotten to remove those files
+boris@yakobowski.org**20090521203953
+ Ignore-this: 8d20c8e342466b0f5fd387b8d860c237
+] 
+hash: 0000001026-d6c6424f6c45013116452f11bfef278815f78256b6f0b91773fb564d5e4f8679
+[Groups on one line
+boris@yakobowski.org**20090521204206
+ Ignore-this: 720d701459b14ae5e4d4abd63363ef3b
+] 
+hash: 0000000855-ed6bd4132d29db7a36da5fefa0ff9696178f77ae980278312b2d49935b3fcedc
+[Typo
+boris@yakobowski.org**20090521205150
+ Ignore-this: b9d397f8cc5b5a26a30c57a4cb67c19b
+] 
+hash: 0000000325-9b64024ea2c499287687020d4bd60dbb3a6b79a6a9dea5e5ea17f5bfeae15abb
+[Prevent repost of permissions
+boris@yakobowski.org**20090521205320
+ Ignore-this: aeeadbec1507decb7dd14e066a27c8d4
+] 
+hash: 0000001017-38e942cb7d310b99c297164ab2dd851caaece7e56a7444706d73695628289999
+[File not to be compiled anymore
+boris@yakobowski.org**20090522084137
+ Ignore-this: d89488e648f472aaf600f1e487a4381
+] 
+hash: 0000000157-3609ab183b6a3dfb951616da15f453dcfb3bcee830549b6bffeee0d521222f77
+[Wiki: group css_creators now in wikiboxes_creators
+balat at pps.jussieu.fr**20090522111159
+ Ignore-this: f0c97bd6c29e95e2113f518fecb20bc
+] 
+hash: 0000001001-6ffbc17cf58421419a1c027af58649b88ac1a4b2fa8a2cf97d8ee7c5bfb34ac0
+[Use ocamlbuild compilation
+boris@yakobowski.org**20090522094923
+ Ignore-this: fee1d47a54692d09a4a457c677cd0a7c
+] 
+hash: 0000000292-e79ee7f533498770a98f48c56ec374dc3f57399f26cea21412ce02bb718251d0
+[Only files readers
+boris@yakobowski.org**20090522155827
+ Ignore-this: 174f7ca6a6987fede00633fae383e90
+] 
+hash: 0000000689-6f38daf70dd6dc18d3a85a8dad30c53494c06d4ac269bfa8bc4f0fd9bbcd9e1b
+[Improved generic code for permissions; saving of wiki permissions
+boris@yakobowski.org**20090522160813
+ Ignore-this: 5160c931a88209e30e18bc278bd38f8f
+] 
+hash: 0000039469-ae0ee85203f9dac906d3dcbfa206e17d40f8a526df34c86cff8abb0765a99285
+[Wiki: wikis now parametrized by their model (syntax, rights, widgets)
+balat at pps.jussieu.fr**20090524131652
+ Ignore-this: 359634ddd77c83b9c5b419e4ebe3acf9
+] 
+hash: 0000076437-ce2b2847ab712b772fa41c0fef93b9288f92888570cd690a2ebbfa0379a2474d
+[Forum: now using wikis to save messages
+balat at pps.jussieu.fr**20090524131740
+ Ignore-this: 683fd36c47de24415dfba1a6f7873b24
+] 
+hash: 0000041174-8d9432abcad0291e9a49ee44c6b3bf54ef2193fbd9c62a8682f842ef4abd2fb2
+[Forum: adding message_list widget
+balat at pps.jussieu.fr**20090524154444
+ Ignore-this: 67e5bc22614f285b1d7152adb6353838
+] 
+hash: 0000011616-5d9909a6c15cccd6a553cd86a5e2ba54bddc66da1aa87aaea093bee55bc98175
+[(small patch) Forum: comments do not have title any more (for now)
+balat at pps.jussieu.fr**20090524155109
+ Ignore-this: 8ee702d75355a5f128c36cd2692a76e9
+] 
+hash: 0000000610-520585381701dbdb8c47d7234c8d4444c0508b3cc445e00e5d82b6c5f8425a82
+[Forum: adding default css for forum
+balat at pps.jussieu.fr**20090524160845
+ Ignore-this: 6596a30e2f890cb81e71f14f08580f35
+] 
+hash: 0000002292-564bd00df08bf5054cbca565819b338a082c0e8e490bee09991c0d908a6c7b7f
+[(small patch) Forum: fixing small bugs
+balat at pps.jussieu.fr**20090524163640
+ Ignore-this: 57e2338f55e9f7cb922e5bd981cb7eee
+] 
+hash: 0000006817-2ad358cf7f20e3aa03dba4f17d22188222dfe4d49dc787fff3c07d793639f80e
+[Wiki: adding error to display in sd for overriden wikiboxes
+balat at pps.jussieu.fr**20090525145611
+ Ignore-this: cdbe19cd074036af212c0bec8fb84703
+] 
+hash: 0000004695-64e2f24e6121e18b9ddb8ac14dc197fc91bca2d37bd633b4c8ac9fb97f149370
+[Cache: adding command "ocsimore:clearcache"
+balat at pps.jussieu.fr**20090525163615
+ Ignore-this: cf298ef2dbabfa74bd544ae337316f95
+] 
+hash: 0000000832-2ffa2f0546eb5ddc2e2082f4dbf2a6caae8223dfcaa54b96069c500ba6ac75a9
+[Wiki: removing bi_root_wiki
+balat at pps.jussieu.fr**20090526123342
+ Ignore-this: ed645a21e850d3879c2c11331cb0117b
+] 
+hash: 0000002492-bff99dbb8cc6c5477c5cbd7c47dc965362b1376bd50e2781b554c5e4b60dc815
+[Bug for content-type when saving wikiboxes
+boris@yakobowski.org**20090525141911
+ Ignore-this: fa2225c070ba3b9e2ac6a68409a15b2c
+] 
+hash: 0000002232-afacdf8f264e6f8a51f796cff427b432f397d4d30ec3b252908379c2d61f9315
+[Signature of rights class
+boris@yakobowski.org**20090525142240
+ Ignore-this: 9675dcf66b508ceca688c2c9b8535a5b
+] 
+hash: 0000004813-448b1386a3a0d5083cbe421def352fa444f33a17beb5ec64e8250fedd5491ceb
+[Admin page for groups inclusion, first attempt; redirection to the same page or not
+boris@yakobowski.org**20090526143728
+ Ignore-this: 3e40119bddaca91f4bbe02543cd07088
+] 
+hash: 0000012859-d1e5bc655a75f97ae9a974f059a579562b62a0f1ad921d00407884b8cedfdf81
+[Second part of the permissions editing form
+boris@yakobowski.org**20090526161845
+ Ignore-this: b5727ff6da7700d5f6401ccbe67fa317
+] 
+hash: 0000010572-425621f6d9f40ef9c88d0c9f69b03071d33affb2de933c3560a254e9d8d30c4a
+[Wiki: extended syntax for links
+balat at pps.jussieu.fr**20090526193742
+ Ignore-this: 9934118be30ef1fd059b5dc5959487a9
+] 
+hash: 0000013637-edb28127ab10ee790037cdaa3f81d0ef5b0780b0fac6d55080fa77b7edd8dadb
+[Non parameterized groups
+boris@yakobowski.org**20090527132106
+ Ignore-this: 11b3795063e9affa06f58296dd6f2d82
+] 
+hash: 0000013186-ecc1cec5b231ce24e23385ae6ea1f905476802789d4027a609d04e2990e9ea57
+[Wiki: new menu
+balat at pps.jussieu.fr**20090527093648
+ Ignore-this: 5d4399dbe45d021a262adf831666d95d
+] 
+hash: 0000003811-1104625160f3d18236de5ea0dba5ac305cbe866ff663b5e591fe280e9f278538
+[Wiki: Creating wikibox menu by looking at permissions
+balat at pps.jussieu.fr**20090527132359
+ Ignore-this: 76a6ba9bc5411425c6baeb8a451505fc
+] 
+hash: 0000018483-ad605a14b60f7758ea3b628ad68031476fd875dcb946a9a91112414677a035c5
+[Wiki: adding "edit" image
+balat at pps.jussieu.fr**20090527135630
+ Ignore-this: 2bc1467a63c5087bb07cb8bc726452f
+] 
+hash: 0000001253-63f1ee236a811b696becd3f7eaa5d6860e509efe654fe343ed32ca5a47053146
+[missing preview image
+boris@yakobowski.org**20090527135713
+ Ignore-this: 1ff55fdf52e31c5e968528731aa10100
+] 
+hash: 0000000322-6893d4ce072be28dd83076de1b4993fccc92e3d958ca0de737c5ceb6c41e2e92
+[Wiki: adding title for view wikibox menu
+balat at pps.jussieu.fr**20090527164747
+ Ignore-this: 4020f6c703b0b73628a8c78513311399
+] 
+hash: 0000000563-72644a78e71a7ee63320e77585cb484825683c764e6b42fc0a0d39aba21f85a2
+[Wiki: confirm deletion with OBrowser
+balat at pps.jussieu.fr**20090527174426
+ Ignore-this: 608b1dd2b63be436cb64def379784af2
+] 
+hash: 0000002263-14c36b8f09eb64daa85016205252bae4c40ca1fa668532bb0401506a7f9bee04
+[Wiki: adding file wiki_client.ml
+balat at pps.jussieu.fr**20090528092159
+ Ignore-this: d413f0ec245fa20f0bb3ccfc618c2374
+] 
+hash: 0000000634-a5e064582bb305d7f5c5bfea1aff480e2cefb337933a0505628bc47a4fabdf21
+[Checks when sending static files
+boris@yakobowski.org**20090528093930
+ Ignore-this: 984bfad22f5839e58e9b89fd8c2241f9
+] 
+hash: 0000002699-b6f0c0a782029546c7143e3314d8e25f551607af9fb2298b585082edc8fefbb8
+[Inversion between wiki and wiki_data
+boris@yakobowski.org**20090528093949
+ Ignore-this: 3329710a14f7dbaba29a288cd571bce8
+] 
+hash: 0000007827-d9f8a895b3e0be66cf08fceb82ea1bcc52ac0fa3c1d0ba26b16f2a93ceb679c6
+[Unused variables in forum
+boris@yakobowski.org**20090528115728
+ Ignore-this: 11cac1af37b11422e36850315b1a47b5
+] 
+hash: 0000000534-7649f5a3dcc71d7d8bb2ee1739e1e858f3e59ad641e9299103b76b54850c7895
+[Clean separation between Wiki/Wiki_data/Wiki_services. Less XXX
+boris@yakobowski.org**20090528125221
+ Ignore-this: 6651cc45e05e794776a0adb2ad864bba
+] 
+hash: 0000019378-db2df9cbe63bf4b5436dc2c9d8801c0c36774076908572916287da810f8bddb3
+[Wiki: fixing links to static files
+balat at pps.jussieu.fr**20090528165852
+ Ignore-this: e9bdd7643b59919f9348b259ff7b6e48
+] 
+hash: 0000002716-4819cb72cae89cf570738f2b58024995a589ed5c1aec6c1f66059b313dff6fef
+[Update TODO file
+boris@yakobowski.org**20090528132549
+ Ignore-this: ce6312117e842f83cec95a0c2f660bd3
+] 
+hash: 0000005078-71a1e079c02295851ae8cf0068253d0dd4340fdfbdbb274f9e6d22f083b16c63
+[Permissions
+boris@yakobowski.org**20090528142020
+ Ignore-this: 71b4d995df4962f83ac8d32ab204e9c7
+] 
+hash: 0000000951-051ac918c2f2ecd36e0a943a9c928f4b13656b95a2c6e794526445b384a2e2d1
+[Introducing User_ext
+boris@yakobowski.org**20090528144853
+ Ignore-this: fc21aec571d65738bb09c02e120bee52
+] 
+hash: 0000016824-a22b20f188994eee5b579a3d591591165ef0ae336153007f944781fb56e5cd95
+[Outdated file
+boris@yakobowski.org**20090528153504
+ Ignore-this: ec0601a575fc52cc5f14ba1a5f3bbc11
+] 
+hash: 0000002530-e7955048f01bf5e50905a3a5bf86a492efa8abf1b09da0eb529343388d74f7bc
+[Cleanup of user-related functions
+boris@yakobowski.org**20090528165520
+ Ignore-this: a090a59ac4875b7d5ce9954dd18fc09
+] 
+hash: 0000014194-4ed24d53ec6b7603d47b35a22b91877a49ae051c35d6fecdf869c2f309d08028
+[Renaming User_ext into User_site
+boris@yakobowski.org**20090528170423
+ Ignore-this: 838c7159038e4c49f9d66db19f846dd
+] 
+hash: 0000007228-ca23c5055397aa0fe6868640d99fcd6d3336613020229277e274f28d6e4541b7
+[Wiki+Forum: now using several request cache key for errors and action info
+balat at pps.jussieu.fr**20090528171743
+ Ignore-this: e15940d6d3ed67002b3489262827aa7
+] 
+hash: 0000002436-dc0a763ff552d2d41a63532bb20365c6c3ba00a46d5792f7aedb2d165fd0f27e
+[Users: fixing a bug when user not connected
+balat at pps.jussieu.fr**20090529164655
+ Ignore-this: 1516af58654edb04fd479a2a53341f54
+] 
+hash: 0000001419-352a8b79e068acf7bbf46ba309f5bf72c09a24cb87d011c4b62783e377c2e847
+[(small patch) Wiki: removing tests "writable" before displaying the menu
+balat at pps.jussieu.fr**20090529164918
+ Ignore-this: f075a6d3ee6b7849cf6c8140eaaeeab6
+] 
+hash: 0000001915-a7037b8bc5f377a54ee533427fe7406c12006db78c973f550ebebf5049c0d920
+[Started cleaning up user-related files
+boris@yakobowski.org**20090602073946
+ Ignore-this: 4f4301a7fcad7133cd654e1a23f37ad5
+] 
+hash: 0000017094-16188f5d0011b0095a860c0a5033703f640c71a2d39128538590e8ca9952f6c9
+[Cleanup of user-related code, new admin boxes for users
+boris@yakobowski.org**20090603115310
+ Ignore-this: da9f7f155389f278c89b15d0a919a460
+] 
+hash: 0000045653-9003d114918081f760874fef20d813d4364cc9edc103e64002f15b4584ee96fc
+[Wikicreole: fixing bug in tables
+balat at pps.jussieu.fr**20090603151933
+ Ignore-this: 9d3df5608df37bf951282da6ba4b7a42
+ (when first | was missing)
+] 
+hash: 0000000369-1c889a90d0fb307efa6b6ea3721218735f7230e26bf865530f732c7d456ad8c3
+[Removed session_managerinfo
+boris@yakobowski.org**20090603133721
+ Ignore-this: 7e346861cad981c6d23a3f593bbd7632
+] 
+hash: 0000002577-7e24f33e89065b506631e0c46e7e3ffb3f9cfedfa751bc712a34e74398745ef5
+[Cleanup of Sessionmanager
+boris@yakobowski.org**20090604092406
+ Ignore-this: d2e25a5a79c594e3461572c08f9b57d7
+] 
+hash: 0000017327-b5eddf98397b867a6169ac6271e8f0b881b0166175835b036e14285dce66ec96
+[Reorganized completely User into User_services and User_widget
+boris@yakobowski.org**20090604114938
+ Ignore-this: 4087b9dfd510ca3e9c4df5f6733e0c2a
+] 
+hash: 0000037367-515195bdd914ad1e7a04e3d3bc42f2a76e02780794969548735ba7cba4c62ae6
+[Better error handling for Users
+boris@yakobowski.org**20090604130119
+ Ignore-this: c20f72d851618396569f1eccb1e92c65
+] 
+hash: 0000004566-240efd94e5950d5c0808fe3f78e64fd26959c4b8678a3462627615374f40803c
+[Creation of users only by admin if required
+boris@yakobowski.org**20090604151621
+ Ignore-this: c1c140d3a5fcc7bac8fcd88cb09f513d
+] 
+hash: 0000008103-807269e3e1e9da1457dfe57f1e9e1fa3af111e960df5de9698c86b51f52c86e6
+[(small patch) updating INSTALL (make depend does not exist any more)
+balat at pps.jussieu.fr**20090604153705
+ Ignore-this: 31647435ea403ff0885399a6138bb7e5
+] 
+hash: 0000000189-509207951f0b62a6efb31aa74b048c1458902562a65b695984a5d83bb17a1e97
+[Possibly incorrect user-creation link
+boris@yakobowski.org**20090604154255
+ Ignore-this: 8e1aa104c0a5fb9ef756674db8464d6c
+] 
+hash: 0000009212-857ab06d44dc3331ba0ec6915a16d629b360e88a5ea56f71a2c00ff2dd674bbb
+[error message
+boris@yakobowski.org**20090604160244
+ Ignore-this: 1b61c3c5a60a668f6929b63015ac464e
+] 
+hash: 0000000365-714ea819b6c76ab02bba6c53a34b8161dbc79e5d72772c1c2ff3310fae802c74
+[Renamed Users into User
+boris@yakobowski.org**20090604161235
+ Ignore-this: c7ee7aa83a9dd4186c4d367ff8c8baa4
+] 
+hash: 0000011455-7ed9791539a04509183e0ba554ab5bbbb6f4602b69cdb2a57489652b1cb61f42
+[Preemptive parser
+boris@yakobowski.org**20090604230101
+ Ignore-this: 9c96600a482d91a780ac976c59c0653d
+] 
+hash: 0000001563-51db8557ef798f2bf46d1bd7490bfda059ad38c1e704f7933b90e5acad4fb485
+[(small patch) updating INSTALL - now requiring PGOCaml >= 1.2
+balat at pps.jussieu.fr**20090604154953
+ Ignore-this: e660475e5585ff7ce74aaa9cd54f5aee
+] 
+hash: 0000000216-382d141fa814c6a866f136ed23e4777f2b9f14e928da6267ce16e15b40f90c72
+[updating _tags for new pgocaml
+balat at pps.jussieu.fr**20090608130837
+ Ignore-this: bca9acfe43d85ee53bac6545b0f7b498
+] 
+hash: 0000000325-e7c1d37026d1483e87f856a57eb724329ac0c0ff3e849009d451b72cd0ceb88d
+[(small patch) removing a hack in wikiperso.ml
+balat at pps.jussieu.fr**20090608141542
+ Ignore-this: b7e65cf5b59b92de0566d2fe6c6d1789
+] 
+hash: 0000000456-94debbab696be7c118461efbcda28df756978ca914964e8494a0be7139b5ca37
+[File not updated
+boris@yakobowski.org**20090605082016
+ Ignore-this: 44544c2a83d3510aeb1c2ae280336e97
+] 
+hash: 0000000472-7a49a013a3070bc2f6e12449824b15c68dca3428e99449185c9fe09d9517bf11
+[Unused exception
+boris@yakobowski.org**20090605082027
+ Ignore-this: 79cacbfafbff719852cc638564d6e64d
+] 
+hash: 0000000154-4be8ed4a2b2a25e5e91bb1be8eecebd7c9a27b5b7d8086f585722b4e118faa57
+[Slightly updated Guidelines
+boris@yakobowski.org**20090605084111
+ Ignore-this: bb422829bd4ec7b85d2c94fd636093c7
+] 
+hash: 0000002060-0c719f9053ea7fc21db2349a281dc6bee6949f253e61e8ba66d6bf579c222e2c
+[Cleanup
+boris@yakobowski.org**20090605085305
+ Ignore-this: bf2fb4d851e589cd84b1c7363a4060f8
+] 
+hash: 0000003207-9401d456b2360c38f75029255522e217eb1f6edafe965fc12c298a1bf92bdfe6
+[Introducing wiki_ext
+boris@yakobowski.org**20090605090628
+ Ignore-this: 9d68a8c85bdabf3650b7bb8ac6b21de9
+] 
+hash: 0000015925-83bfdf89382233d6b860570eac56a7ca25f462ecd8becde006262e35bcca20fc
+[Better Makefile for ocsimore.mllib
+boris@yakobowski.org**20090605090640
+ Ignore-this: a13809ce6b2658febabc5d240871abed
+] 
+hash: 0000000365-d144335290cfb8d0314424515d171829a57d4a045586940b427c3e0349999e4e
+[Bug wikibox/wiki
+boris@yakobowski.org**20090605095424
+ Ignore-this: 9995168624daeef9bf74b930d4e89c7e
+] 
+hash: 0000000567-64803b5d94121fd2d111e7588f98cd9752678f14fe55b69591bb1e9ea5bfb241
+[Deactivated automatic update of permissions
+boris@yakobowski.org**20090608142249
+ Ignore-this: 10ee2ecc35703b119d717e8be379ecc6
+] 
+hash: 0000000186-942a57913ed25fc086c130600b342de925d3d7d29e459f71042fb2a657b5ca06
+[Change of signature of pam authentification to remove a warning
+boris@yakobowski.org**20090610085613
+ Ignore-this: 7431f9dc7843d499b1f4f98137af0f8f
+] 
+hash: 0000000496-f13e5372c57623a575a620810b7bb8aeb3c973ca8b89cbecbb9b452bc2847b2b
+[Exporting login names for special users
+boris@yakobowski.org**20090610085623
+ Ignore-this: 526ea68306fd89b3b4ad4bbc594e46f5
+] 
+hash: 0000000470-4b2d392a03aeca336de8f15e8e893a5c22f4c154fd35e5fb56a55b79332101e6
+[Change of signature of Wiki_data.create_wiki
+boris@yakobowski.org**20090610085848
+ Ignore-this: d05de8965c757583bc213fe3f4126eed
+] 
+hash: 0000000519-bc1f7568c4ae47ce4aec5427c9751fefd3fccf89b769afad6bf5e565daaebcd5
+[Moved Xform to Ocsimore, better handling of errors
+boris@yakobowski.org**20090610090108
+ Ignore-this: 98f80215ca52bcdc3c37d946163bd70b
+] 
+hash: 0000003059-e3c452a948ab015cb1fb1d745e494dabb4fa475d982c28d0249c81d9d4315f61
+[Form to create wikis, first step
+boris@yakobowski.org**20090610090221
+ Ignore-this: 2d03ec897dc72195c3b48cfbdd6e9c7a
+] 
+hash: 0000003261-bbd6281578b5cc62cd99d4c5eb390fc6f41311daed0d926a27e7b575cb60790a
+[Functorized version of Xform
+boris@yakobowski.org**20090610120946
+ Ignore-this: dd5a590731f81f42c370d1473c4f4fc1
+] 
+hash: 0000011107-89b9d1b7f56a456e124404510e59fe5b7a7cb416db5723c50bec19df1e083127
+[Removed useless iterations after type change of it iterator
+boris@yakobowski.org**20090610125157
+ Ignore-this: 390272335658d762a85e365da94f3d71
+] 
+hash: 0000001108-f1e2b7d8a841a708c9b9012d3c11ffe6a52d0430a928a91b48d3cdb68a1310ce
+[Some improvments in Xform; form to create a wiki;
+boris@yakobowski.org**20090611155847
+ Ignore-this: 5a94672734f14a6f7062624981223c1d
+] 
+hash: 0000011220-beb879f7091319ca0b8b71c5bf657b947c98aaec78ac40889d2a26bcc3498f43
+[Annotations so that wiki_syntax compiles faster
+boris@yakobowski.org**20090611164349
+ Ignore-this: 97fa60bf42ac40fdbbdfdc394d837188
+] 
+hash: 0000002219-569b13219c18d5d4db24bb1904ab7413fc97a57dd540945a8adef2e13acaf3a3
+[Another simplification for the compilation of Wiki_syntax
+boris@yakobowski.org**20090611170746
+ Ignore-this: b870f39b4f61360ba367d73809652c4d
+] 
+hash: 0000004866-6c82d30038be42b4ae0df3fcf71612239c33ca8a7a79aeda67d778f9e3be8bdd
+[Timeout on services created by Xform
+boris@yakobowski.org**20090612090050
+ Ignore-this: c24890c7590aed8cae5421cbbd8b156d
+] 
+hash: 0000000667-603c2086c45d60a328a520ee3110afa909998f6336e0988d6733b3e7c3f07768
+[Compilation of the sub-directories by the main Makefile
+boris@yakobowski.org**20090615155530
+ Ignore-this: b0be3d277deb38b97fae7530e1c127e5
+] 
+hash: 0000000294-0466383a6f03fff940b49a824c1bd93eed96802043908a672521d1a7a9e40dcc
+[Wikiboxes ids to wikiboxes uids, and a lot of code cleanup and improvment
+boris@yakobowski.org**20090617113538
+ Ignore-this: 9d11919d58b746798b93c5a851c8e292
+] 
+hash: 0000087513-93766e61e4330c7e3c4469825fb733e787dc887f32c3999dd871778bad9e3c54
+[Alias for a_content lists
+boris@yakobowski.org**20090617132124
+ Ignore-this: 842251ccf5ac3d7826954c8dd28ac7ea
+] 
+hash: 0000000221-fe7dff38ce55920cd20fc15567f86fd1ae26266a97e702dc88e3a39c01185821
+[Field bi_page in bi
+boris@yakobowski.org**20090617133632
+ Ignore-this: 99e6458b25579817a390a48ac79d584d
+] 
+hash: 0000001817-61cc3f2e88d1f5ff80a7b0c9afa8cd5314203604eb1379e949cee4e75f193e91
+[Improved migration code
+boris@yakobowski.org**20090618144522
+ Ignore-this: 2c1b59529832f6fd0496a9051620cfc6
+] 
+hash: 0000002763-6171cafcc4a709a59c989e97b8fa8a9c937fe9ac4c7e707ab32232fa93c719b5
+[Absolute handling of urls for css and the pen, through the adminwiki
+boris@yakobowski.org**20090618153835
+ Ignore-this: 82aa8b7cc39fa0dd4a0a8e122f982e52
+] 
+hash: 0000002528-cf0667c08609ee064b95a69c82e02eff23d400bb51ce23066ecf32e25248a70d
+[(bug) Ignored pre-parsing operation
+boris@yakobowski.org**20090619092118
+ Ignore-this: d24a7991454c4b7700a4c51ec10cf49a
+] 
+hash: 0000000293-553f162a2353ff9364bbe854c44d61cb557d4d870bad947b4083d6535182dac0
+[Information on the wikibox generating some text ; corrected some bugs in parsing and preparsing
+boris@yakobowski.org**20090619133007
+ Ignore-this: 1a1372e47af347f22ae002be68314fb4
+] 
+hash: 0000009680-f8a88f3b6cad84d9dc82b93f6cdd34d9e9b1de2e2765aab699cd6948cda5bc08
+[$(MAKE) instead of make
+boris@yakobowski.org**20090619133151
+ Ignore-this: b2231df1b9c24f06181c7941dcc97ad3
+] 
+hash: 0000000251-d79fc16e39869c31b56c1c56da3d386a1566a758c8079e966249e92b89217a59
+[Common code for [html_page] ; correct path for the Obrowser code
+boris@yakobowski.org**20090622110404
+ Ignore-this: f0dc92b26b85dcf4e385437f9c0b757c
+] 
+hash: 0000006840-4d09cf65374f98b5c4ca227e793625973280d8a2218ff7614368749df422a345
+[Typo
+boris@yakobowski.org**20090622121420
+ Ignore-this: 3ac11bc67610da1eebbc2d7bcef4cb3f
+] 
+hash: 0000000214-25c62d8db1a207250b59890d1559df637fa59a3c59a981c4c2c5962d48696c05
+[Better displaying of menu button
+boris@yakobowski.org**20090622135425
+ Ignore-this: 45fc2301979ae117c0d851e8c14844a5
+] 
+hash: 0000000765-24d1dc28f942b68eeceede6762ea4d03b24fb25fba397039bbb6b7bc73ea1132
+[Removing ocsicreatewiki
+boris@yakobowski.org**20090623151326
+ Ignore-this: ba821527ee9aae57ecb9f1b2f5996947
+] 
+hash: 0000004434-478aabde5ef5c8189f2903a81f09a98bdaedb1a99aef49cab55665e169fb7622
+[Main administration page
+boris@yakobowski.org**20090625120056
+ Ignore-this: cbda3a00065725373192339791d12df0
+] 
+hash: 0000011276-8d50ea5530c17fd830883ce6d74388e0e31f82211017c34531a1da628a833b4b
+[Custom CSS headers by extension
+boris@yakobowski.org**20090625124754
+ Ignore-this: 717c0eb570ebfde35b552aa704d7a722
+] 
+hash: 0000010276-04b84fa86649584ffd62d67ea211b52cf0a6eac23ad8a2be9914cedae0ffa939
+[Missing files for the previous commit
+boris@yakobowski.org**20090625124849
+ Ignore-this: e4b254001b19deb6b3cb7b36b793a5c8
+] 
+hash: 0000006587-04826d767cc6e8b7238d38048528f4a1f57c782ed0053952454162a8b22ca7c0
+[Edition menus in pencil or linear mode
+boris@yakobowski.org**20090708152713
+ Ignore-this: a4cd3bdf034db40263e07c506c80b97c
+] 
+hash: 0000011825-1d14a3d7f99df6538ed86919427bad0fb3cab56e507f432b60ca33a9f839c881
+[Link for the edition of wikis
+boris@yakobowski.org**20090708152804
+ Ignore-this: 91fe7e48e698cd1767e1647c53fbc6ab
+] 
+hash: 0000005481-d2a1214db09f0d2e73ca573e9b0f1d31d06c2a5c08484c57e6bdd55bb2bf3b23
+[Edit menu no longer floating
+boris@yakobowski.org**20090708152905
+ Ignore-this: dbcd8a998263ab20dea235f207266a00
+] 
+hash: 0000000168-19fac83578e49b99358c0626c780bbd964c6cd980cf34c935781bf1b566261f9
+[Slightly cleaner looking edition menu
+boris@yakobowski.org**20090708152922
+ Ignore-this: 271370d5f5f15e32fd7f02902b3eeb42
+] 
+hash: 0000000379-b54d484a2601b6f6ae4cc9b9f19b5e7feb944eac2c8739189b32d5e60c851b32
+[Missing groups for wiki permissions
+boris@yakobowski.org**20090708153006
+ Ignore-this: 63a32526433f2cf338595c26f529f717
+] 
+hash: 0000005825-d9580cf1cc026012afe913873f78df3cad99c572f34c453ffbf52fb0531a5926
+[Removed historic "gen" prefix on create_wikiboxes
+boris@yakobowski.org**20090708153039
+ Ignore-this: c33553c5a79cffc1b3e302fdbf3187c6
+] 
+hash: 0000002240-6c5cc76b3b0da6b0a3b8a2f783f7c010acd1fe9479a185930879313e26b05280
+[Classes argument on ocsimore_html_page
+boris@yakobowski.org**20090708153233
+ Ignore-this: bbd11ccd9171aa4ac686b7d4b5d7d016
+] 
+hash: 0000000853-7894a7b6d579780b4aa3314ac317fd3517488b5f711174e3584df8040222758b
+[Forum: message subject now in wikiboxes
+balat at pps.jussieu.fr**20090708152706
+ Ignore-this: 941bca887227605676e351143a94f999
+] 
+hash: 0000010437-d5ac51c554741e0e374d88fff0b9d6c1edf1891b906773d95210c886f66985d4
+[updating to new Eliom_parameters.user_type
+balat at pps.jussieu.fr**20090708161741
+ Ignore-this: 66fbde9c08e4500ee42f05b1540cf118
+] 
+hash: 0000000551-413c7b8cd0c8efe6c456a9738ce7716852662b3719627bb22233723ad2d8eca5
+[Wiki ids in the listing of wikis
+boris@yakobowski.org**20090709090456
+ Ignore-this: a30d068e2f5d8dbca1a43a806c5e7ac9
+] 
+hash: 0000000644-d53667c5df6b54f2151c0a67c6134f0dbf9fe9b4cef6d8801c870f4804d17147
+[Switchmenu button
+boris@yakobowski.org**20090710111235
+ Ignore-this: 6695992cddd6a6346303f155a49b21c1
+] 
+hash: 0000003098-ff95ddf29eb16ee7030209f6f5651a6e65a014be2d03ef202446353dc0f44f73
+[Forum: message title now using an "inline" wikibox
+balat at pps.jussieu.fr**20090709091046
+ Ignore-this: 2fed0065af8cf8cdbd22f4996f8015f2
+] 
+hash: 0000009042-e52c4c44bbe414513aac834241dab7c4d5e6440c896c07aa8d39db8f9cfeaec5
+[Split display_wikipage into two functions
+boris@yakobowski.org**20090710152621
+ Ignore-this: bc60b23bff803bcff206e64d685ea4f9
+] 
+hash: 0000006593-ae5d887109a9539e70d324bd87fff8f4d8930070244b000ccc917440c2195fff
+[<<switchmenu>> in the default container
+boris@yakobowski.org**20090710152646
+ Ignore-this: 9948e03a220684106a21d85ac7b93f48
+] 
+hash: 0000000318-c7fb49547fbdcbd554ffbe93383e43a8c4fc23053df3dbb089b1ff91b8d6735d
+[Now installing most of .cmi
+balat at pps.jussieu.fr**20090710162738
+ Ignore-this: 5f20378c3cab9376399ddf4625c70230
+] 
+hash: 0000000862-342f3f6c6f343fdba863b19011bcaef378dcd9e195f400ab9c3d3be0b3cbb27c
+[Defining several variants of wikicreole syntax
+balat at pps.jussieu.fr**20090714233844
+ Ignore-this: d1dd45350ac853b7bdc4ef86272fe382
+ with or without images, subwikiboxes, or even inline syntax
+] 
+hash: 0000053315-6cb729b536016aab61ee0d358caed7c7193f0c329fdbbf7467f07da53b283ce4
+[Forum: changes in forum goups + creating a wiki rights model for forums
+balat at pps.jussieu.fr**20090717094539
+ Ignore-this: e5ec36c4f6cc0cd3c7809397fada888a
+] 
+hash: 0000024981-296ee82cc8a631b3c7b65e923aadbc45b09309acd6fc7fdb3ef3becc6be4d5b6
+[Wikicreole: now using /- -/ for "linethrough" instead of --
+balat at pps.jussieu.fr**20090717103035
+ Ignore-this: 366775f8f4f3ce1c57d568b8dd368dc8
+] 
+hash: 0000000358-c0bf34961255575a570650af54c7542905cda4a836b3449d1a1437439d05aa68
+[Wikicreole: adding syntax -- for en dash and --- for em dash
+balat at pps.jussieu.fr**20090717105513
+ Ignore-this: e574e0df3c260f62aece7f8b71d176b9
+] 
+hash: 0000001173-dfb14a898e242322421d2dc8e4f4b4345aad3261d5e379263ded3c3ca7bfc035
+[Forum: adding special rights for threads
+balat at pps.jussieu.fr**20090720150400
+ Ignore-this: 7f532430da4294e941dd40588735872e
+] 
+hash: 0000016907-e1dafa49aeb2414dd326c4246da2c15afa5fb85cf265545aac57c6647aac507e
+[Makefile: installing more cmis (probably too much)
+balat at pps.jussieu.fr**20090720155337
+ Ignore-this: 8d10d758ed954df7721b9d026bd89abb
+] 
+hash: 0000002521-d95bc4e76a512cc0bcdce6d8c0b2b0e4d3bd72ae8fc4b9ad11cbedd88fe09eec
+[Now installing client side's cmo
+balat at pps.jussieu.fr**20090720173306
+ Ignore-this: b3a4a726b0dbdc0678d212fd8b95ba8c
+] 
+hash: 0000000438-11f11661d0e4876610b9a6e16ab6223c2594a97a1de46c6b9787d715da77d09e
+[Wikicreole: small change in parsing of syntax extensions
+balat at pps.jussieu.fr**20090722095020
+ Ignore-this: 825bdaff01504d5d6f72e12dd8095202
+] 
+hash: 0000005613-18003d7ba43d4162aad9cb4198dc619aabd962b29de6cacd63468bcf17161a12
+[Wikicreole: bugfix in parsing syntax extensions
+balat at pps.jussieu.fr**20090722103814
+ Ignore-this: a44af3c46510bce791e128bc33715dad
+] 
+hash: 0000001370-0cb6fc9b858be92482939628d5435005b2b3a7c03af1471e7e8a58af20404d7c
+[Wikicreole: quoting ">>" inside nowiki extensions
+balat at pps.jussieu.fr**20090722105814
+ Ignore-this: 6da277590e0be37feafc67cb06aa8304
+] 
+hash: 0000002270-9a1f680aa7460d50030bd0e670581734684bc0d31fc73c2584c832649d85fe54
+[Wikicreole: fixing bug in table with | at end of line
+balat at pps.jussieu.fr**20090722124813
+ Ignore-this: 7be7928c906e43b283f4e0813c28c08e
+] 
+hash: 0000000395-ddd70f57998de2692a9decc6b71ae6eca1c8f58bfe9a433aeac313809d536214
+[Wikicreole: ~ now quotes only a few characters in links
+balat at pps.jussieu.fr**20090722134610
+ Ignore-this: 7475fcbd81147d5ac8a979fc6fe13426
+] 
+hash: 0000000334-f8217c293d83ffa88b461ee52848e3b7c90aedae420cffc4e79deb2e642b4342
+[Weak hash tables to avoid a possible cache-related memory leak
+boris@yakobowski.org**20090717111559
+ Ignore-this: 5c3ed7aea280545776b136d49be3184a
+] 
+hash: 0000000697-218f1cfea8c9bf1356883d217b9bf8433e4b594d4b8dd23e0cc2768bd6c60db6
+[Admin menu; some code cleanup
+boris@yakobowski.org**20090721145742
+ Ignore-this: a7a5646e87ab33c747bcdb12ad7e6ec8
+] 
+hash: 0000018951-169902bc6b678a1ac6403c577c6b162344272b8902ac2bf8b3e788f36ec8010e
+[do not install ocsimore_pam if it is not compiled
+boris@yakobowski.org**20090722111429
+ Ignore-this: 5db2d55ff819321ae97c65909f4d4481
+] 
+hash: 0000000364-4318a581379189dd9cb93917eff7686b76040128e1755e9b7a69e9089d17fb94
+[File that was no longer compiling
+boris@yakobowski.org**20090722111447
+ Ignore-this: 1547afec111aa81152283e1dc78cf9a1
+] 
+hash: 0000001025-9bd8ea77e4f6f73ad9cd9b3526ab4d6b2e5e7c3266ea866733ebe876606ec654
+[Style for errors in forms
+boris@yakobowski.org**20090722111537
+ Ignore-this: db854b97c9a1fb2f2a2bf845e562bb2c
+] 
+hash: 0000000200-1d2e5e175fe04590cadebe25dd4e29b82232f2390cc4e092c16c5952eb720a00
+[Add obrowser headers only when needed
+boris@yakobowski.org**20090722111945
+ Ignore-this: db9d6eb9a15da45c9087e678fe81dfd4
+] 
+hash: 0000000680-242507783d1d4040637acb63b5507a28ae40ad5f4a52411394dd0c5a34453d86
+[Improved admin pages
+boris@yakobowski.org**20090722130027
+ Ignore-this: 84fe3d5c3851794da1354c49f7f0a3e1
+] 
+hash: 0000005279-a2cc98db17ff1e0ba9a54fc4758895eb50f277611f621c4108217eae4fa1271d
+[Improved admin pages
+boris@yakobowski.org**20090722142853
+ Ignore-this: ba5b3e11358085986434c389e25b8415
+] 
+hash: 0000011051-7464c9e006fc717f3bfbd8dfddacd6f1e0cd21850aac7437d88ffb61a4ea8c98
+[Edition of css permissions
+boris@yakobowski.org**20090722152211
+ Ignore-this: 1080e7480c849a82c819ac4cbe3c4458
+] 
+hash: 0000005509-020f4ebd6e99a289c7a39d101a66883171debbc0cc12f52dc3021f090d36d38a
+[Correct shell conditional for the installation of ocsimore_pam
+boris@yakobowski.org**20090722154928
+ Ignore-this: 7d3d842a2733fc68c3f787a7aa6022bc
+] 
+hash: 0000000458-07c572d50219994630b8e28a0178db22e8859a9d82e96efcb5e6609fb019bbcb
+[Prevent cache-clearing functions from being garbage-collected
+boris@yakobowski.org**20090723085844
+ Ignore-this: 91f8a67a97533fbae7b886269b747455
+] 
+hash: 0000001154-e4bc739002729dbbd715d20d66d119b41e34b3507b1081db214c43341fb68753
+[Updated CHANGES
+boris@yakobowski.org**20090723092028
+ Ignore-this: 9937b5510861473a3a845df60c0ed17a
+] 
+hash: 0000000204-74a43ea898243d040a9d312979f469b858ab5182c707c72cfe71a8b08b42de67
+[Ocamlpam is now required
+boris@yakobowski.org**20090723100313
+ Ignore-this: 7a0d8ee8374a92b0da27d3fae0b10f76
+] 
+hash: 0000000870-1f6039eb7d7307de525da205bd082ce87ebd8f4c49f3a5f90918c241cc6ebb54
+[Better form to edit wikibox permissions
+boris@yakobowski.org**20090723132240
+ Ignore-this: 9417ccfa890b31f3ec7ee32f344b4bb9
+] 
+hash: 0000001858-7c2d25c0a65dc119213c12524d078280c0c5e5f4dddb44d01769730cff9195d4
+[Fused the forms to edit users
+boris@yakobowski.org**20090723164826
+ Ignore-this: 2af368095fe217a1fa5ca8e09ce58d27
+] 
+hash: 0000009042-e1893901410dbbd20a0459f3057db6c37a98ee920d2d3a02edcaa1fef6924c91
+[Hook for onload event
+boris@yakobowski.org**20090724135339
+ Ignore-this: 13253f9b9ce91c3ce9cb92ffd5fb1cda
+] 
+hash: 0000001408-343351e3f05fde1c99f39ccbf78fb2d6c84781d041e216e95f22e41cbdfbf8bc
+[Comments on the admin menu functions
+boris@yakobowski.org**20090727082320
+ Ignore-this: 49e4aa850359efe822f126489a66dacf
+] 
+hash: 0000000726-2d8c2ac42857160e3a764c29e26181c69610d84db13eecf488f1089e049a3f18
+[Conflict between the two onload events
+boris@yakobowski.org**20090727085623
+ Ignore-this: 49c974222ab3b6e35f3d57d57e93f95
+] 
+hash: 0000002954-ebdf24f27e6be9e5d0a8862f5478ccf783a01a120acefc8fbbdb57fb2eeba94a
+[Wiki: content types now parametrized by inlines or flows
+balat at pps.jussieu.fr**20090727160742
+ Ignore-this: 8d2e2d6ef88ba0733062d56c56b289fb
+] 
+hash: 0000034763-84146826c8b9a9804d7100779ad8a08837ccc451a637b510d72546ac4e76407e
+[Moved some generic code out of ocsisite
+boris@yakobowski.org**20090727105730
+ Ignore-this: e3fc2caf29942234a95872579dc5cf2c
+] 
+hash: 0000004311-4b8e470bfa43e723bf136edc53a84aa3e0a3a3868ed6cde8c0bafed452034245
+[Migrated user-related forms into user_widgets
+boris@yakobowski.org**20090729151506
+ Ignore-this: 412362f2c2ee44aa124a83a7f0c2c159
+] 
+hash: 0000031531-2d4db180722f36080d7fca352b8625a7b5aec86f5191d191f7f0c370f60c9e6a
+[Makefile: now installing ocsiadmin.css
+balat at pps.jussieu.fr**20090729153630
+ Ignore-this: ef0edc0fc178c552e24e6c13f9b41823
+] 
+hash: 0000000411-95f14a818725d5ef2d8aea9a58c1282f1bee21991d8f7e7ede91fce3d0fc6fab
+[Incorrect bi in wikibox extension
+boris@yakobowski.org**20090730110740
+ Ignore-this: 4b13a2c8ee9401af01caa6651f6b8eb7
+] 
+hash: 0000000407-6caaf5866c1788250904fd6f5a09bb5c11a18104283be880e2ea331967879010
+[Wiki: adding function to translate links when creating a new wiki
+balat at pps.jussieu.fr**20090730142948
+ Ignore-this: cb76c472b8626f7c44e7185af95e2fb
+] 
+hash: 0000002698-2774949bc4101eb4b06dcf561dfebb9c8d6d508d35d1cb2d43c80b132d963161
+[Wiki: bugfix in Wiki_syntax.translate_link
+balat at pps.jussieu.fr**20090730163907
+ Ignore-this: fb1027437f6482eb4df3ddb1b649ee7f
+] 
+hash: 0000001835-d7038208e960fcc70066a9e65b5824d69271f38548adc0ce1be85d267d309ab9
+[Migration of a subwiki to another wiki
+boris@yakobowski.org**20090730164741
+ Ignore-this: 3a45545fd91c0815f923957b10488628
+] 
+hash: 0000013351-8760f150b1de6a5da3e83469dd6eaff2eee94effa9c3a52da5e8a141a4b90c8e
+[Wiki: another bugfix in Wiki_syntax.translate_link
+balat at pps.jussieu.fr**20090731095947
+ Ignore-this: 79a459ede03742cfac25939055f24ab1
+] 
+hash: 0000001518-b95ce496817ef7b1a0bdeb1697964d922e06d9c5f7c75389e67a12372921ef4f
+[Redirection after creating a css
+boris@yakobowski.org**20090731110313
+ Ignore-this: 7411ff0803ed48400abcd91b767d25c3
+] 
+hash: 0000000516-020621b381112885f81e3069a83d32251be1f6112b6771b562665a576f5d16e2
+[Store wiki in field bi_page
+boris@yakobowski.org**20090731110625
+ Ignore-this: b40ed41903c26a81a25f34cf82141093
+] 
+hash: 0000000669-bf090255dfd62b2d00d02fe594dfce38f8d5c64ea9865d68d4645aa7a1555aaa
+[Export the static_service service
+boris@yakobowski.org**20090731114612
+ Ignore-this: 4d87409ea023d0e13fffe99685f631d4
+] 
+hash: 0000001011-530178d738994165ac28f3498ec44361a3feda701115180f661a2bb7c2f5b2f1
+[(small patch) now installing ocsiforumstyle.css
+balat at pps.jussieu.fr**20090731173026
+ Ignore-this: b911c849e79fc35fd3a379b42e814fd1
+] 
+hash: 0000000576-40eb65881cd41edc59f7934d5b7bd7542e7e51e41aa7e13abffee7bc223abda2
+[Now module Ocsimore_page.Header to include css and other headers only once.
+balat at pps.jussieu.fr**20090802172057
+ Ignore-this: 72d77970b900b507c59693e5cd38d8f3
+] 
+hash: 0000008074-52f9fb236a671a2fc9fa38d6bbb6b0f5e9cbbe89ae5d2d8272eae55ff569099f
+[META: adding missing dependency to Pam
+balat at pps.jussieu.fr**20090802175439
+ Ignore-this: c524fcd85a5b88eee8ca203ecf395a73
+] 
+hash: 0000000256-59694d505be466497d8f51b67c3400e08aea063136c3ccd55d359da7c4dc0281
+[Optional eliom opaque int32
+boris@yakobowski.org**20090803153132
+ Ignore-this: 5de53cadf47cd705928949cbdd66cf1f
+] 
+hash: 0000001191-a5912d8f9bdeb4b3eba0dbc54964364bb8c6c0d4f781c6bc24462a925f9c4d8a
+[Use IS NOT DISTINCT
+boris@yakobowski.org**20090803153204
+ Ignore-this: fa11984d986fafaf5244675114f75b0e
+] 
+hash: 0000001060-302ede6967cc59efbc92032f9c8154a48ce70bc6dcb11603a05e51b723301a06
+[Form to edit the properties of a wikipage
+boris@yakobowski.org**20090803153343
+ Ignore-this: eb5285e74278646699b8e15c4e7e04
+] 
+hash: 0000011343-baac724da9492848e7089048a7e2bb44fd0855d9ddbc99dc0116cc4108199efb
+[Correction to the previous patch when the wikipage did not exist before
+boris@yakobowski.org**20090803160054
+ Ignore-this: f54f46cb1ed52beedf1d3ef6522436dc
+] 
+hash: 0000001518-32719bac576d5505fc0669e7ed612726e513e1b0fa74a11e246e972b26b11f1e
+[Now using syntax extension to generate client calls
+balat at pps.jussieu.fr**20090803193540
+ Ignore-this: bf5102223591c3c5b09be700002d2fbc
+] 
+hash: 0000006326-ce044410d8c4f9474c77131cbb66139ef8c7f869ef515c4b400a11fa92397423
+[Forum: switching to syntax extension for client calls
+balat at pps.jussieu.fr**20090803195232
+ Ignore-this: 9f2e594a1e2bf4a3de726fd30f6e9f78
+] 
+hash: 0000001909-c2606d4437a1c311791bef1d116b544978678bb5cf1c2169b2e057542c8ae579
+[Now using <:client< >> syntax extension
+balat at pps.jussieu.fr**20090803204003
+ Ignore-this: 754563c7e398ccf38ff4b229e89d4266
+] 
+hash: 0000004341-7f5103f132cf4149fc1563e151c753fc45f4227fb0c3093be76906bce1cc8f09
+[making forum widgets and services aviable
+raphlalou**20090803170843
+ Ignore-this: 7fe8b740cf2a7195f73242dd8921bc0f
+] 
+hash: 0000002185-efd62151c4c6a8ec88286c745ebfc3bb7036db3e44ec3c587bf8ead6afb93814
+[resolving conflict
+balat at pps.jussieu.fr**20090804115220
+ Ignore-this: ba7ed245b9d64982bd60aa0299241857
+] 
+hash: 0000000387-6f365e685a359f5b89fde0c99d0e0449a0aead7489a4f0303b4b4da0c629fec7
+[bugfix in ocsimore.itarget
+balat at pps.jussieu.fr**20090804132036
+ Ignore-this: 952007c5ea0d60ceda58f8f8bf0fd2b6
+] 
+hash: 0000000169-7596b546362775e54b049513169d0d7048a63b52db45c1a6337f017180a822d8
+[upgrade to new version of eliom's obrowser syntax extension
+balat at pps.jussieu.fr**20090804131250
+ Ignore-this: 8a30dea99c96c5cfcaf47a6d6991ad9b
+] 
+hash: 0000000199-67c0271638a12b7347c2057e1a61f645fa51c305365f34b763c938baecf29f5d
+[Debug messages when migrating wikis
+boris@yakobowski.org**20090804133400
+ Ignore-this: 125cb70a246a35b9406e6c44a576e31
+] 
+hash: 0000000366-65f11dbfb62c625a201b4cc0931d6ba04e969ef625d1003f33ea9af95fa0164e
+[Edit wiki permissions in admin menus
+boris@yakobowski.org**20090804133414
+ Ignore-this: 2ecf9a0cf42fc080c586118297141002
+] 
+hash: 0000005330-cfc7daf96cc9fb7823861d217134955265d27edebd126b10c650657b25f90604
+[Major overhaul of Wiki ; now possible to set the wikibox for a CSS
+boris@yakobowski.org**20090805112105
+ Ignore-this: ad37a1a7916d162282551176e039c5b0
+] 
+hash: 0000041949-71d48adbafbe8f99a00a2c1837babf1d9613cd7462c1edac6fde8b227b6588ea
+[Remove slash after moving a wikipage
+boris@yakobowski.org**20090805112149
+ Ignore-this: 2b5020480f76b27aafb750c117b1f60f
+] 
+hash: 0000000382-fd57a4447925a21f93c6605cd114876168f78e9d7ea19434bd5cc1c4484cb01f
+[Set the wikibox for a wiki css
+boris@yakobowski.org**20090805113234
+ Ignore-this: 4dfc4469ac35f4903a1448a708da82c2
+] 
+hash: 0000001502-73e54a134b357ac0e1765110cc6b34b7ec4d1c6686b5602360c3baf14ac02585
+[EXPERIMENTAL: ocsimore_client now linked with lwt
+balat at pps.jussieu.fr**20090804173117
+ Ignore-this: b4ab1c4998450150dfcaced8539cf12e
+] 
+hash: 0000000800-d74f17fa79b90fa97d10c6e8a9370779fa9bb83fe09b6eb917962db9157ee1c6
+[switch to new obrowser syntax extension
+balat at pps.jussieu.fr**20090805160126
+ Ignore-this: 932b25f13a83f03d3962ff906b0a42bc
+] 
+hash: 0000002942-f1ae0b0966b670344d3b472f19e0cced85f49847278467118a22de41d5f7c011
+[Pam package for ocsimore.cma forced
+boris@yakobowski.org**20090805195347
+ Ignore-this: 478371d5b18b43dacd47968a18009e26
+] 
+hash: 0000000215-48361d572933de503a7af4734c80f2f6eda471e88757f2ca77ee15745acc5668
+[Modifying the wikibox for the css of a wiki
+boris@yakobowski.org**20090805195417
+ Ignore-this: c5292ff71f854b61f10ea3a64e3231d0
+] 
+hash: 0000000695-4971f365add5e45c325d83e394afaf111f87dcd89bc0d133a110e243fbc8d7ea
+[Removing slash at the end of wikipages
+boris@yakobowski.org**20090806145546
+ Ignore-this: 79f216a3cd8c9ad4412ca7395b92dc25
+] 
+hash: 0000001277-205f6e3b79237b4ae71e31c2eabdfb8541c29be9dced982639774fe40a793ab7
+[Adding method in Forum_widgets + migrate to new ocsigen version
+balat at pps.jussieu.fr**20090807133749
+ Ignore-this: 2a19f06605ecee8b01aea3b7e0f3c644
+] 
+hash: 0000005576-b2de78389680dbe07b9541b18c1af970bfb5f1653f33e4688479649be950d488
+[Removed no longer useful 'sp argument in wikicreole parser
+boris@yakobowski.org**20090807130715
+ Ignore-this: 28e5595bea36eb6e8192b960333d036c
+] 
+hash: 0000006257-6f34fefe6f0414dcab3bc11e8457d545cf4a215d211b42537678d00ca5fc1fd0
+[Removed an epsilon-transition when parsing links
+boris@yakobowski.org**20090807141505
+ Ignore-this: e0477a38f74040ba997fe31b6a07dc1
+] 
+hash: 0000001011-e1d5caaea5a0f8e4b16ece7ec2b04dc4f41bb0c762ffd3510843775c1b635d60
+[Forum: small style change (comment buttons)
+balat at pps.jussieu.fr**20090807160045
+ Ignore-this: 8c5c5033b58a8adb335d5f5554394d98
+] 
+hash: 0000000467-ef570df27377bc64bd08bb5e5d3095f997ce3d5986a3a4a4889b12d3abf9c6b0
+[Debug code
+boris@yakobowski.org**20090907143240
+ Ignore-this: 8cd3d4819c4a835fa37fa2b10a5fa9f2
+] 
+hash: 0000000229-8b9e60d3ebe32b8d23e1f8df138ca50297e6b43aeb4302e052ffb08a90922c97
+[Unused variable
+boris@yakobowski.org**20090916125746
+ Ignore-this: 7dd63e8d89e58fc8520c5741dfb2a8e5
+] 
+hash: 0000000159-695eb0104407f99cf561c2d9dc3d641fd89998ca1905df717a9e7ac83da1f0b7
+[Multiple CSS per page
+boris@yakobowski.org**20090916125939
+ Ignore-this: c66f500d6f5dcd11669804e3294fd806
+] 
+hash: 0000039780-cdc50203d060474e7c0e4f62b0e802a620fa3549f04d656821ffce094810018b
+[CSS displayed inside a Pre tag
+boris@yakobowski.org**20090916131149
+ Ignore-this: 8222a573d7077c0cf2a10747a2eba0ca
+] 
+hash: 0000000341-21107ab9e3d0f3e685f19220a9b55e24cfe484530ee04340360e31e9b598b885
+[Ranks to order CSS
+boris@yakobowski.org**20090917135025
+ Ignore-this: ad632959f87b254cf2f4cf17a21b67f6
+] 
+hash: 0000007794-2a99c7f52833ac0060c80eb9a71944ddf0fce9bf77e6c5cdfd355df62b3d2955
+[Menus reversed
+boris@yakobowski.org**20090917142000
+ Ignore-this: 1d89510bb7a1717ee3ffb3631514b367
+] 
+hash: 0000000415-b99dd032233cf14fe75a46c4c59d2b5ad79a5f84b75d86ad0625cfc6def1621e
+[Text for CSS edition
+boris@yakobowski.org**20090917142009
+ Ignore-this: d3ef2ecbd2b3c568540c795f627bec2c
+] 
+hash: 0000000238-2c8d98034c9c7e0ea7c244ca278441cd7379a0802a891b48197c0321d633d931
+[Default groups when adding css permissions
+boris@yakobowski.org**20090917161810
+ Ignore-this: b5e099fb95922ee0ced7a35cbb33127f
+] 
+hash: 0000004372-c22f8f60d092eb861093a28c0128cbd3a3ecef7f7849962b91e88b7ed3bdd898
+[Viewing of a CSS
+boris@yakobowski.org**20090918122522
+ Ignore-this: d484cdbf86c5254bd79c24818fe6b4e1
+] 
+hash: 0000002511-e81725339153ca13ae033401b90a57303729775d03a8b4d330aa2da9c6bab256
+[Default permissions when creating subwikiboxes
+boris@yakobowski.org**20090928130925
+ Ignore-this: 84201c8bef80b41b3f04d4ffb53b97a6
+] 
+hash: 0000001450-9195d9ecc796e73948e22d95e5e0b14433ea3cffd7267aaef892408742212db4
+[Bug in in_group function with dyngroups ; group external_users
+boris@yakobowski.org**20090928132543
+ Ignore-this: a6bc98426882be6d6ddb81173ae97b21
+] 
+hash: 0000004951-9f51a10ad144e72dfc02353e8ee555d9088ffaa67db78cbe4af6566102d18064
+[Groups to control who can have wikipersos
+boris@yakobowski.org**20090930085245
+ Ignore-this: e5b7efb38cb184f124c86302612c6b4e
+] 
+hash: 0000002506-d0798cf888b564a71f0216e52a319fcb91be0a3d0c5095ffc73a4c7cac0e03a3
+[Better defaults permissions when using specialrights
+boris@yakobowski.org**20090930121351
+ Ignore-this: 81b21385db3438dfe3d478d43020fa09
+] 
+hash: 0000001097-7cd5a3d40cb9e9414dcb405e89dc351ddadee58151434f1dc9e280219e03583c
+[No need to encode pages
+boris@yakobowski.org**20091002122845
+ Ignore-this: 7ce1fbdf9d9f73dda0e238895e379152
+] 
+hash: 0000000287-c55f92db1cf7e674d69203b671db5f14b8472ee35a1f02422ef35bdef4a009db
+[Use session groups during identification
+boris@yakobowski.org**20091006134819
+ Ignore-this: 6fc500014c6733664c24f46c7cd6577
+] 
+hash: 0000000668-f26798bad87c8f298a2947d53a135f7b35df3e0e01904bfc4bf53ccbf6eb1454
+[Update for the new version of Lwt
+boris@yakobowski.org**20091006134846
+ Ignore-this: 9873ed8165e6b9e76833539705de5533
+] 
+hash: 0000000534-f4c288eb0584180aa470bd90066ce9d0944140d4290fced8911589cb1a2f7656
+[Timeout of identification cookie
+boris@yakobowski.org**20091006134900
+ Ignore-this: 9e43b9ded9332cb60d2c86f7b9215630
+] 
+hash: 0000000297-331b450c208f33501f045963cbdc3cfad9568fd8f829cd025c0a0352c70bbc18
+[Bug in timeout
+boris@yakobowski.org**20091006142446
+ Ignore-this: 220a7e41d545688845f7d9d64af87ad4
+] 
+hash: 0000000259-f64640d208226a7d73d52177a4d4cc4dc7f9347d5d1f15121278c21d5ab1b6cb
+[Author names in utf8 in history
+boris@yakobowski.org**20091007092513
+ Ignore-this: ab49f1820439732a80397a9393c94d97
+] 
+hash: 0000000408-d5421770cb315e7baaad7c9540b405e0ee7d2c3b5543cdae9d25dffb46da8f80
+[Updating to new textarea interface in ocsimore
+balat at pps.jussieu.fr**20091012165918
+ Ignore-this: bcc031af2ff40ed64f4923f419e7dd9d
+] 
+hash: 0000001653-4d2cafd1b4d7df86def24f2ac9b18c0da0687912ee7b5a6ec533b9b7bf489a37
+[The Cache module is now in Ocsigen
+boris@yakobowski.org**20091013123408
+ Ignore-this: f94ea421cc97ae61956592128e8749d9
+] 
+hash: 0000010935-82297065283ddce0fd4618e84038a715f192b07e59adccb068af535016578e63
+[Login is now delayed if there are too many connections
+boris@yakobowski.org**20091013123436
+ Ignore-this: fb595e8ff1e785bf372c68a87be266e3
+] 
+hash: 0000002912-ba5fcc59fe11a4cc55bd21bde3a1f08afbeece3799922c35c2e42c8b8e2389fb
+[Parallel compilation
+boris@yakobowski.org**20091013130106
+ Ignore-this: 25cd86e231c73eb645076ffce10aa1c2
+] 
+hash: 0000000305-3108055c451a1acfc460fb3c9607d88ff723e75eb7af796fdd006ca2a260d565
+[Real groups for wikipersos
+boris@yakobowski.org**20091013130131
+ Ignore-this: 377bd8436e7428237037132e5c6f6090
+] 
+hash: 0000001025-3093afb82ba2ced1044c27764ca8e7e3f9a15cc88452ae112ffa4ac64e979129
+[Group of users that can administer a group
+boris@yakobowski.org**20091013150805
+ Ignore-this: c48a34539ee5eb867290a0f238e58e2f
+] 
+hash: 0000002470-12821f92b3c64c0bf61f43aca8d7257e7e59e24768f6818749c03a9abca77658
+[Complete migration of cache module to Ocsigen
+boris@yakobowski.org**20091016095014
+ Ignore-this: 38c9678809d028afc6eed29faafbce08
+] 
+hash: 0000000218-672d38f1a2d4f9c848777f978bd397a90eef2d19d095eb67b858680b90351721
+[SQL update for multiple CSS
+boris@yakobowski.org**20091023193355
+ Ignore-this: ffecee4277f8dd665b5a7756f0a5f134
+] 
+hash: 0000000240-5bff19aa915dbd26e339752cb7339e47e146b86b84b72344061e4e0a85dd2e19
+[Form and groups to save wiki metadata
+boris@yakobnowski.org**20091027001626
+ Ignore-this: 139001abe926ef6a42df1f8429a0d25e
+] 
+hash: 0000011275-87c4d8c5edd18ade762f68bed56d2299b8d8fec1d3f8efa25928478afa2f1fb6
+[A few comments on set_session_data
+boris@yakobowski.org**20091019162533
+ Ignore-this: 7be78a3f3a417500cfd5b07d4815e5a2
+] 
+hash: 0000000767-8e80fb868a24fa58ff30c333697d5babc99634b01274ad683e384ce4f3da3dcc
+[Wikipersos with reduced (no write for anonymous) rights
+boris@yakobowski.org**20091027150057
+ Ignore-this: 2a80bbee2699fe110ea178782de55720
+] 
+hash: 0000006037-cea6d784f8f18caf6b9a452f396098db14262c7a273e015ec221b234c5bf4175
+[Wiki services are now create by a functor (more helpful type errors, more things to type)
+boris@yakobowski.org**20091028144036
+ Ignore-this: 24bc08fbc3175e155b9ae55a6500d76d
+] 
+hash: 0000021755-a2f4eb5616dc0e88ab85d07bca2a9276350fe5e26cb2956d30953bba3940a8b2
+[Missing SQL updates (for css media-types)
+boris@yakobowski.org**20091029121519
+ Ignore-this: 7d5f2a75a23a5f16460d76b0176dce2a
+] 
+hash: 0000000259-99756c456d67b32174d56f011a0928b23c59054aaae15abdfbf31967832c5ba8
+[Supply passwords for database update
+boris@yakobowski.org**20091029121537
+ Ignore-this: b19c63eabc497b704ea9f76f06714ba
+] 
+hash: 0000000777-c49fd91127bdf9e829349d333925b77f996d901de2a25239fed1282a0a91575e
+[No longer useful SQL update for forum
+boris@yakobowski.org**20091029121553
+ Ignore-this: 711e81eecfc5dc74f1ee9a9447648c8a
+] 
+hash: 0000000336-e6d0fe79bb1116cef61669875c7e9a3525e3bd1b9385c9171ff75894ba4e109e
+[Subtle bug with / at the end of wikipages names
+boris@yakobowski.org**20091103164840
+ Ignore-this: 7d854d68b364ac5bb9ba60291fe13971
+] 
+hash: 0000000285-9f8799ee55a90f2fccaa81965ead2c112eb0d7f190b2fba8c47b2d2380c363fb
+[Small mistake in the permissions checks for wikiperso-creole model
+boris@yakobowski.org**20091103164855
+ Ignore-this: f0d016afb5d3fc8e0c1f5df6b3b8df8c
+] 
+hash: 0000000292-c3d4c5c1c262a493a9cfdbe614d21fbe63392da0757f88e8ef76dd99758f9ae8
+[No more loop when deleting wikiboxes
+boris@yakobowski.org**20091103173739
+ Ignore-this: 3514fa8034917a8a5f4b3a10f3e7fc70
+] 
+hash: 0000000322-77dfdff9f45a273f63b0e7c6176ef2352e98cf8d79c1532e58b74d9f00b55065
+[French text in language.ml should be encoded as utf8...
+boris@yakobowski.org**20091104135103
+ Ignore-this: a616e1f1e6a5e6a109b493d27d229403
+] 
+hash: 0000001000-f1b4677ce49fb8ef514464f53908c5a30469450875e3e860f2dfcbe1a4a9dfb4
+[Framework to migrate db through Ocaml
+boris@yakobowski.org**20091104171335
+ Ignore-this: 8d6381210e78d7f9462e2b455833cd39
+] 
+hash: 0000006535-9710fbe6e966ee21ef632c65e484ae577edc570a892acbc86fe771faff1a3e17
+[Get rid of sql migration; start with the correct database schema
+boris@yakobowski.org**20091105102308
+ Ignore-this: ccfe083e880daea1d00a250d51baeb7b
+] 
+hash: 0000048851-5fd9cdf8864d35f674b1a6ea2b99ca83c9bab04d9441c847eea303c6e478fe62
+[Correct handling of object tags
+boris@yakobowski.org**20091109133914
+ Ignore-this: 716bcc45658445c0ccd7a24cd3209b98
+] 
+hash: 0000000383-65d220d315c579cb20c1cb2ebaf3115afad063d8c24244018fcbedc4bbbe4c7d
+[Outdated (commented out) types
+boris@yakobowski.org**20091109171650
+ Ignore-this: ecee3e0a691f96ad1f6277ad8245983d
+] 
+hash: 0000000699-528ef45ec43b2e6a87ce94e4ec19b1bbb904cec7fd14337a3063ca3a5aa187b9
+[Correct handling of databse update during compilation ; cleanup of dependencies
+boris@yakobowski.org**20091110133155
+ Ignore-this: 8ee050a9d3bafa453471f6b4398cbedf
+] 
+hash: 0000005355-fd2bcb9b220ea9550c96f000e24f6a5dfdb411dc94986f42d56e58d93bb9443b
+[Remove some unwanted slash when comparing urls in menus
+boris@yakobowski.org**20091112152754
+ Ignore-this: ff9cebb1c0ab0348ced317c065ac7650
+] 
+hash: 0000000366-b0a9a299262c4228d4a4524c636f0e3ea21a939c29da8f84d297ad6f92aed70d
+[Remove some useless dependencies
+boris@yakobowski.org**20091112160519
+ Ignore-this: fa4442b1d17a61b08eace36b0da203bb
+] 
+hash: 0000000367-1eebb12db9fb1bd9867d2d5b147db9096db30f76fa2ddc941697b3c1ef3e481c
+[Missing file
+boris@yakobowski.org**20091112161136
+ Ignore-this: 6d5f7efccfd35c63caef2c1c8afcdbc4
+] 
+hash: 0000002011-f998f2d52a8f5969f25ef7a02709fb615f4fdd78b40a6d2ddfd7340daea9743c
+[Style of the admin pages
+boris@yakobowski.org**20091110102912
+ Ignore-this: 48bf758fdd3310941f63dd963c7d6a17
+] 
+hash: 0000012909-e73150f9e870ea52e379e618c1034ea1a3bcf752881a0eadd2bd4a5fc08c251b
+[Wikis in different hosts
+boris@yakobowski.org**20091113113023
+ Ignore-this: 1bc1df6ced253ee3923febe71d91e95a
+] 
+hash: 0000006000-225cd246ceb437ad82d143476481fd3c6302cc85fc77af738f672e0bc79ed57c
+[Url that should not be encoded
+boris@yakobowski.org**20091116155752
+ Ignore-this: d53b16ce41584ea444431dea42de497f
+] 
+hash: 0000000294-3b41790722466a6a958eaa84f8073ccfcb23b18e6aea4b5eba1090bac4669877
+[Extension switchmenu with configurable text
+boris@yakobowski.org**20091116162132
+ Ignore-this: 702199103579a92307b0442c0725d1d4
+] 
+hash: 0000001204-23db5efa317f491abe3d383306641bf70f8db936c31bfe381547f42101e72ab6
+[Ocsimore_page now a module to load
+boris@yakobowski.org**20091117125702
+ Ignore-this: 42cfe55d20919511ec00bc14df03152c
+] 
+hash: 0000020094-c29b9780d71bae5ec83e8e54195fbc24aa0dabb432bb0a52ca896225e9417281
+[Updated conf.in
+boris@yakobowski.org**20091117131013
+ Ignore-this: feed5c9c6c02dc4ca974b73837d478c0
+] 
+hash: 0000000528-dcb45b365a5af5d65c7a78b6208902ca4ddac7cb3d01161f475439c707c166cb
+[More informative error message when the database version cannot be found
+boris@yakobowski.org**20091117133348
+ Ignore-this: 2cd1f8d8abad1a6933f88bce788f0e5f
+] 
+hash: 0000000543-3c2a20128f3e6542ba014445b5e735aad917929e731abc0e965218f481cbf839
+[Renamed hostid to siteid
+boris@yakobowski.org**20091117142716
+ Ignore-this: 14f8ae63cc150a7e058320a959717b6d
+] 
+hash: 0000005926-8f8fa130b065c29817a2ef9755bf39938cf2bafc9143b2dc1f43f2527d5721ab
+[cmi of page_site not installed
+boris@yakobowski.org**20091117170321
+ Ignore-this: 1fc20df331d40a9ca3f3ab66e5050889
+] 
+hash: 0000000173-bcfddc5c8637aaeb74e2dd2ca60e2c1da62ddeac83cdd7d31212e4ca8913b9ba
+[Useless package linked in updatedb
+boris@yakobowski.org**20091118140323
+ Ignore-this: 18b8c68b3f0060578728b19ea17bdafe
+] 
+hash: 0000000301-286730ec21c5aaef4b07da9e40b2482e5b22cdff8f8dd52046561f3e950a24fa
+[Cut & paste typo in error message
+boris@yakobowski.org**20091118140333
+ Ignore-this: 70e261043e3c69bad0a9ae67326126d2
+] 
+hash: 0000000286-cc96ff1f399acd93c87e172bcb2a803944df351e4cd1bb76feac6f676b6b78e9
+[Interface to create a group
+boris@yakobnowski.org**20091118195629
+ Ignore-this: 5e7f4e2201c9bd7987b71cbdb25807e5
+] 
+hash: 0000006443-37abafb59ee3e0cd0bdd44f859241b5b6bcb625c6ad94fc7cb69a6cdf5178753
+[Split viewing of user/groups
+boris@yakobnowski.org**20091118225533
+ Ignore-this: 2be3589510273cbfd7bb6f9a37d29205
+] 
+hash: 0000008066-7384a9125390ecb4e7004f2a3198157b147409a9c9ce04e2f60e0c36783dea36
+[Check that user/group names do not contain '#'
+boris@yakobowski.org**20091119100432
+ Ignore-this: dbda4a704bf8ef295cba60835081d7d0
+] 
+hash: 0000001438-1b80823fe0cdc584a3d85ed3a793ffdc5b1aea839e3d282f26da32af85adfe37
+[Correctly return 403 when the user cannot see the wikibox
+boris@yakobowski.org**20091123145731
+ Ignore-this: deef756d3e0a9fcc54736e1cd984ed5
+] 
+hash: 0000001119-9ce9cd0c5928e84bf7aaa067d81a65aebfe9d631373a6bf65e9f78a9ffdcd538
+[Type of groups parameters
+boris@yakobnowski.org**20091123152915
+ Ignore-this: a3223da1cf189521ab42040ba5b27159
+] 
+hash: 0000012480-ece9ba882799d011f3bb70d1dff989b4cad79523727bc6a922d153eea2803f79
+[Error message at the good location
+boris@yakobowski.org**20091123163830
+ Ignore-this: 15b9877d010fd8df700c54eb2de28d97
+] 
+hash: 0000000306-2c0938b271d3c3a2931af580d6b6b20663c116e40f11e4a2797ade69e40c9f38
+[No more imperative fields in userdata structure
+boris@yakobowski.org**20091123172112
+ Ignore-this: c99357fbdac101bb41a87240b1af6f1c
+] 
+hash: 0000000547-a3a480ee799127b961d42f25e94a09573bd119cf9c2c4dcdafe6e3636fb70e83
+[Dead methods
+boris@yakobowski.org**20091123172127
+ Ignore-this: 3b29d41f0f4707f3c058e327ca664fd5
+] 
+hash: 0000001258-f3dd56afdcd7e5b0a3e6fcd35ed67b2010c479cbe95b081d823b724c3af28ba1
+[Major overhaul of permissions forms
+boris@yakobnowski.org**20091202174958
+ Ignore-this: 4be9bb5015a01ffef1517203ef6f9d28
+] 
+hash: 0000057921-ae7a0ec8a931e6e9301525018607542bf1e9d8c2b0f4aa01953cc05a82aad052
+[Correctly catch user exception
+boris@yakobowski.org**20091209094617
+ Ignore-this: 36f4644fbacb7b1b872dd8bb611fc4d1
+] 
+hash: 0000000196-eb80d51c7f5336e936f4100f78913d918dbe3e106f7478025b67b4aa23d54db7
+[Always crypt passwords
+boris@yakobowski.org**20091210142519
+ Ignore-this: a7f93f14141eae11929302dca9f3cdcd
+] 
+hash: 0000000283-79b85c533eb82423aa2f7e5bfb295fe1768be1e0375648d7489f5b9d9f065788
+[Correct change of user from the admin account
+boris@yakobnowski.org**20091210230240
+ Ignore-this: b64f515060e6e3322d47ae7b4cbcd83d
+] 
+hash: 0000000419-c820b0497f3de1f499c27c5b9a08e09ed49689feeff8d69fb7a35ca7eae5f39e
+[Typo
+boris@yakobowski.org**20091211144206
+ Ignore-this: 6010097139f64cf21b563769a648384e
+] 
+hash: 0000000259-13ef4736f5b463b3d7884a1ac5c8ffd1d80f4c86b99d9b626d20123a96af430f
+[Admin menu with roots; a bit of styling
+boris@yakobowski.org**20091211144219
+ Ignore-this: 253d359a2bb72f71d2a36afacc0814cf
+] 
+hash: 0000003933-01275b4520f13dc40efc8a3051af1ce4ee133c044a5f6d8a0b217946402386cd
+[Better forms for wiki creation/editing
+boris@yakobowski.org**20091211164850
+ Ignore-this: a01011c07f0dad88b820838c6859a6d1
+] 
+hash: 0000001665-eecbf636cf0b4cb8bf8d323260b7b390fb35797d35870f5417da29e453cca404
+[Redirections after some post actionsn
+boris@yakobowski.org**20091211174916
+ Ignore-this: 981e87c00c631c000989a3ee72ea6193
+] 
+hash: 0000000821-544e1324fd8af0eab0f2cf18715cef4d332d7765b9df36a649fdeed27fe7912a
+[Bug in role groups
+boris@yakobowski.org**20091214173524
+ Ignore-this: 1a077105478cd4579db1a67592833ac4
+] 
+hash: 0000003326-0d92005e9305f5cfb593aaefe62fc602d68b45b83127867fd9cc4a766274772b
+[Typos
+boris@yakobowski.org**20091215104707
+ Ignore-this: 559fcdd70874700b80f936a1d555971e
+] 
+hash: 0000000967-39f07ff288ebd8d7fee3efbdd43a950d5a06200af1272f343decef4c14fa948a
+[Debug code
+boris@yakobowski.org**20091215104724
+ Ignore-this: 6fe42013b3337499a61d86561ad69044
+] 
+hash: 0000000221-6c896f64bed1d60fde31394b709cddb62e89a709722c9feca3ee817d07ea36f1
+[Correctly user User/Group/Role
+boris@yakobowski.org**20091215133548
+ Ignore-this: 669928085723f439069f6415e6768db8
+] 
+hash: 0000010472-8e953c13683ae8584e3ae72103f6db5d66b612208bc352fdfe715e00d8c6dcee
+[Updated TODO
+boris@yakobowski.org**20091216150713
+ Ignore-this: b4a1d4de43e5dd504c0e8807229a305e
+] 
+hash: 0000001670-a81a7c58fe9af5dd36aa7deb4fe89d7a8b61a9f2af2836fee0a4719c033bb380
+[Removing functors
+boris@yakobowski.org**20091216151109
+ Ignore-this: 830f9beea61baf603e032d513be3cf71
+] 
+hash: 0000094130-3be3639274a7560083df752482ea173c5babe44b90d14ce680ec56dda09427f2
+[Correctly catch exception in extension wikibox
+boris@yakobowski.org**20091216182802
+ Ignore-this: 2881115be6203c8a5de5910038f875d2
+] 
+hash: 0000004492-793c00a21778f321cd0055e08a8a60bad886814d68b94ccef463150389400da4
+[Major simplification of bind_or_display_error
+boris@yakobowski.org**20091216182835
+ Ignore-this: 8b902190d7076b3b63bbeaa499551d19
+] 
+hash: 0000012824-6ea999c2df2e5445cf8af3f49b604d35e18a42c0ac0aa87dcf12d285ed81cf58
+[Properly load forum module
+boris@yakobnowski.org**20091216231231
+ Ignore-this: 96782d31b29b30a034e98472ad555652
+] 
+hash: 0000000691-2f54c100722b1c8df481e55e366b79a2a75acc9233d056ce3485c0a61d20a2a9
+[Log the ip when a wikibox is modified
+boris@yakobnowski.org**20091217091852
+ Ignore-this: 555b8e17245616c20ffce824a24eb57e
+] 
+hash: 0000001266-0c5cd71f4768c9ce38b88dbea139ae20680bc8008c33b1222cfcd50e8f48f939
+[User parameters for parameterized groups everywhere ; synchronized description of such groups
+boris@yakobnowski.org**20091217104946
+ Ignore-this: 9f13a2996a13e003d35e6ff8b99090d4
+] 
+hash: 0000009245-71c3b203647693e19182027103bfb5c94218cc66271188857e80f3596beb3cba
+[Update XXX
+boris@yakobnowski.org**20091217110701
+ Ignore-this: d947b783f606aaf969996d5589f0dbdb
+] 
+hash: 0000000360-f73b3a568d2fa211b6c16652fe84b00cc96f272b3aad71518635c8d2d2c25c30
+[Properly catch NotAnUser
+boris@yakobowski.org**20091217145012
+ Ignore-this: 3a9d3c53d6c06414995ad4afa073a4c4
+] 
+hash: 0000001271-cdc63c04e67eb89d6a2059ff21ac64190bfb34c961ab79f811d6627c030132a5
+[Properly create users
+boris@yakobowski.org**20091217145214
+ Ignore-this: b413bba4cc283c7886ba99b994048a1f
+] 
+hash: 0000008136-692c4dea32ac6e3eff5881d99074f8fceb731d21f52cc824e6ee0865cc6e5425
+[Admin interface for wikiperso
+boris@yakobowski.org**20091217154317
+ Ignore-this: e04f25632017ab1e1c95f2635d1f0032
+] 
+hash: 0000003279-1303e4b444c0267609320b64e1015d9941dfdcc16805ec5dff635ca24500db69
+[Login in the admin status bar
+boris@yakobowski.org**20091217164722
+ Ignore-this: d603294d3ea74970fe318c3b693e9bc4
+] 
+hash: 0000002254-13c2362ddd43c1505bebc502c63dba23a5802fc8a84c5cf62135d62da8fa7ef9
+[Correct edit boxes for the special permissions on a wikibox
+boris@yakobowski.org**20091217165956
+ Ignore-this: 57fcc08681be4b7bf0daf9db0a6c3977
+] 
+hash: 0000001777-53f20aa262a3eb07da834176c3fb537659a90567c2cdd7c9c011807225c7584d
+[Better handling of permissions removal
+boris@yakobowski.org**20091217171629
+ Ignore-this: d47f24e57ea2204da1b285edf16b4db
+] 
+hash: 0000000342-a670513064f00b60c35c53ac0f11db5983cb955beccccbd4519d28c9d63729a3
+[Do not show admin pages if the user is not logged
+boris@yakobnowski.org**20091219141848
+ Ignore-this: 4338d2c5ce85841ef5a3adfbb4c28436
+] 
+hash: 0000000875-a55aa82fdca167cd6ca402506e6ff396a565e572adf60475c4231d9996d37cea
+[Conditional menus
+boris@yakobnowski.org**20091219151550
+ Ignore-this: 39a82c3f508d56a77c66e1e2d061bf83
+] 
+hash: 0000004441-1900ec7c0736b8c2171d753041d86510d498a64831c4754968e98e39f52b1059
+[Doc group "users" and default groups
+boris@yakobnowski.org**20091219152452
+ Ignore-this: 9997045d04131d7fa4b6346f4c8a101a
+] 
+hash: 0000000766-c6905838a6a0a158b3fc83260f41e566884e057599ecef16a3db0d0f76ecb10d
+[Permit multiple wikis with the same name with different siteid (for wikipersos)
+boris@yakobnowski.org**20091219152914
+ Ignore-this: c43a40503e1557ea5a99307b7ecd519c
+] 
+hash: 0000000486-b2d069d51f1e50ba7b06efd0b4f383f1fc435d0a80757f5fa7386201af73ebbc
+[Good location (inside the admin wiki) for the wikicreole help sheet
+boris@yakobnowski.org**20091219153223
+ Ignore-this: 8a76f9a0c17f773c21e4eaebc286287
+] 
+hash: 0000000423-a43156c4439c150cb6a892aa152c3e7c8dfdd380953a0ca7f07932dd38b953ac
+[Wiki: fixing a wrong comment in db for subwikiboxes
+balat at pps.jussieu.fr**20091222185508
+ Ignore-this: 76cf4d7e4fa0166d20654e46027543df
+] 
+hash: 0000000524-4a7e9ed0dc118af389ea23859811f11634a94146aa3bf22684b69d680fd89862
+[Users: fixing a bug in confirmation email (user creation)
+balat at pps.jussieu.fr**20091223150541
+ Ignore-this: be2992dd98c0196b5ffd01ae8c8e4a84
+] 
+hash: 0000000287-6727609223e92b815991bcab3e01af4cd4c796ddecfd7af727c39c368a505430
+[Wiki: allowing images in inline wikicreole
+balat at pps.jussieu.fr**20091223154150
+ Ignore-this: 67e25f7c25cf54cd884c6ce189f4d02f
+] 
+hash: 0000000283-516d1997e855682f50b6d3621f53c4da69479e1b4856267e98f0abeb051894c3
+[bugfix in wikicreole syntax
+balat at pps.jussieu.fr**20100228181943
+ Ignore-this: 87e4bdef1cdf97688e132a5d29b92ef5
+] 
+hash: 0000000305-5fcfa17de03cb19435f7697acc4a385022f8392824c985b47fe0b082600cfd72
+[Switching from Ocamlduce to XHTML.M (partial)
+raphael proust**20100723094212
+ Ignore-this: 8fa1bed4893ed6ea8bbfc13ffd67c1c4
+ /!\ WARNING: this is a WORK IN PROGRESS /!\
+ Among the things that this patch breaks are:
+  - forum (yet to be converted)
+  - client side code (yet to be converted from Obrowser to js_of_ocaml)
+  - administration menus
+ Look (or grep) for 'Failure \"TODO' to list broken points in the project.
+] 
+hash: 0000257391-a01c33aa750841f743ed711693d1bd13b74f2030c8f82f95af8a938355c757bd
+[Porting to Eliom/Ocsigenserver/Tyxml 1.91
+chambart@crans.org**20110428131610
+ Ignore-this: bd3ce74f0531e6a9ab65ab5da639f62b
+ - forum converted to Tyxml
+ - removing sp
+ - droping use of preemptive threads: problems with Lwt local storage
+ 
+ * still need conversion to js_of_ocaml
+] 
+hash: 0000198682-5f25fa219da580a0b2385faef23a7df831b06511cdb1d735a002ff03e10a5469
+[reorganise directories, make build system
+chambart@crans.org**20110429152608
+ Ignore-this: 5bb3046cf27f23a99d78a6f319c590fb
+] 
+hash: 0000211844-20e597fefa4b002e4b5012e18c5b65e89588d3c2d11bae2e9996ecb92acc7bd2
+[port to HTML5, addapt to use Eliom_appl
+chambart@crans.org**20110608133412
+ Ignore-this: f6e838a63fa71c10c85ff900bc744b7e
+] 
+hash: 0000210071-f00d71fdbb2035a322f8a6263716c1d35d5304ea20863cfd8f7c8c7ce7623638
+[clean printf
+chambart@crans.org**20110609113534
+ Ignore-this: 2e6012125353d0546e2f66b8487fd6f9
+] 
+hash: 0000000670-5b43b66f7ce37ff23636b472d37dadd7cf5c53dc36e7c69b3814f8d3c6d4a51d
+[addapt to changes about scopes in eliom
+chambart@crans.org**20110629161740
+ Ignore-this: 8b81aa85ddeb5987e19dc05da27728c0
+] 
+hash: 0000001465-70102266dbb8c47f62f1367557aa55b076b3e14d04c1584b2580bb9700be0dac
+[Wiki_sql: ajout de la fonction get_wiki_info_by_pages.
+gregoire.henry@pps.jussieu.fr**20110210163457
+ Ignore-this: 888193785e3ebd29af6f3fc9675f9229
+] 
+hash: 0000001084-a4d3e3f148bd4e58cc9fba8cc733b168f6868f3f6838de5ec624e647de435471
+[Update create_db.sql to the 6th version
+gregoire.henry@pps.jussieu.fr**20110704154141
+ Ignore-this: 96464a74e7eb5183f2b3d3abb285d6ec
+] 
+hash: 0000007989-5f93eb345e9e99585669a18718e50a20922af24b77fdd6e091171304acf61ffd
+[Ext wikibox: utlise le contenu de la l'extension pour initialiser le contenu de la boîte.
+gregoire.henry@pps.jussieu.fr**20110705180634
+ Ignore-this: 820605a386d410635ace04ec04da1457
+] 
+hash: 0000001578-c20dec700b888a808ee82f7d601b66c5d45fb7ea3b9425ff3670875821f7de67
+[Ajout de Wiki_dir et Wiki_menu
+gregoire.henry@pps.jussieu.fr**20110705181214
+ Ignore-this: 6696ed544e609f828d00a1b73958e825
+] 
+hash: 0000020663-92723e66f116a5c4dc935e2740059740b563a80c5ba7412abdbd3957bd71c870
+[Permet l'utilisation du "parser" actuel pour analyser le contenu d'une extension.
+gregoire.henry@pps.jussieu.fr**20110705181220
+ Ignore-this: d73e82ebf3d58fe52e8a37b4b6b4b795
+] 
+hash: 0000005669-ac27240d29ed56bace188d5b99da5e233e63306d4835cdbc5299f7320275d219
+[fix META
+chambart@crans.org**20110711155636
+ Ignore-this: 952b2602ddc534ffebceb6857a2beea7
+] 
+hash: 0000002233-b81f495c44d4d807a99c2e3386d38ad2b5311ef5234d683ff39cc09cd31908ea
+[allow configuration of database for pgocaml
+chambart@crans.org**20110711173637
+ Ignore-this: 80a177615910477ca8e5be9bd80cb5d7
+] 
+hash: 0000002015-1f36ecf3d365a00145d78a9dc53f56db71488e1c4c3ee16b58c4d8a47603c8af
+[Ocamlbuild: Fix error's location in *.eliom file
+gregoire.henry@pps.jussieu.fr**20110712135735
+ Ignore-this: d9c98439e5bdec277ce6e97d32ae61f2
+] 
+hash: 0000000269-6305e61c2412061b7fa6f8f6b035685ea6963b1f8cb5a0340f58282182e4715c
+[Adapt to the new Eliom_output.non_caml_service
+gregoire.henry@pps.jussieu.fr**20110712135849
+ Ignore-this: bf14fea28ea2e9fd3f958e9afea66d85
+] 
+hash: 0000005677-ae01b35030fe72dd8264812a50a9e544960edb9c09ff7c83c25c860ae4098489
+[Add Wiki_dir.serve_file and Wiki_menu.build_tree_from_file
+gregoire.henry@pps.jussieu.fr**20110712140035
+ Ignore-this: c14eaec45a563164b500001cb3e400b7
+] 
+hash: 0000003432-c7b97d20cfdf0f8ff2683072a6f26dc9145435a7631b266eed9434a14f102d7b
+[Quote parameters with "  (instead of ') when pretty-printing wiki extension
+gregoire.henry@pps.jussieu.fr**20110716180245
+ Ignore-this: 92e1cebbd7c15cc80f3c74f9881d0ced
+] 
+hash: 0000000347-46c765604e175bb8a3f605d357763b03c1641e814acdede3f50682a85ad0f926
+[Add "class" and "id" parameters to wikimenu.
+gregoire.henry@pps.jussieu.fr**20110716182830
+ Ignore-this: 532fa7ba5ca1c4e74bbdb932c92e899c
+] 
+hash: 0000000686-7406f38d8f1cb36802a461c7b1a8b54184e55b03f54017442db8df2ebdf41dcc
+[install static files and ocsimore.js
+chambart@crans.org**20110718130925
+ Ignore-this: 14baff05d14f99d20e96ce6b69632d7c
+] 
+hash: 0000168726-a2ec715fc8b85acdf912eed9b0587a5f09ee8652866b0cd459463f7ab6d02a5a
+[pguser/pgdatabase/pgpassword configuration parameters set the default runtime parameters
+chambart@crans.org**20110720162119
+ Ignore-this: a3b661fc929d399a3935528d2192ac62
+] 
+hash: 0000000675-23e0e1cfbb41431d0b76d40c6693184aae096278647cade78dd1370dec4a4b82
+[Simplify Wiki_dir
+gregoire.henry@pps.jussieu.fr**20110720234636
+ Ignore-this: 6950f8565fc17d68359f550e5dda9116
+] 
+hash: 0000011483-84167196b38639968c6a140cdb5a708ab1f459610877a8ee77537f3270e9bb52
+[Fix in Wiki_dir.resolve_file_in_dir
+gregoire.henry@pps.jussieu.fr**20110721040835
+ Ignore-this: 7571e40f8b8ddca4b9938d9abbe66b31
+] 
+hash: 0000000264-c6553774049ba75152308a29b135dcb3d822db37b98aa3da008c6d3bbdaf3e6b

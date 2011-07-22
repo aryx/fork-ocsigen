@@ -1,0 +1,11 @@
+Jul 21 19:16:33: main: Command pipe created
+Jul 21 19:16:33: main: While parsing config file, tag <host>: No defaulthostname, assuming it is "dev1217.snc6.facebook.com"
+Jul 21 19:16:33: main: Ocsigen has been launched (initialisations ok)
+Jul 21 19:17:18: main: While parsing config file, tag <host>: No defaulthostname, assuming it is "dev1217.snc6.facebook.com"
+Jul 21 19:17:18: main: Ocsigen has been launched (initialisations ok)
+Jul 21 19:48:16: main: While parsing config file, tag <host>: No defaulthostname, assuming it is "dev1217.snc6.facebook.com"
+Jul 21 19:48:16: main: Ocsigen has been launched (initialisations ok)
+Jul 21 20:08:32: main: While parsing config file, tag <host>: No defaulthostname, assuming it is "dev1217.snc6.facebook.com"
+Jul 21 20:08:32: main: Ocsigen has been launched (initialisations ok)
+Jul 21 20:12:34: main: While parsing config file, tag <host>: No defaulthostname, assuming it is "dev1217.snc6.facebook.com"
+Jul 21 20:12:34: main: Ocsigen has been launched (initialisations ok)

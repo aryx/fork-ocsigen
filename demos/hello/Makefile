@@ -2,25 +2,24 @@
 # Configuration section
 #############################################################################
 
-include ../../Makefile.config
-
 ##############################################################################
 # Variables
 ##############################################################################
 
 SRC=hello.ml
 
-# when ocsigen is installed, can use package name instead of those -I
-LIBSOCSIGEN=$(LIBDIRS2)
-LIBS = -package lwt.unix,pcre $(LIBSOCSIGEN)
+#LIBS= -thread -package lwt,tyxml,eliom,eliom.server
+#lwt.unix,pcre,tyxml,ocsigenserver,
 
 ##############################################################################
 # Generic ocaml variables
 ##############################################################################
 
-OCAMLC= $(OCAMLFIND) $(CAMLCNAME) $(DBG) $(LIBS)
-OCAMLOPT= $(OCAMLFIND) $(CAMLOPTNAME) $(DBG) $(LIBS)
-OCAMLDEP= $(OCAMLFIND) ocamldep
+OCAMLC= eliomc
+#ocamlfind ocamlc $(DBG) $(LIBS)
+OCAMLOPT= eliomopt
+#ocamlfind ocamlopt $(DBG) $(LIBS)
+OCAMLDEP= ocamlfind ocamldep
 
 ifeq "$(NATDYNLINK)" "YES"
 CMXS=$(FILES:.ml=.cmxs)
@@ -47,10 +46,11 @@ opt: $(OBJSOPT)
 	$(CMXSCMD)
 
 run:
-	../../server/ocsigen -c config/hello.conf
+	../../server/src/server/ocsigenserver -c config/hello.conf
 
 clean::
 	-rm -f var/*.log var/ocsigen_command
+	rm -rf _server
 
 ##############################################################################
 # Generic ocaml rules

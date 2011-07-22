@@ -1,0 +1,10 @@
+Jul 21 19:49:24: main: Initializing Ocsipersist-dbm...
+Jul 21 19:49:24: main: Launching a new Ocsidbm process: /home/pad/packages/Linux/stow/ocaml-3.12.1/lib/ocaml/site-lib/ocsigenserver/extensions/ocsidbm on directory /home/pad/ocsigen/eliom/local/var/lib.
+Jul 21 19:49:25: main: ...Initialization of Ocsipersist-dbm complete
+Jul 21 19:49:25: main: While parsing config file, tag <host>: No defaulthostname, assuming it is "dev1217.snc6.facebook.com"
+Jul 21 19:49:25: main: Ocsigen has been launched (initialisations ok)
+Jul 21 20:13:08: main: Initializing Ocsipersist-dbm...
+Jul 21 20:13:08: main: Launching a new Ocsidbm process: /home/pad/packages/Linux/stow/ocaml-3.12.1/lib/ocaml/site-lib/ocsigenserver/extensions/ocsidbm on directory /home/pad/ocsigen/eliom/local/var/lib.
+Jul 21 20:13:09: main: ...Initialization of Ocsipersist-dbm complete
+Jul 21 20:13:09: main: While parsing config file, tag <host>: No defaulthostname, assuming it is "dev1217.snc6.facebook.com"
+Jul 21 20:13:09: main: Ocsigen has been launched (initialisations ok)

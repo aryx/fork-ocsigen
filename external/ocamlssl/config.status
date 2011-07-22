@@ -517,11 +517,11 @@ s,@PS2PDF@,|#_!!_#|/usr/bin/ps2pdf,g
 s,@VERSION@,|#_!!_#|0.4.0,g
 s,@BEST@,|#_!!_#|bcl ncl,g
 s,@OCAMLBEST@,|#_!!_#|opt,g
-s,@OCAMLVERSION@,|#_!!_#|3.12.0,g
-s,@OCAMLLIB@,|#_!!_#|/home/pad/packages/Linux/stow/ocaml-3.12/lib/ocaml,g
+s,@OCAMLVERSION@,|#_!!_#|3.12.1,g
+s,@OCAMLLIB@,|#_!!_#|/home/pad/packages/Linux/stow/ocaml-3.12.1/lib/ocaml,g
 s,@OCAMLBIN@,|#_!!_#|/home/pad/packages/Linux/bin,g
 s,@OCAMLFIND_LDCONF@,|#_!!_#|,g
-s,@CAMLLIBPATH@,|#_!!_#|/home/pad/packages/Linux/stow/ocaml-3.12/lib/ocaml,g
+s,@CAMLLIBPATH@,|#_!!_#|/home/pad/packages/Linux/stow/ocaml-3.12.1/lib/ocaml,g
 s,@LIBOBJS@,|#_!!_#|,g
 s,@LTLIBOBJS@,|#_!!_#|,g
 :end

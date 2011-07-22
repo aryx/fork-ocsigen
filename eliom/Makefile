@@ -1,262 +1,98 @@
-include ../Makefile.config
+include Makefile.config
 
-export OCAMLPATH := ../deriving/tmp:${OCAMLPATH}
+### Building
 
-# /!\ Simple expanded variable, because of camlzip below
-FILES:= error_pages.ml \
-	eliom_wrap.ml \
-	eliom_common_cli.ml eliom_common.ml \
-	eliom_request_info.ml \
-	eliommod_sessiongroups.ml eliommod_cookies.ml \
-	eliommod_sersess.ml eliommod_datasess.ml eliommod_persess.ml \
-	eliommod_gc.ml \
-	eliommod_sessexpl.ml eliommod_sessadmin.ml \
-	eliommod_timeouts.ml eliom_state.ml eliom_references.ml \
-	eliom_extensions.ml eliommod_services.ml eliommod_naservices.ml \
-        eliom_client_types_cli.ml eliom_client_types.ml eliommod_pagegen.ml \
-	eliommod.ml \
-        eliom_parameters_cli.ml eliom_parameters.ml \
-	eliom_process.ml eliommod_cli.ml \
-	eliom_services_cli.ml eliom_services.ml \
-        eliom_config.ml eliommod_mkforms.ml \
-        eliom_uri.ml eliom_mkforms.ml eliom_mkreg.ml \
-	eliom_common_comet.ml eliom_comet.ml  \
-	eliommod_react.ml \
-	eliom_xml.ml \
-	eliom_output_cli.ml eliom_output.ml \
-        eliom_tools_common.ml eliom_tools.ml eliom_extension_template.ml \
-	eliom_react.ml \
-	eliom_bus.ml \
-	extensions/eliom_s2s.ml extensions/eliom_openid.ml \
-	extensions/atom_feed.ml extensions/eliom_atom.ml
-#       ocsigenmod.ml ocsigen.ml ocsigenboxes.ml
+.PHONY: all byte opt doc
 
-ifeq "$(NATDYNLINK)" "YES"
-CMXS1=$(OBJSQLITE:.cma=.cmxs)
-CMXS2=$(OBJDBM:.cma=.cmxs)
-CMXS3=eliom.cmxs $(DUCEMODOPT)
-else
-CMXS1=$(OBJSQLITE:.cma=.cmxa)
-CMXS2=$(OBJDBM:.cma=.cmxa)
-CMXS3=eliom.cmxa $(DUCEMODOPT)
-endif
+all:
+	${MAKE} -C src all
 
-ifeq "$(OCAMLDUCE)" "YES"
-DUCEFILES= xhtmltypes_duce.ml xhtmlpretty_duce.ml eliom_duce.ml eliom_duce_tools.ml
-#DUCEFILES= xhtmltypes_duce.ml ocsigenduce.ml eliom_duce.ml
-# rss2.ml ocsigenrss.ml
+byte:
+	${MAKE} -C src byte
 
-  ifeq "$(BYTECODE)" "YES"
-  DUCEMODBYTE= eliom_duce.cma
-#  DUCEMODBYTE=ocsigenduce.cma eliom_duce.cma
-# ocsigenrss.cma
-  else
-  DUCEMODBYTE=
-  endif
+opt:
+	${MAKE} -C src opt
 
-  ifeq "$(NATDYNLINK)" "YES"
-     EDUCECMXS=eliom_duce.cmxs
-  else
-     EDUCECMXS=eliom_duce.cmxa
-  endif
+doc:
+	$(MAKE) -C doc
 
-  ifeq "$(NATIVECODE)" "YES"
-  DUCEMODOPT= eliom_duce.cmxa $(EDUCECMXS)
-#  DUCEMODOPT=ocsigenduce.cmxs eliom_duce.cmxs
-# ocsigenrss.cmxs
-  else
-  DUCEMODOPT=
-  endif
+### Testing ###
 
-#OCAMLFIND=$(OCAMLDUCEFIND)
-else
-DUCEFILES=
-DUCEMODBYTE=
-DUCEMODOPT=
-endif
+.PHONY: run.local run.opt.local top
+
+run.local: tests.byte fifo
+	ocsigenserver -c local/etc/${PROJECTNAME}.conf
+
+tests.byte: byte
+	${MAKE} -C tests byte
+
+run.opt.local: tests.opt fifo
+	ocsigenserver.opt -c local/etc/${PROJECTNAME}.conf
+
+tests.opt: opt
+	${MAKE} -C tests opt
+
+fifo:
+	[ -p local/var/run/${PROJECTNAME}_command ] || \
+	 { mkfifo local/var/run/${PROJECTNAME}_command; \
+	   chmod 660 local/var/run/${PROJECTNAME}_command; }
 
 
-ifeq "$(NEWOCAMLNET)" "YES"
-NETSYS=netsys
-NETSYSCMA=netsys.cma
-NETSYSCMXA=netsys.cmxa
-else
-NETSYS=
-NETSYSCMA=
-NETSYSCMXA=
-endif
+### Cleaning ###
 
-# LIB=$(LIBDIRS)
+clean: clean.local
+	${MAKE} -C src clean
+	${MAKE} -C tests clean
 
-LIBDUCE = -thread -package lwt.unix,netstring,cryptokit,lwt.react,calendar $(LIBDIRS)
-LIB = $(LIBDUCE) -package deriving,deriving.syntax -syntax camlp4o
-CAMLC = $(OCAMLFIND) $(CAMLCNAME2) $(DBG) $(LIB)
-CAMLDUCEC = $(OCAMLDUCEFIND) $(CAMLCNAME2) $(DBG) $(LIBDUCE)
-CAMLOPT = $(OCAMLFIND) $(CAMLOPTNAME) $(DBG) $(LIB)
-CAMLDUCEOPT = $(OCAMLDUCEFIND) $(CAMLOPTNAME) $(DBG) $(LIBDUCE)
-CAMLDOC = $(OCAMLFIND) ocamldoc $(LIB)
-CAMLDEP = $(OCAMLFIND) ocamldep $(LIBDIRS) -package deriving.syntax -syntax camlp4o
-PP = 
-PP2 = 
-# -pp "$(CAMLP4O) ../lib/xhtmlsyntax.cma -- -loc loc"
+clean.local:
+	-rm -f $(PROJECTNAME)-*.tar.gz
 
+distclean: clean.local
+	${MAKE} -C src distclean
+	${MAKE} -C tests distclean
+	-${MAKE} -C doc clean
+	-rm Makefile.config
+	-rm -f *~ \#* .\#*
 
-OBJS = $(OBJSQLITE) $(FILES:.ml=.cmo) $(DUCEFILES:.ml=.cmo) $(OBJDBM)
+### Installation ####
 
-OBJSOPT = $(CMXS1) $(FILES:.ml=.cmx) $(DUCEFILES:.ml=.cmx) $(CMXS2)
+.PHONY: install uninstall reinstall
 
+install:
+	$(MAKE) -C src install
+	@echo
+	@echo "## Run \"make doc\" and \"make install.doc\" to build and install the ocamldoc."
+install.byte:
+	$(MAKE) -C src install.byte
+install.opt:
+	$(MAKE) -C src install.opt
 
-byte: $(FILESSQLITE:.ml=.cmo) $(OBJS) eliom.cma $(DUCEMODBYTE) syntax client
+uninstall:
+	-$(MAKE) -C src uninstall
 
-opt: $(FILESSQLITE:.ml=.cmx) $(OBJSOPT) eliom.cmxa $(CMXS3) syntax client
+reinstall:
+	$(MAKE) -C src reinstall
+reinstall.byte:
+	$(MAKE) -C src reinstall.byte
+reinstall.opt:
+	$(MAKE) -C src reinstall.opt
 
+install.doc:
+	${MAKE} -C doc install
 
-.SUFFIXES:
-.SUFFIXES: .ml .mli .cmo .cmi .cmx
+###
 
-.PHONY: doc depend client syntax
+.PHONY: dist
 
-client:
-	$(MAKE) -C client all
+VERSION := $(shell head -n 1 VERSION)
+dist:
+	DARCS_REPO=$(PWD) darcs dist -d $(PROJECTNAME)-$(VERSION)
 
-syntax:
-	$(MAKE) -C syntax all
+###
 
-eliom_state.cmx: eliom_state.ml
-#	-rm ../extensions/ocsipersist.cmx
-	$(CAMLOPT) $(PP) -c $<
-#	-touch ../extensions/ocsipersist.cmx
-# we remove ocsipersist.cmx, 
-# otherwise eliomsessiondata.cmx will will compiled against
-# that precise version of ocsipersist.cmx
-
-eliommod.cmx: eliommod.ml
-#	-rm ../extensions/ocsipersist.cmx
-	$(CAMLOPT) $(PP) -c $<
-#	-touch ../extensions/ocsipersist.cmx
-# idem
-
-eliom.cma: $(FILES:.ml=.cmo)
-	$(CAMLC) -a -o eliom.cma $^
-	cd ../extensions ; ln -f -s ../eliom/eliom.cma
-
-eliom.cmxa: $(FILES:.ml=.cmx)
-	$(CAMLOPT) -a -o eliom.cmxa -linkall $^
-	cd ../extensions ; ln -f -s ../eliom/eliom.cmxa
-
-eliom.cmxs: $(FILES:.ml=.cmx)
-	$(CAMLOPT) -shared -linkall -o eliom.cmxs $^
-	cd ../extensions ; ln -f -s ../eliom/eliom.cmxs
-
-ocsigenmod.cma: ocsigenmod.cmo ocsigen.cmo ocsigenboxes.cmo
-	$(CAMLC) -a -o ocsigenmod.cma ocsigenmod.cmo ocsigen.cmo \
-	ocsigenboxes.cmo
-
-ocsigenmod.cmxs: ocsigenmod.cmx ocsigen.cmx ocsigenboxes.cmx
-	$(CAMLOPT) -shared -linkall -o ocsigenmod.cmxs ocsigenmod.cmx \
-	ocsigen.cmx ocsigenboxes.cmx
-
-ocsigenmod.cmxa: ocsigenmod.cmx ocsigen.cmx ocsigenboxes.cmx
-	$(CAMLOPT) -a -linkall -o ocsigenmod.cmxa ocsigenmod.cmx \
-	ocsigen.cmx ocsigenboxes.cmx
-
-ocsigenduce.cma: xhtmltypes_duce.cmo xhtmlpretty_duce.cmo ocsigenduce.cmo
-	$(CAMLC) -a -o ocsigenduce.cma xhtmltypes_duce.cmo xhtmlpretty_duce.cmo ocsigenduce.cmo 
-
-ocsigenduce.cmxs: xhtmltypes_duce.cmx xhtmlpretty_duce.cmx ocsigenduce.cmx
-	$(CAMLOPT) -shared -linkall -o ocsigenduce.cmxs xhtmltypes_duce.cmx xhtmlpretty_duce.cmx ocsigenduce.cmx 
-
-ocsigenduce.cmxa: xhtmltypes_duce.cmx xhtmlpretty_duce.cmx ocsigenduce.cmx
-	$(CAMLOPT) -a -linkall -o ocsigenduce.cmxa xhtmltypes_duce.cmx xhtmlpretty_duce.cmx ocsigenduce.cmx 
-
-eliom_duce.cma: xhtmltypes_duce.cmo xhtmlpretty_duce.cmo eliom_duce.cmo
-	$(CAMLC) -a -o eliom_duce.cma xhtmltypes_duce.cmo xhtmlpretty_duce.cmo eliom_duce.cmo eliom_duce_tools.cmo
-	cd ../extensions ; ln -f -s ../eliom/eliom_duce.cma
-
-eliom_duce.cmxs: xhtmltypes_duce.cmx xhtmlpretty_duce.cmx eliom_duce.cmx
-	$(CAMLOPT) -shared -linkall -o eliom_duce.cmxs xhtmltypes_duce.cmx xhtmlpretty_duce.cmx eliom_duce.cmx eliom_duce_tools.cmx
-	cd ../extensions ; ln -f -s ../eliom/eliom_duce.cmxs
-
-eliom_duce.cmxa: xhtmltypes_duce.cmx xhtmlpretty_duce.cmx eliom_duce.cmx
-	$(CAMLOPT) -a -linkall -o eliom_duce.cmxa xhtmltypes_duce.cmx xhtmlpretty_duce.cmx eliom_duce.cmx eliom_duce_tools.cmx
-	cd ../extensions ; ln -f -s ../eliom/eliom_duce.cmxa
-
-ocsigenrss.cma: rss2.cmo ocsigenrss.cmo
-	$(CAMLC) -a -o ocsigenrss.cma $^
-
-ocsigenrss.cmxs: rss2.cmx ocsigenrss.cmx
-	$(CAMLOPT) -shared -linkall -o ocsigenrss.cmxs $^
-
-ocsigenrss.cmxa: rss2.cmx ocsigenrss.cmx
-	$(CAMLOPT) -a -shared -linkall -o ocsigenrss.cmxa $^
-
-# There is a bug with ocamlduce when -g is supplied
-bugdbg:
-	$(MAKE) DEBUG="NO" eliom_duce.cmo
-
-xhtmltypes_duce.cmo: xhtmltypes_duce.ml
-	$(CAMLDUCEC) $(PP) -c $<
-xhtmlpretty_duce.cmo: xhtmlpretty_duce.ml
-	$(CAMLDUCEC) $(PP) -c $<
-eliom_duce.cmo: eliom_duce.ml
-	$(CAMLDUCEC) $(PP) -c $<
-eliom_duce_tools.cmo: eliom_duce_tools.ml
-	$(CAMLDUCEC) $(PP) -c $<
-
-xhtmltypes_duce.cmi: xhtmltypes_duce.mli
-	$(CAMLDUCEC) $(PP) -c $<
-xhtmlpretty_duce.cmi: xhtmlpretty_duce.mli
-	$(CAMLDUCEC) $(PP) -c $<
-eliom_duce.cmi: eliom_duce.mli
-	$(CAMLDUCEC) $(PP) -c $<
-eliom_duce_tools.cmi: eliom_duce_tools.mli
-	$(CAMLDUCEC) $(PP) -c $<
-
-xhtmltypes_duce.cmx: xhtmltypes_duce.ml
-	$(CAMLDUCEOPT) $(PP) -c $<
-xhtmlpretty_duce.cmx: xhtmlpretty_duce.ml
-	$(CAMLDUCEOPT) $(PP) -c $<
-eliom_duce.cmx: eliom_duce.ml
-	$(CAMLDUCEOPT) $(PP) -c $<
-eliom_duce_tools.cmx: eliom_duce_tools.ml
-	$(CAMLDUCEOPT) $(PP) -c $<
-
-.ml.cmo:
-	$(CAMLC) $(PP) -c $<
-
-.mli.cmi:
-	$(CAMLC) -c $<
-
-.ml.cmx:
-	$(CAMLOPT) $(PP) -c $<
-
-
-#doc:
-#	$(CAMLDOC) -d doc -html eliom.mli ocsigen.mli ocsigen_extensions.mli
-
-.PHONY: clean
-clean: 
-	-rm -f *.cm[aiox] *.cmxa *.cmxs *.o *.a *~ doc/*  *.annot extensions/*.cm[iox] extensions/*.o extensions/*.cmxs
-	$(MAKE) -C client clean
-	$(MAKE) -C syntax clean
-
+.PHONY: depend
 depend:
-	$(MAKE) -C client depend
-	$(MAKE) -C syntax depend
-	$(CAMLDEP) $(PP2) $(FILESSQLITE:.ml=.mli) $(FILESSQLITE) $(FILES:.ml=.mli) $(FILES) > .depend
-	sed -i.bak s%../extensions/ocsipersist.cmx%% .depend
-
-FORCE:
-
--include .depend
-
-
-eliom_duce.cmi: ../baselib/ocsigen_lib.cmi eliom_services.cmi \
-    eliom_parameters.cmi eliom_mkforms.cmi eliom_common.cmi
-eliom_duce.cmo: eliom_duce.cmi ../baselib/ocsigen_lib.cmi eliommod_mkforms.cmi \
-    eliom_state.cmi eliom_services.cmi eliom_parameters.cmi eliom_mkforms.cmi \
-    eliom_common.cmi eliom_client_types.cmi eliom_output_cli.cmi
-eliom_duce_tools.cmi: eliom_tools_common.cmi eliom_state.cmi \
-	eliom_services.cmi eliom_parameters.cmi
-eliom_duce_tools.cmo: eliom_duce_tools.cmi
-xhtmlpretty_duce.cmo: xhtmlpretty_duce.cmi
+	${MAKE} -C src/syntax
+	${MAKE} -C src/tools
+	${MAKE} -C src files/META.${PROJECTNAME} depend
+	${MAKE} -C tests depend

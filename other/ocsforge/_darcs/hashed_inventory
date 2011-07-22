@@ -1,0 +1,1551 @@
+pristine:0000001484-9722d8648a95a1783bd90df67416850156e50a09ba465dff7590c0b09ca1ecf8
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090612161052
+ Ignore-this: 8da7b8e2584437950ead0a9930b57467
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@1 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000019750-5254988c5566a87ce413969524b9d966f1f69bc79ade6ba85c6c1c0d0ce25e08
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090615071522
+ Ignore-this: 8eb3a0123bdd12274261b83d97ed6248
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@2 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002043-4e19a21dc375c2ca1543dd3ede5f735e6ae1a6171f3d8f33d64748f1a2559b63
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090615074015
+ Ignore-this: 2a6194e1e4e6e9a71892251c1347dfce
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@3 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000013237-5d0f431020011d0d420f962b17b8332753e69ed61084f73f711fbe7eabcca686
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090615120555
+ Ignore-this: ee4a5b411023e317ed4ead6b10c2749c
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@4 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000008661-39edda7f925c03077ddaea3f26a8e9014b15c082b43a01bedf1bc1beb368273b
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090615145230
+ Ignore-this: 3edbf96088f406a712bd9e35425266bb
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@5 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000005243-0b6306a0eba459f1fdcdb93d314ad57dbe7852f541ecc5a9bacc467a5479fed9
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090615171033
+ Ignore-this: cb00f9cfa943586da5e3ad950171725c
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@6 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000005223-86d873f8f4106833986ad36b5d5d26725f6cc492e4522d66ac5e611adb3f2003
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090615201456
+ Ignore-this: c0fa8f9e9a29629f474d81695ffac4bc
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@7 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000006918-11223f87f4a2cac9d5924709413d21504f7ab0869523ab2c1429cc3dd1908897
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090616085106
+ Ignore-this: d9208e2b8c3b2b4937910a3eb6e66e44
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@8 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000011765-32ad4fcf269e3528fd1be679a0023c8b08c6de584d35ddb6889d1f395f8daefe
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090616125314
+ Ignore-this: a1a78152ad6195bef286cedbef074b9b
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@9 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000016408-250dec959191b220b0213307126692a21909163b127eb632c282028a1c69b8f9
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090616163706
+ Ignore-this: d1e9b2a4d2ca044cab2cd2285503149a
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@10 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000007801-d9c3c5282e30c72f2a4a2afb8ced3b160c2e2197e7762bfcda71568c2dbe90d3
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090617111501
+ Ignore-this: 92b43c027d76ff3284ecb5bc18bdb68b
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@11 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000009264-47c53e24d9011da46f7bd55e6b1418c76a08617640303baceb0d8b49c63e724d
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090617142706
+ Ignore-this: c2882e50409ad4904d9cb5b0f38909a4
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@12 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000011192-89ae42310e7b9155b5a2530efbbce544d58c801e1da7c3b13991a0465ab3cdd1
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090617142744
+ Ignore-this: 5381117c6641a8cf18b1430b75101f46
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@13 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000013289-04d291e64d9b7cea34e65c800ad0c72c09b49cb5b98aaa865fc1508d161277f4
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090617151051
+ Ignore-this: 145eeb8095c4664e8147920e2cf29efd
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@14 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004670-d8f71a93a5f718cf90df8968ebd94e3c38b7ed48676c866cc6b1f96a37cc3040
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090617155410
+ Ignore-this: 49ae72d00b4b06a9bfebace8185a9721
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@15 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003287-a4dc7e318926573c1a3dc050bade61388811dcecd50a86fef9635451dd4b913f
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090617165026
+ Ignore-this: 7661238a2c6469f7b8ed7aacdc88963f
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@16 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004266-3e5da2fd101330e3509063c9d64997348ebe1c3cadf1aa8454cc70b60e358c2b
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090618082709
+ Ignore-this: c09e12e48485c03a3c8a51620460866b
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@17 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000011823-e2464d70c9923ee90ac4c96f50483232fed9dcc29b2d7b36d34efbd6ddf37588
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090618095139
+ Ignore-this: e597f9bf7e7e0f1a9acbc914d6ef6d83
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@18 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003337-7319a1fe245732aa895a90d3f082d18d09eeba4101bc1ddd24bc68150c16d0df
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090618154033
+ Ignore-this: 7239a9f698db30224a5f31aa3353db07
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@19 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000021560-5280e808bddf39e8bce934ca4ed102a9d2bc2d4860e79ac3c4b0dad9d8e507e4
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090618162423
+ Ignore-this: da2dea1d039ab5f27e7fc92f8c6ecc5b
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@20 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004745-9e67c7ae331b88012421371c3db95fded8ed5c8357b7e33b6c8506aa0e932780
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090618171316
+ Ignore-this: 9fc75451799a36fa2e1a28f6c15bf817
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@21 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001547-f776cd530e6be6403c8ffc5e55b2d0d1c76735f318fc1f30cbd080b012424f07
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090619090559
+ Ignore-this: e572c8909688717dfc903cd52c8ea60d
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@22 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001847-49a0325bb3ea048001422922afe3f37a6df97b2f6873302165b881fe7513fab0
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090622092948
+ Ignore-this: c6163316cac371f3ef5d60b930ce8cc7
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@23 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000029361-054d8745a83d303305cb0cce0c563acdf8e6576fd6c7a41a0f5425f4dbfc06b0
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090622164023
+ Ignore-this: 4d7f3e3d2fa9b825e42534aa9fb7263d
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@24 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000025525-0e52946c4db626de26434beff037ec00706e6bd3547572a21904b5687594e983
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090622172114
+ Ignore-this: cce9fe36d3d717fd2d8691420581eeb5
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@25 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002211-b86c1d49fc2bb0614af77d8052626657f78cf1d9578494e9ec12cbb40ef5ab8f
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090623123427
+ Ignore-this: 70f8f493c03cdf8a8ec0412f25009fe3
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@26 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000013905-8aa2d686f06cc4589c73cb4c2f5e507db8c24f573c4ace9cf240456a24d36ca9
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090623142344
+ Ignore-this: b78884254c7897d8555e4231327a41bd
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@27 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000006973-2d1cca642e70730570351de606cc70ea232b42113850454cc3ef3c55175fe87e
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090624074555
+ Ignore-this: ded1031c6acb81439770844b6c6cc3cd
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@28 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004601-6c2c773ba836288862488e88803f54243894586e3e25a0db14bdc56b3547f4ee
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090624140840
+ Ignore-this: 21b2c290d3969393fe2b492ae09c1f48
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@29 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000014472-18fba7df635e1ead81e50ef6a6b43686d81ecda38808a6f2baf40aab8c343776
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090624184307
+ Ignore-this: a6efee483128e92c99c101b09e211847
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@30 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000020301-8c435d8f1fab955e60e3daebdb2bea8ee61789b09d83e9045d19e0b6673a6bc5
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090626104915
+ Ignore-this: aa9f907a9a33850b4e451b811c4143e8
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@31 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000053133-bc2cd16e856397fb14eecc1a8f3cc9da0e11552f14f48b9c435a8140847bfc3a
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090626151145
+ Ignore-this: ae65feef004e2ff6b0488d5766142a16
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@32 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001171-3a7067cd85b2f9e2fcbf45bc38307c3bcb350708118a3990a1115f7db830255d
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090629135426
+ Ignore-this: 7463ddc2844dd820356a19ede4f6bc2a
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@33 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000010790-2b4434ad74297a5542c221a9d2d21fd3ac436037fe02662461e18151f43cae2e
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701074031
+ Ignore-this: ffff73a628864075fb4fb8681f5988d4
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@34 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000036875-97b7a1f54d2aa44e3651db1e5735ee8ded2d1c4753465520e968ce81f38a5c6e
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701095657
+ Ignore-this: 7f3a6d14ddcb253e17e22bfea20b5e1e
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@35 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000023341-c8e26ee3e3d73595ebd5cf4c14ae941e9902cfcbc452ee51a9639d9dc224d126
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701105544
+ Ignore-this: 58c46ddbeea6666026bf7bb6199f434
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@36 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002547-ff91f2bf6036c61fa6af289e3eb4e661aa861dcf8d0850db6d0ecd9641bc5013
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701111242
+ Ignore-this: bfb1515af3dc3180f29aa342255cd5d4
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@37 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004069-1eda271b4e6ffd3a75caca7c48b862cae4010f79d7289ca043c7b227c9b7bde1
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701111849
+ Ignore-this: dc6490a7aa50cd93c85107b3453c1666
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@38 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000008698-cd1710ad575cf697f51ef885046d53a7ca0681db0c63bfa5e5cfde1333e18e06
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701111948
+ Ignore-this: 827feca58c81802ebdc06c0161a32d25
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@39 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004233-fea42108571a4438e3e7e041461dec17fb51ccaf40160bfc327f58100fc4095d
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701112319
+ Ignore-this: 9d500a4faa3b833f99be84b014535a3a
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@40 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000016431-20db0360822a13813d698122f2be0520a26d232b5f73dfa51ee2f51476961898
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701113348
+ Ignore-this: c8afdcfdf3db739ca2b73457c7aa12d7
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@41 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000321-ea1b478c31e952162049d7032dcb78aae554dfd7eccc2398e4bd621e070a871d
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701122030
+ Ignore-this: 4aeba2fe669e8f94b2f6d9e239a02546
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@42 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001371-dc95d91bde6ea54260025455673942ec7590dd91c739a5fcb1a382939fc5dab0
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701130022
+ Ignore-this: 8731d070e42ce32c68fe0a88c37d85f7
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@43 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002277-dd5a422066a9b0f3858306f5defa0c267d08617df3c0f674234ae5f9b7140080
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701142030
+ Ignore-this: 6941a3a9019b621af67ba6dfd22067eb
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@44 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003609-c94e4b00cd21d87b12de39d60f5e90206578d3b42d1cb93d588f24753193fcbe
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701144304
+ Ignore-this: 6264cd9531448c010472144166c62829
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@45 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000958-5ea2bbc79b21828334d363b285a0f04ba7453c3eddd714e36b0c6ab9f841dbf1
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701153037
+ Ignore-this: f8d850140c5ac002f552298256354da0
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@46 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001111-695ce605ae406083d92f2a9afa41975cf3b45d09248a0d9166a729232b995fd0
+[Je peux enfin commit ! Tous les changements de la journÃ©e ( champs repository_kind &
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090701212048
+ Ignore-this: 2a11dbedb434fb62683b767174e75580
+ repository_path dans la base de donnÃ©es, nouveau service pour la page d'un dÃ©pot, nouvelle
+ icone + lien vers cette page & modifications en consÃ©quence )
+ 
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@47 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003791-c516319374a69d980fe366aa673c9d93cf6b3d2ce8b98b880ac2a789d9f5b5a1
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702075141
+ Ignore-this: fccd88f0e76d66aed528cbf42c5af7f5
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@48 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000007912-f3475a7f2aa753b4ee3313753928ee9175e3cbf44e778cc8ecdef8028f92ae30
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702075652
+ Ignore-this: b90cc9a0b367eee6ee0912b043e79fb3
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@49 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000802-afeed4b9d5245a919e12c2b3f11013fa83d8dd314d23589646a598f752c1ef6c
+[Ajout de l'image open_repository.png au dÃ©pot
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702104023
+ Ignore-this: b721176ce68051df33f00bb33942aca
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@50 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001576-fc79cae0fa7eae0ae7c2cdfaf03612004bc8109fd814031b4975c9aa3ed3ff5c
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702104135
+ Ignore-this: 3ac18ac324691e23198ceb996303e738
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@51 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000864-85d867dc74c11ca20c2a44665e61dc8fa263ff2e637ecb58e277d3200def99d4
+[
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702104728
+ Ignore-this: e3d430587c9bf8a941d24aa8359979db
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@52 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003728-275671556b293128a23ae5f5bd4abbe2d309adcd88f7e1a6af3a31e730a83e72
+[Ajout des fichiers de ocsimore/static dans ocsforge/static pour les CSS
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702112340
+ Ignore-this: 97c377f4aa66a13cee7df1c11d962930
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@53 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000399638-ae418ee38bd5b2c57123890629c0ee83633cff80182b9fcd30d32bdb17fa2403
+[split between "source" and "tasks" files for high level modules.
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702121424
+ Ignore-this: 6429767272a1741c8e701dbf163adf7
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@54 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000055944-9d4ce16fc5ef4dc6dd466369d49f4c98d9b8666f5fb5bc025443780ba677758c
+[split complete with correct identifier (Ocsforge_*_tasks VS Ocsforge_*_source)
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702122803
+ Ignore-this: e9812651535a5e416af40d16af3356b
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@55 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000795-14428929d101220c53910490e9e55a4f99ab6284c5e5163da8aa0bc8061bcabf
+[config file split.
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702123612
+ Ignore-this: 2f4c6ce797c9033c88b93775b5c96fee
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@56 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000010416-2101cb5c10ba11f5c18de96aa2a14b5ba79551fc85b17e3af2caff78fbb60c19
+[Ajout des fichiers d'interaction avec darcs / manipulation d'une 
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702124859
+ Ignore-this: 53ae7f47f234a87ac5c9c7a38f472959
+ arborescence de dÃ©pot. 
+ Modification de myocamlbuild pour lancer menhir a la place de 
+ ocamlyacc.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@57 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000015729-88ecbecc1d1e45c8b28d89fb3067dd66c8a9897904ebb9b3732041dbc0309d5a
+[Ajout du module pour les types xml
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702125103
+ Ignore-this: 6f71bbc3294e52d76329f05f71d7737
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@58 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000822-d90d9d7b6ad2bf0f60578a43788ff7ff6a01daba2071d9ac0c5f14552e928aa4
+[Ajout du lexer / parser xml utilisÃ©s pour darcs
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702125221
+ Ignore-this: da071f5e58b8c530af47e543255216dc
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@59 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000005806-32d287eefa284cf493859f89654dfa68b1870bf5759355de2a3da8e309068ab0
+[Ajout du fichier de gestion des gestionnaires de version : 
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702132641
+ Ignore-this: 9faea57f6b5879dc83c4711a2a16227d
+ ocsforge_version_managers.ml
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@60 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002171-59db9afba5e9d4c7397b85b2780e86dce1e6d02935430e45aa217ac26c2f1790
+[improved "progress" field display (not editable YET!)
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702135340
+ Ignore-this: aa7552a2bdd114730310be0236e801a2
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@61 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003340-3eecd0ec0ab5e78f967c2c9ff8362e9f2af1d58d5dc28615e3f03463f2bef002
+[Ajout de l'extension wiki pour le dÃ©pot d'un project.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090702171355
+ Ignore-this: aea4f336b1f27583eec063f2df000508
+ Ajout du widget pour le dÃ©pot d'un projet.
+ 
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@62 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004208-8baafa2d44f37b8b7c1c86ab929695fcaa15eaf5716c29563faf0503918dc129
+[Suite du service / wikiext / widget pour le dÃ©pot d'un projet.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090703075323
+ Ignore-this: 96620597ab4a71839375bf4f8b55df78
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@63 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002678-85c4bcafe6293a159734139a0d616fcb3dc1a0076a129417efcb0a87ec707a27
+[Ajout de ocsforge_source_types.ml
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090703080556
+ Ignore-this: 8954aa8032d3cbf564d0b28b12c588b4
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@64 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001906-e64cbb385eb674fe15d89668e6bbf79d3a0ce7497960349c9486919618fa9789
+[Ajout du fichier contenant les fonctions communes a ocsforge_wikiext_sources 
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090703105316
+ Ignore-this: 6a4c1c8dd63baa3f1da3334fab2ecce9
+ et ocsforge_wikiext_tasks
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@65 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002217-900d84d96dd4a5922dae14d2081ab951f730ee9dfabde640101d1f6fa7368e05
+[Ajout hashtable contenant pour l'instant (task , service) 
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090703145809
+ Ignore-this: 6493c3b0f11665901855f18130f3d406
+ Modifs pour consulter la hashtable dans widgets_tasks, mise Ã  jour des 
+ types de services dans les autres fichiers.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@66 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000021860-93faa05bfcfe97d7b40a9f25bdf63cd7d1d4106d99841a13f2dc21e603cb04d2
+[Database update (use 'psql -U ocsimore -f updatedb-20090702.sql') and appropriate modifications to _sql and _data (and _services)
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090703170756
+ Ignore-this: 9419fcb9c8447242e69a020bcf83ecda
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@67 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000035802-6716b1f0f81655a57c8f6a280d04118efa5b0f1fd49fb6d28aadd575d2b4f067
+[Continuation du service pour les dÃ©pots de projets.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090704162649
+ Ignore-this: 3a9cb0f761417c7f23d1b26f2f25f026
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@68 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000009609-ec51a41661338220963552f2227cdd21bf52f515fbfde6e145af00461e70081d
+[Ajout de la css pour les sources
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090704163833
+ Ignore-this: e083632b88f47a91046a99c4f8a374c9
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@69 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000764-2ee72897e42c219f88a8e8ffb8e51ee2f4c23486badd4fbbf94d090b3a6df476
+[Widget / wikiext d'affichage de l'arborescence du dÃ©pot """fonctionnels"""
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090704183511
+ Ignore-this: d7b7f48f7793c2d2ce67826b52e2e09e
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@70 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002201-6fafb47bfbab716f5551a86c22921cb290624cf87b3d4e1f0f749b54da8dfd18
+[Un peu de css dans le widget du dÃ©pot d'un projet.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090704211453
+ Ignore-this: d30eb9ee394b179e8d633a701fc1c0da
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@71 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002344-9c90434905f5a7c0d28472ecd8c59df87d88dec43b97ec15644ad52921075f45
+[Ajout des icones de fichiers/rÃ©pertoires source.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090704212100
+ Ignore-this: b02af9538925f0f4477d0c2795cd7e5
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@72 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002782-8e8e87231626fb14693af7c0f2f0e026b862e0052f5713e2f3f32963a5001425
+[IntÃ©gration de la visualisation de fichier avec coloration 
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090705141638
+ Ignore-this: 5c6f091a2e4efb0e547dab0eca40cb5b
+ syntaxique.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@73 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004085-40afbe120689014d65b7f1845f41d0d0c5741d6af485c52984eabd1056c71b94
+[Ajout de fichiers manquants, lien vers la page du code source d'un 
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090706074737
+ Ignore-this: 49c81c52487d3261383ece07d8359d07
+ fichier.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@74 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000016720-0a2435c4df8cb860a000c71b40f465f46cb066a6190e0565628312e020559fcd
+[copy script for cmi's and cosmetics
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090706083054
+ Ignore-this: c1e55bf26f9b5f607099acc95ad5f601
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@75 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000010104-b9d0ae733406fea89766a80b32d86bcef7cff2cba730da7a130d7fc5967929c8
+[Ajout du lien page des taches -> page de dÃ©pot
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090706085531
+ Ignore-this: bacf34e2ffc342a30a001ed410bbe813
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@76 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001399-5aef99342ccdfce5facc25d2de56a02d992c27b02e9cc1f15cdd608a342eaa89
+[Ajout fichier de mise a jour de la base
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090706090327
+ Ignore-this: 2179267ee36da0a1425b574d3db31dad
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@77 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000444-27ef038e4466844cc20cb5cc65b18690a90ce6008fb47707a607df527055ad80
+[AmÃ©lioration des lexeurs pour la coloration syntaxique.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090706122010
+ Ignore-this: ba9bfbcceb7193deeed4bef56bffd52e
+ Ajout service / widget pour historique des versions d'un projet.
+ SÃ©paration ocsforge_services_source et ocsforge_services_hashtable.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@78 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000013493-651c093e09e9bd2a54844297d40534a039ad9f37e797667fc12517d68ee6928d
+[Ajout titre pour les pages de contenu de dÃ©pot.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090706130534
+ Ignore-this: 2c8d3185e15046225848a976c8dbc249
+ Ajout de lien vers la version la plus rÃ©cente du dÃ©pot.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@79 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002174-34d2bab9cb5d77e7d16737f39a103aa4e4a341117d0bcee076d2614305612288
+[Ajout page "operations sur un fichier"
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090707215956
+ Ignore-this: 1adf7e0ff0bbb8c7dc190804d0490cf9
+ Modifs CSS
+ RÃ©organisation des services pour les sources
+ Corrections dans les fonctions darcs
+ 
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@80 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000031884-1764dbb7a4dce486f6d1edcc2ce8ab0fbec6f3f6e46b588f079c3d11e9c6ab94
+[preparing the /tasks/project-path service
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090708151649
+ Ignore-this: 45ebd4796fe0ce7b639b062038b191ba
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@81 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000005404-dd115205d06211d092a57f7f32646be8c15ff1e772ebb7ee5feb39717e9dde1b
+[add ocsforge_xml_tree_dump file for the /tasks/project-path service
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090708152540
+ Ignore-this: b64a652635e8783e0d5ecba0cae6cff0
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@82 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003184-3041c404ef803517b8f9a6862e18e6e2e5e331af446586021aba461c249a5e77
+[Parser d'ocsigen (a moitiÃ©) intÃ©grÃ© Ã  la place de l'ancien parser xml
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090708154636
+ Ignore-this: daf8bbed700092629a2569bad55a7501
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@83 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000016225-13836e990009f9e81fc050a3cfc90fff6c474c93cc750219f9d6274b56805fe3
+[Changement de parser xml terminÃ©.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090708174832
+ Ignore-this: f723ded205e1b58b93efeb4a6a2664c2
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@84 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000008911-3cfdce91205a9ba249596fd4ff529868b85f16ceaf074cd0fec1c31a06d90451
+[Page des opÃ©rations sur un fichier amÃ©liorÃ©e.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090709170006
+ Ignore-this: 59367105d2a0ec450db0422802e0f812
+ Ajout de la page pour le diff entre 2 versions d'un fichier.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@85 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000018732-6fae30c995b12e364dd03155c0c93588bf71d0ea282225eed800cd7833e17531
+[Modif. CSS
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090710151419
+ Ignore-this: a59d717d80067da496d8fa307e7702ad
+ AmÃ©lioration page diff
+ 
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@86 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000020871-86a0c8e0c79a1f44f1e0968325b36a6dcc7a3fe93fa8058ec7cf44e2db0e708f
+[changes to adapt to the new ocsigen/ocsimore version
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090713080409
+ Ignore-this: 8d9607cf521618454093c92c5fb8bfa3
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@87 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001550-cdc259e38a463e62ac3e029c6021149777ff545ed228f056347fe7591109f2fa
+[IntÃ©gration de SVN.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090713102718
+ Ignore-this: 12b0471086631554b9466508fecf3638
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@88 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000268405-8cbe4606ac3dbf860c8933607d306ad3fcbde7163a84ea715795b6aef377e856
+[Ajout fichiers svn manquants.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090713102803
+ Ignore-this: 8b5446d9fd95f721a00fbb3cface594f
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@89 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000027802-5cd96c0ff9ec9ca83845aba44aaa6484e64a8c3f8f2906420da04d099021efe1
+[modif .conf
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090713102958
+ Ignore-this: 254f6abf69a00a786462da8b510d2251
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@90 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000404-4b5d72c9773c1e70d389f4bd19834d0c570c604c3f02128e434cbb606061ac1d
+[using the new "editable subject in forum message" feature
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090713151422
+ Ignore-this: f9af2fccf350b32b5e31d154cc47e4fc
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@91 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000009217-91bd01a63a9d48dda90dd96bcb125da3b3a32110d8c6961280a05407757071f3
+[using frozen wikibox to render task titles
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090713152216
+ Ignore-this: 9c35dc99c0a87c79c0918b0ea7918f2d
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@92 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001218-951bbdc9f96c063426aacd42ed5089c325e5e7de65ad126ed28bba8720312c30
+[Ajout de la fonctionnalitÃ© "annotate" (SVN & Darcs).
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090715135913
+ Ignore-this: effd3a7387bcbf518e53d544396917d9
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@93 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000040661-8b8cf700ba704fd07285c4a8394872a7889e167826a482d00c1005ccbd3c0a5b
+[Pages du dÃ©pot maintenant intÃ©grÃ©es dans les wikis.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090716131334
+ Ignore-this: 4a1be5eb80a9627086ffe56d9534aa3b
+ Liste du contenu de dÃ©pot a profondeur 1 au lieu de infinity.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@94 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000029423-5fc391b2c5d9a4780f5c500280c6e4373fd1aabe56f199c6036b4a6c8f3cd95c
+[INSTALL file added. Bootstrap does not need database manual tampering anymore.
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090716150552
+ Ignore-this: ad82f3e21549b3fc243e9e83eb539667
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@95 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000019122-2dfef077c51a4abb2edc923ec841785963d2563059487435fe633b6e51cb8cb8
+[Bootstrap now compatible with source browsing
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090716160220
+ Ignore-this: e2ff55fd03bae13a9103b229e9d90615
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@96 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001256-6226de0e4397ec5a173c1f486857559fd0cab21e0260e13b3c0da573082a6d3c
+[Mise Ã  jour avec les dernieres versions d'ocsigen/ocsimore.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090716165123
+ Ignore-this: 7c2a7b4c7144b8e4a831daacb08b6c76
+ Fix des formulaires dans la page d'un fichier.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@97 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000015713-5d634f47838b81a33a1e0e3acc6db3fd47d61d824d5b16c62848d17ca5797f73
+[Refactorisation ocsforge_widgets_source.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090716221353
+ Ignore-this: 7267c03bce0b2953aceef8e417d9d059
+ Suppression du "temp_service" inutile dans ocsforge_services_sources et changements en consÃ©quence
+ dans ocsforge_widgets_tasks,wikiext_tasks,bootstrap.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@98 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000028794-78d66eabd0b3e519bb253534fc6574cf8ccb9d561ea2c42ca1d58c2ccdd1da6b
+[Modification du titre des pages pour les dÃ©pots : contient maintenant le chemin de la page, 
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090717121400
+ Ignore-this: 9a34b7f38781d50b511a8dfb1b0450d
+ avec des liens vers les repertoires parents.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@99 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000015848-00ce86e30d9f7f1026e4cd42cbcf2bdc09e73346e05b956f8fe3c0d9fa3aa1d9
+[added : service to create a project, service to edit an area
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090717122221
+ Ignore-this: b3784cf09b6c1d3343f028a7af2e452
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@100 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000043884-493b196bd164bbc26e52ac3e8d8bec2fb4384d790f3a348056578e6f9eea36bc
+[add a script to link ocsforge_client into ocsimore_ocsimore_client
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090717124140
+ Ignore-this: fdd21174e488ebc4531103f6846c96ff
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@101 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000669-57f954c5463b703fe613c78997f2ce686525c3e4e06d6039fcfb4471cb0e224e
+[services and client now agree (had a type error on a post coservice)
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090717132110
+ Ignore-this: b0ff6d09289a9706681b2a27a1374cf2
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@102 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000224119-c5fb3576e8e841c8ba153369379b1753c42e6d38494dd40a318ebd71deb9376e
+[now possible to transform a task into a project ; ocsforge_client not yet completed
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090717174827
+ Ignore-this: e588d68fbcad23ea62a2c4b96fe3b526
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@103 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000248098-ce02ef2524e6457a5cf5293f1b98347f0fef6562e511128512b49d9d5bcc92e0
+[Better installation procedure
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090720175522
+ Ignore-this: bbae1961dfec04ac6c019d3019bb5b52
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@104 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000170899-b0b023778026f4c31a0e55644b5abf8d8485629f1bb6873f6f092e81f02c56ac
+[Adding file configure
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090720175640
+ Ignore-this: af8e54bffcca0c7a4d1492ede097bcaa
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@105 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000744-b5f3b9aa1a1b313369b3989b5e2ccf1909d29adb2005eb1c10699a3f865b7eee
+[(small patch) changing obrowser dir in makefile
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090720180615
+ Ignore-this: 83e530185648288b22f4a263d4ae85b0
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@106 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000350-9ff6c41c55a3c344b2436105bdc42db5a4fec07248ca81c0cfd91810283369fd
+[modified Makefil : use AXO.cma instead of AXO*.cmo's
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090721152834
+ Ignore-this: 221d6d1cf8fe03b4045b21842637783d
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@107 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001006-2270d44a317e95e474e0716d0f1f2e70692339bd5722f5af3c88d3342e81c31f
+[AmÃ©liorations de performance pour l'ensemble des pages des dÃ©pots Darcs.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090721155827
+ Ignore-this: 1f3975620a283aeb7ee1f6b7e201cd0a
+ Changement de la mÃ©thode pour obtenir la version HEAD d'un dÃ©pot Darcs.
+ Attention : les pages Darcs nÃ©cÃ©ssitent maintenant 2.2.98.4 (beta 4) (en attendant Darcss 2.3)
+ Limitation du nombre de rÃ©sultats a une requete "log", pour SVN et Darcs.
+ Correction de la synchronisation taille fichier / nombre de lignes dans la page des sources.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@108 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000051241-b33d08ee6aac88e8349451d04d7b769a91d0ddf8dc409b33f471f1e1bb867f83
+[make clean now removes .uue's ; Matched forum title messages to avoid H1 ; ocsforge_client using AXO (It Works !)
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090722174003
+ Ignore-this: 4ea91ab9b5e5bb885b0302105ab1430e
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@109 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000006736-363884feaefcc92074ff5208c1f14e591771809da6991832e598cfe4f36af740
+[Log avec menu de navigation et 100 entrÃ©es par page fonctionnel pour Darcs.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090723095122
+ Ignore-this: db729978e382119bdd9bea41809cdb76
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@110 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000024885-209c6256a0e037ee363b56fd3bdafb359d226d6e60d23ad079e1f4d59a960418
+[Lots of cosmetics. Some modifiactions to several functions
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090723162427
+ Ignore-this: b9cf2627da5e418be9a3e34a2110524d
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@111 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000020610-f270678d1fa8e22ba9bd4f0392ca86628bda7c922c882a627a8ccf1b2989bbe4
+[changes to the Tree module and appropriate subsequent modifications
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090723162627
+ Ignore-this: af439aeaab0e39d36df13f2207eec9d1
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@112 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000008889-8de4cf77ad27bb4c06eb18690634e5622a79c252a12b4ef64626c7175b8c699a
+[changes to Tree module (adapted interface)
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090723162802
+ Ignore-this: 90c29518eac4ea867fb1c5c3b5f76075
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@113 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001073-d3b3de99ce4124553e4b0114f70858be5cba76b0278f8c51cc58f60f6c4e7a00
+[changes to the service_tasks module (no more localized parameters)
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090723163108
+ Ignore-this: dc4d22c6cf60bd51affcda6e27f06b3d
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@114 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000011794-1725d0f0f72caff5e8556a112566b4cc7419c1c39f54ee5c37ee3c439a60d6fb
+[Log avec menu de navigation et 100 entrÃ©es par page fonctionnel pour SVN.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090723163821
+ Ignore-this: 4fa7360fea44c27bdaad04f03b197395
+ DÃ©but de modifs pour la page des fichiers.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@115 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000026070-c2276c546e9bdb8b3601ee902e659141c83f6c69bdf0c0d1306e3e8e8f77ceaa
+[Ajout d'une barre de menu pour toutes les pages de sources.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090724153407
+ Ignore-this: 43dda93115a4f85735abdc15c2d5c113
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@116 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000029816-a972887187b7c3fb949c26bd77df3e08cb1352dad1bb0092107f350bcce8c419
+[ocsforge client now able to load tree (not tested) ; task tree in a noscript (client is to be used)
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090724165933
+ Ignore-this: cb614b9e7f593f8af1f2ad54aa274ed2
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@117 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000037521-cbed2417e75ce6697e243005daa41a057f42bf1180bfa9bb6d5b4c4abb079591
+[DÃ©but de gestion des erreurs dans Darcs
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090724170846
+ Ignore-this: f267ae3f7bf4058daf179f3d92d41a1f
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@118 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001531-4fae27df9d9ec8f3edee60731c1b91a6ee6b5693e44111d0641e95bedb327583
+[using the new Ocsimore_page.add_onload_function to insert client-side-generated tree
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090724173247
+ Ignore-this: 96ff72e46b239031b3a17e21341cc226
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@119 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001046-406f59e8c3bc7ea2963cd4269e25cdbf4c61a5e8d9904272d4cccf3518fbe500
+[Suite de la gestion d'erreur Darcs / SVN.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090727080221
+ Ignore-this: 19f0d2466353aa9f1fd874e17cf0cf74
+ AmÃ©lioration du menu.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@120 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000048942-36c7d13b5e41787fae74894ab59aa355ff5fd4461f63441f97f2b25fd1a0cccb
+[AmÃ©lioration du diff (utf8)
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090727084831
+ Ignore-this: 59da4f3d6d20b7200cca9ee8d6d6973d
+ Ajout de gestion d'erreurs.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@121 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000005795-a2e1d371f40ebc0b38bcb2d707b6192f9a9d07ee0b6b905db981167ea7f8ed53
+[Modification aux appels des fonctions SVN pour les rendre non bloquants.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090727172146
+ Ignore-this: bd00f41df71e25c5263f65d9847bda51
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@122 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000023104-383b3f0e55a5e1401f3392f3ce04c5b125959560b2bb8a0edb3b3ff16450e67f
+[ocsforge_client updated (doesn't work...), Bootstrap now  works well
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090727172506
+ Ignore-this: f3ce2fdf7e24d770f3f9a4450cf444a4
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@123 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000007274-3fadd5258a7023a319eded95cecfa5d5d45a708e3697eafd14f8ab3a383e9cdb
+[AmÃ©lioration du service des sources.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090728083453
+ Ignore-this: bdb57f63a44fd3ab52d9036d5e24e2ec
+ Fusion des formulaires view / annot.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@124 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000026888-e2c60b008564c42460f520186a40ab703050f70e15fc1e2c01f6da43022c8baf
+[Log fonctionnel sur la page des options.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090728145804
+ Ignore-this: 6873e385af5e8757d9886ac0e428bfbf
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@125 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000013643-4a07ff9aae7365d9c327bd4f1ea70cce238dcc743cb20a8817c23fd2fb92eb32
+[Gigantesques changements pour rÃ©organiser les URL du site.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090728200417
+ Ignore-this: 34711d11299260e486aac5630c16487c
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@126 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000017381-10b65ba06869262cbd11ae43036962b0c0907a2ea489e3f7f884a0bff9d50fdd
+[Services are now registered relative to the page.
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729081610
+ Ignore-this: d95edfe3ef3847e786c87a89c60f1a42
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@127 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000020553-061a7a538298554a56aaf1c90bb52981e754bda669a97eeb0eae564963532696
+[client up to date with AXO
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729084409
+ Ignore-this: 86030f3b9912f9374ea3d6b949265ea5
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@128 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000208792-46dc6f31240e92b83b2a277bbe9aac92eec9751bd48d1596a853b9a868784ece
+[Correction dans la visualisation de code source.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729094953
+ Ignore-this: 7ff9bd31ad68d75015d8d62f2ddd63be
+ AmÃ©lioration de la gestion d'erreurs.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@129 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000012233-19fdce0a7b8ad877b629b7db7ff7d4eada833e23979cadc10953385a19008d3b
+[Correction erreur critique dans SVN (gestion des adresses de dÃ©pot incorrectes / mal formÃ©es)
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729104736
+ Ignore-this: bf7bfe66ef45c6c55d1cbd2b65a700a0
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@130 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001291-8571e27f77e2735cbc41fc58ffdaa2218f941c182788a247f869bba4ea6710b2
+[Masquage des adresses mail des auteurs de patchs.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729140033
+ Ignore-this: 25104656888f9bf5d39c1de8ba1ad135
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@131 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000020579-744fd0cadbcfd12c8cb59843a39c551cfd486915f76fb74254d7b08eb4066963
+[ * update to new version of ocsimore
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729150418
+ Ignore-this: 7005162713c7ec8c7d18308847a6d019
+  * implementing make install
+  * adding wikiextension <<code language="ocaml">>
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@132 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000005362-6c5ea7619e727831e793f67a98660575283f43c9762c5de6fd0724837c277720
+[Now installing static files
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729152051
+ Ignore-this: 90a32092664bfcf686ae67a40fff637a
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@133 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000025174-b85930794eff5451674f4d262836b7e9384d2ac55724c806540cdbfdfd076d3c
+[bugfix in Makefile
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729152217
+ Ignore-this: ce0d2f59ece077075f2e601439c209c1
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@134 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000375-4e7cb242542b49770b2f68342063da20d7688278c82df9de384e06413bffef21
+[ocsiwikiadmin.css now called ocsiadmin.css
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729153809
+ Ignore-this: cf721570e700fd8222bcbb2ac53347b2
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@135 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000371-1a0a9364d3f6ee29bdf4d030c61307d82766eaaadb1a87ff8af2e373fea8b681
+[bugfix in Makefile
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729154014
+ Ignore-this: 315761aa5e11b5d833de17d8aefb4c6
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@136 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000410-44b04dde4fd0faf379aa8d5e4726a343b314a6df04e72fdef7d2ced6bb619f5f
+[Gestion des url mal formÃ©es.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729154109
+ Ignore-this: 26d11dd98b31626ae5b7e234c1f06601
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@137 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002337-692a1464adf951cb2de633414df9d0d71c71dcf0a4b60fab3d875feea067773a
+[Installing dllocsforge_svn.so
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729160332
+ Ignore-this: bbbdb539dd817922ba2a428b1e9e2fe7
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@138 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000544-91378a70fe45d4874a6527621775c86db9f5ef74e22a5443bed1eee795be1b3c
+[Ajout de la coloration syntaxique en fonction du langage et
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729163000
+ Ignore-this: f2a5b50222cb6a5fb2254a7549691dc7
+ modifs de la wikiext <<code>>.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@139 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003226-1a2be91c9ebaa2012ce76f2a169283da67665154978298cfeb85394299c6d2e0
+[registering task service to /tasks/
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090729165626
+ Ignore-this: d6d509871b23f2193ab82fd8e8e8d36b
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@140 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000362-327f7645a10554b13930d3da1698bf01cb0ae55cb5adfee31d57ae5ee996350f
+[task's forum message subject now dug directly from db
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090730081913
+ Ignore-this: 3278cee16968d4eb15ecf2952596f1a1
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@141 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000012157-004e00ad44be6c5daf0b8dd9c275491b0b5e71e4081cbe6b36b50d6f9c64540a
+[Ajout d'un titre pour l'historique des versions d'un fichier.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090730092442
+ Ignore-this: 9adfed997b9b1fef29b61c08471a84b7
+ Suppression des "ignore-this" gÃ©nÃ©rÃ©s dans les commentaires par certaines versions de Darcs.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@142 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001947-09e34631210b4c0d20fef75404b1c5fbe7e7680687edfbc4c351b395c68cee74
+[now possible to add a new project via client
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090730111506
+ Ignore-this: 11fdb9107f18379b36f3e362adeeeb7b
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@143 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000006275-6a239bc14ee312603c58c5151b1a3b5f14ac318cb5bac07d89bbc08dfef588ba
+[Ajout du service xml pour les sources d'un projet.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090730122336
+ Ignore-this: c4a0e4170c583e04fd13620093af4d7d
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@144 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003183-738dc39ad1f5ca3fc887f365d017483860df84c243f9cd9a3c9d5048cdc3e4b6
+[SÃ©paration image du rÃ©pertoire / lien dans la page des sources d'un dÃ©pot.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090730124509
+ Ignore-this: 10f732a9a9682a0bff446a66942117ce
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@145 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001466-609044bf0a0162455a0a61ec0c0c71dc240ecf97f352c53a47024bbd9955c8df
+[Redirection automatique vers la page d'un fichier lorsqu'on omet le parametre 
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090730154256
+ Ignore-this: d1014f27997122682bbda5c5fde9c1a0
+ ?view=content.
+ Ajout d'une fonction gÃ©nÃ©rant seulement une liste de <tr> pour le service xml.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@146 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000015648-690b239910c004178e0e3c36229425d5a6b6d7f36596f23de6bfc8601037ac53
+[Petit refactoring de widgets_sources.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090730221004
+ Ignore-this: 98bb61e0f9dc7c32f36702cde75d6850
+ Ajout de titres pour la plupart des liens.
+ Ajout d'une icone pour voir le code d'un fichier dans le tableau de la page des options.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@147 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000052094-55a3dde40063ed566eba708df7531c45602710ebe6bcc070ce20a7fa99a6630a
+[Ajout d'une image manquante.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090731085008
+ Ignore-this: ba8f76409755638b5bdc74e48d750453
+ Correction d'un bug de placement lors du redimensionnement de la fenÃªtre du navigateur.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@148 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001863-5d8243e1a213ca344a848a8f028ffc9c02f1a210ca8ca7cada09a290d235fc04
+[Ajout des "border-radius" manquants dans la CSS des sources.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090731090057
+ Ignore-this: 8874c03035e890607822ac6f81191205
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@149 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003016-54336942031d38f979541a392ef0d79aebf87437e67c960074597ed5457e355f
+[Correction d'un bug dans la coloration syntaxique.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090731094513
+ Ignore-this: 6b2ac45f22cc4b7adab856fd2d89491b
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@150 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001548-8f8c4a24a7537292cb3b33a4c6f2ff958565bfa4ebba42286edac759dbbc71e5
+[Ajout d'une wikibox pour chaque projet.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090731165258
+ Ignore-this: 185286f480ba9231af249ca74f7d8693
+ Mise Ã  jour de la base de donnÃ©es pour rajouter le champ "wikibox".
+ Modif du placement du titre dans les pages des dÃ©pots.
+ Ajout d'un background pour le titre.
+ Correction d'un bug dans svn / swig.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@151 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000020147-607183af466e072398df143883087d334dff2b6bf79f940f9dbcb6bd7930c75e
+[Modification du nom wikibox -> sources_container.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090731171337
+ Ignore-this: b05c5837a8e392eacc8d346572ed2175
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@152 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002183-3c11c5a9093534a1a34af68a10ce19e41e7f0271acf293b92a1bdcafcba83952
+[Correction du chargement des images.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090731175127
+ Ignore-this: 1387d8183a888ab9aa1b3810b26ff826
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@153 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002574-bef6f446e0c97bc1c15a797a40c9fd2ef78222f0854f2df829427e9a8719acd6
+[Correction d'un bug (encore) dans la coloration syntaxique des 'char'.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090801093405
+ Ignore-this: c9d276c24026600a6d01a00398eb44a0
+ AmÃ©liorations CSS, renommage File options page -> File history.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@154 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001720-b1f1e46a19d9a528a5984eb3a2f079c8d0d16376bcc9aa0108bf1a0c522c80ab
+[Now using
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090802170915
+ Ignore-this: f8746e97b535b34f3ca9938a62fcfac2
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@155 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002904-10b6dbea6880fac43e1cbeef36fe8c545969ada267b1ce3e386dd24d0a4e68e7
+[Ajout fonctionnalitÃ© (diff entre patchs)
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090802171352
+ Ignore-this: 9de8c2b47a81ade46fb26873c3e73138
+ Modifications ergonomiques.
+ Correction d'un bug d'affichage dans la liste des versions.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@156 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000045104-768c10f4a435b812b751705d459f50e5e0660bed4ef5ec75d3711006606072b9
+[Now using new header inclusion mechanism (fixing bug causing css to be included several times)
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090802172917
+ Ignore-this: e5e0840fadb35db411bb8dbd30fdbb0d
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@157 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001605-a4e393cafcecc2e8edab5068a4fb7da8e6102e63eb925973f1e33e84c83de97d
+[bugfixes
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090802174943
+ Ignore-this: f38944aaa378777d401109543d297540
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@158 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000967-9972adea730bf9a22841d6eaaa712d875dddeaf8bd7dfec4ade79eadeeaa92e6
+[Correction de l'utf8 pour le diff entre patch
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090802175913
+ Ignore-this: 3cd4e381813b89156a27ba34d5276dfa
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@159 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000580-e9c0993dd2d6d80bac5a37f748d5d2d5510e32e10725d87e626b4d89f50fce15
+[Fixing ocsigen.conf.local
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090803094837
+ Ignore-this: 8c018fb599e9e847ed8332e468c49f79
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@160 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000550-008f099b4878815cd7148446570157ce223960b6c0368caa758d031252bec24d
+[Correction du parsing du chemin du dÃ©pot pour SVN.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090803155423
+ Ignore-this: a8656c9c6adb9a1165bdcb757cbb83e9
+ Correction bug dans svn diff (cotÃ© C).
+ AmÃ©liorations du menu.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@161 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000012700-f57388162f40b8862741f0bbbe86e35573ddf957baed5640ce4371693682f937
+[Pinaillage
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090803165223
+ Ignore-this: b16b8bc3eefda404f877b7db8602aef3
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@162 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004331-fd5ea8c31957213ba41ee738c21ca2e143420d7e3e5aa1d7b6576a4de8a0ed82
+[Suppression du titre inutile dans la page historique d'un fichier.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090803170837
+ Ignore-this: 44873f152781de3b374607b2d9e6ecd9
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@163 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000896-fa223f18816cf2e643479da320c3471f409e1f26e76c7d66454b7aff56d4ccf4
+[update to last ocsimore (using syntax extension for client calls)
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090803194010
+ Ignore-this: 3405a691e31c5075be6a44f49b231f82
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@164 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000810-7c2c6d74c4974f889c008bcfafde797613667a3e605d4631c8c3a0dd48671ced
+[switching to new ocsimore version with <:client<>> syntax extension
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090803204211
+ Ignore-this: 4cac4759301a3130ceb80ba372bcd553
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@165 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000812-bb280149c37983e1795d23321ae0ce5cc171c8ba7150d1c123587375369ebda4
+[Loads of changes to the client
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090804113634
+ Ignore-this: a9447c279e59a481220d0f69e3b68bef
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@166 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000057224-405e7f02de842afdcb8dd762a3c8bbc1c010d12c40e78c413db6c59101001e73
+[added images for task management client
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090804121331
+ Ignore-this: cfb4aff6128ba285421cdf6c28f11bb3
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@167 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000005760-6033d99b2c298e0c0bb19bf50d735a9b435c08a2d11ac847fe17dbafa9d3edeb
+[Making aviable a service for task details
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090804173647
+ Ignore-this: 7decae028bdefc7a825b1109bfcdcdee
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@168 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000053195-ac60b2a96c4c4edcb2201d65c1b16ce0896f8e0fb4f3d3a978825bd15d1d5b17
+[added : ocsforge_client.p.ml with new syntax extension
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090805122911
+ Ignore-this: 5527e62351fc9b768c76424e32d537ad
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@169 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000019332-3186de85b42f6e099a0b941770897269fa9534bfdcf47f16359aa929101b9732
+[Main change : using separators in task tree
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090805163008
+ Ignore-this: 451a3346d53e0e3497ef46f4a6bebbd6
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@170 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000106036-85d7e237bcba1425c951cd39cfc4d325a74e781d85e4df91d23ab773e8aa0036
+[removing ocsforge_client.ml (autogenerated)
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090805163330
+ Ignore-this: cbb63c89542c7bfebae58d4496b38ce4
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@171 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000016022-92949ebcfb5cd0120d30aef73463ea37493a24cd0135c57b7c66be1f9c2b221d
+[Some improvements in task/project layout. Some unused files removed.
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090806114825
+ Ignore-this: 400a7bbdcfc8b2ba5614346bb1bb4b08
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@172 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000028546-4fc2b546c5131e2842c7b4ba2e00a5cc98c5241836f8e0126bb9c187d0890282
+[Fixing local install (missing files in static)
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090806134245
+ Ignore-this: fc84cb22a2f2c69b05af5f52d5ea1ccf
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@173 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000532-80d22eb003742f36e8d0e04ff70850204df3f100a02d7736f6bbe755c6454506
+[Mainly cosmetics, comments and copyrights... Some changes in the task_widget.
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090806172917
+ Ignore-this: cecf70f131310c9d90296b6ccb92212
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@174 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000055208-ab63f8814ca08fbefd0bd52843669d390c051191db795e94dbe4016d503fe252
+[Adding ocsforge_services_hashtable.mli plus a few functions with casts
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090806222135
+ Ignore-this: ba4669515803e5dd6cbfcec8e0edefe7
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@175 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004733-211be550957b06958b3f8e7123f8b7ca948889fcc875b248174f877376228a76
+[Bugfix in install
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090806222534
+ Ignore-this: 15ebfe4626d3c8895233a0c959d26a18
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@176 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000410-9096da1305845c8d706cc7263bc85e07b7d8bae4fc0298a3fa75717d73a3e175
+[modifying the client to adapt to the new AXOWidgets interface
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090807063312
+ Ignore-this: aa5935dfd830bc88674d689be2999f89
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@177 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000006709-9974395fbe1ba25559cd031bd11a413309ae4608d748c4380e1e1a9301fa4b3b
+[no warning when compiling ; better task/project layout
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090807081318
+ Ignore-this: 67b9b63451fe389c4f3a3620bbc93cf6
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@178 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000010080-1a0910c03104a5ea4cb104c2aac23c4a4efbd454bcddc72f9f2b47d272d78dbe
+[still improving task layout
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090807110242
+ Ignore-this: 4095c87d47b30e8967a104ed0aa0bbfe
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@179 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000002247-83ca2780413ffad2a041120b86dea9a42d64e03577779cdf026edb51e718be3d
+[Tasks: splitting first message and comments
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090807143511
+ Ignore-this: 76fb64823fd4cbe8ccb3cca9e6fd801a
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@180 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001675-8831a5f22c825fc1196d1ce636963e9a98103a296ba9d2cb3887d00c85b00f39
+[some cleanup and improvements in right checking
+raphlalou <raphlalou@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090807163349
+ Ignore-this: 80a7fc9cf1be1ef655cf7f1bd46ba6ed
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@181 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000019194-98a9e02759be0a15656d159fec27bd8bcb87c9a8c5874d45000ff375e1c1e873
+[Ajout de licences manquantes.
+jhgranarolo <jhgranarolo@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20090903151708
+ Ignore-this: 950ee102cba253719cdaa285167a3a3b
+ Ajout d'un fichier TODO.
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@182 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000007449-9f72a91744b8b15d8cd8f0ecd2c6182ac585ae7799e629310919ec820fe174ab
+[Use Ocsigen own printing command
+yakobows <yakobows@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20091210103709
+ Ignore-this: bcb856d4af202d448a73d652b218f84d
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@183 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000001005-904465963a5a36e9ac70214dd29b09c55eb12da9f5adf59bc3529b47ed7ce3a8
+[Update to current Ocsimore
+yakobows <yakobows@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20091210103727
+ Ignore-this: b9d04d3b36cf6a64ed28946dbebc6900
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@184 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000003466-82f12773fb41265e815bfe0a0e862c4abc212c9c3f1f79fc262de73750303d90
+[Updated to newest Ocsimore
+yakobows <yakobows@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20091217150144
+ Ignore-this: fc5206cc85bffc69aaeb6ca0f5494848
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@185 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000004162-848e6ecb7f690f502d85d2221b637184923f4dcc65f31c2c6306a68db31a7234
+[removing debug output
+balat <balat@3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61>**20091221130345
+ Ignore-this: d95966ddc8def6b7a3279ba64c769b8
+ 
+ 
+ git-svn-id: svn://svn.forge.ocamlcore.org/svn/ocsforge@186 3ad814b1-d9dd-4a2c-a3f2-008bc9d20e61
+] 
+hash: 0000000312-84e7805bb74f06fcf7bd84587f039fcfc3337646c8316280618d6dc9173ec93f
+[TAG refs/remotes/git-svn
+chambart <chambart@molnar.irill.org>**20110610134126
+ Ignore-this: cb455296dd4c74a7db0024c9f52cd2e5
+] 
+hash: 0000000128-22f5261eab415e508b47c85d68498c12490d4d785144ea1431b5564022dfdcc6
+[start compiling with eliom 2
+chambart <chambart@molnar.irill.org>**20110610134126
+ Ignore-this: a4bb541d76c209577fa92163821f30f1
+] 
+hash: 0000133614-4491410827647dc51acb26fdd555d7e39cbd516378a301f87d4f579ff1e87d70
+[convert to eliom 2.0
+chambart <chambart@molnar.irill.org>**20110708121753
+ Ignore-this: 8f2e38c57e8789b5058b302953199415
+] 
+hash: 0000111176-3f6aacb52dc5b29d4dbb7eec610a71f04dbc3e2db74a6fddde1b3861d8be50ff
+[convert build system to oasis
+chambart@crans.org**20110708151850
+ Ignore-this: 4f7521d8f9917104aa78e893704344b0
+] 
+hash: 0000021312-dcee0c054c4966b1f7410adaf918f9bd0177b799ce9f2e628313e2bbb5a5962b
+[forgot myocamlbuild.ml ( and add .boring file )
+chambart@crans.org**20110708153630
+ Ignore-this: 17a601a821a4b0c879567f153dfd7493
+] 
+hash: 0000000390-b8cb45c695325ef2a0555d7b02c92f25103cba6b043f2237fa4b2b81b72439ab
+[addapt to type change: Eliom_service.http -> Eliom_output.appl_service
+chambart@crans.org**20110715174122
+ Ignore-this: db8ac16a9261f3338189cb0c48de8047
+] 
+hash: 0000157418-afb02cffa9236bd3f5c9a255eb601863567ea0b3961cc8b297067d0b4b03292f
+[Wikiext "code" : ignore first character when it's a newline
+gregoire.henry@pps.jussieu.fr**20110720131654
+ Ignore-this: eed7adfc858a00fc348e3f9a203ac0d3
+] 
+hash: 0000000386-182c79b16dc6c2d76215c18a74cef3cc70a6ab20cfc5a176bb4372ef1ddc2d58
+[Fix META
+gregoire.henry@pps.jussieu.fr**20110720152121
+ Ignore-this: 6dc3e4fae28b91e3b35883b616abd362
+] 
+hash: 0000000170-d8a331575ffb5904824099d86dee774805ccdea188c1662b619cdc0e0f132074
+[install static files in $prefix/var/www/ocsforge
+chambart@crans.org**20110720154719
+ Ignore-this: ae50993307bdf1915d09b1e83d793bff
+] 
+hash: 0000000235-75e54a5d7f967ea43b10ca0ea2e35eb9ff28073be8840a311fe05edc9c0dd34f
+[add configuration option for database
+chambart@crans.org**20110720155811
+ Ignore-this: d07b488bdd6e1744086ebc67b0482b4b
+] 
+hash: 0000157589-0c2b9f1d07a43d27ec8adee88b469d41a724fc20f52575a58cf0ce5f6da6e4c0
+[Add lwt keywords in caml lexer
+gregoire.henry@pps.jussieu.fr**20110721020708
+ Ignore-this: 9eb4628d842c2f64a257bc69b4bc20ad
+] 
+hash: 0000000924-71f68c576eee7b6614803d1085f84a60d10957998826361bc5b82fbbce9a9e96

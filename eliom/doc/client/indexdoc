@@ -1,0 +1,25 @@
+{1 Eliom client API}
+
+{!modules:
+Eliom_pervasives
+Eliom_pervasives.HTML5.M
+}
+
+{2 Services creation and manipulation}
+
+{!modules:
+Eliom_output.Html5
+Eliom_services
+Eliom_client
+}
+
+{2 Client/server communication}
+
+{!modules:
+Eliom_bus
+Eliom_comet
+}
+
+{2 Index}
+
+{!indexlist}

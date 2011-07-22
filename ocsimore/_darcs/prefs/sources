@@ -1,0 +1,6 @@
+repo:http://ocsigen.org/darcs/ocsimore
+thisrepo:/Users/yoann.padioleau/software-src/lang-ml/web-ocsigen/ocsimore
+cache:/Users/yoann.padioleau/.darcs/cache
+repo:/home/glondu/ocsimore.darcs2
+thisrepo:/var/www/darcs/ocsimore
+cache:/home/glondu/.darcs/cache

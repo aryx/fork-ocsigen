@@ -1,0 +1,33 @@
+pristine:0000002890-544f70682de08a353e66974ff2d5ed6041d22d04eff55898564aff299cf656f2
+Starting with inventory:
+0000008365-add29fb2f070d286f22c46bbc78fc2b742cc6facdaad4f6bb4da8f30df9503c7
+[TAG macaque-Beta-3
+bluestorm**20100116194205
+ Ignore-this: 2daeff80b0505484f3cf54b5cb8197e0
+] 
+hash: 0000005739-d96aff16aa64465ab2200dc2147ac98dc4942712843dd5ff4ee50f450bea5db5
+[change to lessen interface dependency wrt. PGOCaml (avoid bitrotting)
+gasche.dylc@gmail.com**20101102145221
+ Ignore-this: a255fa8366aaef59cf0a3520efeea880
+] 
+hash: 0000000323-5135018954ce9116fc2d1b3ac4626f82b016ddb298f80234a7c717ee246766f8
+[Small fixes to README in view of creole syntax translation
+bluestorm**20100613082739
+ Ignore-this: 58d4955e6373552fa7f6a9b24171c331
+] 
+hash: 0000045489-0068d68b6eb52cadb790220c3a7309b797b44156e3255f2aaab790d863545fef
+[a Camlp4 workaround to ensure 3.12 compatibility
+gabriel.scherer@gmail.com**20110203173557
+ Ignore-this: 398338bf9e1348d6d2257892d830b138
+ 
+ Until now, Macaque reused directly the syntactic rules for binary
+ operators of the dynamic OCaml grammar loaded in Camlp4. Due to
+ a change in Camlp4 3.12 type abstractions, this is no longer directly
+ possible. I therefore had to duplicate the operator handling logic.
+] 
+hash: 0000004152-6d74fd6a53972b9552d954fb1679916b4f7a9c4cc76506598afecdc6095b5dc6
+[moved stuff from src/ to .
+Yoann Padioleau <yoann.padioleau@gmail.com>**20110222014425
+ Ignore-this: 27b3c083300ec8532e6142137aeb6e85
+] 
+hash: 0000001171-f5cbb1da0433ed35ec2aaaf27862589a193a0b418986fa55e9d3bbe042094940

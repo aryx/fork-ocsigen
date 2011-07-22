@@ -1,2 +1,2 @@
-graffiti.cmo: graffiti.ml
-	ocamlfind ocamlc -thread -package ocsigen -c graffiti.ml
+hello.cmo: hello.ml
+	ocamlfind ocamlc -thread -package lwt,tyxml,eliom,eliom.server -c hello.ml

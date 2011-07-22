@@ -1,0 +1,57 @@
+
+BYTEDBG :=
+OPTDBG  :=
+THREAD  :=
+
+ifeq "$(DEBUG)" "YES"
+BYTEDBG += -g
+OPTDBG  += -g
+endif
+
+ifeq "$(ANNOT)" "YES"
+BYTEDBG += -dtypes
+OPTDBG  += -dtypes
+endif
+
+ifeq "$(PROFILING)" "YES"
+BYTEDBG :=p ${BYTEDBG}
+OPTDBG  += -p
+endif
+
+ifeq "$(PREEMPTIVE)" "YES"
+  THREAD += -thread
+endif
+
+SERVERDIR := ${TEMPROOT}${LIBDIR}/${PROJECTNAME}/server
+CLIENTDIR := ${TEMPROOT}${LIBDIR}/${PROJECTNAME}/client
+SYNTAXDIR := ${TEMPROOT}${LIBDIR}/${PROJECTNAME}/syntax
+
+export OCAMLPATH:=${LIBDIR}:${OCAMLPATH}
+
+SERVER_PACKAGE := ocsigenserver               \
+		  ocsigenserver.ext           \
+            	  js_of_ocaml.deriving        \
+	    	  react                       \
+	   	  calendar                    \
+	    	  tyxml                       \
+		  lwt.react                   \
+
+SERVER_SYNTAX := js_of_ocaml.deriving.syntax \
+	      	 lwt.syntax		     \
+		 tyxml.syntax                \
+
+ifeq "${OCAMLDUCE}" "YES"
+SERVER_PACKAGE += tyxml.duce
+endif
+
+CLIENT_PACKAGE := ocsigenserver.cookies       \
+		  ocsigenserver.polytables    \
+	    	  js_of_ocaml                 \
+	    	  js_of_ocaml.deriving        \
+	    	  lwt.react                   \
+	    	  tyxml.functor               \
+
+CLIENT_SYNTAX  := lwt.syntax                  \
+	          js_of_ocaml.syntax          \
+	          js_of_ocaml.deriving.syntax \
+		  tyxml.syntax                \

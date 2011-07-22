@@ -1,0 +1,91 @@
+<!-- -*- Mode: Xml -*- -->
+
+<ocsigen>
+  <!-- Example of ocsigen.conf for ocsimore. Adapt it to your configuration -->
+
+
+  <server>
+
+    <port protocol="HTTP">8080</port>
+    <logdir>./var/log</logdir>
+    <datadir>./var/lib</datadir>
+
+
+    <charset>utf-8</charset>
+    <commandpipe>./var/run/ocsimore_command</commandpipe>
+
+    <debugmode/>
+
+<!--    <findlib path="PATH_TO_OCSIMORE/files"/> -->
+
+    <extension findlib-package="ocsigenserver.ext.accesscontrol"/>
+    <extension findlib-package="ocsigenserver.ext.staticmod"/>
+
+<!-- <extension findlib-package="ocsigenserver.ext.ocsipersist-sqlite"> -->
+      <!-- If you want to specify the SQLITE database file yourself:
+      <database file="/PATH_TO/ocsigen/var/lib/ocsidb"/>
+      -->
+<!--    </extension> -->
+
+    <extension findlib-package="ocsigenserver.ext.ocsipersist-dbm">
+      <store dir="./local/var/lib/ocsipersist"/>
+      <ocsidbm name="/usr/local/lib/ocaml/3.12.0/ocsigenserver/extensions/ocsidbm.opt"/>
+    </extension>
+
+
+    <extension findlib-package="eliom.server"/>
+    <extension findlib-package="pgocaml"/>
+    <extension findlib-package="ocsimore">
+      <database name="ocsimore" />
+      <passwordfile name="./etc/ocsigen/ocsimorepassword" />
+    </extension>
+    <!-- <extension findlib-package="ocsimore.forum" /> -->
+
+    <!-- personal pages: -->
+    <!--
+        <extension findlib-package="ocsigen.ext.userconf"/>
+    	<extension findlib-package="ocsigen.ext.extendconfiguration"/>
+    	<extension findlib-package="ocsigen.ext.redirectmod"/>
+    -->
+    <!-- <extension module="./_build/ocsforge_svn.cma"/> -->
+    <!-- END personal pages -->
+
+    <extension findlib-package="ocsimore.user"/>
+
+
+    <host defaulthostname="localhost">
+
+      <site path="">
+	<static dir="./static" />
+
+	<eliom findlib-package="ocsimore.site">
+	  <admin staticdir="./static" />
+	</eliom>
+
+	<eliom findlib-package="ocsimore.user_site">
+	  <!-- The following arguments are optional: -->
+
+	  <notsecure/> <!-- accept login with http or https (DANGEROUS!)
+                            If you do not want that option,
+			    you need to configure HTTPS. -->
+
+	  <!-- For PAM authentication; Create your service file in /etc/pam.d -->
+	  <!--pam service="ocsimore" /-->
+	  <!-- Otherwise you can use NIS -->
+	  <!-- <nis /> -->
+
+	  <!-- To create Ocsimore users: -->
+	  <!-- <basicusercreation registration_mail_from="Ocsimore" registration_mail_addr="ocsimore@somewhere.nowhere.com" registration_mail_subject="Ocsimore registration" groups="users"/> -->
+	</eliom>
+
+	<eliom findlib-package="ocsimore.forum_site" />
+
+	<eliom module="./_build/ocsforge.cma" />
+	<eliom/>
+
+      </site>
+    </host>
+
+  </server>
+
+</ocsigen>

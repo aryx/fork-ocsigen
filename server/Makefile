@@ -1,177 +1,140 @@
-include ../Makefile.config
+include Makefile.config
 
-NAME=$(OCSIGENNAME)
+### Building
 
-FILES= ocsigen_extensions.ml ocsigen_parseconfig.ml ocsigen_http_client.ml \
-	../extensions/ocsigen_LocalFiles.ml ocsigen_server.ml
-EXE= server_main.ml
+.PHONY: all byte opt doc
 
+all:
+	${MAKE} -C src all
 
-ifeq "$(BYTECODE)" "YES"
-INSTALLBYTE=installbyte
-else
-INSTALLBYTE=
-endif
+byte:
+	${MAKE} -C src byte
 
-ifeq "$(NATIVECODE)" "YES"
-INSTALLOPT=installopt
-else
-INSTALLOPT=
-endif
+opt:
+	${MAKE} -C src opt
 
-ifeq "$(NATDYNLINK)" "YES"
-DYNLINK=dynlink,
-else
-DYNLINK=
-endif
+doc:
+	$(MAKE) -C doc
 
-CMAOCAMLP4= camlp4lib.cma Camlp4OCamlRevisedParser.cmo Camlp4OCamlParser.cmo
-CMXXACAMLP4= camlp4lib.cmxa Camlp4OCamlRevisedParser.cmx Camlp4OCamlParser.cmx
-LIBDIRS := $(LIBDIRS) -I +camlp4 -I +camlp4/Camlp4Parsers
+### Testing and debugging : local execution and toplevel ###
 
-export OCAMLPATH := ../deriving/tmp:${OCAMLPATH}
+.PHONY: run.local run.opt.local top
 
-INSTALL = install
-CAMLC = $(OCAMLFIND) $(CAMLCNAME2) $(DBG) -package dynlink $(LIB)
-CAMLOPT = $(OCAMLFIND) $(CAMLOPTNAME) $(DBG) $(LIB)
-CAMLDOC = $(OCAMLFIND) ocamldoc $(LIB)
-CAMLDEP = $(OCAMLFIND) ocamldep $(LIBDIRS)
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-PACKAGE = lwt.ssl,lwt.extra,netstring,$(NETSYS)ssl,pcre,unix,$(DYNLINK)threads,findlib,cryptokit,deriving
-LIB = -thread -package ${PACKAGE} $(LIBDIRS)
-# also modify builtin_package in lib/ocsigen_config.ml.in if you modify the former line!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# and probably also in the list of dependencies of ocsigen.cma in the META.in file
-PP = 
-PP2 = 
+run.local: byte
+	CAML_LD_LIBRARY_PATH=src/server src/server/${PROJECTNAME} -c local/etc/${PROJECTNAME}.conf
 
-ifdef DONOTPARSECOMMANDLINE
-PARSECOMMANDLINECMA=../lib/donotparsecommandline.cma
-else
-PARSECOMMANDLINECMA=../lib/parsecommandline.cma
-endif
-PARSECOMMANDLINECMXA=$(PARSECOMMANDLINECMA:.cma=.cmxa)
+run.opt.local: opt
+	CAML_LD_LIBRARY_PATH=src/server src/server/${PROJECTNAME}.opt -c local/etc/${PROJECTNAME}.conf
 
-# cma and cmo to be linked in the server:
+top:
+	cd src/server && ${MAKE} top
 
-#pad: should use some .cma ... ugly all those set of object files
-CMOS = ../lib/ocsigen_lib_cli.cmo \
-       ../lib/ocsigen_cache.cmo \
-       ../lib/ocsigen_lib.cmo \
-       ../web_html/xmllexer.cmo ../web_html/simplexmlparser.cmo \
-       ../lib/ocsigen_config.cmo \
-       ../lib/ocsigen_commandline.cmo \
-       ../lib/ocsigen_messages.cmo \
-       ../lib/dynlink_wrapper.cmo ../lib/ocsigen_loader.cmo \
-       ../lib/ocsigen_stream.cmo ../http/multipart.cmo \
-       ../http/http_headers.cmo ../http/ocsigen_cookies.cmo \
-       ../http/ocsigen_http_frame.cmo ../http/ocsigen_headers.cmo \
-       ../http/ocsigen_range.cmo \
-       ../http/http_lexer.cmo ../http/http_parser.cmo \
-       ../http/framepp.cmo ../http/ocsigen_http_com.cmo \
-       ../web_html/xhtml_mkcompact_streams.cmo ../web_html/xhtmlcompact_streams.cmo \
-       ../web_html/xhtml_mkpretty_streams.cmo ../web_html/xhtmlpretty_streams.cmo \
-       ../web_html/xhtml5pretty_streams.cmo ../web_html/xhtml5compact_streams.cmo\
-       ../http/ocsigen_charset_mime.cmo ../http/ocsigen_senders.cmo \
-       ../lib/polytables.cmo
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! also modify builtin_package in ocsigen_config.ml if you modify the former line!
-CMAO = ../web_html/xhtml.cma ../web_html/xhtmlpretty.cma $(NAME).cma
+### Cleaning ###
 
-STUBS_OBJS = stubs.o
+clean: clean.local
+	${MAKE} -C src clean
 
-OBJS = $(FILES:.ml=.cmo) $(DUCEFILES:.ml=.cmo)
-OBJSEXE = $(EXE:.ml=.cmo)
+clean.local:
+	-rm -f $(PROJECTNAME)-*.tar.gz
 
-CMXSATEMP=$(CMOS:.cmo=.cmx)
-CMXSA=$(CMXSATEMP:.cma=.cmxa)
-CMXXATEMP=$(CMAO:.cmo=.cmx)
-CMXXA=$(CMXXATEMP:.cma=.cmxa)
+distclean: clean.local
+	${MAKE} -C src distclean
+	-make -C doc clean
+	-rm Makefile.config
+	-rm -f *~ \#* .\#*
 
-OBJSOPT = $(FILES:.ml=.cmx) $(DUCEFILES:.ml=.cmx)
-OBJSEXEOPT = $(EXE:.ml=.cmx)
+### Installation ####
 
+.PHONY: install partialinstall reinstall uninstall
 
-byte: $(OBJS) $(OBJSEXE) $(NAME)
+install.META:
+	$(MAKE) -C src install
+install.META.byte:
+	$(MAKE) -C src install.byte
+install.META.opt:
+	$(MAKE) -C src install.opt
 
-opt: $(OBJSOPT) $(OBJSEXEOPT) $(NAME).opt
+reinstall: uninstall install
+reinstall.byte: uninstall install.byte
+reinstall.opt: uninstall install.opt
 
+install: install.META install.files
+	@echo
+	@echo "## Run \"make doc\" and \"make install.doc\" to build and install the ocamldoc."
 
-.SUFFIXES:
-.SUFFIXES: .ml .mli .cmo .cmi .cmx
+install.byte: install.META.byte install.files
+install.opt: install.META.opt install.files
 
-.PHONY: doc depend
+install.files:
+	 ## Command pipe
+	$(INSTALL) -m 755 -d $(dir $(TEMPROOT)$(COMMANDPIPE))
+	[ -p $(TEMPROOT)$(COMMANDPIPE) ] || \
+	 { mkfifo $(TEMPROOT)$(COMMANDPIPE); \
+	   $(CHMOD) 660 $(TEMPROOT)$(COMMANDPIPE); \
+	   $(CHOWN) -R $(OCSIGENUSER):$(OCSIGENGROUP) $(TEMPROOT)$(COMMANDPIPE); }
+	 ## Configuration files
+	$(INSTALL) -m 755 -d $(TEMPROOT)$(CONFIGDIR)/conf.d
+	${INSTALL} -m 644 ${PROJECTNAME}.conf.sample $(TEMPROOT)$(CONFIGDIR)/
+	[ -f $(TEMPROOT)$(CONFIGDIR)/$(PROJECTNAME).conf ] || \
+	  { $(INSTALL) -m 644 $(PROJECTNAME).conf.sample \
+                $(TEMPROOT)$(CONFIGDIR)/$(PROJECTNAME).conf;  }
+	-mv $(TEMPROOT)$(CONFIGDIR)/mime.types $(TEMPROOT)$(CONFIGDIR)/mime.types.old
+	 ## Log directory
+	$(INSTALL) -m 644 src/files/mime.types $(TEMPROOT)$(CONFIGDIR)
+	$(INSTALL) -d -m 755 -o ${OCSIGENUSER} -g ${OCSIGENGROUP} \
+	  $(TEMPROOT)$(LOGDIR)
+	 ## Static files
+	$(INSTALL) -d -m 755 -o ${OCSIGENUSER} -g ${OCSIGENGROUP} \
+	  $(TEMPROOT)$(STATICPAGESDIR)
+	$(INSTALL) -d -m 750 -o ${OCSIGENUSER} -g ${OCSIGENGROUP} \
+	  $(TEMPROOT)$(DATADIR)
+	$(INSTALL) -m 644 -o ${OCSIGENUSER} -g ${OCSIGENGROUP} \
+	  local/var/www/*.html $(TEMPROOT)$(STATICPAGESDIR)
+	$(INSTALL) -d -m 755 -o ${OCSIGENUSER} -g ${OCSIGENGROUP} \
+	  $(TEMPROOT)$(STATICPAGESDIR)/ocsigenstuff
+	$(INSTALL) -m 644 -o ${OCSIGENUSER} -g ${OCSIGENGROUP} \
+	  local/var/www/ocsigenstuff/* $(TEMPROOT)$(STATICPAGESDIR)/ocsigenstuff
+	$(INSTALL) -d -m 755 $(TEMPROOT)$(MANDIR)
+	$(INSTALL) -m 644 src/files/${PROJECTNAME}.1 $(TEMPROOT)$(MANDIR)
 
-$(NAME): $(CMAO) $(OBJSEXE) $(PARSECOMMANDLINECMO)
-	$(CAMLC) -o $(NAME) -linkpkg -linkall $(PARSECOMMANDLINECMA) $(CMAOCAMLP4) $(CMAO) $(OBJSEXE)
-
-$(NAME).opt: $(CMXXA) $(OBJSEXEOPT) $(PARSECOMMANDLINECMX)
-	$(CAMLOPT) -o $(NAME).opt -linkpkg -linkall $(PARSECOMMANDLINECMXA) $(CMXXACAMLP4) $(CMXXA) $(OBJSEXEOPT)
-
-$(NAME).cma: $(CMOS) $(OBJS) $(STUBS_OBJS)
-	$(CAMLMKLIB) -o $(NAME) -oc $(NAME) -linkall $(CMOS) $(OBJS) $(STUBS_OBJS)
-
-$(NAME).cmxa: $(CMXSA) $(OBJSOPT) $(STUBS_OBJS)
-	$(CAMLMKLIB) -o $(NAME) -oc $(NAME) -linkall $(CMXSA) $(OBJSOPT) $(STUBS_OBJS)
-
-.ml.cmo:
-	$(CAMLC) $(PP) -c $<
-
-.mli.cmi:
-	$(CAMLC) -c $<
-
-.ml.cmx:
-	$(CAMLOPT) $(PP) -c $<
-
-top: .ocamlinit
-	OCAMLPATH=${SRC}/files/:${OCAMLPATH} ${RLWRAP} ocaml
-
-.ocamlinit: ../Makefile.config
-	echo "#use \"topfind\";;" > $@
-	echo "#camlp4o;;" >> $@
-	echo "#thread;;" >> $@
-	echo "#require \"ocsigen.server\";;" >> $@
-	echo "#require \"ocsigen.deriving.syntax\";;" >> $@
-
-#doc:
-#	$(CAMLDOC) -d doc -html eliom.mli ocsigen.mli ocsigen_extensions.mli
-
-
-stubs.o: stubs.c
-	$(CAMLC) $(CAMLINCLUDE) -c $<
-
-.PHONY: clean
-clean:
-	-rm -f *.cm[aiox] *.cmxa *.cmxs *.o *.a *~ doc/* $(NAME) $(NAME).opt $(NAME)top *.annot *.so
-
-.PHONY: install
-install: install_so $(INSTALLBYTE) $(INSTALLOPT)
-
-install_so:
-	@echo "Installing shared stubs"
-	mkdir -p $(TEMPROOT)$(STUBDIR)
-	$(INSTALL) -m 755 dll$(NAME).so $(TEMPROOT)$(STUBDIR)/
-
-installbyte:
-	@echo "Installing bytecode server"
-	mkdir -p $(TEMPROOT)$(BINDIR)
-	$(INSTALL) -m 755 $(NAME) $(TEMPROOT)$(BINDIR)/
-
-installopt:
-	@echo "Installing native server"
-	mkdir -p $(TEMPROOT)$(BINDIR)
-	[ -f $(NAME).opt ] && $(INSTALL) -m 755 $(NAME).opt $(TEMPROOT)$(BINDIR)/
-
-.PHONY: uninstall
 uninstall:
-	rm -f $(TEMPROOT)$(BINDIR)/$(NAME)
-	rm -f $(TEMPROOT)$(BINDIR)/$(NAME).opt
-	rm -f $(TEMPROOT)$(STUBDIR)/dll$(NAME).so
+	-make -C doc uninstall
+	-rm -f $(TEMPROOT)$(CONFIGDIR)/$(PROJECTNAME).conf.sample
+	-rm -f $(TEMPROOT)$(MANDIR)/${PROJECTNAME}.1
+	-rm -f $(TEMPROOT)$(COMMANDPIPE)
+	-rmdir --ignore-fail-on-non-empty $(TEMPROOT)$(CONFIGDIR)/conf.d
+	-rmdir --ignore-fail-on-non-empty $(TEMPROOT)$(CONFIGDIR)
+	-rmdir --ignore-fail-on-non-empty $(TEMPROOT)$(LOGDIR)
+	-rmdir --ignore-fail-on-non-empty $(TEMPROOT)$(DATADIR)
+	-rmdir --ignore-fail-on-non-empty $(TEMPROOT)$(MANDIR)
+	-$(MAKE) -C src uninstall
 
+install.doc:
+	${MAKE} -C doc install
+
+### Install logrotate configuration files ###
+
+.PHONY: logrotate
+
+logrotate:
+	 $(INSTALL) -m 755 -d $(TEMPROOT)/etc/logrotate.d
+	 cat src/files/logrotate.in \
+	     | sed s%LOGDIR%$(LOGDIR)%g \
+	     | sed s%USER%$(OCSIGENUSER)%g \
+	     | sed s%GROUP%$(OCSIGENGROUP)%g \
+	     | sed s%_COMMANDPIPE_%$(COMMANDPIPE)%g \
+	     > $(TEMPROOT)/etc/logrotate.d/$(PROJECTNAME); }
+
+###
+
+.PHONY: dist
+
+VERSION := $(shell head -n 1 VERSION)
+dist:
+	DARCS_REPO=$(PWD) darcs dist -d $(PROJECTNAME)-$(VERSION)
+
+###
+
+.PHONY: depend
 depend:
-	$(CAMLDEP) $(LIBDIRS) $(PP2) $(FILES:.ml=.mli) $(EXE:.ml=.mli) $(FILES) $(EXE) $(DUCEFILES:.ml=.mli) $(DUCEFILES) > .depend
-
-
-FORCE:
-
--include .depend
-
-
+	${MAKE} -C src depend

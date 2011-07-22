@@ -14,7 +14,7 @@ export LATEX = /usr/bin/latex
 export DVIPS = /usr/bin/dvips
 export PS2PDF = /usr/bin/ps2pdf
 export BEST = bcl ncl
-export OCAMLLIBPATH = /home/pad/packages/Linux/stow/ocaml-3.12/lib/ocaml
+export OCAMLLIBPATH = /home/pad/packages/Linux/stow/ocaml-3.12.1/lib/ocaml
 
 #SOURCES = ssl_stubs.c ssl.mli ssl.ml ssl_threads.ml
 export RES_CLIB_SUF = _stubs

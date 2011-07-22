@@ -1,0 +1,9 @@
+repo:/data/users/pad/github/ocsigen-sync/js_of_ocaml
+thisrepo:/data/users/pad/github/fork-ocsigen/javascript/js_of_ocaml
+cache:/home/pad/.darcs/cache
+repo:http://ocsigen.org/darcs/js_of_ocaml
+thisrepo:/Users/yoann.padioleau/software-src/lang-ml/web-ocsigen/js_of_ocaml
+cache:/Users/yoann.padioleau/.darcs/cache
+repo:/home/vouillon/misc/js_of_ocaml
+thisrepo:/tmp/js_of_ocaml
+cache:/home/vouillon/.darcs/cache

@@ -1,0 +1,691 @@
+[init darcs
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080717235419] 
+[add_parser_combinators_ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214631] 
+[add_glimpse_ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214651] 
+[add_distribution_ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214702] 
+[english
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214726] 
+[add_opengl
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214748] 
+[add_python_ocaml_py
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214802] 
+[add_python_ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214828] 
+[update_clone_now_also_use_darcs
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214905] 
+[backtrace:english_and_add_action_test
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214938] 
+[english
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722214950] 
+[english
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215009] 
+[gui:add_func_API
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215302] 
+[english
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215326] 
+[common_extra: introduce set_link
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215356
+ 
+ ocaml does not link otherwise
+] 
+[Makefile: add parser_combinators
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215417] 
+[Makefile: add glimpse
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215432] 
+[Makefile: add python and mpi
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215452] 
+[use_log3_instead_of_log2_oassocdbm
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215544] 
+[CE: make objet and seti stringable
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215627] 
+[estet: spacing
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722215853] 
+[estet: modify comments common.mli
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722221339] 
+[estet: julia on parse_info, common.mli
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722221356] 
+[estet: modify comments, in common.ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722221605] 
+[misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722221638] 
+[common:test_check_stack_size
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722221756] 
+[common: ArithFloatInfix
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722221853] 
+[common: split_gen_when
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722221915] 
+[common: exn WrongFormat
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722222342] 
+[common: index_list_and_total
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722222421] 
+[common: diff_two_say_set_eff
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722222443] 
+[common: fix parse_options
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722222551] 
+[common: size_ko
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722222603] 
+[common: some funcs on date
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722222737] 
+[common: fix cache_computation interface
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722222839] 
+[common: Evo on command2_y_or_no, returns now bool
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722222925] 
+[misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722223038] 
+[common: modify main_boilerplate, dont pr2 empty string
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722223104] 
+[common: files_of_dir_or_files_no_vcs_post_filter and sanity_check_files_and_adjust
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722223245] 
+[common: add prefix to pr functions
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722223328] 
+[add_create_dbm_factorize_code
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080722223356] 
+[change_threshold_check_stack_file
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080806000827] 
+[add__acc_map
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080806000840] 
+[add__string_of_parse_info
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080806000850] 
+[parser_combinator: add string token
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080910215412] 
+[parser_combinators: more symbols
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080910215440] 
+[estet
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080910215447] 
+[common: string_of_chars
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080910215537] 
+[common: matrix basic type and map
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080910215556] 
+[common: lots of date related functions
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080910215704] 
+[common: more date related functions
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080910215811] 
+[common: edit_distance algorithm
+Yoann Padioleau <yoann.padioleau@gmail.com>**20080911213804] 
+[Makefile: remove duplicate target
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081013200045] 
+[distribution.ml: add comment on procedure on how to use mpi and my lib in your ocaml program
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081013200128] 
+[distribution.ml: add signature and cleaner exn when task finished
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081013200212] 
+[common: add numerical functions on list (sum, avg)
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081013200331] 
+[common: add global_replace_regexp
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081013200346] 
+[common: add md5sum_of_string
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081013200400] 
+[common: add show_trace_profile option
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081013200505] 
+[common: internal reorganization of profile code
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081013200640] 
+[common.mli: merge
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081014025538] 
+[common.mli: misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081014025546] 
+[common.ml: merge, profile_code_exclusif
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081014025607] 
+[common: add assoc_with_err_msg
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081017160916] 
+[common: add read_value alias
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081021184421] 
+[common: add dirname type
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081021184428] 
+[common: from hg add regexp_word
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081024000042] 
+[common.mli: regular_words, contain_regular_word
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081024000054] 
+[common: from hg some date functions
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081024000117] 
+[common: string_of_parse_info_bis
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081023154613] 
+[backtrace: update comment because of 3.11
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081023154623] 
+[ocollection: add2 method that ignore effect
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081023154642] 
+[move parser_combinators.ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081023191505] 
+[Makefile: CE on move parser_combinators.ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081023204053] 
+[common: group_by_post
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081030195031] 
+[ograph_extended: estet from julia
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081030195125] 
+[common: cmd_to_list_and_status from julia
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081030195158] 
+[Makefile: misc julia
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081030195306] 
+[ograph_extended: generate_ograph_generic
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081104152857] 
+[common: cache_in_ref
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081106161922] 
+[common: take_string and take_string_safe
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081106161935] 
+[common: is_relative, is_absolute
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081106161949] 
+[common: uncat
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081106161956] 
+[common: uniq_eff
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081106162015] 
+[common: comment on group_assoc_bykey_eff
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081106162027] 
+[glimpse: estet, move around stuff
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081106162049] 
+[gui: comment on overall organisation model
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081106162128] 
+[added glimpse.mli
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204221] 
+[common: comment, add clarification of ocaml regexp with example using some \b
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204248] 
+[oarray: add keys
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204307] 
+[oassic: add keys and apply_with_default2
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204329] 
+[oassocb and oassoch: add keys
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204424] 
+[oassocid: add keys
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204446] 
+[oassoc_buffer: add keys
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204515] 
+[oassocbdb: remove the Marshal.Closure
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204528] 
+[oassocdbm: add keys
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204544] 
+[oassocbdb: add create_db helper
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204606] 
+[oassocbdb: add keys
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204620] 
+[glimpse: estet
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204710] 
+[gui: estet and add entry_with_completion_eff
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081107204733] 
+[oassocbdb: comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121160133] 
+[oassoc_buffer: comment, on take care
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121160147] 
+[gui: comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121160252] 
+[oassoc_buffer: add clear and keys
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121160455] 
+[oassocbdb: add clear method
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121160504] 
+[ocollection: add del2 and clear
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121160516] 
+[add ocollection/
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121160555] 
+[move files in ocollection/
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121164633] 
+[Makefile: CE on moving files in ocollection/
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121164704] 
+[Makefile: CE bis on moving files in ocollection/
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121164723] 
+[Makefile: comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121164739] 
+[Makefile: add regexp that use PCRE
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121164750] 
+[common: add undoable stack, use in yacfe gui
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121164823] 
+[common: comment and finalize undoable stack
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121164909] 
+[common: exn MultiFound, string_of_exn, pourcent_good_bad, pourcent_good_bad_float
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121164945] 
+[common: some helpers for treeref
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121165012] 
+[common: add -batch_mode cmdline flag, so command_y_or_no can be batched
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121165046] 
+[common: add test cases for Str
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121165058] 
+[common: misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121165104] 
+[gui: move code around
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121165121] 
+[glimpse: factorize code in glimpse_cmd and add comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081121165138] 
+[common: update_max_with_elem
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081203015327] 
+[common: some matrix helpers
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081203015350] 
+[gui: misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081203015402] 
+[oassocbdb: diagnostic when out of memory
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081203015443] 
+[oassoc_buffer: some diagnostics when Out_of_memory
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081203015505] 
+[common_extra: add -batch_mode disabling support
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081203015527] 
+[common: sort_by_val_descending
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081206170442] 
+[Makefile: pcre support in ocamlpcre
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081206181639] 
+[add regexp.ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081206181755] 
+[oassoc_buffer: comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081209205213] 
+[add oassocbdb_string, a specialised version of aassocbdb with less marshalling
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081210170224] 
+[common: cat_array
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081213010525] 
+[Makefile: misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090116214712] 
+[oassoc: find_opt
+Yoann Padioleau <yoann.padioleau@gmail.com>**20081215234406] 
+[copyright: add 2009
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090114170940] 
+[common.ml: copyright 2009
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090114171019] 
+[common: map_withkeep
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090123233020] 
+[common: has_no_duplicate, get_duplicates, is_set_as_list
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090123233035] 
+[common: is_set
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090123233048] 
+[common: sort_by_val_xxx
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090123233101] 
+[common: sort_by_val, sort_by_key
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090123233118] 
+[ograph_extended: julia add label param and more complex fnode to show labels and colors to nodes
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090128221611] 
+[common: JULIA fix on charpos related func
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090219003716] 
+[common: floattime_to_unixtime
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090204000147] 
+[common: group_by_mapped_key
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090211230819] 
+[common: marshal__to_string wrappers so can profile
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090218173941] 
+[common: sortgen_by_key_xxx
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090218173959] 
+[common: comments
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090218174006] 
+[common: list_to_single_or_exn
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090220164331] 
+[common: mk_str_func_of_assoc_conv
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090222123922] 
+[common: comments
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090223212116] 
+[common: rename MultiFound
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090224224822] 
+[common: bool3
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090225235709] 
+[common: command2_y_or_no_exit_if_no
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090225235722] 
+[oassoc_buffer: comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090218174013] 
+[oassocbdb: use common wrapper for marshal that do internal profiling
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090218174051] 
+[oassocbdb_string: use Common.marshal__from_string
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090218233616] 
+[add oassoc_cache.ml copy paste of oassoc_buffer, adjust Makefile
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090218233720] 
+[oassoc_buffer: move some comments in oassoc_cache.ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090218233748] 
+[typo on weird
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090403085317] 
+[common: evolution treeref, remove LeafRef as it often force me
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090225230040
+ to do lots of useless failwith
+] 
+[common: treeref and treeref2 adjustments
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090225235744] 
+[add features.ml.cpp
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090302214630] 
+[common: group_by_pre
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090311013746] 
+[common: add sexplib annotations
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090312201805] 
+[common: todo comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090312201814] 
+[common: bugfix in array_find_index, and introduce better typed versions
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090312222355] 
+[common: int_of_idx
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090312222555] 
+[Makefile: adjust REGEXPINCLUDES, as ocamlprce may be in ../.. not ..
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090206172715] 
+[Makefile: add exlanations and features target, the general lib wrapper
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090212174607] 
+[add readme.txt explaining the commons_xxx and features.ml.cpp
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090212175905] 
+[Makefile: add sexplib and binprot special addons
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090312201745] 
+[common: copyright
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090412120653] 
+[oassocb: use better eq
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090414033803] 
+[seti: use better eq
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090414033812] 
+[oset: use better eq
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090414033819] 
+[common: evotype
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090414033829] 
+[common.mli: add some Eq annotations
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090414034343] 
+[common: move null
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090414035956] 
+[common: use better eq
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090414040122] 
+[Makefile: space eating
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090414190535] 
+[common: forbid use = by default when open Common
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415175826] 
+[common: type error
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090403091646] 
+[common.mli: merge
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415211500] 
+[add sexp_common.ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415211533] 
+[common: add sexp annotation for score
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415212741] 
+[common.mli: allow back to use =
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415212753] 
+[sexp_common: score
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415212801] 
+[Makefile: ocamltarzan
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415213629] 
+[common: better regression testing framework
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415230241] 
+[sexp_common: score_list_of_sexp
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415230248] 
+[common: print_total_score
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415213123] 
+[Makefile: ocamlsexp
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090415213134] 
+[sexp_common: misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090416163657] 
+[common: full_charpos_to_pos_large, complete_parse_info_large, to parse huge file like linux macro file
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090421185552] 
+[Makefile: use bigarray now by default
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090421185605] 
+[common: mk_pr2_wrappers
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090427011442] 
+[Makefile: DO NOT PULL OR PUSH, stuff by palix specific to cocci
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090504145542] 
+[concurrency: misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090506214842] 
+[add bin_commin.ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090424155142] 
+[regexp: -test_regexp
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090424181946] 
+[Makefile: misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090424230854] 
+[common: with_pr2_to_string, save_excursion_and_disable
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090425004658] 
+[gui: dialog_text_large
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090425004706] 
+[common: dont go in _darcs in files_or_dir_xxxx
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090427201126] 
+[glimpse: dont use hardcoded tmp file
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090427203343] 
+[common: _chan_pr2 so can save in a logfile even if flag not set
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090428222849] 
+[common: dont use hardcoded fix tmp file in format_to_string
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090428222909] 
+[common.mli: _chan_pr2 and co
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090428222920] 
+[Makefile: merged on OPTBIN stuff
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090506230750] 
+[common.ml: merge new format_to_string
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090506231619] 
+[common: julia stuff
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090508180555] 
+[add ograph_simple.ml
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090508234642] 
+[Makefile: add ograph_simple
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090508234648] 
+[common: space
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090724072613
+ Ignore-this: 8fbc4cb24cf4e91a76a0ab43aeb4bce1
+] 
+[common: redirect_stdout_stderr, partition_either3, erase_this_temp_file
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090724072729
+ Ignore-this: 43ab84c2c26ca6e6f6a376c56003140f
+] 
+[common: error msg change
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090724072739
+ Ignore-this: 87ae948ba486bf6b30a8987f9e628067
+] 
+[ograph_extended: qualify
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090512153223] 
+[ograph_simple: del_leaf_node_and_its_edges, ancestors, leaf_nodes
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090512153243] 
+[credits.txt: misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090729121933
+ Ignore-this: 808999bee6a9eee088a7275058a763be
+] 
+[add compatibility.ml, portability.ml, to follow my project model
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090308015004] 
+[rename features.ml.cpp in features.ml.in
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090501232419] 
+[readme.txt: misc
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090501235517] 
+[common: words_of_string_with_newlines, most_recurring_element, add1
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091124225830
+ Ignore-this: 26f7a6cb4a02286638ea927caf33d205
+] 
+[common: add1
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091124225941
+ Ignore-this: 87e96b0249d9bd42e050bab65496d0b9
+] 
+[many: estet, comments, in preparation for facebook git inclusion of pfff
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091127012736
+ Ignore-this: 10fe568990b230113892b3fa6d319cd5
+] 
+[sexp_common: remove the xxx_of_sexp, just keep the sexp_of_xxx
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091127012818
+ Ignore-this: e6bac6ea97faaccba5c3f4963fd201b
+] 
+[common: error_message_info, some comments, etc
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091208183211
+ Ignore-this: 534730432a329d9253d7da74ab2cd631
+] 
+[common: enum_safe, remove_first
+Yoann Padioleau <yoann.padioleau@gmail.com>**20090610173614] 
+[resolve conflict
+Yoann Padioleau <yoann.padioleau@gmail.com>**20100421221635
+ Ignore-this: 984b9ef782e26fce2d2c23e0f39f5ae6
+] 
+[ograph_extended: add_node_if_not_present
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091228220108
+ Ignore-this: aff6ee97444d8894285b340a08b0c480
+] 
+[ograph: launch_gv_cmd
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091228220118
+ Ignore-this: f27c914c22d419f0ff1376a4f4113ff3
+] 
+[glimpse: misc
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091228220137
+ Ignore-this: c4ac245894963d01dfb456186efd8603
+] 
+[common.mli: while_some, wrap, date_dmy_of_string, y_or_no
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091228220222
+ Ignore-this: 25e24be3a15f0d204adcdf78545e4c45
+] 
+[common: while_some, wrap, date_dmy_of_string, y_or_no
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091228220250
+ Ignore-this: 889ae52b316e9fb53a98871898d766b7
+] 
+[ograph_simple: comment
+Yoann Padioleau <yoann.padioleau@facebook.com>**20091229163510
+ Ignore-this: 8a536a518f3a0b438339892ed07e5dbc
+] 
+[Makefile: add LP rules
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091228222300
+ Ignore-this: f8ba9bed9ea71b2c989e6c945d23136a
+] 
+[backtrace.ml: LP so moved comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091228222310
+ Ignore-this: e0c1b7f77522530ee702a6d196af67b8
+] 
+[common_extra: LP, moved comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091228222324
+ Ignore-this: cdb6d2dfeae60caa9ce255fd52c9d9
+] 
+[graphic: LP, moved comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091228222344
+ Ignore-this: 6fcec1f2b5598258a2b7d9ae170fd54b
+] 
+[gui: LP
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091228222351
+ Ignore-this: a781e34672728c11233b83136dc66adf
+] 
+[ocollection: moved comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091228222422
+ Ignore-this: beda58491024d3981d55d2a42dda151
+] 
+[ograph_extended: LP, moved comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091228222435
+ Ignore-this: 436ff49fffae913983a7fe38f1d3b434
+] 
+[parser_combinators: LP, moved comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091228222509
+ Ignore-this: f360f24f93213c66ee3613f07642f76e
+] 
+[python: LP, moved comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091228222521
+ Ignore-this: a9520c563b5951275b1ebbea4f00629f
+] 
+[common_extra: use LP so removed comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229175424
+ Ignore-this: a1d8012284d3f957865d02a9cc577f64
+] 
+[common.mli: use LP so removed comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229175505
+ Ignore-this: b4ba8c19501e60995fa53252a31a3a3e
+] 
+[gui: use LP so removed comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229175639
+ Ignore-this: d0db04edee25537831d157cf762f0ebb
+] 
+[parser_combinators: use LP so removed comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229175712
+ Ignore-this: 68887e38b83200abd76a47e4263cfa36
+] 
+[many: start using LP and commiting to darcs
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229175808
+ Ignore-this: ed69619a6d1db7d3708c8b2277ac38f8
+] 
+[Makefile: more use of LP
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229175856
+ Ignore-this: 8b3f0093252a948b26f31d76c7b5da62
+] 
+[common.mli: use LP, see marks now
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229175947
+ Ignore-this: 55f0999b141cfbee5a39c588d6dd995a
+] 
+[common: use LP so removed comment
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229180427
+ Ignore-this: d5954a06fb8affafd5df9821c5b164c5
+] 
+[common: use spaces not tabs, side effect of using syncweb
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229180848
+ Ignore-this: abafbd3b5929743afd654ae3f7993677
+] 
+[common: use LP so have marks
+Yoann Padioleau <yoann.padioleau@gmail.com>**20091229180909
+ Ignore-this: 9d7114e308cc51418a70965aefa99848
+] 
+[Makefile: support for lib-sexp builtin in commons/
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100101004703
+ Ignore-this: b031ec4dfbc21445275185c38e5b3557
+] 
+[sexp_common: add ':' for records
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100105020439
+ Ignore-this: e3e1f5f28a1588cf87685ce71d074a25
+] 
+[rename mapb and setb
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100112234744
+ Ignore-this: 203c1fffb88f1d74986060e90835fcd1
+] 
+[add ocaml.ml, to support reflection in ocaml
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100112234811
+ Ignore-this: 13a985433928fd1690e172261e8bb16d
+] 
+[added empty reflection.ml and thrift.ml
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100112234827
+ Ignore-this: 6bd8130d92fbaf8f96e11b371fc55cb3
+] 
+[CE on setb renaming
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100112234941
+ Ignore-this: a8dfa7196fde2212b5630cb47186ebdb
+] 
+[add comments
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100112234957
+ Ignore-this: 1ecff58d73e6097cec1abcbd0ef39806
+] 
+[misc
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100112235003
+ Ignore-this: 258171372525bef2d4e66672b356372d
+] 
+[credits.txt: added lib-json
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100112235016
+ Ignore-this: 1ec7e331b22fb34a5765928fd326c662
+] 
+[Makefile: from git
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100202230415
+ Ignore-this: 144b31c2c1353ad4b43f1b2ba48c8eb9
+] 
+[graphic.ml: from git
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100202230433
+ Ignore-this: 4ae0cd94a6d228255d59ade416af0a9d
+] 
+[ocaml: from git
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100202230446
+ Ignore-this: 66e67d163796ea0f05670a842af18eba
+] 
+[ograph: LP-ization
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100202230502
+ Ignore-this: 96995aedf57e83275a7a27fc3d635e86
+] 
+[add ocamlextra/ files, graph_ocamldo[ct], and pretty_printer_indent
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100202230627
+ Ignore-this: 819bbaaf99247916fd6df62b5126a292
+] 
+[common: add StringSet, from git
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100202230713
+ Ignore-this: c8f69fa6ade592ea4d6ece84e404359f
+] 
+[add json_common.ml
+Yoann Padioleau <yoann.padioleau@facebook.com>**20100202233632
+ Ignore-this: 9b766dcea7f6f320e5eb4c20f9abac0d
+] 
+[txt modifs
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102194355
+ Ignore-this: c9a8890ee1380427ea433bbb15ce5f5
+] 
+[sync with git
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102194514
+ Ignore-this: 9147ce49c9f87cc3f6f0d6a48f72bb22
+] 
+[added math.ml
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102194613
+ Ignore-this: 3280b870f363474d4a386b31d453e94
+] 
+[added simple_color.ml
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102194706
+ Ignore-this: d538bf08584f905c14fe325631337cc5
+] 
+[added file_type.ml
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102194735
+ Ignore-this: b32f7cf67d952cebb5dfadb559accd11
+] 
+[added oUnit.ml
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102194810
+ Ignore-this: dcad8571c6e0ce059e2eec4272ee55b4
+] 
+[added xML.ml and xHTML.ml
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102194851
+ Ignore-this: 471aa6351b201bffd4cf3f3cf0ccaabf
+] 
+[added lib-sexp/
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102215917
+ Ignore-this: 7948f58a98324dc0413f0a24aeec895a
+] 
+[added lib-json/
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102215945
+ Ignore-this: 95ada368058fcaef1f0774b7ef1a10b0
+] 
+[added lib-xml/
+Yoann Padioleau <yoann.padioleau@facebook.com>**20101102220748
+ Ignore-this: da17a8ba0f0291b68bda76ff6516ac07
+] 

@@ -1,0 +1,5 @@
+by order of difficulty to make run ...:
+ hello/
+ js?
+ ...
+ graffiti/

@@ -1,0 +1,55 @@
+description = "Eliom: module for generating pages"
+version = "dev"
+
+package "server" (
+  description = "Eliom: server-side"
+  version = "[distributed with Eliom]"
+  directory = "server"
+  requires = "%%DEPS%%"
+  requires(syntax) += "%%SDEPS%%"
+  archive(byte) = "%%NAME%%.cma"
+  archive(native) = "%%NAME%%.cmxa"
+  package "duce" (
+    description = "Eliom: OCamlDuce support for server-side"
+    version = "[distributed with Eliom]"
+    requires = "%%NAME%%.server,ocamlduce"
+    archive(byte) = "%%NAME%%_duce.cma"
+    archive(native) = "%%NAME%%_duce.cmxa"
+    exists_if = "%%NAME%%_duce.cma,%%NAME%%_duce.cmxa"
+  )
+)
+
+package "client" (
+  description = "Eliom client-side"
+  version = "[distributed with Eliom]"
+  directory = "client"
+  requires = "%%CDEPS%%"
+  requires(syntax) += "%%CSDEPS%%"
+  archive(byte) = "%%NAME%%_client.cma eliom_client_main.cmo"
+)
+
+package "syntax" (
+  description = "Syntax extension: spliting client and server code (base)"
+  version = "[distributed with Eliom]"
+  requires = "%%SDEPS%%,%%CSDEPS%%"
+  archive(syntax,preprocessor) = "pa_eliom_seed.cmo"
+  directory = "syntax"
+  package "type" (
+    description = "Syntax extension: spliting client and server code (type inference)"
+    version = "[distributed with Eliom]"
+    requires = "%%NAME%%.syntax"
+    archive(syntax,preprocessor) = "pa_eliom_type_filter.cmo"
+  )
+  package "server" (
+    description = "Syntax extension: spliting client and server code (server side)"
+    version = "[distributed with Eliom]"
+    requires = "%%NAME%%.syntax"
+    archive(syntax,preprocessor) = "pa_eliom_client_server.cmo"
+  )
+  package "client" (
+    description = "Syntax extension: spliting client and server code (client side)"
+    version = "[distributed with Eliom]"
+    requires = "%%NAME%%.syntax"
+    archive(syntax,preprocessor) = "pa_eliom_client_client.cmo"
+  )
+)

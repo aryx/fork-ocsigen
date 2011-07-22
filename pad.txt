@@ -12,25 +12,21 @@ and incremental compilation correctly.
 
 New compilation procedure:
   - install ocaml 3.12 (with gdbm support) and findlib
-  - install the libev C library, openssl C library, pcre C library, the 
+  - install the libev C library, openssl C library, pcre C library,
     postgres C library and postgres server using your favourite package
     manager
   - compile and then 'make install' the ocaml libraries in external/:
     react, ssl, lwt (with ./configure  --enable-react --enable-ssl),
-    pcre, ocamlnet, cryptokit, ocaml-text, calendar,
-    csv, extlib,
+    pcre, ocamlnet, cryptokit, ocaml-text, calendar, csv, extlib,
+  - compile and 'make install' ocsigen-deriving (needed before
+    compiling js_of_ocaml, for eliom)
   - compile and then 'make install' js_of_ocaml and oclosure 
     (compiling oclosure takes quite some time and needs more than 1.5Go of RAM)
+  - compile and then 'make install' tyxml
   - [optional] compile and 'make install' pgocaml and macaque
   - [optional] compile and 'make install' ocamlcairo for the graffiti demo
   - => can now './configure' ocsigen and compiles it
-    TOFIX had then to go to external/ocaml/deriving; make; make install
-    make depend
-    make
-    ./server/ocsigen -c pad.conf.local
-    open http://<server_machine>:8080/miniwiki in your browser
-     (where <server_machine> is usually localhost, unless you
-     run the server on one machine and browse the web from another)
+    make depend; make; make run.local
   - a small demo is in demos/hello. Just do 'make depend; make; make run'
     and then open http://<server_machine>:8080/coucou in your browser
 

@@ -4,13 +4,13 @@ MAKESUBDIRS= ocamlpcre ocamlcalendar ocamlcryptokit ocamltext \
  ocamlnet \
  ocamlssl ocamlreact \
  ocamllwt \
- ocamlderiving \
+ deriving \
  ocamlcsv \
  ocamlextlib \
+ ocamlcairo
 
 
 clean:
 	set -e; for i in $(MAKESUBDIRS); do $(MAKE) -C $$i clean || exit 1; done
-	rm -rf ocamlderiving/tmp/
 	rm -rf ocamlcalendar/target/
 

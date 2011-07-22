@@ -1,6 +1,0 @@
-miniwiki.cmo: ../../server/ocsigen_extensions.cmi ../../eliom/eliom_state.cmi \
-    ../../eliom/eliom_services.cmi ../../eliom/eliom_parameters.cmi \
-    ../../eliom/eliom_output.cmi ../../eliom/eliom_config.cmi
-miniwiki.cmx: ../../server/ocsigen_extensions.cmx ../../eliom/eliom_state.cmx \
-    ../../eliom/eliom_services.cmx ../../eliom/eliom_parameters.cmx \
-    ../../eliom/eliom_output.cmx ../../eliom/eliom_config.cmx
