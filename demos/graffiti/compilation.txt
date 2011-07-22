@@ -16,7 +16,7 @@ eliomopt  -shared -linkall -o local/var/www/lib/graffiti.cmxs local/var/www/lib/
 make: *** No rule to make target `graffiti.p8080.conf', needed by `all'.  Stop.
 
 
-** before eliomc:
+** before eliom 2.0 (and eliomc):
 
  -p _build/server
 ocamlfind ocamlc \

@@ -1,3 +1,12 @@
+
+steps to uneliomification :) :
+ - get orig graffity to compile (need install latest version of ocsigen/eliom)
+ - rename graffiti to app, and have a simple var/, and run commands
+   to compile manually (simple Makefile)
+ - 
+
+** before eliom 2.0 (and eliomc):
+
 was tutorial/files/multi_graffity_v1/. I've renamed common.ml to shared.ml
 cleaned-up the Makefile, and move config in config/. I've also removed
 many 'open'.
