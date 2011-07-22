@@ -8,17 +8,15 @@
 
 SRC=hello.ml
 
-#LIBS= -thread -package lwt,tyxml,eliom,eliom.server
-#lwt.unix,pcre,tyxml,ocsigenserver,
+LIBS= -thread -package lwt,tyxml,eliom,eliom.server
 
 ##############################################################################
 # Generic ocaml variables
 ##############################################################################
 
-OCAMLC= eliomc
-#ocamlfind ocamlc $(DBG) $(LIBS)
-OCAMLOPT= eliomopt
-#ocamlfind ocamlopt $(DBG) $(LIBS)
+# can also use eliomc and eliomopt
+OCAMLC=ocamlfind ocamlc $(DBG) $(LIBS)
+OCAMLOPT=ocamlfind ocamlopt $(DBG) $(LIBS)
 OCAMLDEP= ocamlfind ocamldep
 
 ifeq "$(NATDYNLINK)" "YES"
