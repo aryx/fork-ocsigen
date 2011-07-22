@@ -1,12 +1,13 @@
 
 # the order matters
-MAKESUBDIRS= ocamlpcre ocamlcalendar ocamlcryptokit ocamltext \
+MAKESUBDIRS=\
+ ocamlpcre ocamlcalendar ocamlcryptokit ocamltext \
  ocamlnet \
  ocamlssl ocamlreact \
  ocamllwt \
- deriving \
  ocamlcsv \
  ocamlextlib \
+ ocamlderiving \
  ocamlcairo
 
 

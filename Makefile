@@ -6,6 +6,7 @@ MAKESUBDIRS=commons external \
   web_js web_html web_css \
   database \
   server eliom \
+  demos/hello demos/graffiti \
 
 #  ocsimore other/ocsforge
 
