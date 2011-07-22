@@ -27,7 +27,7 @@ DARCSREPOS=\
  server eliom \
  web_js/js_of_ocaml web_js/oclosure \
  ocsimore other/ocsforge \
- demos/graffiti
+ demos/graffiti_orig
 
 update_darcs:
 	set -e; for i in $(DARCSREPOS); do pushd .; cd $$i; darcs pull; popd; done 

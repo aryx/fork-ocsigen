@@ -1,3 +1,23 @@
+
+
+ln -fs /data/users/pad/github/fork-ocsigen/demos/graffiti_orig/css local/var/www/static/css
+eliomc  -c -noinfer -package cairo,unix graffiti.eliom
+eliomc  -a -o local/var/www/lib/graffiti.cma _server/graffiti.cmo
+eliomc  -infer -package cairo,unix graffiti.eliom
+js_of_eliom -c -package oclosure graffiti.eliom
+js_of_eliom -o local/var/www/static/graffiti.js -package oclosure _client/graffiti.cmo
+oclosure_req local/var/www/static/graffiti.js
+/home/pad/packages/Linux/stow/ocaml-3.12.1/lib/ocaml/site-lib/oclosure/closure/bin/build/closurebuilder.py: Scanning paths...
+/home/pad/packages/Linux/stow/ocaml-3.12.1/lib/ocaml/site-lib/oclosure/closure/bin/build/closurebuilder.py: 725 sources scanned.
+/home/pad/packages/Linux/stow/ocaml-3.12.1/lib/ocaml/site-lib/oclosure/closure/bin/build/closurebuilder.py: Building dependency tree..
+eliomopt  -c -noinfer -package cairo,unix graffiti.eliom
+eliomopt  -a -o local/var/www/lib/graffiti.cmxa _server/graffiti.cmx
+eliomopt  -shared -linkall -o local/var/www/lib/graffiti.cmxs local/var/www/lib/graffiti.cmxa
+make: *** No rule to make target `graffiti.p8080.conf', needed by `all'.  Stop.
+
+
+** before eliomc:
+
  -p _build/server
 ocamlfind ocamlc \
 	     -syntax camlp4o \
