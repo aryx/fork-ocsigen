@@ -24,6 +24,7 @@ open Eliom_parameters
 open Eliom_services
 open Eliom_uri
 
+(*204FORMS* old implementation of forms with 204 and change_page_event
 let nl_internal_appl_form =
   Eliom_parameters.make_non_localized_parameters
     ~prefix:Eliom_common.eliom_internal_nlp_prefix
@@ -31,6 +32,7 @@ let nl_internal_appl_form =
     (Eliom_parameters.bool Eliom_common.internal_form_bool_name)
 (* Actually we do not really use it as a nl parameter, 
    because it is removed from get parameters very soon *)
+*)
 
 module type FORMCREATE =
   sig
@@ -149,16 +151,35 @@ module type FORMCREATE =
 
     val make_js_script : ?a:script_attrib_t -> uri:uri -> unit -> script_elt
 
+(*
     val register_event_a : 'elt a_elt -> string -> ('a -> unit Lwt.t) -> 'a -> unit
     val register_event_form : form_elt -> string -> ('a -> unit Lwt.t) -> 'a -> unit
+*)
 
+(*POSTtabcookies* forms with tab cookies in POST params:
     val add_tab_cookies_to_get_form : form_elt -> unit -> unit Lwt.t
     val add_tab_cookies_to_post_form : form_elt -> unit -> unit Lwt.t
     val add_tab_cookies_to_get_form_id_string : string
     val add_tab_cookies_to_post_form_id_string : string
+*)
 
-    val appl_name : string option (* The application name, if any
-                                     (for Eliom_appl only, None otherwise) *)
+    val make_a_with_onclick :
+      ?a:a_attrib_t -> ?cookies_info:bool * string list ->
+      Eliom_services.send_appl_content ->
+      string ->
+      'a a_content_elt_list -> 'a a_elt
+
+    val make_get_form_with_onsubmit :
+      ?a:form_attrib_t -> ?cookies_info:bool * string list ->
+      Eliom_services.send_appl_content ->
+      string ->
+      form_content_elt -> form_content_elt_list -> form_elt
+      
+    val make_post_form_with_onsubmit :
+      ?a:form_attrib_t -> ?cookies_info:bool * string list ->
+      Eliom_services.send_appl_content ->
+      string ->
+      form_content_elt -> form_content_elt_list -> form_elt
 
   end
 
@@ -975,24 +996,6 @@ module MakeForms = functor
           ?(no_appl = false)
           content
           getparams =
-        if not no_appl && (Eliom_services.send_appl_content Pages.appl_name service)
-        then
-          Eliommod_mkforms.make_a_with_onclick
-            (fun ?a ?onclick c -> Pages.make_a ?a ?onclick c)
-            Pages.register_event_a
-            ?absolute
-            ?absolute_path
-            ?https
-            ?a
-            ~service
-            ?hostname
-            ?port
-            ?fragment
-            ?keep_nl_params
-            ?nl_params
-            content
-            getparams
-        else
         let href = 
           make_string_uri
             ?absolute
@@ -1001,6 +1004,16 @@ module MakeForms = functor
             ?nl_params
             ?https ~service ?hostname ?port ?fragment getparams
         in
+        if not no_appl && Eliom_services.xhr_with_cookies service
+        then
+          let cookies_info = Eliom_uri.make_cookies_info (https, service) in
+          Pages.make_a_with_onclick
+            ?a
+            ?cookies_info
+            (Eliom_services.get_send_appl_content service)
+            href
+            content
+        else
         Pages.make_a ?a ~href content
 
 
@@ -1022,14 +1035,17 @@ module MakeForms = functor
           f =
 
         let internal_appl_form =
-          not no_appl && (Eliom_services.send_appl_content Pages.appl_name service)
+          not no_appl && Eliom_services.xhr_with_cookies service
         in
+
+(*204FORMS* old implementation of forms with 204 and change_page_event
         let nl_params = 
           if internal_appl_form
           then Some (Eliom_parameters.add_nl_parameter
                        nl_params nl_internal_appl_form true)
           else Some nl_params
         in
+*)
 
         let (uri, hiddenparams, fragment) =
           make_uri_components_
@@ -1040,7 +1056,7 @@ module MakeForms = functor
             ?hostname
             ?port
             ?fragment
-            ?nl_params
+            ~nl_params
             ?keep_nl_params
             ()
         in
@@ -1079,11 +1095,22 @@ module MakeForms = functor
              let i1, i = Pages.remove_first inside in
              if internal_appl_form
              then
-               return (Eliommod_mkforms.make_get_form_with_onsubmit
+               let cookies_info = Eliom_uri.make_cookies_info (https, service)
+               in
+               return (Pages.make_get_form_with_onsubmit
+                         ?a
+                         ?cookies_info
+                         (Eliom_services.get_send_appl_content service)
+                         uri
+                         i1
+                         i)
+(*POSTtabcookies* forms with tab cookies in POST params:
+               return (Eliommod_mkforms.make_get_form_with_post_tab_cookies
                          Pages.make_get_form Pages.register_event_form
                          Pages.add_tab_cookies_to_get_form
                          Pages.add_tab_cookies_to_get_form_id_string
                          ?a ~action:uri i1 i)
+*)
              else 
                return (Pages.make_get_form ?a ~action:uri i1 i))
 
@@ -1128,15 +1155,17 @@ module MakeForms = functor
           getparams =
 
         let internal_appl_form =
-          not no_appl && (Eliom_services.send_appl_content Pages.appl_name service)
+          not no_appl && Eliom_services.xhr_with_cookies service
         in
+
+(*204FORMS* old implementation of forms with 204 and change_page_event
         let nl_params = 
           if internal_appl_form
           then Some (Eliom_parameters.add_nl_parameter
                        nl_params nl_internal_appl_form true)
           else Some nl_params
         in
-
+*)
         let getparamstype = get_post_params_type_ service in
         let _, paramnames = make_params_names getparamstype in
 
@@ -1150,7 +1179,7 @@ module MakeForms = functor
             ?port
             ?fragment
             ?keep_nl_params
-            ?nl_params
+            ~nl_params
             ?keep_get_na_params
             getparams
             ()
@@ -1177,12 +1206,23 @@ module MakeForms = functor
              in
              if internal_appl_form
              then
-               return (Eliommod_mkforms.make_post_form_with_onsubmit
+               let cookies_info = Eliom_uri.make_cookies_info (https, service)
+               in
+               return (Pages.make_post_form_with_onsubmit
+                         ?a
+                         ?cookies_info
+                         (Eliom_services.get_send_appl_content service)
+                         uri
+                         i1
+                         i)
+(*POSTtabcookies* forms with tab cookies in POST params:
+               return (Eliommod_mkforms.make_post_form_with_post_tab_cookies
                          Pages.make_post_form Pages.register_event_form
                          Pages.add_tab_cookies_to_post_form
                          Pages.add_tab_cookies_to_post_form_id_string
                          ?a ~action:uri i1 i)
-             else 
+*)
+             else
                return (Pages.make_post_form ?a ~action:uri i1 i))
 
 

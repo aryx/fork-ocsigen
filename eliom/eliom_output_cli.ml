@@ -79,7 +79,7 @@ module Xhtml5forms_ = struct
   type button_attrib_t = Xhtml5types.button_attrib XHTML5.M.attrib list
 
   type input_type_t =
-      [ `Button
+    [ `Button
     | `Checkbox
     | `File
     | `Hidden
@@ -224,8 +224,13 @@ module Xhtml5forms_ = struct
   let make_js_script ?(a=[]) ~uri () =
     script ~a:(a_mime_type "text/javascript" :: a_src uri :: a) (pcdata "")
 
-  let register_event_a node = XML.register_event (XHTML5.M.toelt node)
-  let register_event_form node = XML.register_event (XHTML5.M.toelt node)
+  let register_event_a ?keep_default node =
+    XML.register_event ?keep_default (XHTML5.M.toelt node)
+
+  let register_event_form ?keep_default node =
+    XML.register_event ?keep_default (XHTML5.M.toelt node)
+
+(*POSTtabcookies* forms with tab cookies in POST params:
 
   let add_tab_cookies_to_get_form = 
     Eliommod_mkforms.add_tab_cookies_to_get_form
@@ -239,8 +244,22 @@ module Xhtml5forms_ = struct
 
   let add_tab_cookies_to_post_form_id_string =
     Eliom_client_types.add_tab_cookies_to_post_form_id_string
+*)
 
-  let appl_name = None
+  let make_a_with_onclick ?a ?cookies_info s =
+    Eliommod_mkforms.make_a_with_onclick 
+      (fun ?a ?onclick ?href x -> make_a ?a ?onclick ?href x)
+      register_event_a
+      ?a ?cookies_info s
+
+  let make_get_form_with_onsubmit =
+    Eliommod_mkforms.make_get_form_with_onsubmit
+      make_get_form register_event_form
+
+  let make_post_form_with_onsubmit =
+    Eliommod_mkforms.make_post_form_with_onsubmit
+      (fun ?a ~action ?onsubmit x y -> make_post_form ?a ~action ?onsubmit x y)
+      register_event_form
 
 end
 

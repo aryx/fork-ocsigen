@@ -856,12 +856,24 @@ let get_session_info req previous_extension_err =
     with Not_found ->
       let tab_cookies, post_params =
         try
+(* Tab cookies are found in HTTP headers,
+   but also sometimes in POST params (when we do not want to do an XHR
+   because we want to stop the client side process).
+   It should never be both.
+*)
           let (tc, pp) = 
             Ocsigen_lib.list_assoc_remove tab_cookies_param_name post_params
           in
           (Json.from_string<string Ocsigen_lib.String_Table.t> tc, pp)
           (*Marshal.from_string (Ocsigen_lib.decode tc) 0, pp*)
-        with Not_found -> Ocsigen_lib.String_Table.empty, post_params
+        with Not_found -> 
+          try (* looking for tab cookies in headers *)
+            let tc = Ocsigen_headers.find tab_cookies_header_name
+              ri.Ocsigen_extensions.ri_http_frame
+            in
+            (Json.from_string<string Ocsigen_lib.String_Table.t> tc, 
+             post_params)
+          with Not_found -> Ocsigen_lib.String_Table.empty, post_params
       in
       (None, tab_cookies, post_params)
   in
@@ -872,12 +884,14 @@ let get_session_info req previous_extension_err =
       ([],
        Lazy.force ri.Ocsigen_extensions.ri_get_params
        @snd (Ocsigen_lib.list_assoc_remove 
-                         get_request_post_param_name post_params),
+               to_be_considered_as_get_param_name post_params),
        true)
     (* It was a POST request to be considered as GET *)
     with Not_found ->
       (post_params, Lazy.force ri.Ocsigen_extensions.ri_get_params, false)
   in
+
+(*204FORMS* old implementation of forms with 204 and change_page_event
 
   let get_params, internal_form =
     try
@@ -885,6 +899,7 @@ let get_session_info req previous_extension_err =
        true)
     with Not_found -> (get_params, false)
   in
+*)
 
   let get_params0 = get_params in
   let post_params0 = post_params in
@@ -892,7 +907,7 @@ let get_session_info req previous_extension_err =
   let get_params, post_params, 
     (all_get_params, all_post_params,
      nl_get_params, nl_post_params, 
-     all_get_but_nl, internal_form) = 
+     all_get_but_nl (*204FORMS*, internal_form *)) = 
     try
       (get_params, 
        post_params,
@@ -905,7 +920,7 @@ let get_session_info req previous_extension_err =
       let all_get_but_nl = get_params in
       get_params, post_params,
       (get_params0, (if no_post_param then None else Some post_params0), 
-       nl_get_params, nl_post_params, all_get_but_nl, internal_form)
+       nl_get_params, nl_post_params, all_get_but_nl (*204FORMS*, internal_form *))
   in
 
   let browser_cookies = Lazy.force ri.Ocsigen_extensions.ri_cookies in
@@ -1053,14 +1068,16 @@ let get_session_info req previous_extension_err =
   in
   
   let get_params_string, url_string =
+(*204FORMS* old implementation of forms with 204 and change_page_event
     if internal_form
     then
       let gps = Ocsigen_lib.mk_url_encoded_parameters all_get_params in
       let uri = ri.Ocsigen_extensions.ri_full_path_string in
       ((if gps = "" then None else Some gps), 
        Ocsigen_lib.add_to_string uri "?" gps)
-    else (ri.Ocsigen_extensions.ri_get_params_string,
-          ri.Ocsigen_extensions.ri_url_string)
+    else *)
+    (ri.Ocsigen_extensions.ri_get_params_string,
+     ri.Ocsigen_extensions.ri_url_string)
   in
 
   let ri', sess =
@@ -1115,7 +1132,7 @@ let get_session_info req previous_extension_err =
           (List.remove_assoc naservice_name
              (List.remove_assoc naservice_num
                 (remove_prefixed_param na_co_param_prefix get_params0)));
-     si_internal_form= internal_form;
+(*204FORMS*     si_internal_form= internal_form; *)
     }
   in
   Lwt.return
@@ -1181,5 +1198,113 @@ let remove_from_all_persistent_tables key =
     !perstables
 
 
+v v v v v v v
+*************
 
+(**** Wrapper type shared by client/server side ***)
 
+type 'a wrapper = 'a Ocsigen_wrap.wrapper
+
+let make_wrapper f = Ocsigen_wrap.create_wrapper f
+let empty_wrapper () = Ocsigen_wrap.empty_wrapper
+
+type toucher = (unit XHTML5.M.elt) Ocsigen_wrap.toucher
+
+let make_toucher (f : 'a XHTML5.M.elt -> unit) = Ocsigen_wrap.create_toucher (Obj.magic f : unit XHTML5.M.elt -> unit)
+
+type unwrap_id = Ocsigen_wrap.unwrap_id
+type unwrapper = Ocsigen_wrap.unwrapper
+
+let make_unwrapper = Ocsigen_wrap.create_unwrapper
+let empty_unwrapper = Ocsigen_wrap.empty_unwrapper
+let react_up_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int react_up_unwrap_id_int
+let comet_channel_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int comet_channel_unwrap_id_int
+
+*************
+
+(**** Wrapper type shared by client/server side ***)
+
+type 'a wrapper = 'a Ocsigen_wrap.wrapper
+
+let make_wrapper f = Ocsigen_wrap.create_wrapper f
+let empty_wrapper () = Ocsigen_wrap.empty_wrapper
+
+type toucher = (unit XHTML5.M.elt) Ocsigen_wrap.toucher
+
+let make_toucher (f : 'a XHTML5.M.elt -> unit) = Ocsigen_wrap.create_toucher (Obj.magic f : unit XHTML5.M.elt -> unit)
+
+type unwrap_id = Ocsigen_wrap.unwrap_id
+type unwrapper = Ocsigen_wrap.unwrapper
+
+let make_unwrapper = Ocsigen_wrap.create_unwrapper
+let empty_unwrapper = Ocsigen_wrap.empty_unwrapper
+let react_up_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int react_up_unwrap_id_int
+let comet_channel_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int comet_channel_unwrap_id_int
+let bus_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int bus_unwrap_id_int
+
+*************
+(**** Wrapper type shared by client/server side ***)
+
+type 'a wrapper = 'a Ocsigen_wrap.wrapper
+
+let make_wrapper f = Ocsigen_wrap.create_wrapper f
+let empty_wrapper () = Ocsigen_wrap.empty_wrapper
+
+type toucher = (unit XHTML5.M.elt) Ocsigen_wrap.toucher
+
+let make_toucher (f : 'a XHTML5.M.elt -> unit) = Ocsigen_wrap.create_toucher (Obj.magic f : unit XHTML5.M.elt -> unit)
+
+type unwrap_id = Ocsigen_wrap.unwrap_id
+type unwrapper = Ocsigen_wrap.unwrapper
+
+let make_unwrapper = Ocsigen_wrap.create_unwrapper
+let empty_unwrapper = Ocsigen_wrap.empty_unwrapper
+let react_up_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int react_up_unwrap_id_int
+let comet_channel_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int comet_channel_unwrap_id_int
+let bus_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int bus_unwrap_id_int
+
+*************
+(**** Wrapper type shared by client/server side ***)
+
+type 'a wrapper = 'a Ocsigen_wrap.wrapper
+
+let make_wrapper f = Ocsigen_wrap.create_wrapper f
+let empty_wrapper () = Ocsigen_wrap.empty_wrapper
+
+type toucher = (unit XHTML5.M.elt) Ocsigen_wrap.toucher
+
+let make_toucher (f : 'a XHTML5.M.elt -> unit) = Ocsigen_wrap.create_toucher (Obj.magic f : unit XHTML5.M.elt -> unit)
+
+type unwrap_id = Ocsigen_wrap.unwrap_id
+type unwrapper = Ocsigen_wrap.unwrapper
+
+let make_unwrapper = Ocsigen_wrap.create_unwrapper
+let empty_unwrapper = Ocsigen_wrap.empty_unwrapper
+let react_up_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int react_up_unwrap_id_int
+let comet_channel_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int comet_channel_unwrap_id_int
+let bus_unwrap_id : unwrap_id = Ocsigen_wrap.id_of_int bus_unwrap_id_int
+
+*************
+v v v v v v v
+*************
+
+(**** Wrapper type shared by client/server side ***)
+
+type 'a wrapper = 'a Eliom_wrap.wrapper
+
+let make_wrapper f = Eliom_wrap.create_wrapper f
+let empty_wrapper () = Eliom_wrap.empty_wrapper
+
+type unwrap_id = Eliom_wrap.unwrap_id
+type unwrapper = Eliom_wrap.unwrapper
+
+let make_unwrapper = Eliom_wrap.create_unwrapper
+let empty_unwrapper = Eliom_wrap.empty_unwrapper
+let react_up_unwrap_id : unwrap_id = Eliom_wrap.id_of_int react_up_unwrap_id_int
+let react_down_unwrap_id : unwrap_id = Eliom_wrap.id_of_int react_down_unwrap_id_int
+let comet_channel_unwrap_id : unwrap_id = Eliom_wrap.id_of_int comet_channel_unwrap_id_int
+let bus_unwrap_id : unwrap_id = Eliom_wrap.id_of_int bus_unwrap_id_int
+let node_unwrap_id : unwrap_id = Eliom_wrap.id_of_int node_unwrap_id_int
+
+^ ^ ^ ^ ^ ^ ^
+^ ^ ^ ^ ^ ^ ^

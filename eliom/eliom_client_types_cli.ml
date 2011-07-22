@@ -34,14 +34,49 @@ type sitedata = (* sent while starting the program *)
 (* Abstract type for the polymorphic contents in the table of page data. *)
 type poly
 
+type 'a data_key = int64 * int
+
+let to_data_key_ v = v
+let of_data_key_ v = v
+
+type onload_form_creators_info =
+  | OFA of XML.elt * string * (bool * Ocsigen_lib.url_path) option
+  | OFForm_get of
+      XML.elt * string * (bool * Ocsigen_lib.url_path) option
+  | OFForm_post of
+      XML.elt * string * (bool * Ocsigen_lib.url_path) option
+
+type separator = Space | Comma
+
+type attrib =
+  | AFloat of string * float
+  | AInt of string * int
+  | AStr of string * string
+  | AStrL of separator * string * string list
+
+type elt_content =
+  | Empty
+  | Comment of string
+  | EncodedPCDATA of string
+  | PCDATA of string
+  | Entity of string
+  | Leaf of string * attrib list
+  | Node of string * attrib list * elt list
+  | Ref of int
+
+and elt = ( elt_content * int option )
+
 (* The data that comes with each page: *)
 type eliom_data_type =
     ((* The ref tree, to relink the DOM *)
       (XML.ref_tree, (int * XML.ref_tree) list) Ocsigen_lib.leftright *
+	(* node sent that are not in the original page *)
+	elt list *
         (* Table of page data *)
-        ((int64 * int) * poly list) *
+        (poly * ((int64 * int) * poly list)) *
         (* Tab cookies to set or unset *)
         Ocsigen_cookies.cookieset *
+        onload_form_creators_info list data_key (* info for creating xhr forms *) *
         string list (* on load scripts *) *
         string list (* on change scripts *) *
         Eliom_common.sess_info
@@ -51,17 +86,24 @@ type eliom_data_type =
     )
 
 
-type 'a data_key = int64 * int
-
-let to_data_key_ v = v
-let of_data_key_ v = v
 
 
+(*SGO* Server generated onclicks/onsubmits
 (* For client side program, we sometimes simulate links and forms
    with client side functions.
    Here are there identifiers: *)
 let a_closure_id = 0x0
 let a_closure_id_string = Printf.sprintf "0x%02X" a_closure_id
+let get_closure_id = 0x3
+let get_closure_id_string = Printf.sprintf "0x%02X" get_closure_id
+let post_closure_id = 0x4
+let post_closure_id_string = Printf.sprintf "0x%02X" post_closure_id
+
+
+let eliom_temporary_form_node_name = "eliom__temp_form_node_name"
+*)
+
+(*POSTtabcookies* forms with tab cookies in POST params:
 
 let add_tab_cookies_to_get_form_id = 0x1
 let add_tab_cookies_to_get_form_id_string =
@@ -69,3 +111,6 @@ let add_tab_cookies_to_get_form_id_string =
 let add_tab_cookies_to_post_form_id = 0x2
 let add_tab_cookies_to_post_form_id_string =
   Printf.sprintf "0x%02X" add_tab_cookies_to_post_form_id
+
+*)
+

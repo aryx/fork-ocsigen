@@ -242,8 +242,11 @@ module Xhtmlforms_ = struct
   let make_js_script ?(a=[]) ~uri () =
     script ~a:((a_src uri)::a) ~contenttype:"text/javascript" (pcdata "")
 
+(*
   let register_event_a node = XML.register_event (XHTML.M.toelt node)
   let register_event_form node = XML.register_event (XHTML.M.toelt node)
+*)
+(*POSTtabcookies* forms with tab cookies in POST params:
 
   let add_tab_cookies_to_get_form _ () = 
     failwith "add_tab_cookies_to_get_form not implemented for xhtml1"
@@ -255,8 +258,17 @@ module Xhtmlforms_ = struct
    
   let add_tab_cookies_to_post_form_id_string =
     add_tab_cookies_to_get_form_id_string
+*)
 
-  let appl_name = None
+  let make_a_with_onclick ?a ?cookies_info s =
+    failwith "make_a_with_onclick not implemented for xhtml1"
+
+  let make_get_form_with_onsubmit ?a ?cookies_info x y =
+    failwith "make_get_form_with_onsubmit implemented for xhtml1"
+
+  let make_post_form_with_onsubmit ?a ?cookies_info x y =
+    failwith "make_post_form_with_onsubmit not implemented for xhtml1"
+
 
 end
 
@@ -2126,11 +2138,15 @@ module HtmlTextforms_ = struct
   let make_js_script ?(a="") ~uri () =
     "<script src=\""^uri^" contenttype=\"text/javascript\" "^a^"></script>"
 
+(*
   let register_event_a elt ev callback v =
     failwith "register_event_a not implemented for text"
 
   let register_event_form elt ev callback v =
     failwith "register_event_form not implemented for text"
+*)
+
+(*POSTtabcookies* forms with tab cookies in POST params:
 
   let add_tab_cookies_to_get_form _ () = 
     failwith "add_tab_cookies_to_get_form not implemented for text"
@@ -2142,8 +2158,15 @@ module HtmlTextforms_ = struct
    
   let add_tab_cookies_to_post_form_id_string =
     add_tab_cookies_to_get_form_id_string
+*)
+  let make_a_with_onclick ?a ?cookies_info s =
+    failwith "make_a_with_onclick not implemented for text"
 
-  let appl_name = None
+  let make_get_form_with_onsubmit ?a ?cookies_info x y =
+    failwith "make_get_form_with_onsubmit implemented for text"
+
+  let make_post_form_with_onsubmit ?a ?cookies_info x y =
+    failwith "make_post_form_with_onsubmit not implemented for text"
 
 end
 
@@ -2291,8 +2314,8 @@ module Actionreg_ = struct
                     si.Eliom_common.si_all_post_params, (* is Some [] *)
                     si.Eliom_common.si_nl_get_params,
                     si.Eliom_common.si_nl_post_params,
-                    si.Eliom_common.si_all_get_but_nl,
-                    si.Eliom_common.si_internal_form)
+                    si.Eliom_common.si_all_get_but_nl (*204FORMS*,
+                    si.Eliom_common.si_internal_form *))
 (*VVV Also put all_cookie_info in this,
   to avoid update_cookie_table and get_cookie_info (?)
 *)
@@ -2325,8 +2348,8 @@ module Actionreg_ = struct
                     si.Eliom_common.si_all_post_params,
                     si.Eliom_common.si_nl_get_params,
                     si.Eliom_common.si_nl_post_params,
-                    si.Eliom_common.si_all_get_but_nl,
-                    si.Eliom_common.si_internal_form)
+                    si.Eliom_common.si_all_get_but_nl (*204FORMS*,
+                    si.Eliom_common.si_internal_form *))
                  ;
                  let ri =
                    {ri.request_info with
@@ -2358,8 +2381,8 @@ module Actionreg_ = struct
                     si.Eliom_common.si_all_post_params,
                     si.Eliom_common.si_nl_get_params,
                     si.Eliom_common.si_nl_post_params,
-                    si.Eliom_common.si_all_get_but_nl,
-                    si.Eliom_common.si_internal_form)
+                    si.Eliom_common.si_all_get_but_nl (*204FORMS*,
+                    si.Eliom_common.si_internal_form *))
                  ;
                  let ri = 
                    {ri.request_info with
@@ -3199,8 +3222,10 @@ let default_appl_params =
 
 let comet_service_key = Polytables.make_key ()
 
+(*CPE* change_page_event
 let change_current_page_key : ('a -> unit) Polytables.key =
   Polytables.make_key ()
+*)
 
 module Eliom_appl_reg_
   (Xhtml_content : Ocsigen_http_frame.HTTP_CONTENT
@@ -3227,7 +3252,7 @@ module Eliom_appl_reg_
                         
   let create_page
       ~options ~sp cpi params cookies_to_send
-      change_page_event content = 
+      (*CPE* change_page_event *) content = 
     let do_not_launch = options.do_not_launch
         (* || 
            (Ocsigen_cookies.length tab_cookies_to_send > 1)
@@ -3247,9 +3272,10 @@ module Eliom_appl_reg_
            (container d),
          (XHTML5.M.toelt d))
     in
-    ignore (XML.ref_node container_node); (* The ref must be created 
-                                             for container before
-                                             calling make_ref_tree! *)
+    ignore (Eliom_xml.make_node_id container_node); (* The ref must be created 
+						       for container before
+						       calling make_ref_tree! *)
+
     XHTML5.M.html
       (XHTML5.M.head (XHTML5.M.title (XHTML5.M.pcdata params.ap_title)) 
          (
@@ -3284,6 +3310,15 @@ function redir () {
 };
 redir ();"))::
 
+	 let onload_form_creators =
+	   Eliommod_cli.wrap (Eliom_services.get_onload_form_creators
+                                Appl_params.application_name sp) in
+	 let eliom_appl_page_data = 
+           Eliom_wrap.wrap (Eliommod_cli.get_eliom_appl_page_data_ sp)
+         in
+	 Eliom_xml.mark_sent (XHTML5.M.toelt body);
+	 let contents_to_send = Eliom_xml.contents_to_send () in
+
              if not do_not_launch
              then
                XHTML5.M.script
@@ -3296,20 +3331,24 @@ redir ();"))::
                           (let reqnum = Eliom_request_info.get_request_id_sp sp in
                            (Eliom_client_types.jsmarshal
                               (Eliom_client_types.to_data_key_
-                                 (reqnum, XML.ref_node container_node))
+                                 (*(reqnum, XML.ref_node container_node))*)
+                                 (reqnum, Eliom_xml.make_node_id container_node))
                            )) ; "\'; \n";
 
                           "var eliom_data = \'" ;
                           (Eliom_client_types.jsmarshal
-                             ((Ocsigen_lib.Left
-                                 (XML.make_ref_tree (XHTML5.M.toelt body)),
+				((Ocsigen_lib.Left
+                                 (*(XML.make_ref_tree (XHTML5.M.toelt body)),*)
+                                 (Eliom_xml.make_ref_tree (XHTML5.M.toelt body)),
                             (* Warning: due to right_to_left evaluation,
                                make_ref_tree is called before the previous
                                items. Do not create new node refs in
                                previous items!
                             *)
-                               (Eliommod_cli.get_eliom_appl_page_data_ sp),
+                               contents_to_send,
+                               eliom_appl_page_data,
                                cookies_to_send,
+                               onload_form_creators,
                                Eliom_services.get_onload sp,
                                Eliom_services.get_onunload sp,
                                Eliommod_cli.client_si sp.Eliom_common.sp_si
@@ -3320,17 +3359,29 @@ redir ();"))::
 
 			  "var comet_service = \'" ;
                           (Eliom_client_types.jsmarshal
-			     (Polytables.get
-                                ~table:cpi.Eliom_common.cpi_references
-				~key:comet_service_key)
-                          ) ; "\'; \n" ;
+			     (Eliom_wrap.wrap
+				(Polytables.get
+                                   ~table:cpi.Eliom_common.cpi_references
+				   ~key:comet_service_key)
+                             )) ; "\'; \n" ;
 
+(*CPE* change_page_event
                           "var change_page_event = \'" ;
+v v v v v v v
+			  change_page_event_string
+                           ; "\'; \n" ;
+*************
                           (Eliom_client_types.jsmarshal
                              (Eliommod_react.Down.wrap
                                 (Eliommod_react.Down.of_react change_page_event)
                              )
                           ) ; "\'; \n" ;
+v v v v v v v
+*)
+*************
+*)
+^ ^ ^ ^ ^ ^ ^
+^ ^ ^ ^ ^ ^ ^
 
                           "var sitedata = \'" ;
                           (Eliom_client_types.jsmarshal
@@ -3358,12 +3409,20 @@ redir ();"))::
 
   let get_eliom_page_content ~options sp content =
     get_tab_cook sp >>= fun tab_cookies_to_send ->
+    let onload_form_creators =
+      Eliommod_cli.wrap (Eliom_services.get_onload_form_creators Appl_params.application_name sp) in
+    let eliom_appl_page_data = (Eliom_wrap.wrap (Eliommod_cli.get_eliom_appl_page_data_ sp)) in
+    List.iter (fun x -> Eliom_xml.mark_sent (XHTML5.M.toelt x)) content;
+    let contents_to_send = Eliom_xml.contents_to_send () in
+
 (*VVV Here we do not send a stream *)
     Lwt.return
       ((Ocsigen_lib.Right
-          (XML.make_ref_tree_list (XHTML5.M.toeltl content)),
-        (Eliommod_cli.get_eliom_appl_page_data_ sp),
+          (Eliom_xml.make_ref_tree_list (XHTML5.M.toeltl content)),
+	contents_to_send,
+        eliom_appl_page_data,
         tab_cookies_to_send,
+        onload_form_creators,
         Eliom_services.get_onload sp,
         Eliom_services.get_onunload sp,
         Eliommod_cli.client_si sp.Eliom_common.sp_si
@@ -3375,7 +3434,7 @@ redir ();"))::
   let send ?(options = default_appl_service_options) ?charset ?code
       ?content_type ?headers content =
     let sp = Eliom_common.get_sp () in
-    let si = Eliom_request_info.get_si sp in
+(*    let si = Eliom_request_info.get_si sp in *)
     let cpi = Lazy.force sp.Eliom_common.sp_client_process_info in
     let content_only =
       (* If the name of the application sent by the browser
@@ -3398,6 +3457,8 @@ redir ();"))::
           into account*)
        in
        get_eliom_page_content ~options sp content >>= fun data ->
+(*204FORMS* old implementation of forms with 204 and change_page_event
+
        if si.Eliom_common.si_internal_form
        then begin (* It was an internal form.
                      We want to change only the content.
@@ -3410,7 +3471,8 @@ redir ();"))::
          change_current_page (Eliom_services.EAContent (data, url_to_display));
          Lwt.return (Ocsigen_http_frame.empty_result ())
        end
-       else Caml.send (EAContent (data, url_to_display))
+       else *)
+       Caml.send (EAContent (data, url_to_display))
      end
      else begin
        (* We launch the client side process *)
@@ -3419,6 +3481,7 @@ redir ();"))::
          ~table:cpi.Eliom_common.cpi_references
          ~key:comet_service_key
 	 ~value:comet_service;
+(*CPE* change_page_event
        let change_page_event, change_current_page =
          (* This event allows the server to ask the client to change 
             current page content *)
@@ -3428,6 +3491,7 @@ redir ();"))::
          ~table:cpi.Eliom_common.cpi_references
 	 ~key:change_current_page_key
 	 ~value:change_current_page;
+*)
        Eliom_state.set_cookie
          ~cookie_scope:`Client_process
          ~name:Eliom_common.appl_name_cookie_name
@@ -3437,7 +3501,7 @@ redir ();"))::
        let page =
          create_page
            ~options ~sp cpi Appl_params.params tab_cookies_to_send
-           change_page_event content 
+           (*CPE* change_page_event *) content 
        in
        let options = Appl_params.params.ap_doctype in
        Xhtml_content.result_of_content ~options page
@@ -3467,11 +3531,6 @@ end
 
 
 module Eliom_appl (Appl_params : APPL_PARAMS) = struct
-
-  include MakeXhtml5forms(MakeForms(struct
-    include Xhtml5forms_
-    let appl_name = Some Appl_params.application_name
-  end))
 
   include MakeRegister(Eliom_appl_reg_
                          (Ocsigen_senders.Xhtml5compact_content)
@@ -3634,6 +3693,7 @@ module Redirreg_ = struct
       | Some anr ->
         (* the browser asked application eliom data
            for the application called anr *)
+(*204FORMS* old implementation of forms with 204 and change_page_event
         let sp = Eliom_common.get_sp () in
         let si = Eliom_request_info.get_si sp in
         if si.Eliom_common.si_internal_form
@@ -3663,6 +3723,7 @@ module Redirreg_ = struct
           Lwt.return (Ocsigen_http_frame.empty_result ())
         end
         else
+*)
         (* If it comes from an xhr, we use answer with a special header field *)
           match Eliom_services.get_send_appl_content service with
           (* the appl name of the destination service *)

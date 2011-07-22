@@ -33,19 +33,63 @@ val of_data_key_ : 'a data_key -> (int64 * int)
 
 (**/**)
 type poly
+
+type onload_form_creators_info =
+  | OFA of XML.elt * string * (bool * Ocsigen_lib.url_path) option
+  | OFForm_get of
+      XML.elt * string * (bool * Ocsigen_lib.url_path) option
+  | OFForm_post of
+      XML.elt * string * (bool * Ocsigen_lib.url_path) option
+
+type separator = Space | Comma
+
+type attrib =
+  | AFloat of string * float
+  | AInt of string * int
+  | AStr of string * string
+  | AStrL of separator * string * string list
+
+type elt_content =
+  | Empty
+  | Comment of string
+  | EncodedPCDATA of string
+  | PCDATA of string
+  | Entity of string
+  | Leaf of string * attrib list
+  | Node of string * attrib list * elt list
+  | Ref of int
+
+and elt = ( elt_content * int option )
+
 type eliom_data_type =
     ((XML.ref_tree, (int * XML.ref_tree) list) Ocsigen_lib.leftright *
-        ((int64 * int) * poly list) *
+	elt list *
+        (poly * ((int64 * int) * poly list)) *
         Ocsigen_cookies.cookieset *
+        onload_form_creators_info list data_key (* info for creating xhr forms *) *
         string list (* on load scripts *) *
         string list (* on change scripts *) *
         Eliom_common.sess_info
     )
 
 
+(*SGO* Server generated onclicks/onsubmits
 val a_closure_id : int
 val a_closure_id_string : string
+val get_closure_id : int
+val get_closure_id_string : string
+val post_closure_id : int
+val post_closure_id_string : string
+
+val eliom_temporary_form_node_name : string
+
+*)
+
+(*POSTtabcookies* forms with tab cookies in POST params:
 val add_tab_cookies_to_get_form_id : int
 val add_tab_cookies_to_get_form_id_string : string
 val add_tab_cookies_to_post_form_id : int
 val add_tab_cookies_to_post_form_id_string : string
+*)
+
+

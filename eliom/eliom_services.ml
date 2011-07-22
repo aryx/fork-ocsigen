@@ -31,6 +31,25 @@ include Eliom_services_cli
 exception Wrong_session_table_for_CSRF_safe_coservice
 
 
+(*********)
+let need_process_cookies s = not (is_external s)
+(* If there is a client side process, we do an XHR with tab cookies *)
+
+let appl_content_capable s =
+  match s.send_appl_content with
+    | XAlways -> true
+    | XNever -> false (* actually this will be tested again later
+                         in get_onload_form_creators *)
+    | XSame_appl an -> true (* Some an = current_page_appl_name *)
+      (* for now we do not know the current_page_appl_name.
+         We will know it only after calling send.
+         In case it is not the same name, we will not send the
+         onload_form_creator_info.
+      *)
+
+let xhr_with_cookies s =
+  need_process_cookies s && appl_content_capable s
+
 (**********)
 let new_state = Eliommod_cookies.make_new_session_id
 (* WAS:
@@ -237,6 +256,7 @@ let coservice'
           https = https;
           keep_nl_params = keep_nl_params;
           send_appl_content = XNever;
+	  service_mark = service_mark ();
         }
 
 
@@ -268,6 +288,7 @@ let post_service_aux ~https ~fallback
    https = https;
    keep_nl_params = keep_nl_params;
    send_appl_content = XNever;
+   service_mark = service_mark ();
  }
 
 let post_service ?(https = false) ~fallback 
@@ -382,6 +403,7 @@ let post_coservice'
     https = https;
     keep_nl_params = keep_nl_params;
     send_appl_content = XNever;
+    service_mark = service_mark ();
   }
 
 
@@ -513,7 +535,7 @@ let unregister ?(scope = `Global) ?state_name ?secure service =
    redirection.
 *)
 
-let on_load_key : string list Polytables.key = Polytables.make_key ()
+let on_load_key : XML.event list Polytables.key = Polytables.make_key ()
 
 let get_onload sp =
   let rc = Eliom_request_info.get_request_cache_sp sp in
@@ -521,7 +543,7 @@ let get_onload sp =
     List.rev (Polytables.get ~table:rc ~key:on_load_key)
   with Not_found -> []
 
-let on_unload_key : string list Polytables.key = Polytables.make_key ()
+let on_unload_key : XML.event list Polytables.key = Polytables.make_key ()
 
 let get_onunload sp =
   let rc = Eliom_request_info.get_request_cache_sp sp in
@@ -543,6 +565,40 @@ let onunload s =
   in
   Polytables.set ~table:rc ~key:on_unload_key ~value:(s::s0)
 
+
+(* The following is almost like onload, but contains only the information
+   to create onclick/onsubmit attributes for eliom application links
+   just after loading the page.
+   For internal use.
+*)
+(*VVV Find a better place than rc to put this? *)
+let on_load_forms_creators_key :
+    (send_appl_content *
+       Eliom_client_types.onload_form_creators_info) list Polytables.key = 
+  Polytables.make_key ()
+
+let add_onload_form_creator s =
+  let rc = Eliom_request_info.get_request_cache () in
+  let s0 = try Polytables.get ~table:rc ~key:on_load_forms_creators_key
+    with Not_found -> []
+  in
+  Polytables.set ~table:rc ~key:on_load_forms_creators_key ~value:(s::s0)
+
+let get_onload_form_creators appl_name sp =
+  let rc = Eliom_request_info.get_request_cache_sp sp in
+  try 
+    List.fold_left
+      (fun beg (send_appl_content, info) ->
+        (* We ask the client to register an onclick/onsubmit
+           only the service belongs to the same application *)
+        match send_appl_content with
+          | XAlways (* for ex a link towards an action *) -> info::beg
+          | XSame_appl service_appl_name when appl_name = service_appl_name ->
+            info::beg
+          | _ -> beg)
+      []
+      (Polytables.get ~table:rc ~key:on_load_forms_creators_key)
+  with Not_found -> []
 
 
 (*****************************************************************************)

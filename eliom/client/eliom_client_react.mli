@@ -28,7 +28,7 @@ module Down :
 sig
 
   val unwrap :
-    ?wake:bool -> 'a Eliom_common_comet.chan_id Eliom_client_types.data_key
+    ?wake:bool -> ('a Eliom_common_comet.chan_id * 'b) Eliom_client_types.data_key
     -> 'a React.E.t
 
 end
@@ -51,3 +51,5 @@ sig
       event on the server. The thread returns when the write is done. *)
 
 end
+
+val force_link : unit

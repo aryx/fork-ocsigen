@@ -125,9 +125,20 @@ type ('get,'post,+'kind,+'tipo,+'getnames,+'postnames,+'registr,+'return) servic
      kind: 'kind; (* < service_kind *)
      https: bool; (* force https *)
      keep_nl_params: [ `All | `Persistent | `None ];
-     mutable send_appl_content : send_appl_content
-   (* XNever when we create the service, then changed at registration :/ *)
+     mutable send_appl_content : send_appl_content;
+     (* XNever when we create the service, then changed at registration :/ *)
+
+     service_mark : (unit,unit,unit,unit,unit,unit,unit,unit) service Eliom_common.wrapper;
    }
+
+let pre_wrap s =
+  {s with
+    get_params_type = Eliom_parameters.wrap_param_type s.get_params_type;
+    post_params_type = Eliom_parameters.wrap_param_type s.post_params_type;
+    service_mark = Eliom_common.empty_wrapper ();
+  }
+
+let service_mark () = Eliom_common.make_wrapper pre_wrap
 
 let get_kind_ s = s.kind
 let get_att_kind_ s = s.att_kind
@@ -146,6 +157,12 @@ let get_max_use_ s = s.max_use
 let get_timeout_ s = s.timeout
 let get_https s = s.https
 let get_priority_ s = s.priority
+
+let is_external s =
+(*VVV REMOVE THE magic AFTER SIMPLIFYING PHANTOMS IN SERVICE TYPES *)
+  match (Obj.magic s.kind :> [> `Attached of 'a]) with
+    | `Attached attser -> (attser.att_kind :> [> `External]) = `External
+    | _ -> false
 
 let default_priority = 0
 
@@ -186,6 +203,7 @@ let static_dir_ ?(https = false) () =
       };
     https = https;
     keep_nl_params = `None;
+    service_mark = service_mark ();
     send_appl_content = XNever;
   }
 
@@ -218,6 +236,7 @@ let get_static_dir_ ?(https = false)
       };
      https = https;
      keep_nl_params = keep_nl_params;
+     service_mark = service_mark ();
      send_appl_content = XNever;
    }
 
@@ -231,13 +250,6 @@ let https_static_dir_with_params ?keep_nl_params ~get_params () =
 (****************************************************************************)
 let get_send_appl_content s = s.send_appl_content
 let set_send_appl_content s n = s.send_appl_content <- n
-
-let send_appl_content current_page_appl_name s =
-  (current_page_appl_name <> None) && 
-    (match s.send_appl_content with
-      | XAlways -> true
-      | XNever -> false
-      | XSame_appl an -> Some an = current_page_appl_name)
 
 (****************************************************************************)
 
@@ -283,6 +295,7 @@ let void_coservice' =
       };
     https = false;
     keep_nl_params = `All;
+    service_mark = service_mark ();
     send_appl_content = XAlways;
   }
 
@@ -299,6 +312,7 @@ let https_void_coservice' =
       };
     https = true;
     keep_nl_params = `All;
+    service_mark = service_mark ();
     send_appl_content = XAlways;
   }
 
@@ -376,6 +390,7 @@ let service_aux_aux
     };
    https = https;
    keep_nl_params = keep_nl_params;
+   service_mark = service_mark ();
    send_appl_content = XNever;
  }
 

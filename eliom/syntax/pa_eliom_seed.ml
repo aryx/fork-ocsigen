@@ -232,7 +232,7 @@ module Register(Id : sig val name: string end)(Pass : Pass) = struct
   | _ -> raise Next
   );
  *)
-
+(*
 	(* nodes *)
 	(let rec aux = function
 	  | <:ctyp< Xhtml5types.$lid:_$ >> -> true
@@ -250,12 +250,13 @@ module Register(Id : sig val name: string end)(Pass : Pass) = struct
 	function
 	  | <:ctyp< ($t$ XHTML5.M.elt) >> ->
               if aux t
-              then (<:expr<Eliommod_cli.wrap_node>>,
+              then (<:expr<Eliommod_cli.wrap>>,
                      <:expr<Eliommod_cli.unwrap_node>>)
               else raise Next
 	  | _ -> raise Next
 	);
-
+*)
+(*
 	(* basic values *)
 	(let rec aux = function (*TODO: complete it*)
 	  | <:ctyp< float >> | <:ctyp< int >>
@@ -274,48 +275,56 @@ module Register(Id : sig val name: string end)(Pass : Pass) = struct
 	  then (<:expr<Eliommod_cli.wrap>>, <:expr<Eliommod_cli.unwrap>>)
 	  else raise Next
 	);
+*)
 
+(*
 	(function (*channel*)
 	  | <:ctyp< ($_$ Eliom_comet.Channels.t) >> ->
               (<:expr<Eliom_comet.Channels.wrap>>,
 		<:expr<Eliom_client_comet.unwrap>>)
 	  | _ -> raise Next
 	);
+*)
 
-	(function (*buffchan*)
-	  | <:ctyp< ($_$ Eliom_comet.Buffered_channels.t) >> ->
-              (<:expr<Eliom_comet.Buffered_channels.wrap>>,
-		<:expr<Eliom_client_comet.Buffered_channels.unwrap>>)
-	  | _ -> raise Next
-	);
-
+(*
 	(function (*up_event*)
 	  | <:ctyp< ($_$ Eliom_react.Up.t) >> ->
               (<:expr<Eliom_react.Up.wrap>>,
 		<:expr<Eliom_client_react.Up.unwrap>>)
 	  | _ -> raise Next
 	);
-
+*)
+(*
 	(function (*down_event*)
 	  | <:ctyp< ($_$ Eliom_react.Down.t) >> ->
               (<:expr<Eliom_react.Down.wrap>>,
 		<:expr<Eliom_client_react.Down.unwrap>>)
 	  | _ -> raise Next
 	);
-
+*)
+(*
 	(function (*bus*)
 	  | <:ctyp< ($_$ Eliom_bus.t) >> ->
               (<:expr<Eliom_bus.wrap>>,
-		<:expr<Eliom_client_bus.unwrap>>)
+		<:expr<Eliommod_cli.unwrap>>)
 	  | _ -> raise Next
 	);
-
+*)
+(*
 	(function (*service*)
 	  | <:ctyp< ($_$,$_$,$_$,$_$,$_$,$_$,$_$,$_$) Eliom_services.service >>
 	  | <:ctyp< ($_$ Eliom_services.service) >> ->
               (<:expr<Eliom_services.wrap>>,
 		<:expr<Eliommod_cli.unwrap>>)
 	  | _ -> raise Next;
+	);
+*)
+
+	(function (*rest*)
+	  | _ ->
+	    (<:expr<Eliommod_cli.wrap>>, <:expr<Eliommod_cli.unwrap>>)
+(*            (<:expr< (fun x -> x) >>,
+	      <:expr< (fun x -> x) >>)*)
 	);
 
 	(* wrapped values: not yet used. *)

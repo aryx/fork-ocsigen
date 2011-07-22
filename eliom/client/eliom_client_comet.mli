@@ -32,6 +32,11 @@
     [ let t = Lwt_stream.iter f %channel ] calling [Lwt.cancel t]
     will close the channel. *)
 
+exception Channel_full
+(** [Channel_full] is raised when trying to read on a channel marked
+    full by the server. It is not possible to read anything else from a
+    full channel. *)
+
 val is_active : unit -> bool
 (** [is_active ()] returns the current activity state *)
 
@@ -79,7 +84,7 @@ end
 
 (**/**)
 
-val unwrap : ?wake:bool -> 'a Eliom_common_comet.chan_id Eliom_client_types.data_key -> 'a Lwt_stream.t
+val unwrap : ?wake:bool -> ('a Eliom_common_comet.chan_id * 'b) Eliom_client_types.data_key -> 'a Lwt_stream.t
 val register : ?wake:bool -> 'a Eliom_common_comet.chan_id -> 'a Lwt_stream.t
 (** if wake is false, the registration of the channel won't
     activate the handling loop ( no request will be sent ). Default is true *)

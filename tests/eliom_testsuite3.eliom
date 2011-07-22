@@ -64,7 +64,7 @@ open Eliom_services
 }}
 
 (* This is server only because there are no delimiters. *)
-module Eliom_appl =
+module My_appl =
   Eliom_output.Eliom_appl (
     struct
       let application_name = "eliom_testsuite3"
@@ -87,19 +87,19 @@ module Eliom_appl =
 (*wiki* Now I can define my first service belonging to that application: *wiki*)
 
 {server{ (* note that {server{ ... }} is optionnal. *)
-open Eliom_appl
+open My_appl
 }}
 
 let eliomclient1 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["plop"; "eliomclient1"]
     ~get_params:unit
     (fun () () ->
       Lwt.return
         [p ~a:[(*zap* *)a_class ["clickable"];(* *zap*)
                         (* with {{ expr }}, the expression is executed by the client. *)
-                        a_onclick {{Dom_html.window##alert(Js.string "clicked!") ; Lwt.return ()}}]
-           [pcdata "I am a clickable paragraph"];
+          a_onclick {{Dom_html.window##alert(Js.string "clicked!") ; Lwt.return ()}}]
+            [pcdata "I am a clickable paragraph"];
 
         ])
 (*wiki*
@@ -138,7 +138,7 @@ let item () = li [pcdata Sys.ocaml_version]
 }} ;;
 
 let _ =
-  Eliom_appl.register
+  My_appl.register
     eliomclient2
     (fun () () ->
       Lwt.return
@@ -156,7 +156,7 @@ let _ =
                     () ()
                 }}
             ]
-            [pcdata "Link to a service outside the Eliom application"];
+            [pcdata "Link to a service outside the Eliom application, with exit_to"];
 
 (*wiki*
 To use server values inside client code one should use the syntax {{{ %id }}}
@@ -206,7 +206,7 @@ where and {{{id}}} an identifier for the value.
                   () ()
               }}
             ]
-            [pcdata "Click here to change the URL."];
+            [pcdata "Click here to change the URL with change_url."];
 
 (*wiki*
   The following examples shows how to change the current page,
@@ -220,17 +220,8 @@ where and {{{id}}} an identifier for the value.
                     () ()
                 }}
             ]
-            [pcdata "Click here to change the page without stopping the program."];
+            [pcdata "Click here to change the page without stopping the program (with change_page)."];
 
-(*wiki* Actually the usual {{{a}}} function to create link will
-  use {{{change_page}}} if you do a link inside the same application.
-  The latter example is equivalent to the following. *wiki*)
-          p [a (*zap* *) ~a:[a_class ["clickable"]](* *zap*)
-               ~service:eliomclient1
-               [pcdata "Click here to change the page without stopping the program (with ";
-                code [pcdata "a"];
-                pcdata ")."]
-               ()];
           p
             ~a:[(*zap* *)a_class ["clickable"];(* *zap*)
               a_onclick{{
@@ -247,7 +238,7 @@ where and {{{id}}} an identifier for the value.
                 Eliom_client.exit_to ~service:%eliomclient2 () ()
               }}
             ]
-            [pcdata "Click here to relaunch the program by reloading the page."];
+            [pcdata "Click here to relaunch the program by reloading the page (with exit_to)."];
           p
             ~a:[(*zap* *)a_class ["clickable"];(* *zap*)
               a_onclick {{
@@ -324,12 +315,13 @@ where and {{{id}}} an identifier for the value.
                             ~service:coucou
                             [pcdata "An external link generated client side"]
                             ();
-                          pcdata " and ";
+                          pcdata ", ";
                           Eliom_output.Xhtml5.a
                             (*zap* *)~a:[a_class ["clickable"]](* *zap*)
                             ~service:eliomclient1
-                            [pcdata "another, inside the application. "]
+                            [pcdata "another, inside the application, "]
                             ();
+                          pcdata " and ";
                           span
                             ~a:[a_class ["clickable"];
                                 a_onclick (fun () -> Dom_html.window##alert(Js.string "clicked!"))]
@@ -355,7 +347,7 @@ To do that, use the {{{Eliom_parameters.caml}}} function:
 type ec3 = (int * string * string list) deriving (Json)
 
 let eliomclient3' =
-  Eliom_appl.register_post_coservice'
+  My_appl.register_post_coservice'
     ~post_params:(caml "isb" Json.t<ec3>)
     (fun () (i, s, l) ->
       Lwt.return
@@ -365,7 +357,7 @@ let eliomclient3' =
 
 
 let eliomclient3 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["eliomclient3"]
     ~get_params:unit
     (fun () () ->
@@ -390,7 +382,7 @@ let eliomclient4' =
 
 
 let eliomclient4 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["eliomclient4"]
     ~get_params:unit
     (fun () () ->
@@ -428,7 +420,7 @@ let gotowithoutclient =
 
 
 let _ =
-  Eliom_appl.register
+  My_appl.register
     ~options:{Eliom_output.default_appl_service_options
               with Eliom_output.do_not_launch = true}
     ~service:withoutclient
@@ -448,7 +440,7 @@ let _ =
                [pcdata "Same link with ";
                 code [pcdata "a"]; pcdata "."] ()];
          ]);
-  Eliom_appl.register
+  My_appl.register
     ~service:gotowithoutclient
     (fun () () ->
        Lwt.return
@@ -472,7 +464,7 @@ let _ =
 
 
 let on_load =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["onload"]
     ~get_params:unit
     (fun () () ->
@@ -499,7 +491,7 @@ let on_load =
     )
 
 let uri_test =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["uritest"]
     ~get_params:unit
     (fun () () ->
@@ -516,7 +508,102 @@ let uri_test =
       Lwt.return [div]
     )
 
+{shared{
+module Wrapping_test =
+struct
+  type 'a t1 =
+      { v_int : int;
+	v_float : float;
+	v_string : string;
+        (* v_int64 : int64; *)
+	v_service : 'a }
+end
+}}
 
+let v1 =
+  { Wrapping_test.v_int = 42;
+    v_float = 42.42;
+    v_string = "fourty two";
+    (* v_int64 = 0x4200000000000000L; *)
+    v_service = eliomclient1 }
+    
+let rec rec_list = 1::2::3::rec_list
+
+let react_up = Eliom_react.Up.create (Eliom_parameters.caml "react param" Json.t<int>)
+let e = Eliom_react.Up.to_react react_up
+let e' = React.E.map (fun i -> Printf.printf "event: %i\n%!" i) e
+
+let rec rec_list_react = (react_up,42)::rec_list_react
+
+{client{
+  let put n f =
+    Printf.ksprintf (fun s ->
+      Dom.appendChild n
+        (XHTML5.M.toelt (p [pcdata s]))) f
+}}
+
+let global_div = div [pcdata "global div"]
+let other_global_div = div [pcdata "other global div"]
+
+let wrapping1 = Eliom_services.service
+    ~path:["wrapping1"]
+    ~get_params:unit
+    ()
+
+let gc_service = 
+  Eliom_output.Redirection.register_service
+    ~path:["gc_wrapping1"]
+    ~get_params:Eliom_parameters.unit
+    (fun () () -> Gc.full_major (); Lwt.return wrapping1)
+
+let () =
+  My_appl.register wrapping1
+    (fun () () ->
+      let div = div [pcdata "some page contents"] in
+
+      Eliom_services.onload
+	{{
+	  let v = %v1 in
+	  put %div "42=%i 42.42=%f fourty two=%s" v.Wrapping_test.v_int v.Wrapping_test.v_float v.Wrapping_test.v_string;
+	  ( match %rec_list with
+	    | a::b::c::d::e::f::g::_ ->
+	      put %div "%i::%i::%i::%i::%i::%i::%i::..." a b c d e f g;
+	    | _ -> put %div "problem with recursive list"; );
+
+          Dom.appendChild %div
+            (XHTML5.M.toelt
+	       (p ~a:[ a_onclick
+			 (fun _ ->
+			   ignore (Eliom_client.get_subpage ~service:v.Wrapping_test.v_service
+				     () () >|= (fun blocks ->
+				       List.iter
+					 (Dom.appendChild %div)
+					 (XHTML5.M.toeltl blocks);)))] [pcdata "test service"]));
+
+	  let f_react = fst (List.hd %rec_list_react) in
+
+          Dom.appendChild %div
+            (XHTML5.M.toelt
+	       (p ~a:[ a_onclick (fun _ -> f_react 42)] [pcdata "test react service: event 42 should appear on stdout (of the server) when this is clicked "]));
+
+	}};
+      Lwt.return [
+	global_div; br ();
+	div; br ();
+	p ~a:[ 
+	  a_onclick 
+	    ({{
+	      Dom.appendChild %global_div %other_global_div;
+	      Dom.appendChild %other_global_div %div;
+	    }})
+	] [pcdata "click here"]; br ();
+	p [Eliom_output.Xhtml5.a ~service:eliomclient1
+              [pcdata "Link to a service inside the application."]
+              ()];
+	Eliom_output.Xhtml5.a wrapping1 [pcdata "internal application link to myself"] (); br ();
+	Eliom_output.Xhtml5.a gc_service [pcdata "do a full major gc on the server"] (); br ();
+	pcdata (Printf.sprintf "client_process_node_table_size: %i" (Eliom_xml.client_process_node_table_size ()));
+      ])
 
 (*wiki*
 ====Implicit registration of services to implement distant function calls
@@ -553,7 +640,7 @@ let stream1 = Lwt_stream.from rand_tick
 let _ = Lwt_stream.iter (fun _ -> ()) stream1
 
 let comet1 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["comet1"]
     ~get_params:unit
     (fun () () ->
@@ -601,7 +688,7 @@ let comet1 =
  *wiki*)
 
 let comet2 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["comet2"]
     ~get_params:unit
     (fun () () ->
@@ -641,7 +728,7 @@ let comet2 =
  *wiki*)
 
 let comet3 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["comet3"]
     ~get_params:unit
     (fun () () ->
@@ -688,13 +775,13 @@ let comet3 =
  Here is the code for a minimalistic message board.
  *wiki*)
 
-let message_bus = Eliom_bus.create Json.t<string>
+let message_bus = Eliom_bus.create ~size:10 Json.t<string>
 let _ =
   Lwt_stream.iter (fun msg -> Printf.printf "msg: %s\n%!" msg)
     (Eliom_bus.stream message_bus)
 
 let comet_message_board =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["message_board"]
     ~get_params:unit
     (fun () () ->
@@ -704,13 +791,20 @@ let comet_message_board =
          let field = input ~a:[a_id "msg"; a_input_type `Text; a_name "message"] () in
          Eliom_services.onload
            {{
-             let _ = Lwt_stream.iter_s
-               (fun msg ->
-                 Dom.appendChild %container
-                   (XHTML5.M.toelt (li [pcdata msg]));
-                 Lwt.return ()
-               )
-	       (Eliom_client_bus.stream %message_bus)
+             let _ = 
+	       Lwt.catch (fun () ->
+		 Lwt_stream.iter_s
+		   (fun msg ->
+                     Dom.appendChild %container
+                       (XHTML5.M.toelt (li [pcdata msg]));
+                     Lwt.return ())
+		   (Eliom_client_bus.stream %message_bus))
+		 (function
+		   | Eliom_client_comet.Channel_full ->
+		     Dom.appendChild %container
+                       (XHTML5.M.toelt (li [pcdata "channel full, no more messages"]));
+		     Lwt.return ()
+		   | e -> Lwt.fail e);
 	     in ()
            }} ;
 
@@ -753,7 +847,7 @@ open Event_arrows
 }}
 
 let event_service =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["events"]
     ~get_params:Eliom_parameters.unit
     (fun () () ->
@@ -915,16 +1009,16 @@ let tsession_data_example_handler _ _  =
         | Eliom_state.Data name ->
           p [pcdata ("Hello "^name);
              br ();
-             Eliom_appl.a
+             Eliom_output.Xhtml5.a
                tsession_data_example_close
                [pcdata "close session"] ()]
         | Eliom_state.Data_session_expired
         | Eliom_state.No_data ->
-          Eliom_appl.post_form
+          Eliom_output.Xhtml5.post_form
             tsession_data_example_with_post_params
             (fun login ->
               [p [pcdata "login: ";
-                  Eliom_appl.string_input
+                  Eliom_output.Xhtml5.string_input
                     ~input_type:`Text ~name:login ()]]) ()
     ]
 
@@ -941,7 +1035,7 @@ let tsession_data_example_with_post_params_handler _ login =
   return
     [p [pcdata ("Welcome " ^ login ^ ". You are now connected.");
         br ();
-        Eliom_appl.a tsession_data_example [pcdata "Try again"] ()
+        Eliom_output.Xhtml5.a tsession_data_example [pcdata "Try again"] ()
        ]]
 
 
@@ -961,7 +1055,7 @@ let tsession_data_example_close_handler () () =
         | Eliom_state.Data_session_expired -> p [pcdata "Your session has expired."]
         | Eliom_state.No_data -> p [pcdata "You were not connected."]
         | Eliom_state.Data _ -> p [pcdata "You have been disconnected."]);
-      p [Eliom_appl.a tsession_data_example [pcdata "Retry"] () ]]
+      p [Eliom_output.Xhtml5.a tsession_data_example [pcdata "Retry"] () ]]
 
 
 
@@ -969,11 +1063,11 @@ let tsession_data_example_close_handler () () =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register
+  My_appl.register
     tsession_data_example_close tsession_data_example_close_handler;
-  Eliom_appl.register
+  My_appl.register
     tsession_data_example tsession_data_example_handler;
-  Eliom_appl.register
+  My_appl.register
     tsession_data_example_with_post_params
     tsession_data_example_with_post_params_handler
 
@@ -1018,7 +1112,7 @@ let tsession_services_example_close =
 
 let tsession_services_example_handler () () =
   let f =
-    Eliom_appl.post_form
+    Eliom_output.Xhtml5.post_form
       tsession_services_example_with_post_params
       (fun login ->
         [p [pcdata "login: ";
@@ -1063,14 +1157,14 @@ let tlaunch_session () login =
 
   (* Now we register new versions of main services in the
      session service table: *)
-  Eliom_appl.register (*zap* *) ~state_name (* *zap*)
+  My_appl.register (*zap* *) ~state_name (* *zap*)
     ~scope:`Client_process
     ~service:tsession_services_example
     (* service is any public service already registered,
        here the main page of our site *)
     new_main_page;
 
-  Eliom_appl.register (*zap* *) ~state_name (* *zap*)
+  My_appl.register (*zap* *) ~state_name (* *zap*)
     ~scope:`Client_process
     ~service:eliomclient1
     (fun () () ->
@@ -1086,13 +1180,13 @@ let tlaunch_session () login =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register
+  My_appl.register
     ~service:tsession_services_example
     tsession_services_example_handler;
-  Eliom_appl.register
+  My_appl.register
     ~service:tsession_services_example_close
     tsession_services_example_close_handler;
-  Eliom_appl.register
+  My_appl.register
     ~service:tsession_services_example_with_post_params
     tlaunch_session
 
@@ -1131,13 +1225,13 @@ let tcoservices_example_get =
 let _ =
   let c = ref 0 in
   let page () () =
-    let l3 = Eliom_appl.post_form tcoservices_example_post
-        (fun _ -> [p [Eliom_appl.string_input
+    let l3 = Eliom_output.Xhtml5.post_form tcoservices_example_post
+        (fun _ -> [p [Eliom_output.Xhtml5.string_input
                         ~input_type:`Submit
                         ~value:"incr i (post)" ()]]) ()
     in
-    let l4 = Eliom_appl.get_form tcoservices_example_get
-        (fun _ -> [p [Eliom_appl.string_input
+    let l4 = Eliom_output.Xhtml5.get_form tcoservices_example_get
+        (fun _ -> [p [Eliom_output.Xhtml5.string_input
                         ~input_type:`Submit
                         ~value:"incr i (get)" ()]])
     in
@@ -1150,10 +1244,10 @@ let _ =
        l3;
        l4]
   in
-  Eliom_appl.register tcoservices_example page;
+  My_appl.register tcoservices_example page;
   let f () () = c := !c + 1; page () () in
-  Eliom_appl.register tcoservices_example_post f;
-  Eliom_appl.register tcoservices_example_get f
+  My_appl.register tcoservices_example_post f;
+  My_appl.register tcoservices_example_get f
 
 
 
@@ -1192,11 +1286,11 @@ let tcalc_i =
 let tcalc_handler () () =
   let create_form intname =
     [p [pcdata "Write a number: ";
-        Eliom_appl.int_input ~input_type:`Text ~name:intname ();
+        Eliom_output.Xhtml5.int_input ~input_type:`Text ~name:intname ();
         br ();
-        Eliom_appl.string_input ~input_type:`Submit ~value:"Send" ()]]
+        Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Send" ()]]
   in
-  let f = Eliom_appl.get_form tcalc_i create_form in
+  let f = Eliom_output.Xhtml5.get_form tcalc_i create_form in
   return [f]
 
 
@@ -1218,7 +1312,7 @@ let tcalc_i_handler i () =
   in
   let is = string_of_int i in
   let tcalc_result =
-    Eliom_appl.register_coservice
+    My_appl.register_coservice
       ~scope:`Client_process
       ~fallback:tcalc
       ~get_params:(int "j")
@@ -1236,8 +1330,8 @@ let tcalc_i_handler i () =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register tcalc   tcalc_handler;
-  Eliom_appl.register tcalc_i tcalc_i_handler
+  My_appl.register tcalc   tcalc_handler;
+  My_appl.register tcalc_i tcalc_i_handler
 
 
 
@@ -1277,16 +1371,16 @@ let tdisconnect_action =
 (* login ang logout boxes:                                  *)
 
 let tdisconnect_box s =
-  Eliom_appl.post_form tdisconnect_action
-    (fun _ -> [p [Eliom_appl.string_input
+  Eliom_output.Xhtml5.post_form tdisconnect_action
+    (fun _ -> [p [Eliom_output.Xhtml5.string_input
                     ~input_type:`Submit ~value:s ()]]) ()
 
 let tlogin_box () =
-  Eliom_appl.post_form tconnect_action
+  Eliom_output.Xhtml5.post_form tconnect_action
     (fun loginname ->
       [p
          (let l = [pcdata "login: ";
-                   Eliom_appl.string_input
+                   Eliom_output.Xhtml5.string_input
                      ~input_type:`Text ~name:loginname ()]
          in l)
      ])
@@ -1324,7 +1418,7 @@ let tconnect_action_handler () login =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register ~service:tconnect_example3 tconnect_example3_handler;
+  My_appl.register ~service:tconnect_example3 tconnect_example3_handler;
   Eliom_output.Action.register ~service:tconnect_action tconnect_action_handler
 
 
@@ -1380,8 +1474,8 @@ let tdisconnect_action =
 
 
 let tdisconnect_box s =
-  Eliom_appl.post_form tdisconnect_action
-    (fun _ -> [p [Eliom_appl.string_input
+  Eliom_output.Xhtml5.post_form tdisconnect_action
+    (fun _ -> [p [Eliom_output.Xhtml5.string_input
                     ~input_type:`Submit ~value:s ()]]) ()
 
 
@@ -1394,7 +1488,7 @@ let get_bad_user table =
 (* new login box:                                           *)
 
 let tlogin_box session_expired action =
-  Eliom_appl.post_form action
+  Eliom_output.Xhtml5.post_form action
     (fun loginname ->
       let l =
         [pcdata "login: ";
@@ -1431,7 +1525,7 @@ let tpersist_session_example_handler () () =
                  [pcdata "I am a coservice with timeout."; br ();
                   pcdata "Try to reload the page!"; br ();
                   pcdata "I will disappear after 5 seconds of inactivity.";
-                  pcdata "Pour l'instant c'est un Eliom_output.Xhtml5 au lieu de Eliom_appl parce qu'il y a un bug à corriger dans ce cas. Remettre Eliom_appl ici et ajouter un test pour ce bug." ];
+                  pcdata "Pour l'instant c'est un Eliom_output.Xhtml5 au lieu de My_appl parce qu'il y a un bug à corriger dans ce cas. Remettre My_appl ici et ajouter un test pour ce bug." ];
                  ])))
 (*            [p [pcdata "I am a coservice with timeout."; br ();
                 a timeoutcoserv [pcdata "Try again"] (); br ();
@@ -1472,7 +1566,7 @@ let tpersist_session_connect_action_handler () login =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register
+  My_appl.register
     ~service:tpersist_session_example
     tpersist_session_example_handler;
   Eliom_output.Action.register
@@ -1519,8 +1613,8 @@ let tdisconnect_action =
 
 
 let tdisconnect_box s =
-  Eliom_appl.post_form tdisconnect_action
-    (fun _ -> [p [Eliom_appl.string_input
+  Eliom_output.Xhtml5.post_form tdisconnect_action
+    (fun _ -> [p [Eliom_output.Xhtml5.string_input
                     ~input_type:`Submit ~value:s ()]]) ()
 
 
@@ -1535,7 +1629,7 @@ let get_bad_user table =
 (* new login box:                                           *)
 
 let tlogin_box session_expired action =
-  Eliom_appl.post_form action
+  Eliom_output.Xhtml5.post_form action
     (fun loginname ->
       let l =
         [pcdata "login: ";
@@ -1595,7 +1689,7 @@ let tconnect_action_handler () login =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register ~service:tconnect_example6 tconnect_example6_handler;
+  My_appl.register ~service:tconnect_example6 tconnect_example6_handler;
   Eliom_output.Action.register ~service:tconnect_action tconnect_action_handler
 
 *)
@@ -1629,8 +1723,8 @@ let tcsrfsafe_example_post =
 
 let _ =
   let page () () =
-    let l3 = Eliom_appl.post_form tcsrfsafe_example_post
-        (fun _ -> [p [Eliom_appl.string_input
+    let l3 = Eliom_output.Xhtml5.post_form tcsrfsafe_example_post
+        (fun _ -> [p [Eliom_output.Xhtml5.string_input
                          ~input_type:`Submit
                          ~value:"Click" ()]]) ()
     in
@@ -1638,8 +1732,8 @@ let _ =
       [p [pcdata "A new coservice will be created each time this form is displayed"];
        l3]
   in
-  Eliom_appl.register tcsrfsafe_example page;
-  Eliom_appl.register tcsrfsafe_example_post
+  My_appl.register tcsrfsafe_example page;
+  My_appl.register tcsrfsafe_example_post
     (fun () () ->
       Lwt.return [p [pcdata "This is a CSRF safe service"]])
 
@@ -1652,7 +1746,7 @@ let cookiename = "mycookie"
 let tcookies = service ["tcookies"] unit ()
 
 
-let _ = Eliom_appl.register tcookies
+let _ = My_appl.register tcookies
   (fun () () ->
     Eliom_state.set_cookie
       ~cookie_scope:`Client_process
@@ -1684,7 +1778,7 @@ let coucouaction =
 
 
 let actionoutside =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["actionoutside"]
     ~get_params:unit
     (fun () () ->
@@ -1741,7 +1835,7 @@ let _ =
         ~fallback:ttimeout ~get_params:unit ~timeout:5. ()
     in
     let _ =
-      Eliom_appl.register ~service:timeoutcoserv
+      My_appl.register ~service:timeoutcoserv
         ~scope:`Client_process
         (fun _ _ ->
           Lwt.return
@@ -1756,7 +1850,7 @@ let _ =
           a timeoutcoserv [pcdata "Try it"] (); ];
       ]
   in
-  Eliom_appl.register ttimeout page
+  My_appl.register ttimeout page
 
 
 
@@ -1780,8 +1874,8 @@ let _ =
                                     (body [p [pcdata "It works"]])))
     in
     Lwt.return
-      [h2 [pcdata "Client process service not registered with Eliom_appl"];
-       p [pcdata "I just created two coservices with scope `Client_process but not registered with Eliom_appl."; br ();
+      [h2 [pcdata "Client process service not registered with My_appl"];
+       p [pcdata "I just created two coservices with scope `Client_process but not registered with My_appl."; br ();
           span ~a:[a_class ["clickable"];
                    a_onclick
                      {{let body = Dom_html.document##body in
@@ -1796,19 +1890,19 @@ let _ =
           br ();
           pcdata "It works, because we send tab cookies with Eliom_client.call_service or Eliom_client.call_caml_service.";
           br ();
-          Eliom_appl.a ~service:serv2 [pcdata "Here a link to an client process service outside the application."] ();
-          pcdata " For now it does not work, because we do not send tab cookies for non Eliom_appl services ... How to solve this?";
+          Eliom_output.Xhtml5.a ~service:serv2 [pcdata "Here a link to an client process service outside the application."] ();
+          pcdata " For now it does not work, because we do not send tab cookies for non My_appl services ... How to solve this?";
           br ();
           pcdata "Add a test of link to another application."
          ]
       ]
   in
-  Eliom_appl.register nonapplprocessservice page
+  My_appl.register nonapplprocessservice page
 
 
 
 (*****************************************************************************)
-(* Session + Eliom_appl *)
+(* Session + My_appl *)
 let state_name = "session_appl"
 
 let connect_example789 =
@@ -1827,8 +1921,8 @@ let disconnect_action789 =
     (fun () () -> Eliom_state.close_session (*~state_name*) ())
 
 let disconnect_box s =
-  Eliom_appl.post_form disconnect_action789
-    (fun _ -> [p [Eliom_appl.string_input
+  Eliom_output.Xhtml5.post_form disconnect_action789
+    (fun _ -> [p [Eliom_output.Xhtml5.string_input
                     ~input_type:`Submit ~value:s ()]]) ()
 
 let bad_user = Eliom_references.eref (*~state_name*) ~scope:`Request false
@@ -1836,11 +1930,11 @@ let bad_user = Eliom_references.eref (*~state_name*) ~scope:`Request false
 let user = Eliom_references.eref (*~state_name*) ~scope:`Session None
 
 let login_box session_expired bad_u action =
-  Eliom_appl.post_form action
+  Eliom_output.Xhtml5.post_form action
     (fun loginname ->
       let l =
         [pcdata "login: ";
-         Eliom_appl.string_input ~input_type:`Text ~name:loginname ()]
+         Eliom_output.Xhtml5.string_input ~input_type:`Text ~name:loginname ()]
       in
       [p (if bad_u
         then (pcdata "Wrong user")::(br ())::l
@@ -1875,41 +1969,36 @@ let connect_action_handler () login =
   else Eliom_references.set bad_user true
 
 let () =
-  Eliom_appl.register ~service:connect_example789 connect_example_handler;
+  My_appl.register ~service:connect_example789 connect_example_handler;
   Eliom_output.Action.register ~service:connect_action789 connect_action_handler
 
 (*****************************************************************************)
 (* Form towards internal suffix service *)
 let isuffixc =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["isuffixc"]
-    ~get_params:(suffix_prod (int "suff" ** all_suffix "endsuff") (int "i"))
+    ~get_params:(suffix_prod (int "suff" ** all_suffix_string "endsuff") (int "i"))
     (fun ((suff, endsuff), i) () ->
       Lwt.return
         [p [pcdata "The suffix of the url is ";
             strong [pcdata (string_of_int suff)];
             pcdata " followed by ";
-            strong [pcdata (Ocsigen_lib.string_of_url_path ~encode:false endsuff)];
+            strong [pcdata endsuff];
             pcdata " and i is equal to ";
             strong [pcdata (string_of_int i)]]])
 
+{shared{
 let create_suffixformc ((suff, endsuff),i) =
-    [h3 [pcdata "Form to an (internal appl) suffix service"];
-     p [pcdata "Write the suffix:";
-        int_input ~input_type:`Text ~name:suff ();
-        br ();
-        pcdata "Write a string: ";
-        user_type_input
-          (Ocsigen_lib.string_of_url_path ~encode:false)
-          ~input_type:`Text ~name:endsuff ();
-        br ();
-        pcdata "Write an int: ";
-        int_input ~input_type:`Text ~name:i ();
-        br ();
-        string_input ~input_type:`Submit ~value:"Click" ()
-       ]
+    [pcdata "Form to an (internal appl) suffix service.";
+     pcdata "Write an int for the suffix:";
+     Eliom_output.Xhtml5.int_input ~input_type:`Text ~name:suff ();
+     pcdata "Write a string: ";
+     Eliom_output.Xhtml5.string_input ~input_type:`Text ~name:endsuff ();
+     pcdata "Write an int: ";
+     Eliom_output.Xhtml5.int_input ~input_type:`Text ~name:i ();
+     Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Click" ()
     ]
-
+}}
 
 (*****************************************************************************)
 (* Redirections and Eliom applications: *)
@@ -1926,7 +2015,7 @@ let appl_redir2 =
     (fun () () -> Lwt.return Eliom_testsuite1.coucou)
 
 let appl_redir =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["applredir"]
     ~get_params:unit
     (fun () () ->
@@ -1936,11 +2025,11 @@ let appl_redir =
           br ();
           a ~service:appl_redir2 [ pcdata "Link to a redirection outside the Eliom application"] ();
          ];
-         Eliom_appl.get_form ~service:appl_redir1
+         Eliom_output.Xhtml5.get_form ~service:appl_redir1
             (fun () ->
               [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Form to a redirection inside the Eliom application" ()]
             );
-         Eliom_appl.get_form ~service:appl_redir2
+         Eliom_output.Xhtml5.get_form ~service:appl_redir2
             (fun () ->
               [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Form to a redirection outside the Eliom application" ()]
             )
@@ -1959,51 +2048,252 @@ let applvoid_redir =
 (*****************************************************************************)
 (* Form examples: *)
 let postformc =
-  Eliom_appl.register_post_service
+  My_appl.register_post_service
     ~fallback:Eliom_testsuite1.coucou
     ~post_params:(Eliom_parameters.string "zzz")
     (fun () s -> Lwt.return [p [pcdata "Yo man. ";
                                 pcdata s]])
 
-let formc = Eliom_appl.register_service ["formc"] unit
+module Another_appl =
+  Eliom_output.Eliom_appl (
+    struct
+      let application_name = "eliom_testsuite3bis"
+      let params =
+        {Eliom_output.default_appl_params with
+           Eliom_output.ap_title = "Eliom application example bis";
+           Eliom_output.ap_headers_before =
+            [XHTML5.M.style
+               [XHTML5.M.pcdata "a,.clickable {color: #111188; cursor: pointer;}"]];
+           Eliom_output.ap_container =
+            Some (None,
+                  fun div ->
+                    [h1 [pcdata "Eliom application bis"];
+                     p [pcdata "Random value in the container: ";
+                        pcdata (string_of_int (Random.int 1000)); br ();
+                        a ~service:main [pcdata "Back to the main page of the test suite."] ();];
+                     div ])
+        }
+    end)
+
+let otherappl =
+  Another_appl.register_service
+    ~path:["other"; "appl"]
+    ~get_params:unit
+    (fun () () -> Lwt.return [p [pcdata "I am another application"] ])
+
+
+let formc = My_appl.register_service ["formc"] unit
   (fun () () -> 
+    let div = div [h3 [pcdata "Forms and links created on client side:"]] in
+    Eliom_services.onload
+      {{ 
+
+        let l =
+          [
+            h4 [pcdata "to outside the application:"];
+
+            p [Eliom_output.Xhtml5.a ~service:%Eliom_testsuite1.coucou
+                 [pcdata "Link to a service outside the application."]
+                 ()];
+           
+           Eliom_output.Xhtml5.get_form ~service:%Eliom_testsuite1.coucou
+             (fun () ->
+               [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"GET form to a service outside the Eliom application" ()]
+             );
+           
+           Eliom_output.Xhtml5.post_form ~service:%Eliom_testsuite1.my_service_with_post_params
+             (fun s ->
+               [Eliom_output.Xhtml5.string_input ~input_type:`Hidden ~name:s ~value:"plop" ();
+                Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"POST form to a service outside the Eliom application" ()]
+             )
+             ();
+
+            p [Eliom_output.Xhtml5.a ~service:%otherappl
+                  [pcdata "Link to another application."]
+                  ();
+              ];
+           
+            Eliom_output.Xhtml5.get_form ~service:%otherappl
+              (fun () ->
+                [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"GET form to another application" ();];
+              );
+           
+           
+           h4 [pcdata "inside the application — must not stop the process! (same random number in the container)."];
+
+           p [Eliom_output.Xhtml5.a ~service:%eliomclient1
+                 [pcdata "Link to a service inside the application."]
+                 ()];
+           
+           Eliom_output.Xhtml5.get_form ~service:%eliomclient1
+             (fun () ->
+               [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"GET form to a service inside the Eliom application" ()]
+             );
+           
+           Eliom_output.Xhtml5.post_form ~service:%postformc
+             (fun s ->
+               [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~name:s ~value:"POST form to a service inside the Eliom application" ()]
+             )
+             ();
+
+           Eliom_output.Xhtml5.get_form %isuffixc create_suffixformc;
+
+           Eliom_output.Xhtml5.post_form ~service:%applvoid_redir
+             (fun () ->
+               [pcdata "POST form towards action with void service redirection. This must not stop the application (same random number in the container but not in the here: ";
+                pcdata (string_of_int (Random.int 1000));
+                pcdata ") ";
+                Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Click to send POST form to myself." ()]
+             )
+             ();
+
+          ]
+        in
+        List.iter (fun e -> Dom.appendChild %div (XHTML5.M.toelt e)) l
+       }};
+
     Lwt.return
       [
-        Eliom_appl.get_form ~service:Eliom_testsuite1.coucou
+
+        h3 [pcdata "Forms and links created on server side:"];
+
+        h4 [pcdata "to outside the application:"];
+
+        p [Eliom_output.Xhtml5.a ~service:Eliom_testsuite1.coucou
+              [pcdata "Link to a service outside the application."]
+              ()];
+
+        Eliom_output.Xhtml5.get_form ~service:Eliom_testsuite1.coucou
           (fun () ->
             [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"GET form to a service outside the Eliom application" ()]
           );
         
-        Eliom_appl.post_form ~service:Eliom_testsuite1.my_service_with_post_params
+        Eliom_output.Xhtml5.post_form ~service:Eliom_testsuite1.my_service_with_post_params
           (fun s ->
             [Eliom_output.Xhtml5.string_input ~input_type:`Hidden ~name:s ~value:"plop" ();
              Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"POST form to a service outside the Eliom application" ()]
           )
           ();
+
+        p [Eliom_output.Xhtml5.a ~service:otherappl
+              [pcdata "Link to another application."]
+              ();
+           pcdata " (The other appl won't work as it is not compiled)"];
         
-        Eliom_appl.get_form ~service:eliomclient1
+        Eliom_output.Xhtml5.get_form ~service:otherappl
+          (fun () ->
+            [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"GET form to another application" ();]
+          );
+           
+        
+        h4 [pcdata "inside the application — must not stop the process! (same random number in the container)."];
+
+        p [Eliom_output.Xhtml5.a ~service:eliomclient1
+              [pcdata "Link to a service inside the application."]
+              ()];
+
+        Eliom_output.Xhtml5.get_form ~service:eliomclient1
           (fun () ->
             [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"GET form to a service inside the Eliom application" ()]
           );
         
-        Eliom_appl.post_form ~service:postformc
+        Eliom_output.Xhtml5.post_form ~service:postformc
           (fun s ->
             [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~name:s ~value:"POST form to a service inside the Eliom application" ()]
           )
           ();
         
-        
-        Eliom_appl.get_form isuffixc create_suffixformc;
+        Eliom_output.Xhtml5.get_form isuffixc create_suffixformc;
 
-        h3 [pcdata "POST form towards action with void service redirection"];
-        p [pcdata "Random value in the content: ";
-           pcdata (string_of_int (Random.int 1000))];
-        Eliom_appl.post_form ~service:applvoid_redir
+        Eliom_output.Xhtml5.post_form ~service:applvoid_redir
           (fun () ->
-            [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Click to send POST form to myself." ()]
+            [pcdata "POST form towards action with void service redirection. This must not stop the application (same random number in the container but not in the here: ";
+             pcdata (string_of_int (Random.int 1000));
+             pcdata ") ";
+             Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Click to send POST form to myself." ()]
           )
           ();
-        p [pcdata "This must not stop the application (same random number in the container but not in the content)."];
+        
+        div;
 
       ])
 
+(*****************************************************************************)
+(* XHR form with files: *)
+
+let page_content () ((((((case,radio),select),multi),text),pass),file) =
+  Lwt_io.with_file ~mode:Lwt_io.input file.Ocsigen_lib.tmp_filename Lwt_io.read
+  >|=
+  (fun contents ->
+    [
+      p [pcdata (if case then "checked" else "not checked")];
+      p [pcdata
+            (match radio with
+              | None -> "no choice"
+              | Some radio -> Printf.sprintf "radio = %i" radio)];
+      p [pcdata (Printf.sprintf "select: %s" select)];
+      p [pcdata (Printf.sprintf "selects: %s" (String.concat ", " multi))];
+      p [pcdata (Printf.sprintf "text: %s" text)];
+      p [pcdata (Printf.sprintf "pass: %s" pass)];
+      p [pcdata (Printf.sprintf "file: name %s length %Li hash: %s"
+		   file.Ocsigen_lib.tmp_filename
+		   file.Ocsigen_lib.filesize
+		   (Digest.to_hex (Digest.string contents)))];
+    ])
+
+let block_form_fallback = Eliom_output.Blocks5.register_service
+  ~path:["resultblocks"]
+  ~get_params:unit
+  (fun () () -> return [pcdata "nothing"])
+
+let block_form_result = Eliom_output.Blocks5.register_post_service
+  ~post_params:((((((bool "case" ** (radio int "radio"))
+		    ** string "select")
+		   ** set string "multi")
+		  ** string "text")
+		 ** string "password")
+		** file "file")
+  ~fallback:block_form_fallback
+  page_content
+
+let make_xhr_form ((((((casename,radio),select),multi),text),pass),file) =
+  [p [pcdata "check ?";
+      bool_checkbox ~name:casename ()];
+   p [pcdata "choose ?";
+      int_radio ~name:radio ~value:1 ();
+      int_radio ~name:radio ~value:42 ()];
+   p [pcdata "select:";
+       string_select ~name:select (Option ([],"toto",None,false))
+         [Option ([],"tutu",Some (pcdata "tutu ?"),true);
+          Optgroup ([],"machin",([],"chose",None,true),
+		    [([],"chose2",None,false);
+		     ([],"chose3",None,false)]);
+	 ];
+     ];
+   p [pcdata "multi:";
+       string_multiple_select ~name:multi (Option ([],"toto",None,false))
+         [Option ([],"tutu",Some (pcdata "tutu ?"),true);
+          Optgroup ([],"machin",([],"chose",None,true),
+		    [([],"chose2",None,false);
+		     ([],"chose3",None,false)]);
+	 ];
+     ];
+   p [string_input ~name:text ~input_type:`Text ~value:"text" ()];
+   p [string_input ~name:pass ~input_type:`Password ~value:"pass" ()];
+   p [file_input ~name:file ()]]
+
+let xhr_form_with_file = My_appl.register_service ["xhr_form_with_file"] unit
+  (fun () () ->
+    let form = post_form block_form_result make_xhr_form () in
+    let subpage = div [] in
+    let launch = p ~a:[(*zap* *)a_class ["clickable"];(* *zap*)
+      a_onclick {{
+	let uri = Eliom_uri.make_string_uri ~service:%block_form_result () in
+	XmlHttpRequest.send_post_form_string %form uri >|=
+	    (fun contents -> ( %subpage )##innerHTML <- (Js.string contents.XmlHttpRequest.content))
+      }}]
+      [pcdata "send form with an xhr"]
+    in
+    Lwt.return [
+      pcdata "this test need upload: add <uploaddir>/tmp/upload</uploaddir> to the configuration file";
+      form; launch; subpage])

@@ -20,7 +20,58 @@
 let (>>=) = Lwt.bind
 let (>|=) = Lwt.(>|=)
 
-let make_a_with_onclick = Eliom_client.make_a_with_onclick
+let make_a_with_onclick
+    make_a
+    register_event
+    ?a
+    ?cookies_info
+    _
+    href
+    content
+    =
+  let node = make_a ?a ?onclick:None ?href:(Some href) content in
+  register_event ?keep_default:(Some false) node "onclick"
+    (fun () -> Eliom_client.change_page_uri ?cookies_info href)
+    ();
+  node
+
+let make_get_form_with_onsubmit
+    make_get_form
+    register_event
+    ?a
+    ?cookies_info
+    _
+    uri
+    field
+    fields
+    =
+  let node = make_get_form ?a ~action:uri ?onsubmit:None field fields in
+  register_event ?keep_default:(Some false) node "onsubmit"
+    (fun () -> Eliom_client.change_page_get_form ?cookies_info
+      (Js.Unsafe.coerce (XHTML5.M.toelt node)) uri)
+    ();
+  node
+
+let make_post_form_with_onsubmit
+    make_post_form
+    register_event
+    ?a
+    ?cookies_info
+    _
+    uri
+    field
+    fields
+    =
+  let node = make_post_form ?a ~action:uri ?onsubmit:None field fields in
+  register_event ?keep_default:(Some false) node "onsubmit"
+    (fun () -> Eliom_client.change_page_post_form ?cookies_info
+      (Js.Unsafe.coerce (XHTML5.M.toelt node)) uri)
+    ();
+  node
+
+
+
+(*POSTtabcookies* forms with tab cookies in POST params:
 
 let tab_cookie_class = "__eliom_tab_cookies"
 
@@ -91,7 +142,7 @@ let add_tab_cookies_to_get_form' node =
   let action = node##action in
   let (https, path) = Eliom_request.get_cookie_info_for_uri_js action in
   let cookies = Eliommod_client_cookies.get_cookies_to_send https path in
-  let l = [(Eliom_common.get_request_post_param_name, "1");
+  let l = [(Eliom_common.to_be_considered_as_get_param_name, "1");
            (Eliom_common.tab_cookies_param_name,
             Ocsigen_lib.encode_form_value cookies)]
   in
@@ -101,7 +152,7 @@ let add_tab_cookies_to_get_form node () =
   let node = Js.Unsafe.coerce (XHTML5.M.toelt node) in
   add_tab_cookies_to_get_form' node
 
-let make_get_form_with_onsubmit
+let make_get_form_with_post_tab_cookies
     make_get_form register_event add_tab_cookies_to_get_form _
     ?a ~action i1 i =
   let node =
@@ -109,7 +160,7 @@ let make_get_form_with_onsubmit
   register_event node "onsubmit" (add_tab_cookies_to_get_form node);
   node
 
-let make_post_form_with_onsubmit
+let make_post_form_with_post_tab_cookies
     make_post_form register_event add_tab_cookies_to_post_form _
     ?a ~action i1 i =
   let node = make_post_form ?a ~action ?onsubmit:None
@@ -136,3 +187,4 @@ let _ =
       ignore (add_tab_cookies_to_post_form (XHTML5.M.tot node) ());
       Js._true)
 
+*)

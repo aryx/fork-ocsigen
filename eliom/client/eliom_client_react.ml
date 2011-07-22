@@ -27,10 +27,15 @@ module Down =
 struct
 
   let unwrap ?wake
-        (c : 'a Eliom_common_comet.chan_id Eliom_client_types.data_key)
+        (c : ('a Eliom_common_comet.chan_id * 'b) Eliom_client_types.data_key)
         : 'a React.E.t
     =
     Lwt_event.of_stream (Eliom_client_comet.unwrap ?wake c)
+
+  let internal_unwrap ( channel, unwrapper ) =
+    Lwt_event.of_stream channel
+
+  let () = Eliom_client_unwrap.register_unwrapper Eliom_common.react_down_unwrap_id internal_unwrap
 
 end
 
@@ -41,5 +46,11 @@ struct
     let service = Eliommod_cli.unwrap s in
     fun x -> Eliom_client.call_service ~service () x >|= fun _ -> ()
 
+  let internal_unwrap ( service, unwrapper ) =
+    fun x -> Eliom_client.call_service ~service () x >|= fun _ -> ()
+
+  let () = Eliom_client_unwrap.register_unwrapper Eliom_common.react_up_unwrap_id internal_unwrap
+
 end
 
+let force_link = ()

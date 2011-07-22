@@ -19,6 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
+(* TODO: handle ended stream ( and on client side too ) *)
+
 (* Shortening names of modules *)
 module OFrame  = Ocsigen_http_frame
 module OStream = Ocsigen_stream
@@ -92,9 +94,17 @@ module Cometreg_ = struct
 
   type return = Eliom_services.http
 
+v v v v v v v
+  let send_appl_content = Eliom_services.XAlways
+*************
+v v v v v v v
+  let do_appl_xhr = Eliom_services.XAlways
+*************
   let pre_service ?options () = Lwt.return ()
 
   let send_appl_content = Eliom_services.XNever
+^ ^ ^ ^ ^ ^ ^
+^ ^ ^ ^ ^ ^ ^
 
   let code_of_code_option = function
     | None -> 200
@@ -140,6 +150,8 @@ sig
 
   val get_service : unit -> comet_service
   val get_service_data_key : unit -> comet_service Eliom_client_types.data_key
+
+  val close_channel : t -> unit
 
 end = struct
 
@@ -245,7 +257,7 @@ end = struct
 	| Not_found ->
 	  handler.hd_registered_chan_id <- chan_id::handler.hd_registered_chan_id
 
-  let close_channel handler chan_id =
+  let close_channel' handler chan_id =
     OMsg.debug2 (Printf.sprintf "eliom: comet: close channel %s" chan_id);
     handler.hd_active_streams <- List.remove_assoc chan_id handler.hd_active_streams;
     handler.hd_unregistered_streams <- List.remove_assoc chan_id handler.hd_unregistered_streams;
@@ -275,7 +287,7 @@ end = struct
 	      ~post_params:Ecc.comet_request_param
 	      ()
 	  in
-	  let hd_service_data_key = Eliom_services.wrap hd_service in
+	  let hd_service_data_key = Eliommod_cli.wrap hd_service in
 	  let hd_update_streams,hd_update_streams_w = Lwt.task () in
 	  let handler = {
 	    hd_active_streams = [];
@@ -308,13 +320,13 @@ end = struct
 		    ( function
 		      | New_connection -> Lwt.return ("",content_type)
 		      (* happens if an other connection has been opened on that service *)
-		      (*VVV in this case, it would be beter to return code 204: no content *)
+		      (* CCC in this case, it would be beter to return code 204: no content *)
 		      | Lwt_unix.Timeout -> Lwt.return ("TIMEOUT",content_type)
 		      | e -> Lwt.fail e )
 	    | Ecc.Commands commands ->
 	      List.iter (function
 		| Ecc.Register channel -> register_channel handler channel
-		| Ecc.Close channel -> close_channel handler channel) commands;
+		| Ecc.Close channel -> close_channel' handler channel) commands;
 		(* command connections are replied immediately by an
 		   empty answer *)
 	      Lwt.return ("",content_type)
@@ -326,6 +338,10 @@ end = struct
 	  Polytables.set ~table ~key:handler_key ~value:handler;
 	  handler
 	end
+
+  let close_channel chan =
+    let handler = get_handler () in
+    close_channel' handler chan.ch_id
 
   let create ?(name=new_id ()) stream =
     let handler = get_handler () in
@@ -358,28 +374,70 @@ sig
 
   type +'a t
 
-  val create : ?name:string -> 'a Lwt_stream.t -> 'a t
-  val wrap : 'a t -> 'a Ecc.chan_id Eliom_client_types.data_key
+  val create : ?name:string -> ?size:int -> 'a Lwt_stream.t -> 'a t
+  val create_unlimited : ?name:string -> 'a Lwt_stream.t -> 'a t
+  val wrap : 'a t -> ( 'a Ecc.chan_id * Eliom_common.unwrapper ) Eliom_client_types.data_key
   val get_id : 'a t -> 'a Ecc.chan_id
 
 end = struct
 
   type +'a t = {
     channel : Raw_channels.t;
+    channel_mark : 'a t Eliom_common.wrapper;
   }
-
-  let create ?name stream =
-    { channel = Raw_channels.create ?name
-	(Lwt_stream.map (fun x -> Marshal.to_string x []) stream) }
 
   let get_id t =
     Ecc.chan_id_of_string (Raw_channels.get_id t.channel)
 
-  let wrap c = Eliommod_cli.wrap (get_id c)
+  let wrap c =
+    Eliommod_cli.wrap (get_id c,Eliom_common.empty_unwrapper)
+
+  let internal_wrap c =
+    (get_id c,Eliom_common.make_unwrapper Eliom_common.comet_channel_unwrap_id)
+
+  let channel_mark () = Eliom_common.make_wrapper internal_wrap
+
+  exception Halt
+
+  (* TODO close on full *)
+  let limit_stream ~size s =
+    let open Lwt in
+	let count = ref 0 in
+	let str, push = Lwt_stream.create () in
+	let stopper,wake_stopper = wait () in
+	let rec loop () =
+	  ( Lwt_stream.get s <?> stopper ) >>= function
+	    | Some x ->
+	      if !count >= size
+	      then (push (Some Ecc.Full); return ())
+	      else (incr count; push (Some ( Ecc.Data x )); loop ())
+	    | None ->
+              return ()
+	in
+	let decount e = decr count; e in
+	ignore (loop ():'a Lwt.t);
+	let res = Lwt_stream.map decount str in
+	Gc.finalise (fun _ -> wakeup_exn wake_stopper Halt) res;
+	res
+
+  let create_channel ?name stream =
+    (* TODO: addapt channels to dynamic wrapping: it would be able to send more types *)
+    Raw_channels.create ?name
+      (Lwt_stream.map (fun x -> Marshal.to_string x []) stream)
+
+  let create ?name ?(size=1000) stream =
+    let stream = limit_stream ~size stream in
+    { channel = create_channel ?name stream;
+      channel_mark = channel_mark () }
+
+  let create_unlimited ?name stream =
+    let stream = Lwt_stream.map (fun x -> Ecc.Data x) stream in
+    { channel = create_channel ?name stream;
+      channel_mark = channel_mark () }
 
 end
 
 let get_service = Raw_channels.get_service
 
-type comet_handler = Raw_channels.comet_service Eliom_client_types.data_key
-let init () = Raw_channels.get_service_data_key ()
+type comet_handler = Raw_channels.comet_service
+let init () = Raw_channels.get_service ()

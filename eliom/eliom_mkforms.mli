@@ -145,16 +145,35 @@ module type FORMCREATE =
 
     val make_js_script : ?a:script_attrib_t -> uri:uri -> unit -> script_elt
 
+(*
     val register_event_a : 'elt a_elt -> string -> ('a -> unit Lwt.t) -> 'a -> unit
     val register_event_form : form_elt -> string -> ('a -> unit Lwt.t) -> 'a -> unit
+*)
 
+(*POSTtabcookies* forms with tab cookies in POST params:
     val add_tab_cookies_to_get_form : form_elt -> unit -> unit Lwt.t
     val add_tab_cookies_to_post_form : form_elt -> unit -> unit Lwt.t
     val add_tab_cookies_to_get_form_id_string : string
     val add_tab_cookies_to_post_form_id_string : string
+*)
 
-    val appl_name : string option (* The application name, if any
-                                     (for Eliom_appl only, None otherwise) *)
+    val make_a_with_onclick :
+      ?a:a_attrib_t -> ?cookies_info:bool * string list ->
+      Eliom_services.send_appl_content ->
+      string ->
+      'a a_content_elt_list -> 'a a_elt
+
+    val make_get_form_with_onsubmit :
+      ?a:form_attrib_t -> ?cookies_info:bool * string list ->
+      Eliom_services.send_appl_content ->
+      string ->
+      form_content_elt -> form_content_elt_list -> form_elt
+      
+    val make_post_form_with_onsubmit :
+      ?a:form_attrib_t -> ?cookies_info:bool * string list ->
+      Eliom_services.send_appl_content ->
+      string ->
+      form_content_elt -> form_content_elt_list -> form_elt
 
   end
 
@@ -359,9 +378,9 @@ module type ELIOMFORMSIG =
 
     If a client side application is running, and unless
     [~no_appl:true] is specified, it will use [<a onclick=...>]
-    instead of [<a href=...>] in case of link inside a same Eliom application.
-    Thus, the client side application will not be stopped when the link
-    is clicked.
+    instead of [<a href=...>] to send process cookies.
+    Thus, if the destination service belongs to the same application,
+    the client side process will not be stopped when the link is clicked.
 
 *)
 
@@ -934,7 +953,11 @@ and type button_type_t = Pages.button_type_t
 
 
 (**/**)
+(*204FORMS* old implementation of forms with 204 and change_page_event
+
 val nl_internal_appl_form :
   (bool, [ `WithoutSuffix ],
    [ `One of bool ] Eliom_parameters.param_name)
            Eliom_parameters.non_localized_params
+
+*)

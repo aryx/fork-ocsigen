@@ -69,8 +69,6 @@ val eliom_service_session_expired :
 *)
 
 
-
-
 (**/**)
 
 (*VVV Warning: raising these exceptions will NOT send cookies!
@@ -146,8 +144,10 @@ val nl_param_prefix : string
 val eliom_internal_nlp_prefix : string
 val pnl_param_prefix : string
 val npnl_param_prefix : string
+(*204FORMS* old implementation of forms with 204 and change_page_event
 val internal_form_name : string
 val internal_form_bool_name : string
+*)
 
 val datacookiename : string
 val servicecookiename : string
@@ -164,7 +164,7 @@ val nodisplay_class_name : string
 
 val appl_name_cookie_name : string
 val tab_cookies_param_name : string
-val get_request_post_param_name : string
+val to_be_considered_as_get_param_name : string
 val full_xhr_redir_header : string
 val half_xhr_redir_header : string
 
@@ -205,7 +205,7 @@ type sess_info = {
   si_all_get_but_na_nl: (string * string) list Lazy.t;
   si_all_get_but_nl: (string * string) list;
 
-  si_internal_form: bool;
+(*204FORMS*  si_internal_form: bool; *)
 }
 
 module SessionCookies : Hashtbl.S with type key = string
@@ -527,7 +527,7 @@ val eliom_params_after_action :
   ((string * string) list * (string * string) list option *
      (string * string) list Ocsigen_lib.String_Table.t *
      (string * string) list Ocsigen_lib.String_Table.t *
-     (string * string) list * bool)
+     (string * string) list (*204FORMS* * bool *))
   Polytables.key
  
 val att_key_serv_of_req : att_key_req -> att_key_serv
@@ -562,3 +562,22 @@ val get_sp : unit -> server_params
 val sp_of_option : server_params option -> server_params
 
 val found_stop_key : unit Polytables.key
+
+
+(**** Wrapper type shared by client/server side ***)
+
+type 'a wrapper = 'a Eliom_wrap.wrapper
+
+val make_wrapper : ('a -> 'b) -> 'a wrapper 
+val empty_wrapper : unit -> 'a wrapper
+
+type unwrapper = Eliom_wrap.unwrapper
+type unwrap_id = Eliom_wrap.unwrap_id
+val make_unwrapper : unwrap_id -> unwrapper 
+val empty_unwrapper : unwrapper
+
+val react_up_unwrap_id : unwrap_id
+val react_down_unwrap_id : unwrap_id
+val comet_channel_unwrap_id : unwrap_id
+val bus_unwrap_id : unwrap_id
+val node_unwrap_id : unwrap_id
