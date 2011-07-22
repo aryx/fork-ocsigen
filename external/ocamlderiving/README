@@ -1,0 +1,72 @@
+This release of deriving-ocsigen library is based on the deriving
+library by Jeremy Yallop. See:
+
+  http://code.google.com/p/deriving/
+  https://github.com/jaked/deriving
+
+Main changes are:
+
+ - ocamlfind compatibility
+ - type-conv compatibility mode
+ - simplify the definition of new class
+ - fix small bugs
+
+######
+
+Requirements:
+=============
+
+ * ocaml and camlp4
+ * type-conv (optionnal)
+
+Build intructions:
+==================
+
+ $ ${EDITOR} Makefile.config
+ $ make
+
+ $ make tests
+
+ # make install
+
+Examples:
+=========
+
+ $ ocaml
+        Objective Caml version 3.12.0
+
+ # #use "topfind";;
+ - : unit = ()
+ # #camlp4o;;
+	Camlp4 Parsing version 3.12.0
+
+ # #require "deriving-ocsigen.syntax";;
+ # type t = A of int | B of t deriving (Show);;
+ type t = A of int | B of t
+ module rec Show_t : sig ... end
+ # Show.show<t> (B (A 4));;
+ - : string = "B A 4"
+
+Examples with type-conv:
+========================
+
+ $ ocaml
+        Objective Caml version 3.12.0
+
+ # #use "topfind";;
+ - : unit = ()
+ # #camlp4o;;
+	Camlp4 Parsing version 3.12.0
+
+ # #require "type-conv";;
+ # #require "deriving-ocsigen.syntax_tc";;
+ # type t = A of int | B of t with show;;
+ type t = A of int | B of t
+ module rec Show_t : sig ... end
+
+Documention and examples of the original library:
+=================================================
+
+   http://code.google.com/p/deriving/wiki/Introduction
+   http://code.google.com/p/deriving/wiki/Classes
+
