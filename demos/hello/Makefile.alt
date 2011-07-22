@@ -1,2 +1,0 @@
-hello.cmo: hello.ml
-	ocamlfind ocamlc -thread -package lwt,tyxml,eliom,eliom.server -c hello.ml
