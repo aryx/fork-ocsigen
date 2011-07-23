@@ -1,7 +1,9 @@
 {server{
-
    let _ = Eliom_state.set_global_volatile_data_state_timeout ~scope:Eliom_common.comet_client_process (Some 20.)
+ }}
 
+{client{
+open Event_arrows
  }}
 
 {shared{
@@ -15,28 +17,6 @@ module My_appl =
   Eliom_output.Eliom_appl (struct
     let application_name = "app"
   end)
-
-{client{
-
-  open Event_arrows
-  let draw ctx (color, size, (x1, y1), (x2, y2)) =
-    ctx##strokeStyle <- (Js.string color);
-    ctx##lineWidth <- float size;
-    ctx##beginPath();
-    ctx##moveTo(float x1, float y1);
-    ctx##lineTo(float x2, float y2 +. 0.1); (* The 0.1 is a fix for Chrome
-                                               (does not draw lines if the
-                                               first and last points are equal) *)
-    ctx##stroke()
-
-  let () =
-    let c = Eliom_comet.Configuration.new_configuration () in
-    Eliom_comet.Configuration.set_active_until_timeout c true
-
-}}
-
-{shared{
-}}
 
 let bus = Eliom_bus.create ~scope:`Global ~name:"grib" ~size:500 Json.t<Shared.messages>
 
@@ -86,6 +66,7 @@ let main_service =
     (fun () () ->
        Eliom_services.onload
          {{
+
            let canvas = Dom_html.createCanvas Dom_html.document in
            canvas##width <- width; canvas##height <- height;
            let st = canvas##style in
@@ -143,12 +124,12 @@ let main_service =
            let line ev =
              let v = compute_line set_coord x y ev in
              let _ = Eliom_bus.write bus v in
-             draw ctx v
+             Client.draw ctx v
            in
            ignore (Lwt_js.sleep 0.1 >>= fun () -> (* avoid chromium looping cursor *)
                    Lwt.catch
                      (fun () -> 
-                       Lwt_stream.iter (draw ctx) (Eliom_bus.stream bus))
+                       Lwt_stream.iter (Client.draw ctx) (Eliom_bus.stream bus))
                      (function e (* Eliom_comet.Channel_full *) ->
                        Firebug.console##log (e);
                        Eliom_client.exit_to
@@ -172,9 +153,9 @@ let main_service =
              x := ev##clientX - x0; y := ev##clientY - y0 in
            let brush ev =
              let (color, newsize, oldv, v) = compute_line set_coord x y ev in
-             draw ctx2 ("rgba(0,0,0,0)", !size+3, oldv, oldv);
+             Client.draw ctx2 ("rgba(0,0,0,0)", !size+3, oldv, oldv);
              size := newsize;
-             draw ctx2 (color, newsize, v, v)
+             Client.draw ctx2 (color, newsize, v, v)
            in
            ignore (run (mousemoves Dom_html.document (arr brush)) ())
 
