@@ -11,14 +11,15 @@ end)
 
 let main_service =
   App.register_service ~path:[""] ~get_params:Eliom_parameters.unit
-    (fun () () -> Lwt.return
-      (H.html
-          (H.head 
-	      (H.title (H.pcdata "Demo"))
-              []
-          )
-          (H.body [
-            H.h1 [H.pcdata "Graffiti"]
-          ])
-      )
+    (fun () () -> 
+      Lwt.return
+        (H.html
+            (H.head 
+	        (H.title (H.pcdata "Demo"))
+                []
+            )
+            (H.body [
+              H.h1 [H.pcdata "Graffiti"]
+            ])
+        )
     )

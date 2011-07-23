@@ -1,4 +1,5 @@
 by order of difficulty to compile and run:
  hello/
  js/
+ canvas/
  graffiti/

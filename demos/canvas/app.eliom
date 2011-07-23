@@ -12,11 +12,10 @@
     ctx##lineTo(float x2, float y2);
     ctx##stroke()
 }}
-module H = XHTML5.M
+module H = HTML5.M
 
 module App = Eliom_output.Eliom_appl (struct
-  let application_name = "client"
-  let params = Eliom_output.default_appl_params
+  let application_name = "app"
 end)
 
 (* pad: you don't really need eliom here, a pure js_of_ocaml solution
@@ -36,5 +35,16 @@ let main_service =
 
         draw ctx ("#ffaa33", 12, (10, 10), (200, 100))
       }};
-      Lwt.return [H.h1 [H.pcdata "Graffiti"]]
+
+      Lwt.return
+        (H.html
+            (H.head 
+	        (H.title (H.pcdata "Demo"))
+                []
+            )
+            (H.body [
+              H.h1 [H.pcdata "Graffiti"]
+            ])
+        )
+
     )
