@@ -1,0 +1,19 @@
+[server] localhost:8080 ->
+ Server.main_service -> "Graffiti" + load css and js
+  onload
+    Server.bus -> Eliom_bus.create so can share drawing between
+     different clients and store the current picture for new clients joining in
+     Client.launch_canvas_client with
+      marshalled bus, marshalled link to image service
+     (in app_client.ml via Eliommod_cli.register_closure compiled in client.js
+     [client] Client.launch_canvas_client (registered in client.js globally) ->
+        create canvas, retrieve image
+        create slider, palette
+        connect bus to drawing function
+        connect drawing  to bus
+        connect mouse events to drawing
+   
+[client] At each drawing event ->
+ Client.line -> Eliom_client_bus.write bus
+ [server] Server.draw_server
+ [other clients] Client.draw_client
