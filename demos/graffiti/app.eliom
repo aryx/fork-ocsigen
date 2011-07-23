@@ -1,17 +1,16 @@
-
 module H = HTML5.M
 
+(*****************************************************************************)
+(* Main entry point *)
+(*****************************************************************************)
 let main_service =
-  Server.My_appl.register_service ~path:[""] ~get_params:Eliom_parameters.unit
+  Server.App.register_service ~path:[""] ~get_params:Eliom_parameters.unit
   (fun () () ->
     Eliom_services.onload
       {{
-        let (bus:Shared.messages Eliom_bus.t) = %Server.bus in
-        
         Client.launch_client_canvas 
-          bus %Server.imageservice 
+          %Server.bus %Server.imageservice 
       }};
-
     Lwt.return
       (H.html
 	  (H.head
@@ -24,7 +23,10 @@ let main_service =
                 ~href:(H.uri_of_string"./css/closure/hsvpalette.css")();
               H.link ~rel:[ `Stylesheet ]
                 ~href:(H.uri_of_string"./css/slider.css")();
-              Server.oclosure_script;
+              H.unique
+                (H.script
+                    ~a:[H.a_src (H.uri_of_string "./app_oclosure.js")]
+                    (H.pcdata ""))
             ])
 	  (H.body []))
   )

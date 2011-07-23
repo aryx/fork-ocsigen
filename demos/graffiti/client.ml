@@ -1,22 +1,22 @@
-open Event_arrows
+module Ev = Event_arrows
+let (>>>) = Ev.(>>>)
 
 let draw ctx (color, size, (x1, y1), (x2, y2)) =
   ctx##strokeStyle <- (Js.string color);
   ctx##lineWidth <- float size;
   ctx##beginPath();
   ctx##moveTo(float x1, float y1);
-  ctx##lineTo(float x2, float y2 +. 0.1); (* The 0.1 is a fix for Chrome
-                                             (does not draw lines if the
-                                             first and last points are equal) *)
+  (* The 0.1 is a fix for Chrome
+   * (does not draw lines if the first and last points are equal) *
+   *)
+  ctx##lineTo(float x2, float y2 +. 0.1); 
   ctx##stroke()
 
 let () =
   let c = Eliom_comet.Configuration.new_configuration () in
   Eliom_comet.Configuration.set_active_until_timeout c true
 
-
 let launch_client_canvas bus imageservice =
-
   let canvas = Dom_html.createCanvas Dom_html.document in
   canvas##width <- Shared.width; 
   canvas##height <- Shared.height;
@@ -38,8 +38,10 @@ let launch_client_canvas bus imageservice =
   (* The initial image: *)
   let img = Dom_html.createImg Dom_html.document in
   img##alt <- Js.string "canvas";
-  img##src <- Js.string (Eliom_output.Html5.make_string_uri ~service:imageservice ());
-  img##onload <- Dom_html.handler (fun ev -> ctx##drawImage(img, 0., 0.); Js._false);
+  img##src <- Js.string 
+    (Eliom_output.Html5.make_string_uri ~service:imageservice ());
+  img##onload <- 
+    Dom_html.handler (fun ev -> ctx##drawImage(img, 0., 0.); Js._false);
 
   (* Size of the brush *)
   let slider = jsnew Goog.Ui.slider(Js.null) in
@@ -61,7 +63,8 @@ let launch_client_canvas bus imageservice =
   in
   pSmall##render(Js.some Dom_html.document##body);
 
-  let x = ref 0 and y = ref 0 in
+  let x = ref 0 in
+  let y = ref 0 in
   let set_coord ev =
     let x0, y0 = Dom_html.elementClientPosition canvas in
     x := ev##clientX - x0; y := ev##clientY - y0 in
@@ -77,6 +80,7 @@ let launch_client_canvas bus imageservice =
     let _ = Eliom_bus.write bus v in
     draw ctx v
   in
+
   ignore (Lwt_js.sleep 0.1 >>= fun () -> (* avoid chromium looping cursor *)
     Lwt.catch
       (fun () -> 
@@ -87,11 +91,13 @@ let launch_client_canvas bus imageservice =
           ~service:Eliom_services.void_coservice' () ();
         Lwt.return ()));
   (*                       | e -> Lwt.fail e)); *)
-  ignore (run (mousedowns canvas2
-                  (arr (fun ev -> set_coord ev; line ev)
-                    >>> first [mousemoves Dom_html.document (arr line);
-                               mouseup Dom_html.document >>> (arr line)])) ());
-  
+  ignore 
+    (Ev.run 
+        (Ev.mousedowns canvas2
+            (Ev.arr (fun ev -> set_coord ev; line ev)
+              >>> Ev.first [Ev.mousemoves Dom_html.document (Ev.arr line);
+                            Ev.mouseup Dom_html.document >>> (Ev.arr line)]))
+        ());
   
   
   (* The brush *)
@@ -108,5 +114,5 @@ let launch_client_canvas bus imageservice =
     size := newsize;
     draw ctx2 (color, newsize, v, v)
   in
-  ignore (run (mousemoves Dom_html.document (arr brush)) ())
+  ignore (Ev.run (Ev.mousemoves Dom_html.document (Ev.arr brush)) ())
     

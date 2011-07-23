@@ -1,14 +1,16 @@
+module H = HTML5.M
+
+module App = Eliom_output.Eliom_appl (struct
+    let application_name = "app"
+  end)
 
 let _ = 
   Eliom_state.set_global_volatile_data_state_timeout 
     ~scope:Eliom_common.comet_client_process (Some 20.)
 
-module My_appl =
-  Eliom_output.Eliom_appl (struct
-    let application_name = "app"
-  end)
-
-let bus = Eliom_bus.create ~scope:`Global ~name:"grib" ~size:500 Json.t<Shared.messages>
+let bus = 
+  Eliom_bus.create ~scope:`Global ~name:"grib" ~size:500 
+    Json.t<Shared.messages>
 
 let draw_server, image_string = 
   let surface = 
@@ -40,14 +42,7 @@ let draw_server, image_string =
 
 let _ = Lwt_stream.iter draw_server (Eliom_bus.stream bus)
 
-let oclosure_script =
-    HTML5.M.unique
-      (HTML5.M.script
-         ~a:[HTML5.M.a_src (HTML5.M.uri_of_string "./app_oclosure.js")]
-         (HTML5.M.pcdata ""))
-
 let imageservice =
   Eliom_output.Text.register_service
-    ~path:["image"]
-    ~get_params:Eliom_parameters.unit
-    (fun () () -> Lwt.return (image_string (), "image/png"))
+    ~path:["image"] ~get_params:Eliom_parameters.unit
+   (fun () () -> Lwt.return (image_string (), "image/png"))
