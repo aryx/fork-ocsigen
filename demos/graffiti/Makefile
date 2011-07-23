@@ -9,13 +9,13 @@
 all:
 	ocamlc -c lib.ml
 	eliomc -c shared.ml
+	eliomc -c -package cairo server.ml
 	js_of_eliom -c shared.ml
-	js_of_eliom -c client.ml
-	eliomc  -c -noinfer -package cairo,unix   app.eliom
-	eliomc  -c -noinfer -package cairo,unix   app.eliom
-	eliomc  -a -o var/app.cma lib.cmo _server/shared.cmo _server/app.cmo
-	eliomc  -infer -package cairo,unix app.eliom
-	js_of_eliom -c -package oclosure app.eliom
+	js_of_eliom -c -package oclosure client.ml
+	eliomc  -c -noinfer app.eliom
+	eliomc  -a -o var/app.cma lib.cmo _server/shared.cmo _server/server.cmo _server/app.cmo
+	eliomc  -infer app.eliom
+	js_of_eliom -c app.eliom
 	js_of_eliom -o var/static/app.js -package oclosure _client/shared.cmo _client/client.cmo _client/app.cmo
 	oclosure_req var/static/app.js
 
