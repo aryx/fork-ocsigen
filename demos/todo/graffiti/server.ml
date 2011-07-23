@@ -1,10 +1,12 @@
+open Eliom_pervasives
 
 module H = HTML5.M
 
 module App = Eliom_output.Eliom_appl (struct
   let application_name = "client"
+(*
   let params = { Eliom_output.default_appl_params with
-	  
+
     Eliom_output.ap_headers_before = [
       H.link ~rel:[`Stylesheet] ~href:(H.uri_of_string "css/graffiti.css") ();
       H.link ~rel:[`Stylesheet] ~href:(H.uri_of_string "css/common.css")  ();
@@ -17,7 +19,10 @@ module App = Eliom_output.Eliom_appl (struct
 
       H.script ~a:[H.a_src (H.uri_of_string "client_req.js")] (H.pcdata "");
     ];
+
   }
+*)
+
 end)
 
 let h_graffiti_info = Hashtbl.create 11
@@ -64,6 +69,7 @@ let main_service = Eliom_services.service ~path:[""]
 let service = Eliom_services.coservice ~fallback:main_service
   ~get_params:(Eliom_parameters.string "name") ()
 
+(*
 let choose_drawing_form () =
   App.get_form ~service:service
     (fun (name) ->
@@ -73,7 +79,7 @@ let choose_drawing_form () =
         H.br ();
         App.string_input ~input_type:`Submit ~value:"Go" ()
       ]])
-
+*)
 (*****************************************************************************)
 (* main entry point *)
 (*****************************************************************************)
@@ -81,5 +87,5 @@ let () = App.register ~service:main_service
   (fun () () ->
     Lwt.return [
       H.h1 [H.pcdata "Welcome to Multigraffiti"];
-      choose_drawing_form ();
+(*      choose_drawing_form (); *)
     ])

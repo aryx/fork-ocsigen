@@ -9,16 +9,15 @@
 SRC_CLIENT=shared.ml client.ml app_client.ml
 SRC_SERVER=shared.ml lib.ml server.ml app_server.ml
 
-LIBS_SERVER=-package cairo -package eliom.server
-LIBS_CLIENT=-package js_of_ocaml -package oclosure \
- -package eliom.client
+LIBS_SERVER=-package cairo,eliom.server
+LIBS_CLIENT=-package js_of_ocaml,oclosure,eliom.client
 
-INCLUDES_SERVER=-package cairo -package \
-  -package deriving-ocsigen.syntax -syntax camlp4o 
+INCLUDES_SERVER=-package cairo,tyxml,eliom,eliom.server \
+  -package deriving-ocsigen.syntax,js_of_ocaml.deriving.syntax -syntax camlp4o 
 INCLUDES_CLIENT=-package js_of_ocaml -package oclosure \
   -package js_of_ocaml.syntax -syntax camlp4o
 
-INCLUDES_SHARED=-package deriving-ocsigen.syntax -syntax camlp4o
+INCLUDES_SHARED=-package deriving-ocsigen.syntax,js_of_ocaml.deriving.syntax -syntax camlp4o
 
 FLAGS=-dtypes -g
 
