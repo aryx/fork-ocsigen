@@ -2,7 +2,7 @@ module H = HTML5.M
 
 module App = Eliom_output.Eliom_appl (struct
     let application_name = "app"
-  end)
+end)
 
 let _ = 
   Eliom_state.set_global_volatile_data_state_timeout 

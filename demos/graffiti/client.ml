@@ -90,7 +90,7 @@ let launch_client_canvas bus imageservice =
         Eliom_client.exit_to
           ~service:Eliom_services.void_coservice' () ();
         Lwt.return ()));
-  (*                       | e -> Lwt.fail e)); *)
+
   ignore 
     (Ev.run 
         (Ev.mousedowns canvas2

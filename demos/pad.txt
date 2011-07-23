@@ -1,5 +1,4 @@
-by order of difficulty to make run ...:
+by order of difficulty to compile and run:
  hello/
- js?
- ...
+ js/
  graffiti/

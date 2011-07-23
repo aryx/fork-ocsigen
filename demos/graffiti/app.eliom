@@ -7,10 +7,7 @@ let main_service =
   Server.App.register_service ~path:[""] ~get_params:Eliom_parameters.unit
   (fun () () ->
     Eliom_services.onload
-      {{
-        Client.launch_client_canvas 
-          %Server.bus %Server.imageservice 
-      }};
+      {{ Client.launch_client_canvas %Server.bus %Server.imageservice }};
     Lwt.return
       (H.html
 	  (H.head

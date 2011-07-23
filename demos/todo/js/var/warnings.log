@@ -1,6 +1,0 @@
-Jul 21 13:51:07: main: Command pipe created
-Jul 21 13:51:07: main: Initializing Ocsipersist-dbm...
-Jul 21 13:51:07: main: Launching a new Ocsidbm process: ../../extensions/ocsipersist-dbm/ocsidbm on directory var.
-Jul 21 13:51:08: main: ...Initialization of Ocsipersist-dbm complete
-Jul 21 13:51:08: main: While parsing config file, tag <host>: No defaulthostname, assuming it is "dev1217.snc6.facebook.com"
-Jul 21 13:51:08: main: Ocsigen has been launched (initialisations ok)
