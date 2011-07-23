@@ -13,16 +13,16 @@ let main_service =
 	  (H.head
 	    (H.title (H.pcdata "Graffiti"))
  	    [ H.link ~rel:[ `Stylesheet ] 
-                ~href:(H.uri_of_string"./css/app.css")();
+                ~href:(H.uri_of_string"css/app.css")();
               H.link ~rel:[ `Stylesheet ]
-                ~href:(H.uri_of_string"./css/closure/common.css")();
+                ~href:(H.uri_of_string"css/closure/common.css")();
               H.link ~rel:[ `Stylesheet ]
-                ~href:(H.uri_of_string"./css/closure/hsvpalette.css")();
+                ~href:(H.uri_of_string"css/closure/hsvpalette.css")();
               H.link ~rel:[ `Stylesheet ]
-                ~href:(H.uri_of_string"./css/slider.css")();
+                ~href:(H.uri_of_string"css/slider.css")();
               H.unique
                 (H.script
-                    ~a:[H.a_src (H.uri_of_string "./app_oclosure.js")]
+                    ~a:[H.a_src (H.uri_of_string "app_oclosure.js")]
                     (H.pcdata ""))
             ])
 	  (H.body []))
