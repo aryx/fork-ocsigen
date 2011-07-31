@@ -1,2 +1,8 @@
 {
+rmdir ./local/etc/conf.d
+rmdir ./local/etc/ocsigenserver/conf.d
+rmdir ./local/etc/ocsigenserver
+rmdir ./local/etc
+rmdir ./local/var/lib
+rmdir ./src/http/documentation
 }

@@ -25,6 +25,8 @@ open Eliom_pervasives
 open Lwt
 open Ocsigen_cookies
 
+include Eliom_cookies_base
+
 (*****************************************************************************)
 let make_new_session_id = String.make_cryptographic_safe
 

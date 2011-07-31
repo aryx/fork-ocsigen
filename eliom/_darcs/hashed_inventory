@@ -1,4 +1,4 @@
-pristine:0000001278-ebc42dd9493b1445ed30e6830c9bf64c6753f771bb8bca2d7945efd44cdfea3e
+pristine:0000001278-040693daaace9d82dacc5edd6cf0589a40db0e31efc418a8ad64cf0b667e0e0d
 Starting with inventory:
 0000024596-5338ca5ada624999e4650f1dce86a0efe0e3af7574023b1047858431b6b8d5b6
 [TAG 2.0-rc1
@@ -38,3 +38,27 @@ balat at univ-paris-diderot.fr**20110721152105
  Needs to be improved to take into account POST parameters and Any
 ] 
 hash: 0000005172-5d34ef08253b65fd9ccfcc62056ec45e7048c71641898275f2154eb3f3c56094
+[Cookies are now only added in eliom_mkreg
+chambart@crans.org**20110722131643
+ Ignore-this: 8c253d0b743e8b3011618b2cabf4072a
+] 
+hash: 0000003776-4d00747dd34068c1f498f5e733505b02154712f6997b3470827e064d16b0e2d9
+[Server adds Client_process cookies in headers
+chambart@crans.org**20110723101422
+ Ignore-this: e9b9a6cd3463646a4c2b2b2dad0994a6
+] 
+hash: 0000001772-3773806ed446cf50e0aa0923e23ab886089b1c6823c707002ae8fa0ea31e296f
+[client load Client_process cookies in headers
+chambart@crans.org**20110725164032
+ Ignore-this: fd7b64ff644b758519c448970706b700
+] 
+hash: 0000006674-eae16d583e853a6dc8b8f2733f8d58fae2d36a8fc8cffedc2ae03e4af65ac44c
+[Eliom_appl add an header to tell if the generated page is application content.
+chambart@crans.org**20110728165151
+ Ignore-this: c7349a06d08a4bbb90ca69d4749770ee
+ This header will be used on client side to react to 404 requests.
+ It is also used in Eliom_mkreg to choose if the server send a 204 with a
+ "half redirect" header or if the real page content is sent.
+ 
+] 
+hash: 0000007562-13c85831979731e0adea168d5123a5c66f58c957c935ba0eb7b8e39c85187cd3

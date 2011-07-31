@@ -20,6 +20,8 @@
 open Eliom_pervasives
 open Ocsigen_cookies
 
+include Eliom_cookies_base
+
 let cookie_table = ref Cookies.empty
 
 let now () = Js.to_float (Js.date##now ())

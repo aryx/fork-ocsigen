@@ -1,2 +1,10 @@
 {
+rmdir ./local/etc/conf.d
+rmdir ./local/etc
+rmdir ./local/var/lib/miniwiki
+rmdir ./local/var/lib
+rmdir ./local/var/run
+rmdir ./tests/_client
+rmdir ./tests/_server
+rmdir ./tests/miniwiki/_server
 }
