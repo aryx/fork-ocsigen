@@ -46,5 +46,4 @@ let main_service =
               H.h1 [H.pcdata "Graffiti"]
             ])
         )
-
     )
