@@ -17,10 +17,10 @@ LIBS_CLIENT= -package js_of_ocaml,eliom,eliom.client,oclosure \
 all: var/app.cma var/static/app_oclosure.js
 
 # server-side
-var/app.cma: lib.cmo _server/shared.cmo _server/server.cmo _server/app.cmo
+var/app.cma: _server/lib.cmo _server/shared.cmo _server/server.cmo _server/app.cmo
 	eliomc  -a -o $@ $^
 
-lib.cmo: lib.ml 
+_server/lib.cmo: lib.ml
 	eliomc -dtypes -c $^
 
 _server/shared.cmo: shared.ml
@@ -53,7 +53,7 @@ annot:
 	ocamlfind ocamlc -dtypes -c $(LIBS_SHARED) shared.ml
 	ocamlfind ocamlc -dtypes -c $(LIBS_SERVER) server.ml
 	ocamlfind ocamlc -dtypes -c $(LIBS_CLIENT) client.ml
-	rm -f client.cm* shared.cm* server.cm*
+	rm -f lib.cm* client.cm* shared.cm* server.cm*
 
 run:
 	ocsigenserver -c config/ocsigen.conf
