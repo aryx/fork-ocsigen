@@ -14,6 +14,10 @@ LIBS_CLIENT= -package js_of_ocaml,eliom,eliom.client,oclosure \
   -package eliom.syntax,js_of_ocaml.syntax -syntax camlp4o \
   $(LIBS_SHARED)
 
+##############################################################################
+# Top rules
+##############################################################################
+
 all: var/app.cma var/static/app_oclosure.js
 
 # server-side
@@ -21,13 +25,16 @@ var/app.cma: _server/lib.cmo _server/shared.cmo _server/server.cmo _server/app.c
 	eliomc  -a -o $@ $^
 
 _server/lib.cmo: lib.ml
-	eliomc -dtypes -c $^
+	eliomc -c $^
 
 _server/shared.cmo: shared.ml
-	eliomc -dtypes -c $^
+	eliomc -c $^
 
 _server/server.cmo: server.ml
-	eliomc -dtypes -c $(LIBS_SERVER) $^
+	eliomc -c -package cairo $^
+
+_server/app.cmo: app.eliom
+	eliomc -c -noinfer $^
 
 # client-side
 var/static/app_oclosure.js: var/static/app.js
@@ -36,13 +43,13 @@ var/static/app_oclosure.js: var/static/app.js
 var/static/app.js: _client/shared.cmo _client/client.cmo _client/app.cmo
 	js_of_eliom -o $@ -package oclosure  $^
 
-client/shared.cmo: shared.ml
+_client/shared.cmo: shared.ml
 	js_of_eliom -c $^
 
-client/client.cmo: client.ml
-	js_of_eliom -c $(LIBS_CLIENT) $^
+_client/client.cmo: client.ml
+	js_of_eliom -c -package oclosure $^
 
-client/app.cmo: app.eliom
+_client/app.cmo: app.eliom
 	eliomc  -c -noinfer $^
 	eliomc  -infer app.eliom
 	js_of_eliom -c app.eliom
