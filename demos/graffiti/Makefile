@@ -6,24 +6,47 @@
 # Variables
 ##############################################################################
 
-LIBS_SHARED= -package deriving-ocsigen.syntax,js_of_ocaml.deriving.syntax -syntax camlp4o
+LIBS_SHARED= -package deriving-ocsigen.syntax,js_of_ocaml.deriving.syntax \
+  -syntax camlp4o
 LIBS_SERVER= -thread -package cairo,tyxml,eliom,eliom.server \
   $(LIBS_SHARED)
 LIBS_CLIENT= -package js_of_ocaml,eliom,eliom.client,oclosure \
   -package eliom.syntax,js_of_ocaml.syntax -syntax camlp4o \
   $(LIBS_SHARED)
 
-all:
-	eliomc -dtypes -c shared.ml
-	eliomc -dtypes -c -package cairo server.ml
-	js_of_eliom -c shared.ml
-	js_of_eliom -c -package oclosure client.ml
-	eliomc  -c -noinfer app.eliom
-	eliomc  -a -o var/app.cma lib.cmo _server/shared.cmo _server/server.cmo _server/app.cmo
+all: var/app.cma var/static/app_oclosure.js
+
+# server-side
+var/app.cma: lib.cmo _server/shared.cmo _server/server.cmo _server/app.cmo
+	eliomc  -a -o $@ $^
+
+lib.cmo: lib.ml 
+	eliomc -dtypes -c $^
+
+_server/shared.cmo: shared.ml
+	eliomc -dtypes -c $^
+
+_server/server.cmo: server.ml
+	eliomc -dtypes -c $(LIBS_SERVER) $^
+
+# client-side
+var/static/app_oclosure.js: var/static/app.js
+	oclosure_req $^
+
+var/static/app.js: _client/shared.cmo _client/client.cmo _client/app.cmo
+	js_of_eliom -o $@ -package oclosure  $^
+
+client/shared.cmo: shared.ml
+	js_of_eliom -c $^
+
+client/client.cmo: client.ml
+	js_of_eliom -c $(LIBS_CLIENT) $^
+
+client/app.cmo: app.eliom
+	eliomc  -c -noinfer $^
 	eliomc  -infer app.eliom
 	js_of_eliom -c app.eliom
-	js_of_eliom -o var/static/app.js -package oclosure _client/shared.cmo _client/client.cmo _client/app.cmo
-	oclosure_req var/static/app.js
+
 
 annot:
 	ocamlfind ocamlc -dtypes -c lib.ml
@@ -34,6 +57,9 @@ annot:
 
 run:
 	ocsigenserver -c config/ocsigen.conf
+
+css/closure:
+	ln -fs $(shell ocamlfind query oclosure)/closure/goog/css/ css/closure
 
 clean::
 	rm -f *.cm* *.annot
