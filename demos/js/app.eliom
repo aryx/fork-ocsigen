@@ -1,9 +1,8 @@
-module H = HTML5.M
-
 module App = Eliom_output.Eliom_appl (struct
   (* must be the name of the .js file *)
   let application_name = "app"
 end)
+module H = HTML5.M
 
 {client{
   let _ = Dom_html.window##alert(Js.string "Hello")

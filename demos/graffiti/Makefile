@@ -7,10 +7,10 @@
 ##############################################################################
 
 LIBS_SHARED= -package deriving-ocsigen.syntax,js_of_ocaml.deriving.syntax -syntax camlp4o
-LIBS_SERVER= -thread -package cairo,tyxml,eliom,eliom.server $(LIBS_SHARED)
+LIBS_SERVER= -thread -package cairo,tyxml,eliom,eliom.server \
+  $(LIBS_SHARED)
 LIBS_CLIENT= -package js_of_ocaml,eliom,eliom.client,oclosure \
-  -package eliom.syntax -syntax camlp4o \
-  -package js_of_ocaml.syntax -syntax camlp4o \
+  -package eliom.syntax,js_of_ocaml.syntax -syntax camlp4o \
   $(LIBS_SHARED)
 
 all:
@@ -34,6 +34,10 @@ annot:
 
 run:
 	ocsigenserver -c config/ocsigen.conf
+
+clean::
+	rm -f *.cm* *.annot
+	rm -rf _client _server
 
 ##############################################################################
 # Pad's stuff
