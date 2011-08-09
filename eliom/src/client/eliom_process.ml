@@ -21,10 +21,10 @@ open Eliom_pervasives
 open Ocsigen_cookies
 
 let sitedata : Eliom_types.sitedata =
-  unmarshal_js_var "sitedata"
+  unmarshal_js_var "eliom_appl_sitedata"
 
 let info : Eliom_common.client_process_info =
-  unmarshal_js_var "client_process_info"
+  unmarshal_js_var "eliom_appl_process_info"
 
 let appl_name =
   lazy
@@ -37,7 +37,6 @@ let appl_name =
      in v)
 
 (** None on server side *)
-let get_application_name () =
-  debug "application name: %s" (!!appl_name); Some (!!appl_name)
+let get_application_name () = Some (!!appl_name)
 
 let client_side = true

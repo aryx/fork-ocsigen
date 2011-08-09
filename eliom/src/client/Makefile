@@ -29,8 +29,8 @@ ${COMMON_PFILES} ${COMMON_SFILES}:
 
 ### Library ###
 
-FILES := eliom_pervasives_base.ml eliom_pervasives.ml \
-	 eliom_unwrap.ml \
+FILES := eliom_unwrap.ml eliom_lazy.ml \
+	 eliom_pervasives_base.ml eliom_pervasives.ml \
 	 eliom_common_base.ml eliom_common.ml \
 	 eliom_cookies_base.ml \
          private/eliommod_cookies.ml \
@@ -38,7 +38,6 @@ FILES := eliom_pervasives_base.ml eliom_pervasives.ml \
 	 eliom_process.ml \
 	 eliom_config.ml \
 	 eliom_request_info.ml \
-	 eliom_state.ml \
 	 eliom_parameters_base.ml eliom_parameters.ml \
 	 eliom_services_base.ml eliom_services.ml \
 	 eliom_uri.ml \

@@ -44,11 +44,10 @@ type eliom_js_page_data = {
   ejs_onunload: XML.event list;
   (* Session info *)
   ejs_sess_info: Eliom_common.sess_info;
-  ejs_url: string;
 }
 
 (* the data sent on channels *)
-type 'a eliom_comet_data_type = 'a wrapped_value
+type 'a eliom_comet_data_type = 'a Eliom_wrap.wrapped_value
 
 (*SGO* Server generated onclicks/onsubmits
 

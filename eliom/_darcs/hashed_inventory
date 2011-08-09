@@ -1,4 +1,4 @@
-pristine:0000001278-040693daaace9d82dacc5edd6cf0589a40db0e31efc418a8ad64cf0b667e0e0d
+pristine:0000001278-75415acb2a97705c9954f1eb2346a6e442eeb3ed7950380be5a7e17082fbcf18
 Starting with inventory:
 0000024596-5338ca5ada624999e4650f1dce86a0efe0e3af7574023b1047858431b6b8d5b6
 [TAG 2.0-rc1
@@ -62,3 +62,43 @@ chambart@crans.org**20110728165151
  
 ] 
 hash: 0000007562-13c85831979731e0adea168d5123a5c66f58c957c935ba0eb7b8e39c85187cd3
+[Syntax: rename type variables in the generated type constraints (thanks to William Le Ferrand, trac #167)
+gregoire.henry@pps.jussieu.fr**20110801122656
+ Ignore-this: 3bad15fd04b49be250ff4a81daf7bd1d
+] 
+hash: 0000001118-ba40d7317a7e6709097f59c01de0205d9669fbf90848e9ed8f4ffd7f8795afe2
+[Eliom_process: client does not ignore error pages (404, etc ... ) when it contains application content
+chambart@crans.org**20110801160756
+ Ignore-this: e0a373b651b738da71147aa3bf1412af
+] 
+hash: 0000001443-b577db020e6af9ab7044ba079fce6dddf446190d6a80ff1be58174482051acdc
+[The addition of an onclick attribute on application link is now decided when wrapping the corresponding XML node or ref tree.
+gregoire.henry@pps.jussieu.fr**20110801104322
+ Ignore-this: 5230317765f7a695dacb6d029deb6e9d
+ 
+ Previously, the addition of the onclick attribute was decided when
+ creating the the node, but some link were broken is created beafore
+ the service registration.
+ 
+] 
+hash: 0000009439-f361c95f658c0ef10d8e8e831be1282ecdad1fac4329bc81241be6893c953f96
+[Move the functions get_csp_* from Eliom_state to Eliom_request_info
+gregoire.henry@pps.jussieu.fr**20110801160748
+ Ignore-this: 914510c167bdadb4c30a437ec4a97337
+] 
+hash: 0000014354-004777c5979ea4317e640cb8613244024347201c1148b986475790ee9650ebff
+[Use absolute path for link generated without sp.
+gregoire.henry@pps.jussieu.fr**20110801162744
+ Ignore-this: c1110e6a0ee27ff80c869fde9dc07d6c
+] 
+hash: 0000000460-be85daac1aeb766f90f4431a7240a965496d0629252364e5afd635fd88999898
+[Eliom_appl: do not call "change_url_string" when loading the first page.
+gregoire.henry@pps.jussieu.fr**20110802123208
+ Ignore-this: b8f936eb0d103875a363b78cf4840479
+ 
+ It avoids weird url as:
+ 
+   http://localhost:8080/path?param#!/path?param"
+ 
+] 
+hash: 0000005014-b50ea0438a1ae4ba00f13eecac68ad531d2604d3929a54198c20f1771165086a
