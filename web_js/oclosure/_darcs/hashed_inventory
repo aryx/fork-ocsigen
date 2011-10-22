@@ -1,4 +1,4 @@
-pristine:0000001187-777fd3e3dcf86e6fae86153043ca563fead281228698024577c8ce2fbd8180e1
+pristine:0000001187-0ecfbbec0aff39785f32a452781cc7d53ee47b91c4f6fdd63c14e3b65d4ca5c0
 [Tailorization
 tailor@macbook-de-gabriel.local**20100410203959
  Ignore-this: 16dea6e9ea3606bd480aa95ed0f0f905
@@ -979,3 +979,20 @@ gregoire.henry@pps.jussieu.fr**20110701171421
  Ignore-this: 24e4b482588b0ed83376aeab6d2aa8fc
 ] 
 hash: 0000000288-e965bff1b1bbae76b06f887643431868519f0fd9c8b57c4756ee87e6164df01c
+[The callback from Goog.Events.listen now accept an Dom_html.event as parameters.
+gregoire.henry@pps.jussieu.fr**20110802141916
+ Ignore-this: c452ce6f271ddbf03f3ce056d7ae64f1
+ 
+ See the mail from "Vsevolod Velichko" on the ocsigen-list (2011/08/01).
+] 
+hash: 0000000398-652b99d9b28f1d2c1d3bfdaefc6197018adcc46f70fd2fb456929cc6e4b9781d
+[Typo in the wiki documentation
+gregoire.henry@pps.jussieu.fr**20110908135930
+ Ignore-this: 345a1d791448963a7cf9b880ca5e1c3d
+] 
+hash: 0000000454-53f03d687a3423c0a9750da8e16a9156de46311afe1d4b65b771a84d2d95cfe9
+[Doc: fix menu for pdf generation
+gregoire.henry@pps.jussieu.fr**20111005141445
+ Ignore-this: 9f712974780c5aee3708aaed981e7a10
+] 
+hash: 0000000194-3fb39d893b9b959c44c724019d9ec81222318517d5184354610aeb7f85565009
