@@ -1,13 +1,51 @@
-pristine:0000001185-a9d889fde854dd61af852f2b9d3b4ef179ba625d91462e2b00f6cc8d36e06df8
+pristine:0000001185-91390dd40986236b74d2fd9de5f74d23188d5384c501f85425816ba5cde54a45
 Starting with inventory:
-0000005543-282a7af2db9647a11323fa0fd72f3798ffe2c644089f35e75c5282db82b11172
-[TAG 2.0-rc1
-chambart@crans.org**20110715155929
- Ignore-this: c141b527ec4289ef4a4d6a6edb1368
+0000000780-673d12d7e7cbd7771611167d67b6b46faf4f42ea09421021a64a9d04f5bc28b9
+[TAG 2.0.1
+gregoire.henry@pps.jussieu.fr**20110928170340
+ Ignore-this: 7e8cbb0f54f8e29d2c5cb4bc079abb8d
 ] 
-hash: 0000003491-6010d79e08bee3ee667340b22ed5b6809ad4194f8173629dbfb8dce8a05d49a0
-[update README
-chambart@crans.org**20110727125244
- Ignore-this: 13d919f926e6fca70e26d844a61803ee
+hash: 0000000543-4d17832702f48fd09776033f08a998ddbefd1f9be3b16ad5437e53426f2226e2
+[mime.type: add fonts
+chambart@crans.org**20111003140644
+ Ignore-this: 336a808c93a843eb94101f4952ff648a
 ] 
-hash: 0000000353-a8dc48240c5b28a629779a512d0afc9f18732429c1fb6b3321312a5ddb70eb0c
+hash: 0000000280-48de2eec7f77feeb3657b67fefdee6b75906ae2a792839df502b1765dea4f2fd
+[Warn users when the "mime.types" file can't be read. (fix #133)
+gregoire.henry@pps.jussieu.fr**20111006223849
+ Ignore-this: 2cb866d8e71a3316812c8597f6fb9b83
+] 
+hash: 0000000437-6a7ab48de68b78a19fc2609f1f0f8eef0f4ecca6156d025a3ad8822973b5c7a2
+[Remove TODO in revproxy (close #49).
+gregoire.henry@pps.jussieu.fr**20111007000607
+ Ignore-this: b7b008e57c11e0ec7a6df1f9af939279
+ 
+ It was done 4 years ago by introducing the outputfilter extension
+ (see [626/ocsigenserver.dev])
+] 
+hash: 0000000434-690a9fde3c688b9902280e6d9d6d9960f0f0cafee908fa18c98f802556f30b0a
+[Allow Ocsigen_sender.{Html5,Xhtml}_content to choose the returned content type (close #53).
+gregoire.henry@pps.jussieu.fr**20111013103109
+ Ignore-this: 44c2ecc885f0fa8ad9d65dcb1e0af925
+ 
+ Content is served as "application/xhtml+xml" if it's "accepted" by the
+ browser. It is served as "text/html" otherwise.
+ 
+ In both case, the same content is served as the TyXML printer should
+ produce Polyglot HTML. See:
+ 
+ - http://dev.w3.org/html5/html-xhtml-author-guide/
+ - http://www.w3.org/TR/xhtml1/#guidelines
+ 
+ For limitations, see also: http://hixie.ch/advocacy/xhtml
+ 
+] 
+hash: 0000003385-e7e08d0f44d516743235897ceb081ebdfef5c38b3057635340bd36573324f6ae
+[Ocsigen_extensions.get_port: do not return the actual request port if an Host HTTP header is present.
+gregoire.henry@pps.jussieu.fr**20111018152106
+ Ignore-this: 9442627881ec5fa340c0f6e37992ea0d
+ 
+ Previously if the Host header doesn't contain an explicit port, the
+ actual request port was returned. Now, 80 or 443 is returned.
+] 
+hash: 0000000632-81145826357ff408175eb50cfc371e80a9d4d63361ab6c8d650f9fc1ebd20708

@@ -1,4 +1,3 @@
-repo:/data/users/pad/github/sync-ocsigen/ocsigenserver.dev
-thisrepo:/data/users/pad/github/fork-ocsigen/server
-cache:/home/pad/.darcs/cache
 repo:http://ocsigen.org/darcs/ocsigenserver.dev
+thisrepo:/data/users/pad/github_new/fork-ocsigen/server
+cache:/home/pad/.darcs/cache

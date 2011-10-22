@@ -231,7 +231,7 @@ type request_info =
      ri_content_length: int64 option; (** Content-Length HTTP header *)
      ri_referer: string option Lazy.t; (** Referer HTTP header *)
 
-     ri_accept: ((string option * string option) * float option * (string * string) list) list Lazy.t; (** Accept HTTP header. For example [(Some "text", None)] means ["text/*"]. The float is the "quality" value, if any. The last association list is for other extensions. *)
+     ri_accept: Http_headers.accept Lazy.t; (** Accept HTTP header. For example [(Some "text", None)] means ["text/*"]. The float is the "quality" value, if any. The last association list is for other extensions. *)
      ri_accept_charset: (string option * float option) list Lazy.t; (** Accept-Charset HTTP header. [None] for the first value means "*". The float is the "quality" value, if any. *)
      ri_accept_encoding: (string option * float option) list Lazy.t; (** Accept-Encoding HTTP header. [None] for the first value means "*". The float is the "quality" value, if any. *)
      ri_accept_language: (string * float option) list Lazy.t; (** Accept-Language HTTP header. The float is the "quality" value, if any. *)
@@ -991,8 +991,11 @@ let get_port req =
         then req.request_config.default_httpsport
         else req.request_config.default_httpport)
   else match req.request_info.ri_port_from_host_field with
-    | None -> req.request_info.ri_server_port
     | Some p -> p
+    | None ->
+        match req.request_info.ri_host with
+	  | Some _ -> if req.request_info.ri_ssl then 443 else 80
+	  | None -> req.request_info.ri_server_port
 
 
 (*****************************************************************************)

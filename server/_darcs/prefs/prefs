@@ -1,2 +1,0 @@
-predist sh ./predist; rm predist
-boringfile boring
