@@ -28,6 +28,7 @@ files/var/lib/
 web_js/js_of_ocaml/lib/doc/*.html
 web_js/js_of_ocaml/examples/*/*.js
 web_js/oclosure/examples/*.js
+web_js/js_of_ocaml/doc/api-html/*
 
 # lex/yacc generated files
 http/http_lexer.ml
