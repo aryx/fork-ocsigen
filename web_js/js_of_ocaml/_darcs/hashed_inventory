@@ -1,70 +1,35 @@
-pristine:0000001676-643c0516210a57be7ad63654ea039c74c8db342d33f5fe08b760531bfd6cb942
+pristine:0000001676-3927f261abcd8fc54209168ab5e44f729699083fda53b70148141413746e4cc7
 Starting with inventory:
-0000021551-ab94c79433e08f8bfbd793b3520db518e670592740b09c59ed94d63aeda74c95
-[TAG 1.0.3
-gregoire.henry@pps.jussieu.fr**20110715143409
- Ignore-this: edf8f46d1e7b629f53c4da8545fcf14f
+0000009277-a5af15e7979f708c5fe2bc77b6c802eba974cad3faa2aec97ed44dfe44d5aeb4
+[TAG 1.0.6
+gregoire.henry@pps.jussieu.fr**20110928164653
+ Ignore-this: 9415a9c2c188797a0c995bd47def26c1
 ] 
-hash: 0000003867-a414689bf97dd7bc7e034e018bfc09414cd02d3d8f5e9380239963f3dba88e5e
-[Library: Add the history API to Dom_html
-gregoire.henry@pps.jussieu.fr**20110805221741
- Ignore-this: 4866d6972f1614ffae949adf46253490
+hash: 0000001500-f71519dd2389d23663162629bb6985ac6892cecab047de15c8721de23597c255
+[Lib: add localStorage and sessionStorage api
+chambart@crans.org**20111003150405
+ Ignore-this: 6ac4cf7e14c6089068141d4f6e4b4afb
 ] 
-hash: 0000001338-82d235ddab6ce24910c6e692657c840bb2164e03ef90f4ba3eab19a276e1025a
-[XmlHttpRequest: the 'perform' function now also returns the requested url.
-gregoire.henry@pps.jussieu.fr**20110808145612
- Ignore-this: 9e630284d5b341f60ab4de2790d47f6c
+hash: 0000001647-f7402850331279dbca555ea8d356ccbe14dfbd25d23f35d4725f42304872f2d7
+[Libraries: XHR.do_check_headers use Dom_html.onIE
+gregoire.henry@pps.jussieu.fr**20111006152334
+ Ignore-this: 69ced43fdae05fbdadfbf1613952643
+] 
+hash: 0000000768-613ffc421e924d16a3f11c9a63398a6186492a841414e0ddacb1cfb6ad2e5fe7
+[Libraries: allow to test the button associated to a Dom_html.mouseEvent
+gregoire.henry@pps.jussieu.fr**20111006171925
+ Ignore-this: ffd6c8274075ec953e598113c475e292
  
- The returned url contains the encoded get parameters.
+ Try to be compatible with IE (see: http://unixpapa.com/js/mouse.html)
 ] 
-hash: 0000000446-5696f6bb3c026d131881a0f3fc7465fe9be5da8b27b7cf1aae8ccd05dfd33b24
-[runtime/mlString.js: fix 'greater than or equal to' function
-raphlalou@gmail.com**20110815133013
- Ignore-this: a57d4bb15ad3ac088cfe7e20ab77a481
+hash: 0000001537-d5c747aafbb0ca405f2d8166f86f2abb5d1b7926bd1bfb2d462adafa6d7ed950
+[Libraries: add functions to downcast Dom_html.event into mouseEvent, keyboardEvent, ...
+gregoire.henry@pps.jussieu.fr**20111006171929
+ Ignore-this: 5f236aba7cf819260ced3fa042b8b4af
 ] 
-hash: 0000000320-13bb7a7f0a550f0ce50c237689e46f28ad0174bea2e94b2851042fa4cc80674d
-[typo in CSS documentation
-raphlalou@gmail.com**20110821103019
- Ignore-this: 120ea7d5a86d5b3c3da6434557e203ea
+hash: 0000004024-eb5af8a0184a77436f2e9fff6970728d986ba5eee08b0c9fc51a725b47f8dc59
+[Lib: add document.adoptNode
+chambart@crans.org**20111021084503
+ Ignore-this: bf9529fb427c81f8323e83f42e7e5502
 ] 
-hash: 0000000287-7aca3f34bdba75c5047cd5bad4c521bd85c516110882a0cdd553f1bfe756f17a
-[[CSS] isolating Color in a submodule
-raphlalou@gmail.com**20110821144842
- Ignore-this: 6b15283b07da035954cbb05ccd3da6f3
-] 
-hash: 0000014015-8c752d7f248dfe9e0e82ba26a53234185f6d3296f761931d31b47e4732995468
-[CSS.Length: as per http://www.w3.org/TR/css3-values/#lengths specs
-raphlalou@gmail.com**20110821152422
- Ignore-this: c7a6d916a961331b4791aeebb9664eaa
-] 
-hash: 0000004853-243151b9d1931691161c290c55bd78d86614d078a1c76ba1027143ade883eb79
-[CSS.Color: slightly better doc
-raphlalou@gmail.com**20110821152805
- Ignore-this: b6775109d4997f4ffc93ec8e60a3ec09
-] 
-hash: 0000000469-d0104797a6f6d6405e1596202888f860e2f3b77d6d630d9bb6399d9fc5c774dd
-[Runtime: manage our own stack for marshalling/unmarshalling
-jerome.vouillon@pps.jussieu.fr**20110823105958
- Ignore-this: 2ba3a110eb61d905209f7ac847bd734
-] 
-hash: 0000001161-5c153d7ac51858e61022c68aad26a93a0a508405c1572b2cb097ce70b347e86c
-[Runtime: fixed missing dependencies in marshall.js
-jerome.vouillon@pps.jussieu.fr**20110823110234
- Ignore-this: 6feba5de347cebc896322b44d320a62c
-] 
-hash: 0000000392-0052293e6b20bc6e6848fdf0706c9d4c6f1a4d2f7e6aa65e8672549b516467cc
-[Runtime: manage our own stack for comparing values
-jerome.vouillon@pps.jussieu.fr**20110823111504
- Ignore-this: 86822a81d2a9e232345f5912a0e665fc
-] 
-hash: 0000003199-b716723ceea71bd103cf9732519dde52f79cd255be8e4318eb23870312dae70b
-[Compiler: use custom formatter to pretty print Javascript code
-jerome.vouillon@pps.jussieu.fr**20110824134620
- Ignore-this: 568480450b7c280461200fd6e71c0a7a
-] 
-hash: 0000032925-4482c61e71fd9c06fdb5d071ed1f031524cb233da333e973845155fd249a1c41
-[Compiler: removed some dead code
-jerome.vouillon@pps.jussieu.fr**20110824142904
- Ignore-this: 7754af2af708b05387f8ecc28599ff12
-] 
-hash: 0000003125-efca22c443273d0eed56dcc8b5b96b3ad31c3a1622cf4ad054cbda6a0ee3c856
+hash: 0000000259-7fe0ec96df5afa033f5f03fd48ae5ba90274f337c96b5fcaf7913f62e446859a

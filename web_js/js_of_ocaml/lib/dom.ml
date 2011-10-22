@@ -31,7 +31,7 @@ class type tokenList = object
 end
 
 class type ['node] nodeList = object
-  method item : int -> 'node t optdef meth
+  method item : int -> 'node t opt meth
   method length : int readonly_prop
 end
 
@@ -40,7 +40,7 @@ let list_of_nodeList (nodeList:'a nodeList t) =
   let rec add_item acc i =
     if i < length
     then
-      match Optdef.to_option (nodeList##item(i)) with
+      match Opt.to_option (nodeList##item(i)) with
 	| None -> add_item acc (i+1)
 	| Some e -> add_item (e::acc) (i+1)
     else List.rev acc
@@ -93,7 +93,26 @@ let replaceChild (p : #node t) (n : #node t) (o : #node t) =
 let insertBefore (p : #node t) (n : #node t) (o : #node t opt) =
   ignore (p##insertBefore ((n :> node t), (o :> node t opt)))
 
-class type element = object
+(** Specification of [Attr] objects. *)
+class type attr = object
+  inherit node
+  method name : js_string t readonly_prop
+  method specified : bool t readonly_prop
+  method value : js_string t prop
+  method ownerElement : element t prop
+end
+
+(** Specification of [NamedNodeMap] objects. *)
+and namedNodeMap = object
+  method getNamedItem : js_string t -> node t opt meth
+  method setNamedItem : node t -> node t opt meth
+  method removeNamedItem : js_string t -> node t opt meth
+  method item : int -> node t opt meth
+  method length : int readonly_prop
+end
+
+(** Specification of [Element] objects. *)
+and element = object
   inherit node
   method tagName : js_string t readonly_prop
   method getAttribute : js_string t -> js_string t opt meth
@@ -102,6 +121,7 @@ class type element = object
   method hasAttribute : js_string t -> bool t meth
   method getElementsByTagName : js_string t -> element nodeList t meth
   method classList : tokenList t readonly_prop
+  method attributes : namedNodeMap t readonly_prop
 end
 
 class type characterData = object
@@ -125,6 +145,41 @@ class type ['element] document = object
   method createDocumentFragment : documentFragment t meth
   method createElement : js_string t -> 'element t meth
   method createTextNode : js_string t -> text t meth
+  method createAttribute : js_string t -> attr t meth
   method getElementById : js_string t -> 'element t opt meth
   method getElementsByTagName : js_string t -> 'element nodeList t meth
+  method importNode : element t -> bool t -> 'element t meth
+  method adoptNode : element t -> 'element t meth
+end
+
+type node_type =
+  | Element of element t
+  | Attr of attr t
+  | Text of text t
+  | Other of node t
+
+let nodeType e =
+  match e##nodeType with
+    | ELEMENT -> Element (Js.Unsafe.coerce e)
+    | ATTRIBUTE -> Attr (Js.Unsafe.coerce e)
+    | CDATA_SECTION
+    | TEXT -> Text (Js.Unsafe.coerce e)
+    | _ -> Other (e:>node t)
+
+module CoerceTo = struct
+
+  let cast (e:#node Js.t) t =
+    if e##nodeType = t
+    then Js.some (Js.Unsafe.coerce e)
+    else Js.null
+
+  let element e : element Js.t Js.opt = cast e ELEMENT
+
+  let text e : text Js.t Js.opt =
+    if e##nodeType == TEXT || e##nodeType == CDATA_SECTION
+    then Js.some (Js.Unsafe.coerce e)
+    else Js.null
+
+  let attr e : attr Js.t Js.opt = cast e ATTRIBUTE
+
 end

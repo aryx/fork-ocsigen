@@ -125,6 +125,12 @@ end
 
 type ('a, 'b) event_listener = ('a, 'b optdef -> bool t) meth_callback opt
 
+type mouse_button =
+  | No_button
+  | Left_button
+  | Middle_button
+  | Right_button
+
 class type event = object
   method _type : js_string t readonly_prop
   method target : element t optdef readonly_prop
@@ -138,6 +144,12 @@ and mouseEvent = object
   method clientY : int readonly_prop
   method screenX : int readonly_prop
   method screenY : int readonly_prop
+  method ctrlKey : bool t readonly_prop
+  method shiftKey : bool t readonly_prop
+  method altKey : bool t readonly_prop
+  method metaKey : bool t readonly_prop
+  method button : int readonly_prop
+  method which : mouse_button optdef readonly_prop
 
   method fromElement : element t opt optdef readonly_prop
   method toElement : element t opt optdef readonly_prop
@@ -152,11 +164,11 @@ and keyboardEvent = object
   method keyIdentifier : js_string t optdef readonly_prop
 end
 
-and mousewheelEvent = object (* All browsers but Firefox *)
+and wheelEvent = object (* All browsers but Firefox *)
   inherit mouseEvent
-  method wheelDelta : int readonly_prop
-  method wheelDeltaX : int optdef readonly_prop
-  method wheelDeltaY : int optdef readonly_prop
+  method delta : int readonly_prop
+  method deltaX : int optdef readonly_prop
+  method deltaY : int optdef readonly_prop
 end
 
 and mouseScrollEvent = object (* Firefox *)
@@ -183,6 +195,24 @@ end
 and popStateEvent = object
   inherit event
   method state : Js.Unsafe.any readonly_prop
+end
+
+and storageEvent = object
+  inherit event
+  method key : js_string t readonly_prop
+  method oldValue : js_string t optdef readonly_prop
+  method keynewValue : js_string t optdef readonly_prop
+  method url : js_string t readonly_prop
+  method storageArea : storage t optdef readonly_prop
+end
+
+and storage = object
+  method length : int readonly_prop
+  method key : int -> js_string t optdef meth
+  method getItem : js_string t -> js_string t optdef meth
+  method setItem : js_string t -> unit meth
+  method removeItem : js_string t -> unit meth
+  method clear : unit meth
 end
 
 and element = object
@@ -212,6 +242,8 @@ and element = object
 
   method getClientRects : clientRectList t meth
   method getBoundingClientRect : clientRect t meth
+
+  method scrollIntoView: bool t -> unit meth
 
   inherit eventTarget
 end
@@ -874,6 +906,10 @@ class type window = object
   method stop : unit meth
   method focus : unit meth
   method blur : unit meth
+  method scroll : int -> int -> unit meth
+
+  method sessionStorage : storage t readonly_prop
+  method localStorage : storage t readonly_prop
 
   method top : window t readonly_prop
   method parent : window t readonly_prop
@@ -927,6 +963,7 @@ class type iFrameElement = object
   inherit element
   method frameBorder : js_string t prop
   method height : js_string t prop
+  method width : js_string t prop
   method longDesc : js_string t prop
   method marginHeight : js_string t prop
   method marginWidth : js_string t prop
@@ -1056,12 +1093,22 @@ let createCanvas doc : canvasElement t =
   if not (Opt.test c##getContext) then raise Canvas_not_available;
   c
 
+let html_element : htmlElement t constr = Js.Unsafe.variable "window.HTMLElement"
+
 module CoerceTo = struct
-  let element e : element Js.t Js.opt =
-    if Js.instanceof e (Js.Unsafe.variable "HTMLElement") then
-      Js.some (Js.Unsafe.coerce e)
+  let element : #Dom.node Js.t -> element Js.t Js.opt =
+    if def html_element == undefined then
+      (* ie < 9 does not have HTMLElement: we have to cheat to check
+	 that something is an html element *)
+      (fun e ->
+	if def ((Js.Unsafe.coerce e)##innerHTML) == undefined then
+	  Js.null
+	else Js.some (Js.Unsafe.coerce e))
     else
-      Js.null
+      (fun e ->
+	if Js.instanceof e html_element then
+	  Js.some (Js.Unsafe.coerce e)
+	else Js.null)
 
   let unsafeCoerce tag (e : #element t) =
     if e##tagName##toLowerCase() == Js.string tag then
@@ -1126,6 +1173,19 @@ module CoerceTo = struct
   let title e = unsafeCoerce "title" e
   let tr e = unsafeCoerce "tr" e
   let ul e = unsafeCoerce "ul" e
+
+  let unsafeCoerceEvent name (ev : #event t) =
+    let constr = Js.Unsafe.variable name in
+    if def constr != undefined && Js.instanceof ev constr then
+      Js.some (Js.Unsafe.coerce ev)
+    else Js.null
+
+  let mouseEvent ev = unsafeCoerceEvent "window.MouseEvent" ev
+  let keyboardEvent ev = unsafeCoerceEvent "window.KeyboardEvent" ev
+  let wheelEvent ev = unsafeCoerceEvent "window.WheelEvent" ev
+  let mouseScrollEvent ev = unsafeCoerceEvent "window.MouseScrollEvent" ev
+  let popStateEvent ev = unsafeCoerceEvent "window.PopStateEvent" ev
+
 end
 
 (****)
@@ -1171,6 +1231,16 @@ let getDocumentScroll () =
   let html = document##documentElement in
   (body##scrollLeft + html##scrollLeft, body##scrollTop + html##scrollTop)
 
+let buttonPressed (ev : #mouseEvent Js.t) =
+  Js.Optdef.case (ev##which)
+    (fun () ->
+      match ev##button with
+	| 1 -> Left_button
+	| 2 -> Right_button
+	| 4 -> Middle_button
+	| _ -> No_button)
+    (fun x -> x)
+
 let hasMousewheelEvents () =
   let d = createDiv document in
   d##setAttribute(Js.string "onmousewheel", Js.string "return;");
@@ -1181,10 +1251,10 @@ let addMousewheelEventListener e h capt =
   if hasMousewheelEvents () then
     addEventListener e Event.mousewheel
       (handler
-         (fun (e : mousewheelEvent t) ->
-            let dx = - Optdef.get (e##wheelDeltaX) (fun () -> 0) / 40 in
+         (fun (e : wheelEvent t) ->
+            let dx = - Optdef.get (e##deltaX) (fun () -> 0) / 40 in
             let dy =
-              - Optdef.get (e##wheelDeltaY) (fun () -> e##wheelDelta) / 40 in
+              - Optdef.get (e##deltaY) (fun () -> e##delta) / 40 in
             h (e :> mouseEvent t) ~dx ~dy))
       capt
   else
@@ -1322,3 +1392,27 @@ let tagged (e : #element t) =
   | _   -> Other (e : #element t :> element t)
 
 let opt_tagged e = Opt.case e (fun () -> None) (fun e -> Some (tagged e))
+
+type taggedEvent =
+  | MouseEvent of mouseEvent t
+  | KeyboardEvent of keyboardEvent t
+  | WheelEvent of wheelEvent t
+  | MouseScrollEvent of mouseScrollEvent t
+  | PopStateEvent of popStateEvent t
+  | OtherEvent of event t
+
+let taggedEvent (ev : #event Js.t) =
+  Js.Opt.case (CoerceTo.mouseEvent ev)
+    (fun () -> Js.Opt.case (CoerceTo.keyboardEvent ev)
+      (fun () -> Js.Opt.case (CoerceTo.wheelEvent ev)
+	(fun () -> Js.Opt.case (CoerceTo.mouseScrollEvent ev)
+	  (fun () -> Js.Opt.case (CoerceTo.popStateEvent ev)
+	    (fun () -> OtherEvent (ev :> event t))
+	    (fun ev -> PopStateEvent ev))
+	  (fun ev -> MouseScrollEvent ev))
+	(fun ev -> WheelEvent ev))
+      (fun ev -> KeyboardEvent ev))
+    (fun ev -> MouseEvent ev)
+
+let opt_taggedEvent ev = Opt.case ev (fun () -> None) (fun ev -> Some (taggedEvent ev))
+

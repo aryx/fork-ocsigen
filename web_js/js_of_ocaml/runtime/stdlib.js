@@ -141,14 +141,14 @@ function caml_mod(x,y) {
 //Provides: caml_array_set
 //Requires: caml_array_bound_error
 function caml_array_set (array, index, newval) {
-  if ((index < 0) || (index >= array.length)) caml_array_bound_error();
+  if ((index < 0) || (index >= array.length - 1)) caml_array_bound_error();
   array[index+1]=newval; return 0;
 }
 
 //Provides: caml_array_get mutable
 //Requires: caml_array_bound_error
 function caml_array_get (array, index) {
-  if ((index < 0) || (index >= array.length)) caml_array_bound_error();
+  if ((index < 0) || (index >= array.length - 1)) caml_array_bound_error();
   return array[index+1];
 }
 
@@ -428,7 +428,7 @@ function caml_format_float (fmt, x) {
         else while (s = x.toFixed(p), s.length > prec + 1) p--;
         if (p) {
           // remove trailing zeroes
-          i = s.length - 1; while (s.charAt(i) == '0') i--;
+          var i = s.length - 1; while (s.charAt(i) == '0') i--;
           if (s.charAt(i) == '.') i--;
           s = s.slice(0, i + 1);
         }
@@ -493,16 +493,16 @@ function caml_hash_univ_param (count, limit, obj) {
 
 ///////////// Sys
 //Provides: caml_sys_time mutable
-var caml_initial_time = Date.now() * 0.001;
-function caml_sys_time () { return Date.now() * 0.001 - caml_initial_time; }
+var caml_initial_time = new Date() * 0.001;
+function caml_sys_time () { return new Date() * 0.001 - caml_initial_time; }
 //Provides: caml_sys_get_config const
 //Requires: MlString
-function caml_sys_get_config (e) {
+function caml_sys_get_config () {
   return [0, new MlWrappedString("Unix"), 32];
 }
 //Provides: caml_sys_random_seed mutable
 function caml_sys_random_seed () {
-  return Date.now()^0xffffffff*Math.random();
+  return new Date()^0xffffffff*Math.random();
 }
 
 ///////////// CamlinternalOO

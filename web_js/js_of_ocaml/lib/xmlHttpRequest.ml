@@ -122,7 +122,10 @@ type http_frame =
       code: int;
       headers: string -> string option;
       content: string;
+      content_xml: unit -> Dom.element Dom.document t option;
     }
+
+exception Wrong_headers of (int * (string -> string option))
 
 let perform_raw_url
     ?(headers = [])
@@ -130,6 +133,7 @@ let perform_raw_url
     ?(post_args:(string * string) list option)
     ?(get_args=[])
     ?(form_arg:Form.form_contents option)
+    ?(check_headers=(fun _ _ -> true))
     url =
 
   let form_arg =
@@ -179,22 +183,41 @@ let perform_raw_url
     | _ -> ());
   List.iter (fun (n, v) -> req##setRequestHeader (Js.string n, Js.string v))
     headers;
+  let headers s =
+    Opt.case
+      (req##getResponseHeader (Js.bytestring s))
+      (fun () -> None)
+      (fun v -> Some (Js.to_string v))
+  in
+  let do_check_headers =
+    let checked = ref false in
+    fun () ->
+      if not (!checked) && not (check_headers (req##status) headers)
+      then begin
+        Lwt.wakeup_exn w (Wrong_headers ((req##status),headers));
+        req##abort ();
+      end;
+      checked := true
+  in
   req##onreadystatechange <- Dom_html.handler
     (fun _ ->
-      if req##readyState = DONE then
-        Lwt.wakeup w
-          {url = url;
-	   code = req##status;
-           content = Js.to_string req##responseText;
-           headers =
-              (fun s ->
-                Opt.case
-                  (req##getResponseHeader (Js.bytestring s))
-                  (fun () -> None)
-                  (fun v -> Some (Js.to_string v))
-              )
-              }
-      else ();
+       (match req##readyState with
+          (* IE doesn't have the same semantics for HEADERS_RECEIVED.
+             so we wait til LOADING to check headers. See:
+             http://msdn.microsoft.com/en-us/library/ms534361(v=vs.85).aspx *)
+        | HEADERS_RECEIVED when not Dom_html.onIE -> do_check_headers ()
+	| LOADING when Dom_html.onIE -> do_check_headers ()
+	| DONE ->
+          (* If we didn't catch a previous event, we check the header. *)
+          do_check_headers ();
+	  Lwt.wakeup w
+            {url = url;
+	     code = req##status;
+             content = Js.to_string req##responseText;
+	     content_xml = (fun () -> Js.Opt.to_option (req##responseXML));
+             headers = headers
+            }
+	| _ -> ());
       Js._false);
 
   (match form_arg with
@@ -224,8 +247,9 @@ let perform
     ?post_args
     ?(get_args=[])
     ?form_arg
+    ?check_headers
     url =
-  perform_raw_url ~headers ?content_type ?post_args ~get_args ?form_arg
+  perform_raw_url ~headers ?content_type ?post_args ~get_args ?form_arg ?check_headers
     (Url.string_of_url url)
 
 let get s = perform_raw_url s
