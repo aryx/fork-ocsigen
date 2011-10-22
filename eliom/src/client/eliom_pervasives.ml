@@ -20,6 +20,10 @@ include Eliom_pervasives_base
 
 exception False
 
+let iter_option f m = match m with
+  | Some v -> f v
+  | None -> ()
+
 (*****************************************************************************)
 
 module List = struct
@@ -471,9 +475,12 @@ end
 let debug_exn f e =
   Printf.ksprintf (fun s -> Firebug.console##log (Js.string (s^(Printexc.to_string e)))) f
 let debug f = Printf.ksprintf (fun s -> Firebug.console##log (Js.string s)) f
+let error f = Printf.ksprintf (fun s -> Firebug.console##error (Js.string s); failwith s) f
 let jsdebug a = Firebug.console##log (a)
 let alert f = Printf.ksprintf (fun s -> Dom_html.window##alert (Js.string s)) f
 let jsalert a = Dom_html.window##alert (a)
+
+let lwt_ignore ?(message="") t = Lwt.on_failure t (fun e -> debug_exn "%s" e message)
 
 (* We do not use the deriving (un)marshaling even if typ is available
    because direct jsn (un)marshaling is very fast client side
@@ -594,6 +601,23 @@ module HTML5 = struct
 
     let unique ?copy elt =
       tot (XML.make_unique ?copy:(map_option toelt copy) (toelt elt))
+
+    let lazy_uri_attrib name uri =
+      XML.lazy_string_attrib name
+	(Eliom_lazy.from_fun (fun () -> Uri.string_of_uri (Eliom_lazy.force uri)))
+
+    let lazy_a_href uri = to_attrib (lazy_uri_attrib "href" uri)
+    let lazy_a_action uri = to_attrib (lazy_uri_attrib "action" uri)
+
+    type ('a, 'b, 'c) lazy_plus =
+      ?a: (('a attrib) list) -> 'b elt Eliom_lazy.request -> ('b elt) list Eliom_lazy.request -> 'c elt
+
+    let lazy_form ?(a = []) elt1 elts =
+      tot (XML.lazy_node ~a:(to_xmlattribs a) "form"
+	     (Eliom_lazy.from_fun
+		(fun () ->
+		  toelt (Eliom_lazy.force elt1)
+		  :: toeltl (Eliom_lazy.force elts))))
 
     (* GRGR: Uncomment when ocaml 3.12.1 is released ! See ocaml bug #1441. *)
 

@@ -12,6 +12,7 @@ val ( !! ) : 'a Lazy.t -> 'a
 (* val comp : ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b *)
 (* val uncurry2 : ('a -> 'b -> 'c) -> 'a * 'b -> 'c *)
 val map_option : ('a -> 'b) -> 'a option -> 'b option
+val iter_option : ('a -> unit) -> 'a option -> unit
 
 (* val fst3 : 'a * 'b * 'c -> 'a *)
 (* val snd3 : 'a * 'b * 'c -> 'b *)
@@ -93,10 +94,13 @@ module Printexc : sig
 end
 
 val debug : ('a, unit, string, unit) format4 -> 'a
+val error : ('a, unit, string, 'b) format4 -> 'a
 val debug_exn : ('a, unit, string, unit) format4 -> exn -> 'a
 val jsdebug : 'a -> unit
 val alert : ('a, unit, string, unit) format4 -> 'a
 val jsalert : Js.js_string Js.t -> unit
+
+val lwt_ignore : ?message:string -> unit Lwt.t -> unit
 
 val to_json : ?typ:'a -> 'b -> string
 val of_json : ?typ:'a -> string -> 'b
@@ -153,6 +157,7 @@ module XML : sig
   type racontent =
     | RA of acontent
     | RACamlEvent of (aname * caml_event)
+    | RALazyString of aname * string Eliom_lazy.request
   val racontent : attrib -> racontent
 
   val aname : attrib -> aname
@@ -176,6 +181,7 @@ module XML : sig
 
   val leaf : ?a:(attrib list) -> ename -> elt
   val node : ?a:(attrib list) -> ename -> elt list -> elt
+  val lazy_node : ?a:(attrib list) -> ename -> elt list Eliom_lazy.request -> elt
 
   val cdata : string -> elt
   val cdata_script : string -> elt
@@ -256,6 +262,15 @@ module HTML5 : sig
     val of_iFrame : Dom_html.iFrameElement Js.t -> HTML5_types.iframe elt
 
     val unique: ?copy:'a elt -> 'a elt -> 'a elt
+
+    type ('a, 'b, 'c) lazy_plus =
+      ?a: (('a attrib) list) -> 'b elt Eliom_lazy.request -> ('b elt) list Eliom_lazy.request -> 'c elt
+
+    val lazy_a_href : uri Eliom_lazy.request -> [> `Href ] attrib
+    val lazy_a_action : uri Eliom_lazy.request -> [> `Action ] attrib
+
+    val lazy_form:
+      ([< HTML5_types.form_attrib ], [< HTML5_types.form_content_fun ], [> HTML5_types.form ]) lazy_plus
 
     (* GRGR: Uncomment when ocaml 3.12.1 is released ! See ocaml bug #1441. *)
 

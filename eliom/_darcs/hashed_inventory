@@ -1,4 +1,4 @@
-pristine:0000001278-75415acb2a97705c9954f1eb2346a6e442eeb3ed7950380be5a7e17082fbcf18
+pristine:0000001278-95ea4e7cbe24706afe13d5dfcede7941747999b0ec0a2eb0ab3b190365620e18
 Starting with inventory:
 0000024596-5338ca5ada624999e4650f1dce86a0efe0e3af7574023b1047858431b6b8d5b6
 [TAG 2.0-rc1
@@ -102,3 +102,120 @@ gregoire.henry@pps.jussieu.fr**20110802123208
  
 ] 
 hash: 0000005014-b50ea0438a1ae4ba00f13eecac68ad531d2604d3929a54198c20f1771165086a
+[Tools: fix help message of eliomc and js_of_eliom
+gregoire.henry@pps.jussieu.fr**20110803103713
+ Ignore-this: eefca2241901b0ecd13ac52b4112e7b9
+] 
+hash: 0000000917-f4e4aee1388ec97c6a35ff606b9448be9fb84e243db0d7d798e2723971fb99be
+[Eliom_uri: do not generate absolute link when not explicitely asked.
+gregoire.henry@pps.jussieu.fr**20110803110633
+ Ignore-this: 36cfd34455599b5ef7e419917fe21c06
+ 
+ It reverts previous patch "Use absolute path for link generated
+ without sp." and extends "Eliom: ?sp paremeter now
+ optional in Eliom_uri.make_string_uri (and co) to make possible to use
+ them during initialisation"
+ 
+] 
+hash: 0000006984-99bb5f56f36285b27f5fdcc08397fb84381e7994e9f09a4014bc179e4e66f545
+[HTML5.M: delay the calculation of "a" tag's href to the printing phase or "wrapping" phase.
+gregoire.henry@pps.jussieu.fr**20110803120826
+ Ignore-this: 477990f16494cd67016222eea7b97457
+ 
+ It allow the definition of global anchor nodes with relative link when
+ "sp" isn't available (e.g. at the toplevel of a module).
+] 
+hash: 0000008965-72858bef3470e95168f4b9528f294c9371308ccc2e3d49b9a5382bdff35f0703
+[testsuite: fixing wrong scope in several examples
+balat at univ-paris-diderot.fr**20110802142306
+ Ignore-this: f0a555e7893face4c6dab599299ee6ea
+] 
+hash: 0000000356-6560a06d2a25d6c3df50d9b217b3c97b18a7cb042264c28116cfd65bcf60412b
+[Session group data: adding two tests and documenting the behaviour when all sessions from a group are closed
+balat at univ-paris-diderot.fr**20110802160241
+ Ignore-this: 2bd3891621e3ff4a010c15a60b14ec9f
+ In the case of persistent data, they persist and can be used as a database
+ For volatile data, they are discarded, which is weird and not coherent but:
+  - keeping them may cause a memory leak
+  - I can't see any good use a volatile group data for now
+  - volatile data session are (hopefully) going to disappear soon
+] 
+hash: 0000013295-e85ce15b63a8a5dbca11b90d6a970d9b73cec453855f21b62280fd605914ef64
+[Doc: skeleton of chapter on client/server applications (+ some fixes in doc)
+balat at univ-paris-diderot.fr**20110803150351
+ Ignore-this: e8ed31992f870fcaece0132d1478ece0
+] 
+hash: 0000002797-43ff73ac04dfa0eb7c32d6ede36a18cdd5d6b7b5211289f5e14a54cfad60876f
+[Fix non-attached coservice relative url calculation with Eliom_appl.
+gregoire.henry@pps.jussieu.fr**20110803162125
+ Ignore-this: fdaf5b193e538af3d491e41ddc67b02b
+ 
+ Non-attached coservice url was usually "./". It didn't work with
+ Eliom_appl when the actual URL is encoded in the "fragment" part of
+ the URL.
+] 
+hash: 0000001129-eab5630cdf1ce640d587505c9a41f578fa746174a6622771d664ca26e50b2245
+[Dead code elimination: Eliommod_mkforms isn't used anymore
+gregoire.henry@pps.jussieu.fr**20110804101116
+ Ignore-this: d5719b877cc2dedcccad669529d89f4c
+] 
+hash: 0000011071-bed871e3f65ec254fc33bdaa4997c307909bc6ef8ae29d3e0813bf713b9c3c82
+[Eliom_output.Html5: delay the calculation of form's action.
+gregoire.henry@pps.jussieu.fr**20110804163431
+ Ignore-this: d55788f224ecb3177e31c3621432ecaa
+ 
+ This patch is the continuation of "HTML5.M: delay the calculation of
+ "a" tag's href to the printing phase or "wrapping" phase."
+ 
+ It requires adding a notion of "lazy XML node" whose computation is
+ delayed. It's used for for "hidden parameters" in GET forms.
+ 
+ While this patch is functionnal, this is ongoing work : the actual
+ implementation of Eliom_lazy.request recompute the value at each
+ Eliom_lazy.force.
+ 
+] 
+hash: 0000022211-162312c82aae1c6a236a7674fb3cdad731b50c033f6e8bac1046fab179f036f6
+[Eliom_appl: Use the HTML5 history API when available.
+gregoire.henry@pps.jussieu.fr**20110805203216
+ Ignore-this: 468e1ef3f0225792bc2e51c876e52ff
+] 
+hash: 0000007197-73fbac8f954d59c3a00bd8ca8e153f59df904406539ea0047241d46dbf5270a4
+[Eliom_appl: bug fix with the history API.
+gregoire.henry@pps.jussieu.fr**20110808150146
+ Ignore-this: ff0ce3508111d81196387fe5c88cbf87
+ 
+ The url need to be updated before the DOM tree construction. Otherwise
+ some relative links are broken (e.g. css link in the header).
+] 
+hash: 0000003743-f836787aad53db75f033902c7010bdd49cef827fc3cf8b616067fdd40e3b32dc
+[Eliom_appl: remove the dummy pushState made on every popState...
+gregoire.henry@pps.jussieu.fr**20110811191148
+ Ignore-this: a61415f98eedb60662194dc37117280
+] 
+hash: 0000000260-e8c26b5c76e37f268a311682922d4072452ce3713762fcce38c405de2294c55f
+[Doc (Eliom client)
+balat at univ-paris-diderot.fr**20110823162405
+ Ignore-this: a8bd293e499c4b16f23e0ff8dc6d9594
+] 
+hash: 0000005785-4e84206996417d4b4639b23f3ae17cbc2b0bd6d5669066e1cae44bd18084eb99
+[Hack to circumvent bug in old firebug.
+chambart@crans.org**20110822160231
+ Ignore-this: f11addb1e1780aae6a15faaa64c1f5ac
+] 
+hash: 0000000669-e98b63ac6c86ee3d4575fd3686db77bd6ee932e26fd1ec7a7f69f29e3ae9c8a8
+[circumvent ff3.6 bug
+chambart@crans.org**20110824163702
+ Ignore-this: e331f5e52b9cc6aaeda1cd7e279330b
+] 
+hash: 0000007814-cb9544097ad20978dab12dad155a29d68c16cce1fd0d85dba01db3c7da19743e
+[Eliom_unwrap: tail recursive search_and_replace
+chambart@crans.org**20110825150828
+ Ignore-this: 2c60cb14d175ba2d7e844e41e244c3a8
+] 
+hash: 0000002934-abdfd211d452c196f18f63146e088c7716d4fa7155f9b6587770c2333c824607
+[Eliom_wrap: tail recursive search_and_replace
+chambart@crans.org**20110825171728
+ Ignore-this: 884d56010380096bfb14846dc7b633af
+] 
+hash: 0000004707-92a6c4b22f5017e426f105ec767106f4072fcdf88b752295fd2c9c100378e8ec

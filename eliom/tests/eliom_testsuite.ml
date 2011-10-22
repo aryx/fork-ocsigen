@@ -162,6 +162,14 @@ let _ = Eliom_output.Html5.register Eliom_testsuite3.main
               pcdata "Persistent sessions: ";
               a persist_session_example [code [pcdata "persist"]] ();
               br ();
+
+              pcdata "Volatile group data: ";
+              a connect_example_gd [code [pcdata "sessgrpdata"]] ();
+              br ();
+
+              pcdata "Persistent group data: ";
+              a connect_example_pgd [code [pcdata "psessgrpdata"]] ();
+              br ();
             ];
 
             h4 [pcdata "Other"];
@@ -381,6 +389,8 @@ let _ = Eliom_output.Html5.register Eliom_testsuite3.main
               br ();
               a wrapping1 [pcdata "wrapping test 1"] ();
               br ();
+              a wrapping_big_values [pcdata "wrapping test: big values"] ();
+              br ();
               a caml_service_wrapping [pcdata "wrapping for caml call service"] ();
               br ();
               a service_style1 [pcdata "test header modifications"] ();
@@ -420,7 +430,7 @@ let _ = Eliom_output.Html5.register Eliom_testsuite3.main
               br ();
             ];
             
-            h4 [pcdata "Tab sessions"];
+            h4 [pcdata "Process states"];
             p [
               pcdata "Coservices: ";
               a tcoservices_example [code [pcdata "tcoservice"]] ();

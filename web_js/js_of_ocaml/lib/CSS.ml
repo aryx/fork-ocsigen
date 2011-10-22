@@ -18,9 +18,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
+module Color = struct
 
 (*The type of CSS colors. First by name and then by constructor.*)
-type color_name =
+type name =
   | Aliceblue | Antiquewhite | Aqua | Aquamarine | Azure
   | Beige | Bisque | Black | Blanchedalmond | Blue | Blueviolet | Brown
   | Burlywood
@@ -57,7 +58,7 @@ type color_name =
   | Wheat | White | Whitesmoke
   | Yellow | Yellowgreen
 
-let string_of_color_name = function
+let string_of_name = function
   | Aliceblue              -> "aliceblue"
   | Antiquewhite           -> "antiquewhite"
   | Aqua                   -> "aqua"
@@ -206,7 +207,157 @@ let string_of_color_name = function
   | Yellow                 -> "yellow"
   | Yellowgreen            -> "yellowgreen"
 
-let rgb_of_color_name = function
+let name_of_string = function
+  | "aliceblue"            -> Aliceblue
+  | "antiquewhite"         -> Antiquewhite
+  | "aqua"                 -> Aqua
+  | "aquamarine"           -> Aquamarine
+  | "azure"                -> Azure
+  | "beige"                -> Beige
+  | "bisque"               -> Bisque
+  | "black"                -> Black
+  | "blanchedalmond"       -> Blanchedalmond
+  | "blue"                 -> Blue
+  | "blueviolet"           -> Blueviolet
+  | "brown"                -> Brown
+  | "burlywood"            -> Burlywood
+  | "cadetblue"            -> Cadetblue
+  | "chartreuse"           -> Chartreuse
+  | "chocolate"            -> Chocolate
+  | "coral"                -> Coral
+  | "cornflowerblue"       -> Cornflowerblue
+  | "cornsilk"             -> Cornsilk
+  | "crimson"              -> Crimson
+  | "cyan"                 -> Cyan
+  | "darkblue"             -> Darkblue
+  | "darkcyan"             -> Darkcyan
+  | "darkgoldenrod"        -> Darkgoldenrod
+  | "darkgray"             -> Darkgray
+  | "darkgreen"            -> Darkgreen
+  | "darkgrey"             -> Darkgrey
+  | "darkkhaki"            -> Darkkhaki
+  | "darkmagenta"          -> Darkmagenta
+  | "darkolivegreen"       -> Darkolivegreen
+  | "darkorange"           -> Darkorange
+  | "darkorchid"           -> Darkorchid
+  | "darkred"              -> Darkred
+  | "darksalmon"           -> Darksalmon
+  | "darkseagreen"         -> Darkseagreen
+  | "darkslateblue"        -> Darkslateblue
+  | "darkslategray"        -> Darkslategray
+  | "darkslategrey"        -> Darkslategrey
+  | "darkturquoise"        -> Darkturquoise
+  | "darkviolet"           -> Darkviolet
+  | "deeppink"             -> Deeppink
+  | "deepskyblue"          -> Deepskyblue
+  | "dimgray"              -> Dimgray
+  | "dimgrey"              -> Dimgrey
+  | "dodgerblue"           -> Dodgerblue
+  | "firebrick"            -> Firebrick
+  | "floralwhite"          -> Floralwhite
+  | "forestgreen"          -> Forestgreen
+  | "fuchsia"              -> Fuchsia
+  | "gainsboro"            -> Gainsboro
+  | "ghostwhite"           -> Ghostwhite
+  | "gold"                 -> Gold
+  | "goldenrod"            -> Goldenrod
+  | "gray"                 -> Gray
+  | "green"                -> Green
+  | "greenyellow"          -> Greenyellow
+  | "grey"                 -> Grey
+  | "honeydew"             -> Honeydew
+  | "hotpink"              -> Hotpink
+  | "indianred"            -> Indianred
+  | "indigo"               -> Indigo
+  | "ivory"                -> Ivory
+  | "khaki"                -> Khaki
+  | "lavender"             -> Lavender
+  | "lavenderblush"        -> Lavenderblush
+  | "lawngreen"            -> Lawngreen
+  | "lemonchiffon"         -> Lemonchiffon
+  | "lightblue"            -> Lightblue
+  | "lightcoral"           -> Lightcoral
+  | "lightcyan"            -> Lightcyan
+  | "lightgoldenrodyellow" -> Lightgoldenrodyellow
+  | "lightgray"            -> Lightgray
+  | "lightgreen"           -> Lightgreen
+  | "lightgrey"            -> Lightgrey
+  | "lightpink"            -> Lightpink
+  | "lightsalmon"          -> Lightsalmon
+  | "lightseagreen"        -> Lightseagreen
+  | "lightskyblue"         -> Lightskyblue
+  | "lightslategray"       -> Lightslategray
+  | "lightslategrey"       -> Lightslategrey
+  | "lightsteelblue"       -> Lightsteelblue
+  | "lightyellow"          -> Lightyellow
+  | "lime"                 -> Lime
+  | "limegreen"            -> Limegreen
+  | "linen"                -> Linen
+  | "magenta"              -> Magenta
+  | "maroon"               -> Maroon
+  | "mediumaquamarine"     -> Mediumaquamarine
+  | "mediumblue"           -> Mediumblue
+  | "mediumorchid"         -> Mediumorchid
+  | "mediumpurple"         -> Mediumpurple
+  | "mediumseagreen"       -> Mediumseagreen
+  | "mediumslateblue"      -> Mediumslateblue
+  | "mediumspringgreen"    -> Mediumspringgreen
+  | "mediumturquoise"      -> Mediumturquoise
+  | "mediumvioletred"      -> Mediumvioletred
+  | "midnightblue"         -> Midnightblue
+  | "mintcream"            -> Mintcream
+  | "mistyrose"            -> Mistyrose
+  | "moccasin"             -> Moccasin
+  | "navajowhite"          -> Navajowhite
+  | "navy"                 -> Navy
+  | "oldlace"              -> Oldlace
+  | "olive"                -> Olive
+  | "olivedrab"            -> Olivedrab
+  | "orange"               -> Orange
+  | "orangered"            -> Orangered
+  | "orchid"               -> Orchid
+  | "palegoldenrod"        -> Palegoldenrod
+  | "palegreen"            -> Palegreen
+  | "paleturquoise"        -> Paleturquoise
+  | "palevioletred"        -> Palevioletred
+  | "papayawhip"           -> Papayawhip
+  | "peachpuff"            -> Peachpuff
+  | "peru"                 -> Peru
+  | "pink"                 -> Pink
+  | "plum"                 -> Plum
+  | "powderblue"           -> Powderblue
+  | "purple"               -> Purple
+  | "red"                  -> Red
+  | "rosybrown"            -> Rosybrown
+  | "royalblue"            -> Royalblue
+  | "saddlebrown"          -> Saddlebrown
+  | "salmon"               -> Salmon
+  | "sandybrown"           -> Sandybrown
+  | "seagreen"             -> Seagreen
+  | "seashell"             -> Seashell
+  | "sienna"               -> Sienna
+  | "silver"               -> Silver
+  | "skyblue"              -> Skyblue
+  | "slateblue"            -> Slateblue
+  | "slategray"            -> Slategray
+  | "slategrey"            -> Slategrey
+  | "snow"                 -> Snow
+  | "springgreen"          -> Springgreen
+  | "steelblue"            -> Steelblue
+  | "tan"                  -> Tan
+  | "teal"                 -> Teal
+  | "thistle"              -> Thistle
+  | "tomato"               -> Tomato
+  | "turquoise"            -> Turquoise
+  | "violet"               -> Violet
+  | "wheat"                -> Wheat
+  | "white"                -> White
+  | "whitesmoke"           -> Whitesmoke
+  | "yellow"               -> Yellow
+  | "yellowgreen"          -> Yellowgreen
+  | s -> raise (Invalid_argument (s ^ " is not a valid color name"))
+
+let rgb_of_name = function
   | Aliceblue              -> (240,248,255)
   | Antiquewhite           -> (250,235,215)
   | Aqua                   -> (0,255,255)
@@ -355,15 +506,15 @@ let rgb_of_color_name = function
   | Yellow                 -> (255,255,0)
   | Yellowgreen            -> (154,205,50)
 
-type color =
-  | Color_name of color_name
+type t =
+  | Name of name
 
   | RGB of (int * int * int)
     (**Red, Green and Blue values. Clipped to [[0..255]] by most (All?)
        browsers.*)
 
   | RGB_percent of (int * int * int)
-    (**RBG channels are specified as a percentage of their maximal value.*)
+    (**RGB channels are specified as a percentage of their maximal value.*)
 
   | RGBA of (int * int * int * float)
     (**Same as RGB with additionnal transparency argument. Opacity should be in
@@ -390,8 +541,8 @@ let hsl ?a h s l = match a with
   | None   -> HSL(h,s,l)
   | Some a -> HSLA(h,s,l,a)
 
-let string_of_color = function
-  | Color_name n           -> string_of_color_name n
+let string_of_t = function
+  | Name n                 -> string_of_name n
   | RGB (r,g,b)            -> Printf.sprintf "rgb(%d,%d,%d)"           r g b
   | RGB_percent (r,g,b)    -> Printf.sprintf "rgb(%d%%,%d%%,%d%%)"     r g b
   | RGBA (r,g,b,a)         -> Printf.sprintf "rgba(%d,%d,%d,%f)"       r g b a
@@ -400,10 +551,10 @@ let string_of_color = function
   | HSLA (h,s,l,a)         -> Printf.sprintf "hsla(%d,%d%%,%d%%,%f)"   h s l a
 
 (*Ocaml <-> JS representation*)
-type js_color = Js.js_string Js.t
+type js_t = Js.js_string Js.t
 
 (*TODO? be more restrictive, clip values into standard range*)
-let js_color_of_js_string s =
+let js_t_of_js_string s =
   let rgb_re = jsnew Js.regExp
     (Js.bytestring "^rgb\\(\\s*\\d*,\\s*\\d*,\\s*\\d*\\)$")
   in
@@ -463,12 +614,184 @@ let js_color_of_js_string s =
       s
     else raise (Invalid_argument (Js.to_string s ^ " is not a valid color"))
 
-let color_name cn = Js.string (string_of_color_name cn)
+let name cn = Js.string (string_of_name cn)
 
 (*TODO? inline function calls*)
-let color = function
-  | Color_name n -> color_name n
+let js = function
+  | Name n -> name n
   | RGB _ | RGB_percent _ | RGBA _ | RGBA_percent _
   | HSL _ | HSLA _ as c
-  -> Js.string (string_of_color c)
+  -> Js.string (string_of_t c)
 
+let ml c =
+  let s = Js.to_string c in
+  try Name (name_of_string s) with Invalid_argument _ ->
+  let fail () = raise (Invalid_argument (s ^ " is not a valid color")) in
+  let re_rgb = Regexp.regexp
+    "(rgba?)\\((?:(\\d*),(\\d*),(\\d*)(?:,(\\d*(?:\\.\\d*)?))?)\\)"
+  in
+  let re_rgb_pct = Regexp.regexp
+    "(rgba?)\\((?:(\\d*)%,(\\d*)%,(\\d*)%(?:,(\\d*(?:\\.\\d*)?))?)\\)"
+  in
+  let re_hsl = Regexp.regexp
+    "(hsla?)\\((?:(\\d*),(\\d*)%,(\\d*)%(?:,(\\d*(?:\\.\\d*)?))?)\\)"
+  in
+  let i_of_s_o = function
+    | None -> fail ()
+    | Some i ->
+      try int_of_string i
+      with Invalid_argument s | Failure s ->
+        raise (Invalid_argument ("color conversion error ("^i^"): " ^ s))
+  in
+  let f_of_s f =
+    try float_of_string f
+    with Invalid_argument s | Failure s ->
+      raise (Invalid_argument ("color conversion error ("^f^"): " ^ s))
+  in
+  match Regexp.string_match re_rgb s 0 with
+  | Some r -> begin
+    let red   = Regexp.matched_group r 2 in
+    let green = Regexp.matched_group r 3 in
+    let blue  = Regexp.matched_group r 4 in
+    let alpha = Regexp.matched_group r 5 in
+    match Regexp.matched_group r 1 with
+    | Some "rgb"  -> begin match alpha with
+      | Some _ -> fail ()
+      | None   -> RGB (i_of_s_o red, i_of_s_o green, i_of_s_o blue)
+    end
+    | Some "rgba" -> begin match alpha with
+      | None   -> fail ()
+      | Some a -> RGBA (i_of_s_o red, i_of_s_o green, i_of_s_o blue, f_of_s a)
+    end
+    | Some _ | None -> fail ()
+  end
+
+  | None -> match Regexp.string_match re_rgb_pct s 0 with
+    | Some r -> begin
+      let red   = Regexp.matched_group r 2 in
+      let green = Regexp.matched_group r 3 in
+      let blue  = Regexp.matched_group r 4 in
+      let alpha = Regexp.matched_group r 5 in
+      match Regexp.matched_group r 1 with
+      | Some "rgb" -> begin match alpha with
+        | Some _ -> fail ()
+        | None   -> RGB_percent (i_of_s_o red, i_of_s_o green, i_of_s_o blue)
+      end
+      | Some "rgba" -> begin match alpha with
+        | None   -> fail ()
+        | Some a -> RGBA_percent (i_of_s_o red, i_of_s_o green, i_of_s_o blue, f_of_s a)
+      end
+        | Some _ | None -> fail ()
+    end
+
+    | None -> match Regexp.string_match re_hsl s 0 with
+      | Some r -> begin
+        let red   = Regexp.matched_group r 2 in
+        let green = Regexp.matched_group r 3 in
+        let blue  = Regexp.matched_group r 4 in
+        let alpha = Regexp.matched_group r 5 in
+        match Regexp.matched_group r 1 with
+        | Some "hsl"  -> begin match alpha with
+          | Some _ -> fail ()
+          | None   -> HSL (i_of_s_o red, i_of_s_o green, i_of_s_o blue)
+        end
+        | Some "hsla" -> begin match alpha with
+          | None   -> fail ()
+          | Some a -> HSLA (i_of_s_o red, i_of_s_o green, i_of_s_o blue, f_of_s a)
+        end
+        | Some _ | None -> fail ()
+      end
+      | None -> fail ()
+
+
+end
+
+
+module Length = struct
+  (* http://www.w3.org/TR/css3-values/#lengths *)
+
+  (*TODO:
+  type js_t = private Js.string Js.t
+  val js_t_of_t
+  val t_of_js_t
+  val t_of_string
+  *)
+
+  type t =
+    | Zero
+    (*relative*)
+    | Em  of float
+    | Ex  of float
+    | Px  of float
+    | Gd  of float
+    | Rem of float
+    | Vw  of float
+    | Vh  of float
+    | Vm  of float
+    | Ch  of float
+    (*absolute*)
+    | Mm of float
+    | Cm of float
+    | In of float
+    | Pt of float
+    | Pc of float
+
+  let string_of_t = function
+    | Zero  -> "0"
+    | Em  f -> Printf.sprintf "%f%s" f "em"
+    | Ex  f -> Printf.sprintf "%f%s" f "ex"
+    | Px  f -> Printf.sprintf "%f%s" f "px"
+    | Gd  f -> Printf.sprintf "%f%s" f "gd"
+    | Rem f -> Printf.sprintf "%f%s" f "rem"
+    | Vw  f -> Printf.sprintf "%f%s" f "vw"
+    | Vh  f -> Printf.sprintf "%f%s" f "vh"
+    | Vm  f -> Printf.sprintf "%f%s" f "vm"
+    | Ch  f -> Printf.sprintf "%f%s" f "ch"
+    | Mm  f -> Printf.sprintf "%f%s" f "mm"
+    | Cm  f -> Printf.sprintf "%f%s" f "cm"
+    | In  f -> Printf.sprintf "%f%s" f "in"
+    | Pt  f -> Printf.sprintf "%f%s" f "pt"
+    | Pc  f -> Printf.sprintf "%f%s" f "pc"
+
+  type js_t = Js.js_string Js.t
+
+  let js t = Js.string (string_of_t t)
+
+  let ml t =
+    let s = Js.to_string t in
+    if s = "0" then
+      Zero
+    else
+      let fail () = raise (Invalid_argument (s ^ " is not a valid length")) in
+      let re = Regexp.regexp "^(\\d*(?:\\.\\d*)?)\\s*(\\S*)$" in
+      match Regexp.string_match re s 0 with
+      | None -> fail ()
+      | Some r ->
+        let f = match Regexp.matched_group r 1 with
+          | None -> fail ()
+          | Some f ->
+            try float_of_string f
+            with Invalid_argument s ->
+              raise (Invalid_argument ("length conversion error: " ^ s))
+        in
+        match Regexp.matched_group r 2 with
+        | None -> fail ()
+        | Some "em"  -> Em  f
+        | Some "ex"  -> Ex  f
+        | Some "px"  -> Px  f
+        | Some "gd"  -> Gd  f
+        | Some "rem" -> Rem f
+        | Some "vw"  -> Vw  f
+        | Some "vh"  -> Vh  f
+        | Some "vm"  -> Vm  f
+        | Some "ch"  -> Ch  f
+        | Some "mm"  -> Mm  f
+        | Some "cm"  -> Cm  f
+        | Some "in"  -> In  f
+        | Some "pt"  -> Pt  f
+        | Some "pc"  -> Pc  f
+        | Some _     -> fail ()
+
+
+
+end

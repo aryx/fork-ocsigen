@@ -129,27 +129,37 @@ module Html5_forms_base = struct
   let make_a ?(a=[]) ?href (l : 'a a_content_elt_list) : 'a a_elt =
     let a = match href with
       | None -> a
-      | Some v -> (a_href (uri_of_string v))::a
+      | Some href -> lazy_a_href href :: a
     in
     HTML5.M.a ~a l
 
-  let make_get_form ?(a=[]) ~action elt1 elts : form_elt =
+  let make_empty_form_content () = p [pcdata ""] (**** à revoir !!!!! *)
+  let remove_first = function
+    | a::l -> a,l
+    | [] -> (make_empty_form_content ()), []
+
+  let make_get_form ?(a=[]) ~action elts : form_elt =
+    let elts = Eliom_lazy.from_fun (fun () -> remove_first (Eliom_lazy.force elts)) in
+    let elt1 = Eliom_lazy.from_fun (fun () -> fst (Eliom_lazy.force elts))
+    and elts = Eliom_lazy.from_fun (fun () -> snd (Eliom_lazy.force elts)) in
     let r =
-      HTML5.M.form ~a:((a_method `Get)::(a_action (uri_of_string action))::a)
-        elt1 elts
+      lazy_form ~a:((a_method `Get)::(lazy_a_action action)::a) elt1 elts
     in
     r
 
-  let make_post_form ?(a=[]) ~action ?id ?(inline = false) elt1 elts
+  let make_post_form ?(a=[]) ~action ?id ?(inline = false) elts
       : form_elt =
     let aa = (match id with
     | None -> a
     | Some i -> (a_id i)::a)
     in
+    let elts = Eliom_lazy.from_fun (fun () -> remove_first (Eliom_lazy.force elts)) in
+    let elt1 = Eliom_lazy.from_fun (fun () -> fst (Eliom_lazy.force elts))
+    and elts = Eliom_lazy.from_fun (fun () -> snd (Eliom_lazy.force elts)) in
     let r =
-      form ~a:((HTML5.M.a_enctype "multipart/form-data")::
+      lazy_form ~a:((HTML5.M.a_enctype "multipart/form-data")::
                 (* Always Multipart!!! How to test if there is a file?? *)
-                  (a_action (uri_of_string action))::
+                  (lazy_a_action action)::
                   (a_method `Post)::
                   (if inline then (a_class ["inline"])::aa else aa))
         elt1 elts
@@ -162,12 +172,6 @@ module Html5_forms_base = struct
       | Some c -> [c]
     in
     (div ~a:[a_class ["eliom_nodisplay"]] c :> form_content_elt)
-
-  let make_empty_form_content () = p [pcdata ""] (**** à revoir !!!!! *)
-
-  let remove_first = function
-    | a::l -> a,l
-    | [] -> (make_empty_form_content ()), []
 
   let make_input ?(a=[]) ?(checked=false) ~typ ?name ?src ?value () =
     let a2 = match value with

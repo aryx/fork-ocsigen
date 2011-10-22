@@ -18,6 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-val statement : Format.formatter -> Javascript.statement -> unit
+val statement : Pretty_print.t -> Javascript.statement -> unit
 
-val program : Format.formatter -> Javascript.function_body -> unit
+val program : Pretty_print.t -> Javascript.function_body -> unit

@@ -146,6 +146,7 @@ module XML : sig
   type racontent =
     | RA of acontent
     | RACamlEvent of (aname * caml_event)
+    | RALazyString of aname * string Eliom_lazy.request
   val racontent : attrib -> racontent
 
   val float_attrib : aname -> float -> attrib
@@ -167,8 +168,6 @@ module XML : sig
     | Node of ename * attrib list * elt list
   val content : elt -> econtent
 
-  val make : econtent -> elt
-
   val empty : unit -> elt
 
   val comment : string -> elt
@@ -183,6 +182,7 @@ module XML : sig
   val node : ?a:(attrib list) -> ename -> elt list -> elt
     (** NB: [Leaf ("foo", []) -> "<foo />"],
 	but [Node ("foo", [], []) -> "<foo></foo>"] *)
+  val lazy_node : ?a:(attrib list) -> ename -> elt list Eliom_lazy.request -> elt
 
   val cdata : string -> elt
   val cdata_script : string -> elt
@@ -191,11 +191,6 @@ module XML : sig
   val make_unique : ?copy:elt -> elt -> elt
   val is_unique : elt -> bool
   val get_unique_id : elt -> string option
-
-  module Hashtbl : Hashtbl.S with type key = elt
-
-  val hash: elt -> int
-  val compare: elt -> elt -> int
 
   type ref_tree
   val make_ref_tree : elt -> ref_tree
@@ -220,8 +215,21 @@ module HTML5 : sig
 
   (** Type safe HTML5 creation. *)
   module M : sig
+
+
     include HTML5_sigs.T with module XML := XML and module SVG := SVG.M
+
     val unique: ?copy:'a elt -> 'a elt -> 'a elt
+
+    type ('a, 'b, 'c) lazy_plus =
+      ?a: (('a attrib) list) -> 'b elt Eliom_lazy.request -> ('b elt) list Eliom_lazy.request -> 'c elt
+
+    val lazy_a_href : uri Eliom_lazy.request -> [> `Href ] attrib
+    val lazy_a_action : uri Eliom_lazy.request -> [> `Action ] attrib
+
+    val lazy_form:
+      ([< HTML5_types.form_attrib ], [< HTML5_types.form_content_fun ], [> HTML5_types.form ]) lazy_plus
+
   end
   module P : XML_sigs.TypedSimplePrinter with type 'a elt := 'a M.elt
 					  and type doc := M.doc
@@ -231,12 +239,40 @@ end
 module XHTML : sig
 
   (** Type safe XHTML creation. *)
-  module M : XHTML_sigs.T with module XML := XML
+  module M : sig
+    include XHTML_sigs.T with module XML := XML
+
+    type ('a, 'b, 'c) lazy_plus =
+      ?a: (('a attrib) list) -> 'b elt Eliom_lazy.request -> ('b elt) list Eliom_lazy.request -> 'c elt
+
+    val lazy_a_href : uri Eliom_lazy.request -> [> `Href ] attrib
+    val lazy_a_action : uri Eliom_lazy.request -> [> `Action ] attrib
+
+    val lazy_form:
+      action:uri Eliom_lazy.request ->
+      ([< XHTML_types.form_attrib ], [< XHTML_types.form_content ], [> XHTML_types.form ]) lazy_plus
+
+  end
   module P : XML_sigs.TypedSimplePrinter
              with type 'a elt := 'a M.elt
 	      and type doc := M.doc
 
-  module M_01_00 : XHTML_sigs.T with module XML := XML
+  module M_01_00 : sig
+
+    include XHTML_sigs.T with module XML := XML
+
+    type ('a, 'b, 'c) lazy_plus =
+      ?a: (('a attrib) list) -> 'b elt Eliom_lazy.request -> ('b elt) list Eliom_lazy.request -> 'c elt
+
+    val lazy_a_href : uri Eliom_lazy.request -> [> `Href ] attrib
+    val lazy_a_action : uri Eliom_lazy.request -> [> `Action ] attrib
+
+    val lazy_form:
+      action:uri Eliom_lazy.request ->
+      ([< XHTML_types.form_attrib ], [< XHTML_types.form_content ], [> XHTML_types.form ]) lazy_plus
+
+  end
+
   module P_01_00 : XML_sigs.TypedSimplePrinter
                    with type 'a elt := 'a M_01_00.elt
 		    and type doc := M_01_00.doc
@@ -244,7 +280,23 @@ module XHTML : sig
                    with type 'a elt := 'a M_01_00.elt
 		    and type doc := M_01_00.doc
 
-  module M_01_01 : XHTML_sigs.T with module XML := XML
+
+  module M_01_01 : sig
+
+    include XHTML_sigs.T with module XML := XML
+
+    type ('a, 'b, 'c) lazy_plus =
+      ?a: (('a attrib) list) -> 'b elt Eliom_lazy.request -> ('b elt) list Eliom_lazy.request -> 'c elt
+
+    val lazy_a_href : uri Eliom_lazy.request -> [> `Href ] attrib
+    val lazy_a_action : uri Eliom_lazy.request -> [> `Action ] attrib
+
+    val lazy_form:
+      action:uri Eliom_lazy.request ->
+      ([< XHTML_types.form_attrib ], [< XHTML_types.form_content ], [> XHTML_types.form ]) lazy_plus
+
+  end
+
   module P_01_01 : XML_sigs.TypedSimplePrinter
                    with type 'a elt := 'a M_01_01.elt
 		    and type doc := M_01_01.doc
@@ -255,3 +307,5 @@ module XHTML : sig
 end
 
 type file_info = Ocsigen_extensions.file_info
+
+val debug: ('a, unit, string, unit) format4 -> 'a
