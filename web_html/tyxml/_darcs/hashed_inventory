@@ -1,13 +1,20 @@
-pristine:0000001283-15c8289439f7c013531b8afd5236e134d0f3b7f29d4ec90afb82e89a39559a98
+pristine:0000001283-b64081d59aab613d7a0f8f2abf1cb791d414aec6045f03ae2c054efb6aa36e88
 Starting with inventory:
-0000003555-fcc40df773401ab9c29e34e3071c6b1fd47cbc47cf89179103f3668d50c043fb
-[TAG 2.0-rc1
-gregoire.henry@pps.jussieu.fr**20110714112302
- Ignore-this: 5ade5a2744415df24dbaa2cb11dcfb2b
+0000002249-f7ca4b5acb7103df0fc466f01ce14b492a32d184c912a72f0609f95f8b64c625
+[TAG 2.0
+gregoire.henry@pps.jussieu.fr**20110920202504
+ Ignore-this: d5f43a7e9bec1688cc73e34f1c799165
 ] 
-hash: 0000002336-1ef2bf0dacef7dcc615d1cceeea85bd3c9c1e8eacd3d8935fd346b41a1028ed4
-[Missing files in makefiles
-Stephane Glondu <steph@glondu.net>**20110715124456
- Ignore-this: c650efcc8ffe026ca93fcef0165a0291
+hash: 0000000323-dc0a90cc0588103de2d87a6d90e9bc04b7ba5a1b45b7407d949476b59dc9f32f
+[Introduce Info.alternative_content_type
+gregoire.henry@pps.jussieu.fr**20111013101416
+ Ignore-this: e06d2bdd10dc05ec3e7bae0615a3c46
 ] 
-hash: 0000000662-4aabc2bb9a270fedd4832b253b02ed1cdff20b77d26587c6b409de979c835f92
+hash: 0000000537-acb6d3570fb1803e276eba233e481e5040364828923bcc973f8b19e9c272727f
+[Always print XHTML in a format that is "Html compatible".
+gregoire.henry@pps.jussieu.fr**20111013102101
+ Ignore-this: e9d0c800d2ffeeee373d76c485edb743
+ 
+ See http://www.w3.org/TR/xhtml1/#guidelines
+] 
+hash: 0000006534-77831eaa0f85ee80f2232d212c47a45350dbc7ccc2bb79f4849b84a90eeeb305

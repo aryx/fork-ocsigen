@@ -80,8 +80,10 @@ end
 
 module type Info = sig
   val content_type: string
+  val alternative_content_types: string list
   val version: string
   val standard: Uri.uri
+  val namespace: string
   val doctype: string
   val emptytags: string list
 end

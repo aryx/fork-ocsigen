@@ -51,8 +51,12 @@ let compose_decl ?(version = "1.0") ?(encoding = "UTF-8") () =
   "<?xml version=\"" ^ version ^ "\" encoding=\"" ^ encoding ^ "\"?>\n"
 
 let compose_doctype dt args =
-  "<!DOCTYPE " ^ dt ^ " PUBLIC " ^
-  String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args) ^ ">\n"
+  "<!DOCTYPE " ^ dt
+  ^ (if args = []
+     then ""
+     else
+      " PUBLIC " ^
+	String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args)) ^ ">"
 
 module Make(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)(O : XML_sigs.Output) = struct
 
@@ -84,15 +88,15 @@ module Make(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)(O 
   and xh_print_text texte = O.put texte
 
   and xh_print_closedtag encode tag attrs =
-    if List.mem tag F.emptytags
+    if F.emptytags = [] || List.mem tag F.emptytags
     then
       (O.put ("<"^tag)
 	 ++ xh_print_attrs encode attrs
-	 ++ O.put ">")
+	 ++ O.put " />")
     else
       (O.put ("<"^tag)
          ++ xh_print_attrs encode attrs
-         ++ O.put ((if F.emptytags = [] then " />" else ("></"^tag^">"))))
+         ++ O.put ("></"^tag^">"))
 
   and xh_print_tag encode tag attrs taglist =
     if taglist = []
@@ -156,10 +160,20 @@ module MakeTyped(XML : XML_sigs.Iterable)
     O.make (P.xh_print_taglist encode (List.map TypedXML.toelt foret))
 
   let print ?(encode = encode_unsafe_char) ?(advert = "") doc =
+    let doc = TypedXML.doc_toelt doc in
+    let doc = match XML.content doc with
+      | XML.Node (n, a, c) ->
+	  let a =
+	    if List.exists (fun a -> XML.aname a = "xmlns") a
+	    then a
+	    else XML.string_attrib "xmlns" TypedXML.Info.namespace :: a
+	  in
+	  XML.node ~a n c
+      | _ -> doc in
     O.make
       (O.put TypedXML.Info.doctype
 	 ++ O.put (if advert <> "" then ("<!-- " ^ advert ^ " -->\n") else "\n")
-	 ++ P.xh_print_taglist encode [TypedXML.doc_toelt doc])
+	 ++ P.xh_print_taglist encode [doc])
 
 end
 
