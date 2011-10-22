@@ -1,6 +1,13 @@
 =Parameters, links and forms=
 
-==@@id="p1parameters"@@Parameters==
+<<wip|
+The documentation is now mostly complete, but we are still working on it
+(some parts need to be reworked, some small parts are missing).
+We will release it as a PDF book in a few week.
+Any help appreciated.>>
+
+
+==@@id="parameters"@@Parameters==
   
 ===Services with parameters
 
@@ -55,7 +62,7 @@ the server will display an error-message
 The infix function <<span class="code"|( ** )>> is to be used to
 construct //pairs// (not tuples).\\
 
-===Path suffixes as parameters
+===@@id="suffix"@@Path suffixes as parameters
 
 The following example shows how to create a service with "suffix"
 service
@@ -167,7 +174,7 @@ let mytype =
     
 See [[site:tuto/mytype?valeur=A|<<span class="code"|mytype>>]].
 
-===@@id="p1any"@@Untyped parameters
+===@@id="any"@@Untyped parameters
 
 If you want a service that answers to requests with any parameters,
 use the  <<a_api| val Eliom_parameters.any >> value. The service will get an
@@ -232,7 +239,7 @@ See [[site:tuto/catch?i=22|<<span class="code"|catch>>]] (change the value
    of the parameter).
 
 
-==@@id="p1links"@@Links
+==@@id="links"@@Links
 
 To create a link (<<span class="code"|<a~>>>), use the
  <<a_api| val Eliom_output.Html5.a >> function (or <<a_api| val Eliom_duce.Xhtml.a >>, etc),
@@ -326,7 +333,7 @@ let _ = Eliom_output.Html5.register linkrec
 >>
 [[site:tuto/linkrec| See <<span class="code"|linkrec>>]].
 
-==@@id="p1forms"@@Forms
+==@@id="forms"@@Forms
 
 ===Forms towards GET services
 
@@ -461,7 +468,7 @@ let my_service_with_get_and_post = register_post_service
                    em [pcdata (string_of_int i)]]])))
 >>
 
-===@@id="p1postforms"@@POST forms
+===@@id="postforms"@@POST forms
   
   
  To create a POST form, use the
@@ -530,7 +537,7 @@ See the urls:
 
 
 
-==Non localized parameters==
+==@@id="nonlocalizedparameters"@@Non localized parameters==
 
 Non localized parameters are GET or POST parameters that are not
         taken into account by Eliom for choosing the service.
@@ -637,7 +644,7 @@ Then create your link as usual, for example:
 [[site:tuto/nlparams?i=22&__nl_n_tutoeliom-mynlparams.s=aa&__nl_n_tutoeliom-mynlparams.a=11|Try it]].
 
 
-==@@id="p3advancedformsandparameters"@@Advanced forms and parameters
+==@@id="advancedformsandparameters"@@Advanced forms and parameters
 
 This section shows more advanced use of page parameters and
 corresponding forms.

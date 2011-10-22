@@ -1,4 +1,7 @@
 
+(* When modifying this interface, please ensure that the ocamldoc is
+   coherent with the ocamldoc from Eliom_uri. *)
+
 open Eliom_pervasives
 
 open Eliom_services
@@ -44,41 +47,80 @@ type input_type_t
 type raw_input_type_t
 type button_type_t
 
-(** {2 Links and forms} *)
+(** {2 Forms creation } *)
 
-(** Creates the string corresponding to the relative URL of a service applied to
-    its GET parameters.
+(** {3 Links and forms} *)
 
-    If [absolute] is set to [true], or if there is a protocol change,
-    the URL will be absolute.
+(** The function [make_uri service get_params] returns the URL of the
+    service [service] applied to the GET parameters [get_params]. By
+    default the returned URL is relative to the current request URL
+    but it is absolute when one of the following conditions is met:
 
-    If [absolute_path] is set to [true], and [absolute] is [false],
-    the URL will be absolute, but without [protocol://server:port].
+    - the optional parameter [~absolute_path] is [true].
+    - the optional parameter [~absolute] is [true].
+    - the optional parameter [~https] is [true] (resp. [false])
+    and the current request protocol is [http] (resp. [https]).
+    - the optional parameter [~https] is [true] and the
+    function is used outside of a service handler
+    - the [service] has been created with [~https:true] and the
+    current request protocol is [http].
+    - the [service] has been created with [~https:true] and the
+    function is used outside of a service handler.
 
-    Default hostname is determined from the [Host] http header of the request
-    (or the attribute of <host> tag in
-    configuration file if the option [<usedefaulthostname/>] is set).
-    Default port is the current port (or another port of the server if
-    you are switching from or to https).
-    But you can choose the hostname or port you want by setting
-    the optional [?hostname] and [?port] parameters here. *)
-val make_string_uri :
-  ?absolute:bool ->
-  ?absolute_path:bool ->
-  ?https:bool ->
-  service:('get, unit, [< get_service_kind ],
-           [< suff ], 'gn, unit,
-           [< registrable ], 'return) service ->
-  ?hostname:string ->
-  ?port:int ->
-  ?fragment:string ->
-  ?keep_nl_params:[ `All | `Persistent | `None ] ->
-  ?nl_params: Eliom_parameters.nl_params_set ->
-  'get ->
-  string
+    When only the first condition is met ([~absolute_path] is [true])
+    the returned URL is just the absolute path, but when any other
+    condition is satisfied the returned URL is prefixed with
+    [protocol://hostname\[:port\]], where:
 
-(** Creates the URL for a service.
-    Like the [a] function, it may take extra parameters. *)
+    - [protocol] is:
+    {ul {- [https] if the [service] has been created with [~https:true]
+    or the optional paramater [~https] is [true];}
+    {- [http] if  the optional paramater [~https] is [false];}
+    {- the current request protocol if the function is used in a service handler;}
+    {- [http] in any other case.}}
+    - [hostname] is:
+    {ul {- the optional parameter [~hostname] if given;}
+    {- the attribute [defaulthostname] of [<host>] tag in
+    configuration file or the machine hostname
+    if the option [<usedefaulthostname/>] is set;}
+    {- the [Host] http header of the current request if available;}
+    {- the attribute [defaulthostname] of [<host>] tag in
+    configuration file or the machine hostname in any other case.}}
+    - [port] is:
+    {ul {- the optional parameter [~port] if given;}
+    {- the attribute [defaulthttpsport] (resp. [defaulthttpport]) of [<host>] tag
+    in configuration file or [443] (resp. 80) if [protocol] is [https] (resp. [http]) and
+    the current request protocol is [http] (resp. [https]);}
+    {- the attribute [defaulthttpsport] (resp. [defaulthttpsport]) of [<host>] tag
+    in configuration file or [443] (resp. 80) if the option [<usedefaulthostname/>]
+    is set and [protocol] is [https] (resp. [http]);}
+    {- the port associated to the [Host] http header of the current
+    request if available;}
+    {- the incoming port of the current request if available;}
+    {- the attribute [defaulthttpport] (resp. [defaulthttpsport]) of [<host>] tag
+    in configuration file or [80] (resp. [443]) in any other case.}}
+
+    If given the optional parameter [~fragment] is prefixed by [#]
+    and appended to the URL.
+
+    The optional parameter [keep_nl_params] allows to override the
+    [keep_nl_params] parameter used when creating the [service], see
+    {!val:Eliom_services.service} for a detailled description.
+
+    The optional paramater [nl_params] allows to add non localized
+    GET parameter to the URL.  See the eliom manual for more
+    information about {% <<a_manual chapter="params"
+    fragment="nonlocalizedparameters"|non localized parameters>>%}.
+
+    The function [make_uri] should not be called outside of
+    a service handler unless one of the following condition is met:
+
+    - the optional parameter [~absolute_path] is [true].
+    - the optional parameter [~absolute] is [true].
+    - the optional parameter [~https] is [true].
+    - the [service] has been created with [~https:true].
+    - the [service] is an external service.
+*)
 val make_uri :
   ?absolute:bool ->
   ?absolute_path:bool ->
@@ -94,11 +136,37 @@ val make_uri :
   'get ->
   uri
 
-(** Creates the URL for a service.
-    Returns the path (as a string, encoded),
-    the association list of get parameters (not encoded),
-    and the fragment (not encoded, if any).
-    Like the [a] function, it may take extra parameters. *)
+(** The function [make_string_uri service get_params] returns the URL of the
+    of the service [service] applied to the GET parameters
+    [get_params]. See {!make_uri} for a detailled
+    description of optional parameters.
+
+    The function [make_string_uri] is an alias of {!Eliom_uri.make_string_uri}. *)
+val make_string_uri :
+  ?absolute:bool ->
+  ?absolute_path:bool ->
+  ?https:bool ->
+  service:('get, unit, [< get_service_kind ],
+           [< suff ], 'gn, unit,
+           [< registrable ], 'return) service ->
+  ?hostname:string ->
+  ?port:int ->
+  ?fragment:string ->
+  ?keep_nl_params:[ `All | `Persistent | `None ] ->
+  ?nl_params: Eliom_parameters.nl_params_set ->
+  'get ->
+  string
+
+(** The function [make_uri_components service get_params] returns the
+    a triplet [(path, get_params, fragment)] that is a decomposition
+    of the URL of [service] applied to the GET parameters
+    [get_params]. By default the returned [path] is relative to the
+    current request URL but it could be absolute URL in some
+    situation, see {!make_uri} for more information and a
+    description of optional parameters.
+
+    The function [make_uri_components] is an alias for
+    {!Eliom_uri.make_uri_components}. *)
 val make_uri_components :
   ?absolute:bool ->
   ?absolute_path:bool ->
@@ -114,7 +182,8 @@ val make_uri_components :
   'get ->
   string * (string * string) list * string option
 
-(** Like [make_uri_components], but also creates a table of post parameters. *)
+(** Same a {!make_uri_components}, but also returns a list of post
+    parameters. *)
 val make_post_uri_components :
   ?absolute:bool ->
   ?absolute_path:bool ->
@@ -143,47 +212,24 @@ val make_proto_prefix :
   string
 (**/**)
 
-(** [a service cont ()] creates a link to [service].
-    The text of
-    the link is [cont]. For example [cont] may be something like
-    [\[pcdata "click here"\]].
+(** The function [a service a_content get_params] creates a [<a>]
+    node that link to [service] applied to GET parameters [get_params]
+    and whose content is [a_content]. By default, the [href] attribute
+    is a relative URL recomputed at each request with {!make_uri}.
 
-    The last  parameter is for GET parameters.
-    For example [a service cont (42,"hello")]
+    Within a Eliom application (see {!Eliom_output.Eliom_appl}), the
+    generated [<a>] node contains an [onclick] attribute that is
+    equivalent to the {% <<a_api project="eliom" subproject="client" |
+    val Eliom_client.change_page >>%} function. If the optional
+    parameter [~no_appl:true] is given the [onclick] attribute won't
+    be added and if the generated link is clicked the client side
+    process is stopped. The [~noappl] parameter has no effect outside
+    an Eliom application.
 
-    The [~a] optional parameter is used for extra attributes.
+    The optional parameter [~a] allows to add extra HTML attributes to
+    the generated node.
 
-    The [~fragment] optional parameter is used for the "fragment" part
-    of the URL, that is, the part after character "#".
-
-    When possible, all links generated by Eliom are relative, for example
-    to make easier the use with reverse proxies.
-    But in case of protocol change (if you want to switch to https using
-    [~https:true] for example, or if the service imposes https),
-    absolute links will be generated.
-    In that case,
-    default hostname is determined from the [Host] http header of the request
-    (or the attribute of <host> tag in
-    configuration file if the option [<usedefaulthostname/>] is set).
-    Default port is the current port (or another port of the server if
-    you are switching from or to https).
-    But you can choose the hostname or port you want by setting
-    the optional [?hostname] and [?port] parameters here.
-    These options have no effect for relative links.
-
-    You can add non-localized parameters using the optional parameter
-    [nl_params]. See {!Eliom_parameters.nl_params_set}.
-
-    If [~keep_nl_params] is [`Persistent] (resp. [`All]),
-    persistent (resp all) non localized GET parameters
-    will be kept in the URL (default is the default for the service).
-
-    If a client side application is running, and unless
-    [~no_appl:true] is specified, it will use [<a onclick=...>]
-    instead of [<a href=...>] to send process cookies.
-    Thus, if the destination service belongs to the same application,
-    the client side process will not be stopped when the link is clicked.
-
+    See {!make_uri} for description of other optional parameters.
 *)
 val a :
   ?absolute:bool ->
@@ -204,17 +250,55 @@ val a :
   'get ->
   'a a_elt
 
-(** Creates a [<link>] tag for a Cascading StyleSheet (CSS). *)
+(** The function [css_link ~uri ()] creates a [<link>] node that
+    reference a Cascading StyleSheet (CSS).
+
+    If the CSS is generated by an Eliom service, use {!make_uri} to
+    calculate the service URI. If the CSS is a static file, you may
+    also use {!Eliom_services.static_dir} or
+    {!Eliom_services.external_service} to abstract the file with a
+    service.
+
+    The optional parameter [~a] allows to add extra HTML attributes to
+    the generated node.
+*)
 val css_link : ?a:link_attrib_t -> uri:uri -> unit -> link_elt
 
-(** Creates a [<script>] tag to add a javascript file *)
+(** The function [js_script ~uri ()] creates a [<script>] node that
+    reference a javascript file.
+
+    If the script content is generated by an Eliom service, use
+    {!make_uri} to calculate the service URI. If it is a static file,
+    you may also use {!Eliom_services.static_dir} or
+    {!Eliom_services.external_service} to abstract the file with a
+    service.
+
+    The optional parameter [~a] allows to add extra HTML attributes to
+    the generated node.
+*)
 val js_script :
   ?a:script_attrib_t -> uri:uri -> unit -> script_elt
 
-(** [get_form service formgen] creates a GET form to [service].
-    The content of
-    the form is generated by the function [formgen], that takes the names
-    of the service parameters as parameters. *)
+(** The function [post_form service formgen] creates a GET [<form>] to
+    [service]. The content of the [<form>] is generated by the
+    function [formgen], that takes the names of the service parameters
+    as parameters. By default, the [action] attribute is a relative
+    URL recomputed at each request with {!make_uri}.
+
+    Within a Eliom application (see {!Eliom_output.Eliom_appl}), the
+    generated [<form>] node contains an [onsubmit] attribute that is
+    equivalent to the {% <<a_api project="eliom" subproject="client" |
+    val Eliom_client.change_page >>%} function. If the optional
+    parameter [~no_appl:true] is given the [onsubmit] attribute won't
+    be added and if the [<form>] is submitted the client side process
+    is stopped. The [~noappl] parameter has no effect outside an Eliom
+    application.
+
+    The optional parameter [~a] allows to add extra HTML attributes to
+    the generated node.
+
+    See {!make_uri} for description of other optional parameters.
+*)
 val get_form :
   ?absolute:bool ->
   ?absolute_path:bool ->
@@ -232,7 +316,8 @@ val get_form :
   ('gn -> form_content_elt_list) ->
   form_elt
 
-(** The same but taking a cooperative function. *)
+(** Same as {!get_form} but taking a cooperative function for
+    [<form>] content generation. *)
 val lwt_get_form :
   ?absolute:bool ->
   ?absolute_path:bool ->
@@ -251,13 +336,20 @@ val lwt_get_form :
   form_elt Lwt.t
 
 
-(** [post_form service formgen] creates a POST form to [service].
-    The last parameter is for GET parameters (as in the function [a]).
+(** The function [post_form service formgen get_params] creates a POST
+    [<form>] to [service] preapplied to the GET parameters
+    [get_params]. The content of the [<form>] is generated by the
+    function [formgen], that takes the names of the service parameters
+    as parameters. By default, the [action] attribute is a relative
+    URL recomputed at each request with {!make_uri}.
 
-    If [~keep_nl_params] is [`Persistent] (resp. [`All]),
-    persistent (resp all) non localized GET parameters
-    will be kept in the URL (default is the default for the
-    service). *)
+    The optional parameter [~a] allows to add HTML attributes to the
+    generated node.
+
+    See {!Eliom_services.post_coservice'} for a description of the
+    [~keep_get_na_params] optional parameter ; see {!get_form} for
+    [~no_appl] and see {!make_uri} for other optional parameters.
+*)
 val post_form :
   ?absolute:bool ->
   ?absolute_path:bool ->
@@ -277,7 +369,8 @@ val post_form :
   'get ->
   form_elt
 
-(** The same but taking a cooperative function. *)
+(** Same as {!post_form} but taking a cooperative function for
+    [<form>] content generation. *)
 val lwt_post_form :
   ?absolute:bool ->
   ?absolute_path:bool ->

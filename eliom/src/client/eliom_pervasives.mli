@@ -42,6 +42,7 @@ module List : sig
   (* val is_prefix : 'a list -> 'a list -> bool *)
   val is_prefix_skip_end_slash : string list -> string list -> bool
   val chop : int -> 'a list -> 'a list
+  val map_filter : ('a -> 'b option) -> 'a list -> 'b list
 end
 
 module String : sig
@@ -76,6 +77,8 @@ module Url : sig
   val encode : ?plus:bool -> string -> string
   val make_encoded_parameters : (string * string) list -> string
   val split_path : string -> string list
+  val split_fragment : string -> string * string option
+  val get_ssl : string -> bool option
 end
 
 (*
@@ -99,6 +102,7 @@ val debug_exn : ('a, unit, string, unit) format4 -> exn -> 'a
 val jsdebug : 'a -> unit
 val alert : ('a, unit, string, unit) format4 -> 'a
 val jsalert : Js.js_string Js.t -> unit
+val debug_var : string -> 'a -> unit
 
 val lwt_ignore : ?message:string -> unit Lwt.t -> unit
 
@@ -346,21 +350,6 @@ module HTML5 : sig
 
   end
 
-end
-
-module Regexp : sig
-  type t
-  type flag = Global_search | Case_insensitive | Multi_line
-  val last_index : t -> int
-  val make :
-      ?global:bool ->
-	?case_insensitive:bool -> ?multi_line:bool -> string -> t
-  val test : t -> string -> bool
-  val exec : t -> string -> string array
-  val index : t -> string -> int
-  val replace : t -> string -> string -> string
-  val replace_fun : t -> (int -> string array -> string) -> string -> string
-  val split : t -> string -> string array
 end
 
 type file_info

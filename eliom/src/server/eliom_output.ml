@@ -70,7 +70,9 @@ let cast_http_result = Result_types.cast_result
 
 module Html5_make_reg_base
   (Html5_content : Ocsigen_http_frame.HTTP_CONTENT
-                   with type t = HTML5_types.html HTML5.M.elt) = struct
+                   with type t = HTML5_types.html HTML5.M.elt
+		   and type options = Http_headers.accept Lazy.t)
+  = struct
 
   open HTML5.M
   open HTML5_types
@@ -87,9 +89,12 @@ module Html5_make_reg_base
 
   let send_appl_content = Eliom_services.XNever
 
-  let send ?(options = ()) ?charset ?code
+  let send
+      ?(options = ()) ?charset ?code
       ?content_type ?headers content =
-    lwt r = Html5_content.result_of_content content in
+    let accept =
+      (Eliom_request_info.get_ri ()).Ocsigen_extensions.ri_accept in
+    lwt r = Html5_content.result_of_content ~options:accept content in
     let open Ocsigen_http_frame in
     Lwt.return
       {r with
@@ -214,9 +219,6 @@ module Xhtml_forms_base = struct
 
   let uri_of_string = Uri.uri_of_string
 
-  let empty_seq = []
-  let cons_form a l = a::l
-
   let map_option = List.map
   let map_optgroup f a l = ((f a), List.map f l)
   let select_content_of_option a = (a :> select_content_elt)
@@ -262,13 +264,13 @@ module Xhtml_forms_base = struct
     in
     r
 
-  let make_hidden_field content =
-    let c = match content with
-      | None -> []
-      | Some c -> [c]
-    in
-    (div ~a:[a_class ["eliom_nodisplay"]] c :> form_content elt)
-
+  let empty_seq = []
+  let cons_hidden_fieldset fields content =
+    let fieldset =
+      XHTML.M.fieldset
+	~a:[a_style "display: none;"]
+	fields in
+    (fieldset :: content :> form_content_elt_list)
 
   let make_input ?(a=[]) ?(checked=false) ~typ ?name ?src ?value () =
     let a2 = match value with
@@ -1002,7 +1004,8 @@ end
 
 module Xhtml_make_reg_base
   (Xhtml_content : Ocsigen_http_frame.HTTP_CONTENT
-   with type t = XHTML_types.xhtml XHTML.M.elt) = struct
+   with type t = XHTML_types.xhtml XHTML.M.elt
+   and type options = Http_headers.accept Lazy.t) = struct
 
   open XHTML.M
   open XHTML_types
@@ -1017,7 +1020,9 @@ module Xhtml_make_reg_base
   let send_appl_content = Eliom_services.XNever
 
   let send ?options ?charset ?code ?content_type ?headers content =
-    lwt r = Xhtml_content.result_of_content content in
+    let accept =
+      (Eliom_request_info.get_ri ()).Ocsigen_extensions.ri_accept in
+    lwt r = Xhtml_content.result_of_content ~options:accept content in
     Lwt.return
       {r with
          Ocsigen_http_frame.
@@ -1129,9 +1134,11 @@ module Blocks = Make_TypedXML_Registration(XML)(XHTML.M)(struct
   type content = XHTML_types.body_content
 end)
 
-module Blocks5 = Make_TypedXML_Registration(XML)(HTML5.M)(struct
-  type content = HTML5_types.body_content
+module Flow5 = Make_TypedXML_Registration(XML)(HTML5.M)(struct
+  type content = HTML5_types.flow5
 end)
+module Blocks5 = Flow5
+
 
 (****************************************************************************)
 (****************************************************************************)
@@ -1352,12 +1359,12 @@ module HtmlText_forms_base = struct
     (if inline then "style=\"display: inline\"" else "")^aa^">"^
     Eliom_lazy.force elts^"</form>"
 
-  let make_hidden_field content =
-    let content = match content with
-      | None -> ""
-      | Some c -> c
-    in
-    "<div style=\"display: none\""^content^"</div>"
+  let empty_seq = ""
+  let cons_hidden_fieldset fields content =
+    "<fieldset style=\"display: none;\">"
+    ^ Eliom_pervasives.String.concat "" fields
+    ^ "</fieldset>"
+    ^ content
 
   let make_input ?(a="") ?(checked=false) ~typ ?name ?src ?value () =
     let a2 = match value with
@@ -1461,6 +1468,20 @@ module Action_reg_base = struct
     then
       let open Ocsigen_http_frame in
       let empty_result = Ocsigen_http_frame.empty_result () in
+      let h = match headers with
+        | None -> empty_result.res_headers
+        | Some headers ->
+          Http_headers.with_defaults headers empty_result.res_headers
+      in
+      let h =
+        match Eliom_request_info.get_sp_client_appl_name () with
+          | Some anr ->
+            Http_headers.replace
+              (Http_headers.name Eliom_common_base.appl_name_header_name)
+              anr
+              h
+          | _ -> h
+      in
       Lwt.return
         {empty_result with
           res_code= code;
@@ -1468,12 +1489,7 @@ module Action_reg_base = struct
             | None -> empty_result.res_content_type
             | _ -> content_type
           );
-          res_headers= (match headers with
-            | None -> empty_result.res_headers
-            | Some headers ->
-              Http_headers.with_defaults
-                headers empty_result.res_headers
-          );
+          res_headers= h
         }
     else
       (* It is an action, we reload the page.
@@ -1731,9 +1747,7 @@ let appl_self_redirect send page =
                 empty_result.res_headers})
       else
         lwt r = (Result_types.cast_function_http send) page in
-        Lwt.return (Result_types.cast_result
-		{r with res_headers = Http_headers.with_defaults
-		    Http_headers.dyn_headers r.res_headers})
+        Lwt.return (Result_types.cast_result r)
 
 let http_redirect = appl_self_redirect
 
@@ -1850,12 +1864,22 @@ module Streamlist = Eliom_mkreg.MakeRegister(Streamlist_reg_base)
 (****************************************************************************)
 (****************************************************************************)
 
+module type Registration = sig
+  type page
+  type options
+  type return
+  type result
+  include "sigs/eliom_reg_simpl.mli"
+end
+
+module type Forms = "sigs/eliom_forms.mli"
+
 module Customize
   (B : sig type options type return type page type result end)
-  (R : "sigs/eliom_reg.mli" subst type options := B.options
-			      and type return  := B.return
-			      and type page    := B.page
-                              and type result  := B.result)
+  (R : Registration with type options := B.options
+		    and type return  := B.return
+		    and type page    := B.page
+                    and type result  := B.result)
   (T : sig type page val translate : page -> B.page Lwt.t end) = struct
 
     type page = T.page
@@ -2444,7 +2468,9 @@ let redirection_script =
 
 module Eliom_appl_reg_make_param
   (Html5_content
-     : Ocsigen_http_frame.HTTP_CONTENT with type t = [ `Html ] HTML5.M.elt)
+     : Ocsigen_http_frame.HTTP_CONTENT
+       with type t = [ `Html ] HTML5.M.elt
+       and type options = Http_headers.accept Lazy.t)
   (Appl_params : APPL_PARAMS) = struct
 
   open HTML5.M
@@ -2484,8 +2510,7 @@ module Eliom_appl_reg_make_param
 	("var eliom_appl_sitedata = \'%s\';\n"
  	 ^^ "var eliom_appl_process_info = \'%s\'\n"
 	 ^^ "var eliom_request_data;\n"
-	 ^^ "var eliom_request_cookies;\n"
-	 ^^ "var eliom_request_url;\n")
+	 ^^ "var eliom_request_cookies;\n")
 	(Eliom_types.jsmarshal (Eliommod_cli.client_sitedata sp))
 	(Eliom_types.jsmarshal (sp.Eliom_common.sp_client_process_info))
     in
@@ -2498,18 +2523,6 @@ module Eliom_appl_reg_make_param
     HTML5.M.unique (HTML5.M.script (HTML5.M.pcdata ""))
 
   let make_eliom_data_script ~sp page =
-
-    let rc = Eliom_request_info.get_request_cache_sp sp in
-    let url_to_display =
-      "/"
-      ^ try Polytables.get ~table:rc ~key:Eliom_mkreg.suffix_redir_uri_key
-	(* If it is a suffix service with redirection, the uri has already been
-           computed in rc *)
-	with Not_found -> Eliom_request_info.get_full_url_sp sp
-      (* Otherwise, the full url has already been recomputed
-         without internal form info and taking "to_be_considered_as_get"
-         into account *)
-    in
 
     (* wrapping of values could create eliom references that may
        create cookies that needs to be sent along the page. Hence,
@@ -2533,11 +2546,9 @@ module Eliom_appl_reg_make_param
     let script =
       Printf.sprintf
 	("eliom_request_data = \'%s\';\n"
-	 ^^ "eliom_request_cookies = \'%s\';\n"
-	 ^^ "eliom_request_url = \'%s\';\n")
+	 ^^ "eliom_request_cookies = \'%s\';\n")
 	(Eliom_types.jsmarshal eliom_data)
 	(Eliom_types.jsmarshal tab_cookies)
-	(Eliom_types.jsmarshal url_to_display)
     in
 
     Lwt.return
@@ -2567,13 +2578,20 @@ module Eliom_appl_reg_make_param
 
     lwt appl_data_script = make_eliom_appl_data_script ~sp in
 
+    let base_url = Url.make_absolute_url
+      ~https:(Eliom_request_info.get_csp_ssl ())
+      ~host:(Eliom_request_info.get_csp_hostname ())
+      ~port:(Eliom_request_info.get_csp_server_port ())
+      (String.concat "/" (""::Eliom_request_info.get_csp_original_full_path ())) in
+
     (* First we build a fake page to build the ref_tree... *)
     let	( html_attribs, (head_attribs, title, head_elts), body ) =
       split_page (HTML5.M.toelt page) in
     let head_elts =
-      appl_data_script
+         appl_data_script
       :: eliom_fake_request_data_script
       :: redirection_script
+      :: HTML5.M.base ~a:[HTML5.M.a_href base_url] ()
       :: ( if List.exists is_eliom_appl_script head_elts
            then head_elts
 	   else ( head_elts
@@ -2607,6 +2625,7 @@ module Eliom_appl_reg_make_param
   let send ?(options = default_appl_service_options) ?charset ?code
       ?content_type ?headers content =
 
+
     let sp = Eliom_common.get_sp () in
 
     (* GRGR FIXME et si le nom de l'application diffère ?? Il faut
@@ -2623,7 +2642,9 @@ module Eliom_appl_reg_make_param
 	| None, true -> remove_eliom_scripts content
 	| _ -> add_eliom_scripts ~sp content in
 
-    lwt r = Html5_content.result_of_content page in
+    let ri = Eliom_request_info.get_ri () in
+    let accept = ri.Ocsigen_extensions.ri_accept in
+    lwt r = Html5_content.result_of_content ~options:accept page in
 
     let headers =
       match headers with
@@ -2637,6 +2658,26 @@ module Eliom_appl_reg_make_param
       headers
     in
 
+    let rc = Eliom_request_info.get_request_cache () in
+    let headers = Http_headers.replace
+      (Http_headers.name Eliom_common_base.response_url_header)
+      (Url.make_absolute_url
+	 ~https:(Eliom_request_info.get_ssl ())
+	 ~host:(Eliom_request_info.get_hostname ())
+	 ~port:(Eliom_request_info.get_server_port ())
+	 ("/"
+	  ^ try Polytables.get ~table:rc ~key:Eliom_mkreg.suffix_redir_uri_key
+	     (* If it is a suffix service with redirection, the uri has already been
+		computed in rc *)
+	  with Not_found ->
+	    let get_params =
+	      match ri.Ocsigen_extensions.ri_get_params_string with
+	      | None -> ""
+	      | Some p -> "?" ^ p in
+	    ri.Ocsigen_extensions.ri_original_full_path_string ^ get_params))
+      headers
+    in
+
     Lwt.return
       { r with
         Ocsigen_http_frame.
@@ -2645,7 +2686,7 @@ module Eliom_appl_reg_make_param
           | None -> Some (Eliom_config.get_config_default_charset ())
           | _ -> charset
 	);
-        res_content_type= (match content_type with
+        res_content_type = (match content_type with
           | None -> r.Ocsigen_http_frame.res_content_type
           | _ -> content_type
         );
@@ -2726,7 +2767,7 @@ module String_redir_reg_base = struct
   let send_appl_content = Eliom_services.XAlways
   (* actually, the service will decide itself *)
 
-  let send ?(options = `Permanent) ?charset ?code
+  let send ?(options = `Temporary) ?charset ?code
       ?content_type ?headers content =
     let uri = Uri.string_of_uri content in
     let empty_result = Ocsigen_http_frame.empty_result () in
@@ -2800,7 +2841,7 @@ module Redir_reg_base = struct
   let send_appl_content = Eliom_services.XAlways
   (* actually, the service will decide itself *)
 
-  let send ?(options = `Permanent) ?charset ?code
+  let send ?(options = `Temporary) ?charset ?code
       ?content_type ?headers service =
     let uri = lazy (Xhtml.make_string_uri ~absolute:true ~service ()) in
     let empty_result = Ocsigen_http_frame.empty_result () in
@@ -2848,7 +2889,12 @@ module Redir_reg_base = struct
         (* the browser asked application eliom data
            for the application called anr *)
         (* If it comes from an xhr, we use answer with a special header field *)
-          match Eliom_services.get_send_appl_content service with
+        let headers = Http_headers.replace
+          (Http_headers.name Eliom_common_base.appl_name_header_name)
+          anr
+          headers
+        in
+        match Eliom_services.get_send_appl_content service with
           (* the appl name of the destination service *)
             | Eliom_services.XSame_appl an when (an = anr) ->
             (* Same appl, we do a full xhr redirection
@@ -2896,3 +2942,6 @@ module Redirection = Eliom_mkreg.MakeRegister_AlphaReturn(Redir_reg_base)
 let set_exn_handler h =
   let sitedata = Eliom_request_info.find_sitedata "set_exn_handler" in
   Eliom_request_info.set_site_handler sitedata (Result_types.cast_function_http h)
+
+
+module String = Text

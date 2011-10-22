@@ -366,7 +366,7 @@ let make_string_uri
        ?nl_params
        getparams)
 
-
+let make_string_uri_ = make_string_uri
 
 
 let make_post_uri_components_ (* do not take into account postparams *)
@@ -592,6 +592,7 @@ let make_post_uri_components
   in
   (uri, getparams, fragment, postparams@prepostparams)
 
+let make_post_uri_components__ = make_post_uri_components
 
 
 

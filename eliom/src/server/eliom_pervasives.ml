@@ -76,6 +76,7 @@ end
 
 module List = struct
   include Ocsigen_pervasives.List
+  include Eliom_pervasives_base.List_base
   let rec remove_all_assoc a = function
     | [] -> []
     | (b, _)::l when a = b -> remove_all_assoc a l
@@ -311,13 +312,9 @@ module XHTML = struct
 
   end
 
-  module M_01_00_compat = XHTML_f.Make_01_00_compat(XML)
-  module M_01_01_compat = XHTML_f.Make_01_01_compat(XML)
   module P = XML_print.MakeTypedSimple(XML)(M)
   module P_01_01 = XML_print.MakeTypedSimple(XML)(M_01_01)
   module P_01_00 = XML_print.MakeTypedSimple(XML)(M_01_00)
-  module P_01_01_compat = XML_print.MakeTypedSimple(XML)(M_01_01_compat)
-  module P_01_00_compat = XML_print.MakeTypedSimple(XML)(M_01_00_compat)
 
 end
 

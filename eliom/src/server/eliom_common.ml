@@ -564,7 +564,7 @@ let make_server_params
 	let request_info = ri.Ocsigen_extensions.request_info in
 	{ cpi_ssl = request_info.Ocsigen_extensions.ri_ssl;
 	  cpi_hostname = Ocsigen_extensions.get_hostname ri;
-	  cpi_server_port = request_info.Ocsigen_extensions.ri_server_port;
+	  cpi_server_port = Ocsigen_extensions.get_port ri;
 	  cpi_original_full_path =
 	    request_info.Ocsigen_extensions.ri_original_full_path;
 	}

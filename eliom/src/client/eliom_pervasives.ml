@@ -29,6 +29,7 @@ let iter_option f m = match m with
 module List = struct
 
   include List
+  include Eliom_pervasives_base.List_base
 
   let rec remove_first_if_any a = function
     |  [] -> []
@@ -294,8 +295,20 @@ module Url = struct
 
   let split_path = Url.path_of_path_string
 
-end
+  let split_fragment s =
+    try
+      let pos = String.index s '#' in
+      String.sub s 0 pos,
+      Some (String.sub s (pos+1) (String.length s - 1 - pos))
+    with Not_found -> s, None
 
+  let ssl_re = Regexp.regexp "^(https?):\\/\\/"
+  let get_ssl s =
+    map_option
+      (fun r -> Regexp.matched_group r 1 = Some "https")
+      (Regexp.string_match ssl_re s 0)
+
+end
 (*****************************************************************************)
 (*
 module Ip_address = struct
@@ -479,6 +492,11 @@ let error f = Printf.ksprintf (fun s -> Firebug.console##error (Js.string s); fa
 let jsdebug a = Firebug.console##log (a)
 let alert f = Printf.ksprintf (fun s -> Dom_html.window##alert (Js.string s)) f
 let jsalert a = Dom_html.window##alert (a)
+
+let () = Js.Unsafe.eval_string "debug = {}"
+let debug_var s v =
+  let d = Js.Unsafe.variable "debug" in
+  Js.Unsafe.set d (Js.string s) v
 
 let lwt_ignore ?(message="") t = Lwt.on_failure t (fun e -> debug_exn "%s" e message)
 
@@ -695,115 +713,7 @@ module HTML5 = struct
 
 end
 
-(*
-module Reactive_dom = struct
-
-  module Engine : sig
-
-    val set_timer : float -> unit
-
-    val register : (unit -> unit) -> unit
-	(*TODO? make unregisterable *)
-
-  end = struct
-
-    let timer = ref 0.2
-
-    let set_timer f = timer := f
-
-    let registered = ref []
-
-    let register f = registered := f :: !registered
-
-    let rec poll () =
-      Lwt_js.sleep !timer >>= fun () ->
-	List.iter (fun f -> f ()) !registered;
-	poll ()
-
-    let _ = poll ()
-
-  end
-
-  let signalify (cb : (unit -> 'a)) : 'a React.S.t =
-    let (s, set_s) = React.S.create (cb ()) in
-    ignore (Engine.register (fun () -> set_s (cb ())));
-    s
-
-  let eventify_mouse target typ f =
-    let (e, push_e) = React.E.create () in
-    ignore (Dom_events.listen target typ (fun n e -> push_e (f n e)));
-    e
-
-  let eventify_keyboard target typ f =
-    let (e, push_e) = React.E.create () in
-    ignore (Dom_events.listen target typ (fun n e -> push_e (f n e)));
-    e
-
-end
-*)
-module Regexp = struct
-
-  type t
-  type flag =
-    | Global_search (* g *)
-    | Case_insensitive (* i *)
-    | Multi_line (* m *)
-
-  external make : string -> string -> t = "caml_regexp_make"
-  external last_index : t -> int = "caml_regexp_last_index"
-
-  let make
-      ?(global = false)
-      ?(case_insensitive = false)
-      ?(multi_line = false)
-      expr =
-    make expr
-      (""
-       ^ (if global then "g" else "")
-       ^ (if case_insensitive then "i" else "")
-       ^ (if multi_line then "m" else ""))
-
-  external test : t -> string -> bool = "caml_regexp_test"
-
-(** executes a match
-    the result is an array of substrings corresponding to matched groups
-    0 is the whole substring matched by the regexp
-    1 is the outermost parenthetised group
-    etc.
- *)
-  external exec : t -> string -> string array = "caml_regexp_exec"
-
-(** returns the index of the first match of the regexp in the string
-    raises Not_found if the string is not matched by the regexp
- *)
-  external index : t -> string -> int = "caml_regexp_index"
-
-(** replace [regexp] [substitution] [string]
-    special chars (doc from MDC):
-    - $$
-    Inserts a "$".
-    - $&
-    Inserts the matched substring.
-    - $`
-    Inserts the portion of the string that precedes the matched substring.
-    - $'
-    Inserts the portion of the string that follows the matched substring.
-    - $n or $nn  Where n or nn are decimal digits
-    Inserts the nth parenthesized submatch string, provided the first argument was a RegExp object.
- *)
-  external replace : t -> string -> string -> string = "caml_regexp_replace"
-
-(** replace_fun [regexp] [substitution function] [string]
-    the substitution function takes :
-    - the offset of the current match
-    - an array of matched groups (0 = total curren match, see [exec])
-    WARNING: uses callback mechanism which is not "au point"
- *)
-  external replace_fun : t -> (int -> string array -> string) -> string -> string = "caml_regexp_replace_fun"
-
-  external split : t -> string -> string array = "caml_regexp_split"
-
-end
-
 (** Empty type (not used on client side, see eliom_parameter_base.ml) *)
 type file_info
+
+

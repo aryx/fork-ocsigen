@@ -52,31 +52,52 @@ let change_page_uri_ = ref (fun ?cookies_info href -> assert false)
 let change_page_get_form_ = ref (fun ?cookies_info form href -> assert false)
 let change_page_post_form_ = ref (fun ?cookies_info form href -> assert false)
 
-let reify_caml_event node ce = match ce with
-  | XML.CE_call_service None -> (fun () -> true)
+let middleClick ev =
+   match Dom_html.taggedEvent ev with
+   | Dom_html.MouseEvent ev ->
+       Dom_html.buttonPressed ev = Dom_html.Middle_button
+       || Js.to_bool ev##ctrlKey
+       || Js.to_bool ev##shiftKey
+       || Js.to_bool ev##altKey
+       || Js.to_bool ev##metaKey
+   | _ -> false
+
+let reify_caml_event node ce : #Dom_html.event Js.t -> bool = match ce with
+  | XML.CE_call_service None -> (fun _ -> true)
   | XML.CE_call_service (Some (`A, cookies_info)) ->
-      (fun () ->
+      (fun ev ->
 	let href = (Js.Unsafe.coerce node : Dom_html.anchorElement Js.t)##href in
-	!change_page_uri_ ?cookies_info (Js.to_string href); false)
+	let https = Url.get_ssl (Js.to_string href) in
+	(middleClick ev)
+	|| (https = Some true && not Eliom_request_info.ssl_)
+	|| (https = Some false && Eliom_request_info.ssl_)
+	|| (!change_page_uri_ ?cookies_info (Js.to_string href); false))
   | XML.CE_call_service (Some (`Form_get, cookies_info)) ->
-      (fun () ->
+      (fun ev ->
 	let form = (Js.Unsafe.coerce node : Dom_html.formElement Js.t) in
 	let action = Js.to_string form##action in
-	!change_page_get_form_ ?cookies_info form action; false)
+	let https = Url.get_ssl action in
+	(https = Some true && not Eliom_request_info.ssl_)
+	|| (https = Some false && Eliom_request_info.ssl_)
+	|| (!change_page_get_form_ ?cookies_info form action; false))
   | XML.CE_call_service (Some (`Form_post, cookies_info)) ->
-      (fun () ->
+      (fun ev ->
 	let form = (Js.Unsafe.coerce node : Dom_html.formElement Js.t) in
 	let action = Js.to_string form##action in
-	!change_page_post_form_ ?cookies_info form action; false)
+	let https = Url.get_ssl action in
+	(https = Some true && not Eliom_request_info.ssl_)
+	|| (https = Some false && Eliom_request_info.ssl_)
+	|| (!change_page_post_form_ ?cookies_info form action; false))
   | XML.CE_client_closure f ->
-    (fun () -> try f (); true with False -> false)
+    (* TODO pass event ? *)
+    (fun _ -> try f (); true with False -> false)
   | XML.CE_registered_closure (id, args) ->
       try
 	let f = find_closure id in
-	(fun () -> try f args; true with False -> false)
+	(fun _ -> try f args; true with False -> false)
       with Not_found ->
 	Firebug.console##error(Printf.sprintf "Closure not found (%Ld)" id);
-	(fun () -> false)
+	(fun _ -> false)
 
 let reify_event node ev = match ev with
   | XML.Raw ev -> Js.Unsafe.variable ev
@@ -86,7 +107,7 @@ let register_event_handler node (name, ev) =
   let f = reify_caml_event node ev in
   assert(String.sub name 0 2 = "on");
   Js.Unsafe.set node (Js.string name)
-    (Dom_html.handler (fun _ -> Js.bool (f ())))
+    (Dom_html.handler (fun ev -> Js.bool (f ev)))
 
 (* == Register nodes id and event in the orginal Dom. *)
 
@@ -242,7 +263,7 @@ end
 
 (* == XHR *)
 
-let current_fragment = ref ""
+let current_pseudo_fragment = ref ""
 let url_fragment_prefix = "!"
 let url_fragment_prefix_with_sharp = "#!"
 
@@ -250,10 +271,14 @@ let create_request_
     ?absolute ?absolute_path ?https ~service ?hostname ?port ?fragment
     ?keep_nl_params ?nl_params ?keep_get_na_params
     get_params post_params =
+  (* GRGR TODO: allow get_get_or_post service to return also the service
+     with the correct subtype. Then do use Eliom_uri.make_string_uri
+     and Eliom_uri.make_post_uri_components instead of Eliom_uri.make_string_uri_
+     and Eliom_uri.make_post_uri_components__ *)
   match Eliom_services.get_get_or_post service with
     | `Get ->
         let uri =
-          Eliom_uri.make_string_uri
+          Eliom_uri.make_string_uri_
             ?absolute ?absolute_path ?https
             ~service
             ?hostname ?port ?fragment ?keep_nl_params ?nl_params get_params
@@ -261,7 +286,7 @@ let create_request_
         `Get uri
     | `Post ->
         let path, get_params, fragment, post_params =
-          Eliom_uri.make_post_uri_components
+          Eliom_uri.make_post_uri_components__
             ?absolute ?absolute_path ?https
             ~service
             ?hostname ?port ?fragment ?keep_nl_params ?nl_params
@@ -293,13 +318,18 @@ let exit_to
     A script must do the redirection if there is something in the fragment.
     Usually this function is only for internal use.
 *)
+
+let current_uri =
+  ref (fst (Url.split_fragment (Js.to_string Dom_html.window##location##href)))
+
 let change_url_string uri =
+  current_uri := fst (Url.split_fragment uri);
   if Eliom_process.history_api then begin
     Dom_html.window##history##pushState(Js.Unsafe.inject 0,
 					Js.string "" ,
 					Js.Opt.return (Js.string uri));
   end else begin
-    current_fragment := url_fragment_prefix_with_sharp^uri;
+    current_pseudo_fragment := url_fragment_prefix_with_sharp^uri;
     Eliom_request_info.set_current_path uri;
     Dom_html.window##location##hash <- Js.string (url_fragment_prefix^uri)
   end
@@ -350,7 +380,7 @@ let onclick_on_body_handler event =
 	(Js.Unsafe.variable "window")##eliomLastButton <- None);
   Js._true
 
-let add_onclick_events () =
+let add_onclick_events _ =
   ignore (Dom_html.addEventListener ( Dom_html.window##document##body )
 	    Dom_html.Event.click ( Dom_html.handler onclick_on_body_handler )
 	    Js._true : Dom_html.event_listener_id);
@@ -358,7 +388,7 @@ let add_onclick_events () =
 
 (* END FORMDATA HACK *)
 
-let broadcast_load_end () =
+let broadcast_load_end _ =
   loading_phase := false;
   Lwt_condition.broadcast load_end ();
   true
@@ -377,8 +407,11 @@ let load_eliom_data js_data page =
     List.map
       (reify_event Dom_html.document##documentElement)
       js_data.Eliom_types.ejs_onunload in
+  let unload_evt : #Dom_html.event Js.t =
+    (Js.Unsafe.coerce Dom_html.document)##createEvent(Js.string "HTMLEvents") in
+  (Js.Unsafe.coerce unload_evt)##initEvent(Js.string "unload", false, false);
   on_unload_scripts :=
-    [fun () -> List.for_all (fun f -> f ()) on_unload];
+    [fun () -> List.for_all (fun f -> f unload_evt) on_unload];
   add_onclick_events :: on_load @ [broadcast_load_end]
 
 let wait_load_end () =
@@ -390,113 +423,65 @@ let on_unload f =
   on_unload_scripts :=
     (fun () -> try f(); true with False -> false) :: !on_unload_scripts
 
-module DOM_utils = struct
-
-  let get_head_and_body page =
-    (* We can't use Dom_html.document##head: it is not defined in ff3.6... *)
-    let head = Js.Optdef.get
-      ((page##getElementsByTagName(Js.string "head"))##item(0))
-      (fun () -> error "get_head_and_body: no head element") in
-    let body = Js.Optdef.get
-      ((page##getElementsByTagName(Js.string "body"))##item(0))
-      (fun () -> error "get_head_and_body: no body element") in
-    head,body
-
-  (* BEGIN ff3.6 HACK: circumvent old firefox ( 3.6 and before ) parsing
-     problem when setting innerHTML: we use a firefox specific method *)
-
-  class type ff_dom_parser = object
-    method parseFromString : Js.js_string Js.t -> Js.js_string Js.t -> Dom_html.document Js.t Js.meth
-  end
-
-  let dom_parser_constr : ff_dom_parser Js.t Js.constr = Js.Unsafe.variable "DOMParser"
-
-  class type ff_xml_serializer = object
-    method serializeToString : Dom.node Js.t -> Js.js_string Js.t Js.meth
-  end
-
-  let xml_serializer_constr : ff_xml_serializer Js.t Js.constr = Js.Unsafe.variable "XMLSerializer"
-
-  let old_ff_parser s =
-    let dom_parser = jsnew dom_parser_constr () in
-    let document = dom_parser##parseFromString(s, Js.string "text/xml") in
-    (* The dom_parser returns an XML dom element, not an html one, we can't use it directly *)
-    let dom_html = document##documentElement in
-    let dom_head = Js.Optdef.get
-      ((dom_html##getElementsByTagName(Js.string "head"))##item(0))
-      (fun () -> error "old_ff_parser: no head element") in
-    let dom_body = Js.Optdef.get
-      ((dom_html##getElementsByTagName(Js.string "body"))##item(0))
-      (fun () -> error "old_ff_parser: no body element") in
-    let serializer = jsnew xml_serializer_constr () in
-    let text_head = serializer##serializeToString((dom_head:>Dom.node Js.t)) in
-    let text_body = serializer##serializeToString((dom_body:>Dom.node Js.t)) in
-    let html = Dom_html.createHtml Dom_html.document in
-    let head = Dom_html.createHead Dom_html.document in
-    let body = Dom_html.createBody Dom_html.document in
-    head##innerHTML <- text_head;
-    body##innerHTML <- text_body;
-    Dom.appendChild html head;
-    Dom.appendChild html body;
-    html
-
-  (* END ff3.6 HACK *)
-
-  let parse_html s =
-    (* Hack to make the result considered as DOM : *)
-    let html = Dom_html.createHtml Dom_html.document in
-    html##innerHTML <- s;
-    (* BEGIN ff3.6 HACK *)
-    if (html##getElementsByTagName(Js.string "head"))##length = 1
-    then html
-    else old_ff_parser s
-    (* END ff3.6 HACK *)
-
-  let get_data_script page =
-    let head, _ = get_head_and_body page in
-    match Dom.list_of_nodeList head##childNodes with
-      | _ :: _ :: data_script :: _ ->
-	let data_script = (Js.Unsafe.coerce (data_script:Dom.node Js.t):Dom.element Js.t) in
-	(match String.lowercase (Js.to_string (data_script##tagName)) with
-	  | "script" -> (Js.Unsafe.coerce (data_script:Dom.element Js.t):Dom_html.scriptElement Js.t)
-	  | t ->
-	    Firebug.console##error_4(Js.string "get_data_script: the node ",data_script,Js.string " is not a script, its tag is", t);
-	    failwith "get_data_script")
-      | _ -> error "get_data_script wrong branch"
-
-end
+let get_data_script page =
+  let head = Eliommod_dom.get_head page in
+  match Dom.list_of_nodeList head##childNodes with
+    | _ :: _ :: data_script :: _ ->
+      let data_script = (Js.Unsafe.coerce (data_script:Dom.node Js.t):Dom.element Js.t) in
+      (match String.lowercase (Js.to_string (data_script##tagName)) with
+	| "script" -> (Js.Unsafe.coerce (data_script:Dom.element Js.t):Dom_html.scriptElement Js.t)
+	| t ->
+	  Firebug.console##error_4(Js.string "get_data_script: the node ",data_script,Js.string " is not a script, its tag is", t);
+	  failwith "get_data_script")
+    | _ -> error "get_data_script wrong branch"
 
 let load_data_script data_script =
   let script = data_script##innerHTML in
   ignore (Js.Unsafe.eval_string (Js.to_string script));
   ( Eliom_request_info.get_request_data (),
-    Eliom_request_info.get_request_cookies (),
-    Eliom_request_info.get_request_url () )
+    Eliom_request_info.get_request_cookies ())
 
-let set_content ?url content =
-  try_lwt
-    chrome_dummy_popstate := false;
-    ignore (List.for_all (fun f -> f ()) !on_unload_scripts);
-    on_unload_scripts := [];
-    iter_option change_url_string url;
-    let fake_page = DOM_utils.parse_html (Js.string content) in
-    let js_data, cookies, url = load_data_script (DOM_utils.get_data_script fake_page) in
-    Eliommod_cookies.update_cookie_table cookies;
-    let on_load = load_eliom_data js_data fake_page in
-    let head, body = DOM_utils.get_head_and_body fake_page in
-    let document_head,document_body = DOM_utils.get_head_and_body Dom_html.document in
-    Dom.replaceChild
-      (Dom_html.document##documentElement)
-      head (document_head);
-    Dom.replaceChild
-      (Dom_html.document##documentElement)
-      body (document_body);
-    ignore (List.for_all (fun f -> f ()) on_load);
-    Lwt.return ()
-  with
-    | e ->
-      debug_exn "set_content: exception raised: " e;
-      raise_lwt e
+let scroll_to_fragment fragment =
+  match fragment with
+  | None | Some "" -> Dom_html.window##scroll(0, 0)
+  | Some fragment ->
+      let scroll_to_element e = e##scrollIntoView(Js._true) in
+      let elem = Dom_html.document##getElementById(Js.string fragment) in
+      Js.Opt.iter elem scroll_to_element
+
+let set_content ?uri ?fragment = function
+  | None -> Lwt.return ()
+  | Some content ->
+    try_lwt
+      chrome_dummy_popstate := false;
+      ignore (List.for_all (fun f -> f ()) !on_unload_scripts);
+      on_unload_scripts := [];
+      (match uri, fragment with
+	| Some uri, None -> change_url_string uri
+	| Some uri, Some fragment ->
+	  change_url_string (uri ^ "#" ^ fragment)
+	| _ -> ());
+      let fake_page = Eliommod_dom.html_document content in
+      let js_data, cookies = load_data_script (get_data_script fake_page) in
+      Eliommod_cookies.update_cookie_table cookies;
+      let on_load = load_eliom_data js_data fake_page in
+      lwt () = Eliommod_dom.preload_css fake_page in
+      Dom.replaceChild (Dom_html.document##documentElement)
+        (Eliommod_dom.get_head fake_page)
+	(Eliommod_dom.get_head (Dom_html.document##documentElement));
+      Dom.replaceChild (Dom_html.document##documentElement)
+        (Eliommod_dom.get_body fake_page)
+	(Eliommod_dom.get_body (Dom_html.document##documentElement));
+      let load_evt : #Dom_html.event Js.t =
+	(Js.Unsafe.coerce Dom_html.document)##createEvent(Js.string "HTMLEvents") in
+      (Js.Unsafe.coerce load_evt)##initEvent(Js.string "load", false, false);
+      ignore (List.for_all (fun f -> f load_evt) on_load);
+      iter_option (fun uri -> scroll_to_fragment (snd (Url.split_fragment uri))) uri;
+      Lwt.return ()
+    with
+      | e ->
+        debug_exn "set_content: exception raised: " e;
+        raise_lwt e
 
 let change_page
     ?absolute ?absolute_path ?https ~service ?hostname ?port ?fragment
@@ -504,6 +489,8 @@ let change_page
     get_params post_params =
 
   if not (Eliom_services.xhr_with_cookies service)
+    || (https = Some true && not Eliom_request_info.ssl_)
+    || (https = Some false && Eliom_request_info.ssl_)
   then
     Lwt.return
       (exit_to
@@ -512,7 +499,7 @@ let change_page
          get_params post_params)
   else
     let cookies_info = Eliom_uri.make_cookies_info (https, service) in
-    lwt (url, content) = match
+    lwt (uri, content) = match
         create_request_
           ?absolute ?absolute_path ?https ~service ?hostname ?port ?fragment
 	  ?keep_nl_params ?nl_params ?keep_get_na_params
@@ -521,31 +508,50 @@ let change_page
 	| `Get uri ->
           Eliom_request.http_get
             ~expecting_process_page:true ?cookies_info uri []
+	    Eliom_request.xml_result
 	| `Post (uri, p) ->
           Eliom_request.http_post
 	    ~expecting_process_page:true ?cookies_info uri p
+	    Eliom_request.xml_result
     in
-    set_content ~url content
+    set_content ~uri content
 
-let change_page_uri ?cookies_info ?(get_params = []) uri =
-  lwt (url, content) = Eliom_request.http_get
-    ~expecting_process_page:true ?cookies_info uri get_params
-  in
-  set_content ~url content
+let split_fragment uri =
+  if Eliom_process.history_api then
+    Url.split_fragment uri
+  else
+    (uri, None) (* TODO *)
 
-let change_page_get_form ?cookies_info form uri =
+let change_page_uri ?cookies_info ?(get_params = []) full_uri =
+  let uri, fragment = split_fragment full_uri in
+  if uri <> !current_uri || fragment = None then
+    lwt (uri, content) = Eliom_request.http_get
+      ~expecting_process_page:true ?cookies_info uri get_params
+      Eliom_request.xml_result
+    in
+    set_content ~uri ?fragment content
+  else
+    ( change_url_string full_uri;
+      scroll_to_fragment fragment;
+      Lwt.return () )
+
+let change_page_get_form ?cookies_info form full_uri =
   let form = Js.Unsafe.coerce form in
-  lwt url, content = Eliom_request.send_get_form
+  let uri, fragment = split_fragment full_uri in
+  lwt uri, content = Eliom_request.send_get_form
     ~expecting_process_page:true ?cookies_info form uri
+    Eliom_request.xml_result
   in
-  set_content ~url content
+  set_content ~uri ?fragment content
 
-let change_page_post_form ?cookies_info form uri =
+let change_page_post_form ?cookies_info form full_uri =
   let form = Js.Unsafe.coerce form in
-  lwt url, content = Eliom_request.send_post_form
+  let uri, fragment = split_fragment full_uri in
+  lwt uri, content = Eliom_request.send_post_form
       ~expecting_process_page:true ?cookies_info form uri
+      Eliom_request.xml_result
   in
-  set_content ~url content
+  set_content ~uri ?fragment content
 
 let _ =
   change_page_uri_ :=
@@ -571,11 +577,14 @@ let call_service
     | `Get uri ->
 	Eliom_request.http_get
           ?cookies_info:(Eliom_uri.make_cookies_info (https, service)) uri []
+	  Eliom_request.string_result
     | `Post (uri, post_params) ->
 	Eliom_request.http_post
           ?cookies_info:(Eliom_uri.make_cookies_info (https, service))
-	  uri post_params in
-  Lwt.return content
+	  uri post_params Eliom_request.string_result in
+  match content with
+    | None -> raise_lwt (Eliom_request.Failed_request 204)
+    | Some content -> Lwt.return content
 
 
 let call_caml_service
@@ -604,10 +613,10 @@ let auto_change_page fragment =
     (let l = String.length fragment in
      if (l = 0) || ((l > 1) && (fragment.[1] = '!'))
      then
-       if fragment <> !current_fragment
+       if fragment <> !current_pseudo_fragment
        then
          (
-           current_fragment := fragment;
+           current_pseudo_fragment := fragment;
            let uri =
 	     match l with
 	       | 2 -> "./" (* fix for firefox *)
@@ -615,7 +624,8 @@ let auto_change_page fragment =
 	       | _ -> String.sub fragment 2 ((String.length fragment) - 2)
            in
            lwt (_, content) =
-	     Eliom_request.http_get ~expecting_process_page:true uri [] in
+	     Eliom_request.http_get ~expecting_process_page:true uri []
+	       Eliom_request.xml_result in
 	   set_content content
 	 )
        else Lwt.return ()
@@ -629,12 +639,21 @@ let _ =
     Dom_html.window##onpopstate <-
       Dom_html.handler
       (fun e ->
-	let url = Js.to_string Dom_html.window##location##href in
+	let full_uri = Js.to_string Dom_html.window##location##href in
         if not !chrome_dummy_popstate then
 	  lwt_ignore
-	    (lwt url, content =
-	       Eliom_request.http_get ~expecting_process_page:true url [] in
-	     set_content content);
+	    (let uri, fragment = split_fragment full_uri in
+	     if uri <> !current_uri then
+	       lwt uri, content =
+		 Eliom_request.http_get ~expecting_process_page:true uri []
+		   Eliom_request.xml_result in
+	       current_uri := uri;
+	       set_content content >>
+	       (scroll_to_fragment fragment;
+		Lwt.return ())
+	     else
+	       ( scroll_to_fragment fragment;
+		 Lwt.return () ));
 	Js._false)
 
   else

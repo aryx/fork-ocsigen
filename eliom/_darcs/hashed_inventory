@@ -1,221 +1,161 @@
-pristine:0000001278-95ea4e7cbe24706afe13d5dfcede7941747999b0ec0a2eb0ab3b190365620e18
+pristine:0000001278-8f0e6bf8b1be4d7c1097c549898974de491eac2ffd5cf27c293a53a6b032d83a
 Starting with inventory:
-0000024596-5338ca5ada624999e4650f1dce86a0efe0e3af7574023b1047858431b6b8d5b6
-[TAG 2.0-rc1
-chambart@crans.org**20110715164716
- Ignore-this: a3c0ebb76b19f1d7c94cdcf32d2d2ad3
+0000023915-6b346f324004edf9298fc47dfcea4ac23690a7225524fa1e3480ba5fcf280021
+[TAG 2.0.1
+gregoire.henry@pps.jussieu.fr**20110928172522
+ Ignore-this: 407566991a0b0f513f92061b20a3a228
 ] 
-hash: 0000017544-72feb5f2bdc61e94462cbb1594e4171a779bb35b3cc2c7ead1698604a0fa26ee
-[Hierarchical menu: if no services match, highlight the longest prefix
-gregoire.henry@pps.jussieu.fr**20110716190219
- Ignore-this: b0134f7b4d6a2f01b3b98e2fa1ce6a28
+hash: 0000004654-50fe7484e7fc4ae9d8baec021fcf4a8700ffb9e5c658963dbbd3ada3cb2c7300
+[Update README
+gregoire.henry@pps.jussieu.fr**20110928173221
+ Ignore-this: 289d470805a0f3742a15fe5b5f53643b
 ] 
-hash: 0000004424-729457a3f0d155e22176330e21e49b451d01eb6c7f37a4c978915903c7adebce
-[Eliom_tools: adding CSS class eliomtools_current_path
-gregoire.henry@pps.jussieu.fr**20110716190442
- Ignore-this: b62b6c2aeed2853aac10f3f9bb47dfbc
+hash: 0000000278-4ba732cb249e21becded7850cbe2950fa318d34f86e98e867cbffeaa075c4b4d
+[Eliom_client: correctly set url when changing page with forms
+chambart@crans.org**20111003162520
+ Ignore-this: 28964879f4569e09d67a30f487a41e14
 ] 
-hash: 0000001792-2afcb6672aaf3131cd3f4a3ea62252d7b22f0ed321f54a8c48018ba531ade9e6
-[Eliom_comet: client close previous request when requesting new stateless channels
-chambart@crans.org**20110720121224
- Ignore-this: f2a679d3732d5b48f8b440a20b0d2a40
+hash: 0000000352-bdc71d217acfafc428c6f3acd9ea6739f964abaa64c9933e98fa58b3b770e6f3
+[Eliom_atom: fix xml printing
+chambart@crans.org**20111005131116
+ Ignore-this: bb2a18560f2f33e99c0d1b6f6ce7f322
 ] 
-hash: 0000002051-dbb078955bbbc6bc8f8fef423ce766df10bf6eec8848b34c1eb9659b04e30979
-[Eliom_comet: stateless channels can now be garbage collected
-chambart@crans.org**20110720152301
- Ignore-this: 546da2bc52dce8ae341cb21bfca524b1
+hash: 0000000424-6261657363e6b7bcbc20a09bac0e4520bce375af20980b72dea3a67cc5c5463b
+[Doc: Remove unwanted "doctree" in introduction.
+gregoire.henry@pps.jussieu.fr**20111005141345
+ Ignore-this: 30b97fb46b14f4ab93a52ec0a080c8ce
 ] 
-hash: 0000007741-d21aaa18587affec5c65795790decf3f00cb0ace319ed6bb6fc81f1889689995
-[Client process now send "X-Expecting-Process-Data" header when changing page
-balat at univ-paris-diderot.fr**20110721121139
- Ignore-this: d77118c03bebc497beed9ac67c8d0dc9
- (partially fixing ticket #165)
+hash: 0000000264-edcbedb5216ac4571f88b4ca3436c90561feddfebc1a39b867eed7cf8c60df99
+[Eliom_client: correctly set url when changing page (take two)
+gregoire.henry@pps.jussieu.fr**20111005161822
+ Ignore-this: 43a2f2ad96d970a6637c25e32378560e
 ] 
-hash: 0000010438-b442088f2211ff4eb159fcfe56907587565245fbd155bf42449fb500382ffa08
-[Now redirecting when the page is not a process page, also for non-attached coservices
-balat at univ-paris-diderot.fr**20110721152105
- Ignore-this: 778ca3cb7c25e55b0b33beb9dc0a3e00
- Needs to be improved to take into account POST parameters and Any
+hash: 0000001105-792f7265cc01c783f7a84bdda852d4e00816f16dfe6b35f688164087061f3177
+[Client: do not execute change_page_uri when the middle button or any modifier key is pressed !
+gregoire.henry@pps.jussieu.fr**20111006172100
+ Ignore-this: c064a8a447dfd24df0f07e061bd8eb27
 ] 
-hash: 0000005172-5d34ef08253b65fd9ccfcc62056ec45e7048c71641898275f2154eb3f3c56094
-[Cookies are now only added in eliom_mkreg
-chambart@crans.org**20110722131643
- Ignore-this: 8c253d0b743e8b3011618b2cabf4072a
+hash: 0000003016-35962c84a46dd91775a96f79d53e96266629d672c13e8bf5262f3274bcf27784
+[Remove forgotten debug.
+gregoire.henry@pps.jussieu.fr**20111006174308
+ Ignore-this: b6957883cc5363b04718c9252eec65c3
 ] 
-hash: 0000003776-4d00747dd34068c1f498f5e733505b02154712f6997b3470827e064d16b0e2d9
-[Server adds Client_process cookies in headers
-chambart@crans.org**20110723101422
- Ignore-this: e9b9a6cd3463646a4c2b2b2dad0994a6
+hash: 0000000186-d8ccb4f412d25ce45927c9bf85d6d9fd685d0fe36fa2a79126e3346f5c53b3c7
+[Client: Fix a non-exhaustive pattern-matching in Eliom_request.
+gregoire.henry@pps.jussieu.fr**20111007123623
+ Ignore-this: 415ab16023b63b8a733d353dea8d2a6
 ] 
-hash: 0000001772-3773806ed446cf50e0aa0923e23ab886089b1c6823c707002ae8fa0ea31e296f
-[client load Client_process cookies in headers
-chambart@crans.org**20110725164032
- Ignore-this: fd7b64ff644b758519c448970706b700
+hash: 0000001037-492ee86bed86fa0f127bdaa76ad4c44be73964f256e8da07a7071e5fd2336fb4
+[Mkforms: use fieldset to group hiddenparams instead of div (see #96)
+gregoire.henry@pps.jussieu.fr**20111007124054
+ Ignore-this: 68ed5c5785d4a5ef0553baf0c2998221
 ] 
-hash: 0000006674-eae16d583e853a6dc8b8f2733f8d58fae2d36a8fc8cffedc2ae03e4af65ac44c
-[Eliom_appl add an header to tell if the generated page is application content.
-chambart@crans.org**20110728165151
- Ignore-this: c7349a06d08a4bbb90ca69d4749770ee
- This header will be used on client side to react to 404 requests.
- It is also used in Eliom_mkreg to choose if the server send a 204 with a
- "half redirect" header or if the real page content is sent.
+hash: 0000003416-812107d2271997b20c2e73483e8761d5c817b1dd7981c29cb901ae2e55a2332c
+[Doc: remove note about xml wrapping ( xml is no more wrapped )
+chambart@crans.org**20111010171510
+ Ignore-this: a54fed9430d852305efdc4854f370f2a
+] 
+hash: 0000001058-5bc4a7c13ee70cef62d4860853fa5c84c6b72ac58cf639c7384009995b2b5d34
+[Eliom_client: when possible, avoid copying received dom tree
+chambart@crans.org**20111011162444
+ Ignore-this: cb3ee599512166388d822ec16a9d054a
+] 
+hash: 0000008450-6efee7836c5fea09f68687ab32888be2223c3272c16e1693240477bf1fd1623a
+[Eliom_client: faster unwraping
+chambart@crans.org**20111011175838
+ Ignore-this: cc90d3f2927f6f063f0336e1d1530849
+] 
+hash: 0000002694-ff3a79e44d4069f9ee2fc4fd8cad8169eab7f458d35f3f553a868b4750c0c243
+[Makefile: simplify ocamldoc generation (See also wikidoc)
+gregoire.henry@pps.jussieu.fr**20111013100945
+ Ignore-this: ed59663870a60c6f917b1bbc040724b9
  
+ We now use intermediate .odoc file.
 ] 
-hash: 0000007562-13c85831979731e0adea168d5123a5c66f58c957c935ba0eb7b8e39c85187cd3
-[Syntax: rename type variables in the generated type constraints (thanks to William Le Ferrand, trac #167)
-gregoire.henry@pps.jussieu.fr**20110801122656
- Ignore-this: 3bad15fd04b49be250ff4a81daf7bd1d
-] 
-hash: 0000001118-ba40d7317a7e6709097f59c01de0205d9669fbf90848e9ed8f4ffd7f8795afe2
-[Eliom_process: client does not ignore error pages (404, etc ... ) when it contains application content
-chambart@crans.org**20110801160756
- Ignore-this: e0a373b651b738da71147aa3bf1412af
-] 
-hash: 0000001443-b577db020e6af9ab7044ba079fce6dddf446190d6a80ff1be58174482051acdc
-[The addition of an onclick attribute on application link is now decided when wrapping the corresponding XML node or ref tree.
-gregoire.henry@pps.jussieu.fr**20110801104322
- Ignore-this: 5230317765f7a695dacb6d029deb6e9d
+hash: 0000004629-813a7c1327e1b9f887146a39b11d89964ecd345a458ee5cb7335686ba72fda84
+[Allow Eliom_output.{Xhtml,Html,Eliom_appl} to choose the returned content type.
+gregoire.henry@pps.jussieu.fr**20111013115321
+ Ignore-this: 6fe4946a2536a448df2ede0d8e770997
  
- Previously, the addition of the onclick attribute was decided when
- creating the the node, but some link were broken is created beafore
- the service registration.
+ Content is served as "application/xhtml+xml" if it's "accepted" by the
+ browser. It is served as "text/html" otherwise.
  
-] 
-hash: 0000009439-f361c95f658c0ef10d8e8e831be1282ecdad1fac4329bc81241be6893c953f96
-[Move the functions get_csp_* from Eliom_state to Eliom_request_info
-gregoire.henry@pps.jussieu.fr**20110801160748
- Ignore-this: 914510c167bdadb4c30a437ec4a97337
-] 
-hash: 0000014354-004777c5979ea4317e640cb8613244024347201c1148b986475790ee9650ebff
-[Use absolute path for link generated without sp.
-gregoire.henry@pps.jussieu.fr**20110801162744
- Ignore-this: c1110e6a0ee27ff80c869fde9dc07d6c
-] 
-hash: 0000000460-be85daac1aeb766f90f4431a7240a965496d0629252364e5afd635fd88999898
-[Eliom_appl: do not call "change_url_string" when loading the first page.
-gregoire.henry@pps.jussieu.fr**20110802123208
- Ignore-this: b8f936eb0d103875a363b78cf4840479
+ In both case, the same content is served as the TyXML printer should
+ produce Polyglot HTML. See:
  
- It avoids weird url as:
+ - http://dev.w3.org/html5/html-xhtml-author-guide/
+ - http://www.w3.org/TR/xhtml1/#guidelines
  
-   http://localhost:8080/path?param#!/path?param"
+ For limitations, see also: http://hixie.ch/advocacy/xhtml
+] 
+hash: 0000022151-5ee34aec5d1e395859031a7aea099e787a7aed0f298d99cd4837b1bae3ae7c21
+[Doc: add id for links from the tutorial
+chambart@crans.org**20111013143105
+ Ignore-this: 51780f57fd4af13a398519cfd6f357d1
+] 
+hash: 0000000427-fb7f13c797ce9f587363ecd5d9679fe22a28d1155043a95a38f4a1f8e3e715fe
+[Makefile: fix in server compilation with ocamlduce.
+gregoire.henry@pps.jussieu.fr**20111013151355
+ Ignore-this: c72729e16c5483b737be5607c59d2758
+] 
+hash: 0000000616-0235eac5850db2a66ab0ddeebfb0bc3366053a5eda261f5e147e32595d6816a4
+[Doc: update server/eliom_{pervasives,services}.mli
+gregoire.henry@pps.jussieu.fr**20111013151632
+ Ignore-this: 33d072ad1a1facbd2de4f1c7be3a57c0
+] 
+hash: 0000035622-79fb34cf737140029c67c6b9001c29bd2759afbe92280d606305af4030d3b6eb
+[Doc: Update Eliom_services.mli (take 2).
+gregoire.henry@pps.jussieu.fr**20111017090526
+ Ignore-this: a61a6489e6b2234e9e9d549b8d3deb7e
+] 
+hash: 0000026126-6010b3277bffb04cd06ce1e25c2b2dc1c06b2e9bba94fc52313151fe9639bd34
+[Doc: update Eliom_ouput API. (to be continued)
+gregoire.henry@pps.jussieu.fr**20111017153439
+ Ignore-this: f9682c5ff2343538f1c3f2c219133e4d
+] 
+hash: 0000014371-6918c2183dd3a342dc902b98fc04ac3ce5b52db5f12f4ed11788dfddbb1b9e1f
+[Eliom_common.make_server_param: use Ocsigen_extension.get_port for initializing clien_process_info.
+gregoire.henry@pps.jussieu.fr**20111018152549
+ Ignore-this: 1f2623a7ccc413890f8c8cc4eab72e61
  
+ Better use an existing function instead of writing a new buggy one...
 ] 
-hash: 0000005014-b50ea0438a1ae4ba00f13eecac68ad531d2604d3929a54198c20f1771165086a
-[Tools: fix help message of eliomc and js_of_eliom
-gregoire.henry@pps.jussieu.fr**20110803103713
- Ignore-this: eefca2241901b0ecd13ac52b4112e7b9
+hash: 0000000820-07d9c5daefe23e621cea829082b9a84bb32e8281fee113f131c1dcc4ccc31404
+[Doc: update ocamldoc for Eliom_uri and Eliom_output
+gregoire.henry@pps.jussieu.fr**20111019144800
+ Ignore-this: 1ca80fe4d1dd3d2433d944c561633d8b
 ] 
-hash: 0000000917-f4e4aee1388ec97c6a35ff606b9448be9fb84e243db0d7d798e2723971fb99be
-[Eliom_uri: do not generate absolute link when not explicitely asked.
-gregoire.henry@pps.jussieu.fr**20110803110633
- Ignore-this: 36cfd34455599b5ef7e419917fe21c06
+hash: 0000017218-d3e64187d12b7bb81f7efd734088d4d88684cb0390e5ad38fda464c6cef3971b
+[Doc: note on unique and pcdata
+chambart@crans.org**20111018140743
+ Ignore-this: 51f8629e481e2f1d16fa25a27592ff9c
+] 
+hash: 0000000269-3f6798352ff3efca653f7bed2c1162ef3da80522398bd4a8845026d12741f8ca
+[eliom_reg_simpl.mli: proofread until make_post_uri_components
+chambart@crans.org**20111019173034
+ Ignore-this: ab56fdc21ec4fe08cb15d40f54ba3b97
+] 
+hash: 0000002465-09075ce090dafced5d2bcc021a0123d534478da9817c5d63c2d0735d74734762
+[Doc: first pass on beginning of services.wiki: up to "sending portions of pages"
+chambart@crans.org**20111019193107
+ Ignore-this: fc662b9781d8e0897ee73f660763b53
+] 
+hash: 0000027392-ecd5764cfc0608c09d30830e08b17426d19daf40fe1f9c999759e237384fad25
+[Eliom_output.appl_self_redirect: do not mark content as not cachable anymore.
+gregoire.henry@pps.jussieu.fr**20111020150302
+ Ignore-this: 98404770c8737fd1863e59f70f5cf2ef
  
- It reverts previous patch "Use absolute path for link generated
- without sp." and extends "Eliom: ?sp paremeter now
- optional in Eliom_uri.make_string_uri (and co) to make possible to use
- them during initialisation"
- 
+ Eliom_client now properly use "exit_to" if an XHR does not
+ returns application content.
 ] 
-hash: 0000006984-99bb5f56f36285b27f5fdcc08397fb84381e7994e9f09a4014bc179e4e66f545
-[HTML5.M: delay the calculation of "a" tag's href to the printing phase or "wrapping" phase.
-gregoire.henry@pps.jussieu.fr**20110803120826
- Ignore-this: 477990f16494cd67016222eea7b97457
- 
- It allow the definition of global anchor nodes with relative link when
- "sp" isn't available (e.g. at the toplevel of a module).
+hash: 0000001121-961a4ccea3a5326d0650bdb26e4f3c312ed5a991fc3154b27f8f6607898d2d83
+[Doc: update ocamldoc in Eliom_output (complete).
+gregoire.henry@pps.jussieu.fr**20111020161242
+ Ignore-this: 15bcb2a99e3d2613f046542aa4f242ac
 ] 
-hash: 0000008965-72858bef3470e95168f4b9528f294c9371308ccc2e3d49b9a5382bdff35f0703
-[testsuite: fixing wrong scope in several examples
-balat at univ-paris-diderot.fr**20110802142306
- Ignore-this: f0a555e7893face4c6dab599299ee6ea
+hash: 0000035248-8ca9aa57abc1002d784dba237d8222cbf33aa579f87ef20c94074f595acd3e68
+[Eliommod_dom: use adoptChild when receiving nodes from xhr
+chambart@crans.org**20111021085248
+ Ignore-this: 8af4ae65e539d7a9d26d0d68eafe9565
 ] 
-hash: 0000000356-6560a06d2a25d6c3df50d9b217b3c97b18a7cb042264c28116cfd65bcf60412b
-[Session group data: adding two tests and documenting the behaviour when all sessions from a group are closed
-balat at univ-paris-diderot.fr**20110802160241
- Ignore-this: 2bd3891621e3ff4a010c15a60b14ec9f
- In the case of persistent data, they persist and can be used as a database
- For volatile data, they are discarded, which is weird and not coherent but:
-  - keeping them may cause a memory leak
-  - I can't see any good use a volatile group data for now
-  - volatile data session are (hopefully) going to disappear soon
-] 
-hash: 0000013295-e85ce15b63a8a5dbca11b90d6a970d9b73cec453855f21b62280fd605914ef64
-[Doc: skeleton of chapter on client/server applications (+ some fixes in doc)
-balat at univ-paris-diderot.fr**20110803150351
- Ignore-this: e8ed31992f870fcaece0132d1478ece0
-] 
-hash: 0000002797-43ff73ac04dfa0eb7c32d6ede36a18cdd5d6b7b5211289f5e14a54cfad60876f
-[Fix non-attached coservice relative url calculation with Eliom_appl.
-gregoire.henry@pps.jussieu.fr**20110803162125
- Ignore-this: fdaf5b193e538af3d491e41ddc67b02b
- 
- Non-attached coservice url was usually "./". It didn't work with
- Eliom_appl when the actual URL is encoded in the "fragment" part of
- the URL.
-] 
-hash: 0000001129-eab5630cdf1ce640d587505c9a41f578fa746174a6622771d664ca26e50b2245
-[Dead code elimination: Eliommod_mkforms isn't used anymore
-gregoire.henry@pps.jussieu.fr**20110804101116
- Ignore-this: d5719b877cc2dedcccad669529d89f4c
-] 
-hash: 0000011071-bed871e3f65ec254fc33bdaa4997c307909bc6ef8ae29d3e0813bf713b9c3c82
-[Eliom_output.Html5: delay the calculation of form's action.
-gregoire.henry@pps.jussieu.fr**20110804163431
- Ignore-this: d55788f224ecb3177e31c3621432ecaa
- 
- This patch is the continuation of "HTML5.M: delay the calculation of
- "a" tag's href to the printing phase or "wrapping" phase."
- 
- It requires adding a notion of "lazy XML node" whose computation is
- delayed. It's used for for "hidden parameters" in GET forms.
- 
- While this patch is functionnal, this is ongoing work : the actual
- implementation of Eliom_lazy.request recompute the value at each
- Eliom_lazy.force.
- 
-] 
-hash: 0000022211-162312c82aae1c6a236a7674fb3cdad731b50c033f6e8bac1046fab179f036f6
-[Eliom_appl: Use the HTML5 history API when available.
-gregoire.henry@pps.jussieu.fr**20110805203216
- Ignore-this: 468e1ef3f0225792bc2e51c876e52ff
-] 
-hash: 0000007197-73fbac8f954d59c3a00bd8ca8e153f59df904406539ea0047241d46dbf5270a4
-[Eliom_appl: bug fix with the history API.
-gregoire.henry@pps.jussieu.fr**20110808150146
- Ignore-this: ff0ce3508111d81196387fe5c88cbf87
- 
- The url need to be updated before the DOM tree construction. Otherwise
- some relative links are broken (e.g. css link in the header).
-] 
-hash: 0000003743-f836787aad53db75f033902c7010bdd49cef827fc3cf8b616067fdd40e3b32dc
-[Eliom_appl: remove the dummy pushState made on every popState...
-gregoire.henry@pps.jussieu.fr**20110811191148
- Ignore-this: a61415f98eedb60662194dc37117280
-] 
-hash: 0000000260-e8c26b5c76e37f268a311682922d4072452ce3713762fcce38c405de2294c55f
-[Doc (Eliom client)
-balat at univ-paris-diderot.fr**20110823162405
- Ignore-this: a8bd293e499c4b16f23e0ff8dc6d9594
-] 
-hash: 0000005785-4e84206996417d4b4639b23f3ae17cbc2b0bd6d5669066e1cae44bd18084eb99
-[Hack to circumvent bug in old firebug.
-chambart@crans.org**20110822160231
- Ignore-this: f11addb1e1780aae6a15faaa64c1f5ac
-] 
-hash: 0000000669-e98b63ac6c86ee3d4575fd3686db77bd6ee932e26fd1ec7a7f69f29e3ae9c8a8
-[circumvent ff3.6 bug
-chambart@crans.org**20110824163702
- Ignore-this: e331f5e52b9cc6aaeda1cd7e279330b
-] 
-hash: 0000007814-cb9544097ad20978dab12dad155a29d68c16cce1fd0d85dba01db3c7da19743e
-[Eliom_unwrap: tail recursive search_and_replace
-chambart@crans.org**20110825150828
- Ignore-this: 2c60cb14d175ba2d7e844e41e244c3a8
-] 
-hash: 0000002934-abdfd211d452c196f18f63146e088c7716d4fa7155f9b6587770c2333c824607
-[Eliom_wrap: tail recursive search_and_replace
-chambart@crans.org**20110825171728
- Ignore-this: 884d56010380096bfb14846dc7b633af
-] 
-hash: 0000004707-92a6c4b22f5017e426f105ec767106f4072fcdf88b752295fd2c9c100378e8ec
+hash: 0000000552-0855ac25140b6b1a23e07ad70dfa64bcb4c2b3a199641afb4091a126a824ea6e
